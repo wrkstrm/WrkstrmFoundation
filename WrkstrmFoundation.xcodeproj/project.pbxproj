@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		581759562136246C00388C55 /* HSLuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 581759552136246C00388C55 /* HSLuv.framework */; };
 		587D53102136174F00FB0B58 /* Encoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587D530F2136174E00FB0B58 /* Encoders.swift */; };
 		58DF7E502135CE05000D3CF9 /* WrkstrmFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */; };
 		58DF7E552135CE05000D3CF9 /* WrkstrmFoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E542135CE05000D3CF9 /* WrkstrmFoundationTests.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		581759552136246C00388C55 /* HSLuv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HSLuv.framework; path = Carthage/Build/iOS/HSLuv.framework; sourceTree = "<group>"; };
 		587D530F2136174E00FB0B58 /* Encoders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encoders.swift; sourceTree = "<group>"; };
 		58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WrkstrmFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58DF7E492135CE05000D3CF9 /* WrkstrmFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WrkstrmFoundation.h; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				581759562136246C00388C55 /* HSLuv.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,12 +93,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		581759542136246B00388C55 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				581759552136246C00388C55 /* HSLuv.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		58DF7E3C2135CE05000D3CF9 = {
 			isa = PBXGroup;
 			children = (
 				58DF7E482135CE05000D3CF9 /* WrkstrmFoundation */,
 				58DF7E532135CE05000D3CF9 /* WrkstrmFoundationTests */,
 				58DF7E472135CE05000D3CF9 /* Products */,
+				581759542136246B00388C55 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -515,6 +527,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = WrkstrmFoundation/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -543,6 +559,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = WrkstrmFoundation/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
