@@ -173,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				58DF7E812135D10A000D3CF9 /* Injectable.swift */,
+				58DF7E652135D02D000D3CF9 /* ReusableItem.swift */,
 				58DF7E642135D02D000D3CF9 /* Displayable.swift */,
 			);
 			path = Displayable;
@@ -182,7 +183,6 @@
 			isa = PBXGroup;
 			children = (
 				58DF7E632135D02D000D3CF9 /* Registrar.swift */,
-				58DF7E652135D02D000D3CF9 /* ReusableItem.swift */,
 				58DF7E662135D02D000D3CF9 /* ReusableCell.swift */,
 				58DF7E622135D02D000D3CF9 /* TableViewCell.swift */,
 				58DF7E682135D02D000D3CF9 /* TableViewController.swift */,

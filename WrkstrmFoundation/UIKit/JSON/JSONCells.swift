@@ -14,6 +14,14 @@ extension JSON {
 
         public static var cellStyle: UITableViewCell.CellStyle = .value1
 
+        required public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+            super.init(style: style, reuseIdentifier: reuseIdentifier)
+        }
+
+        required init?(coder aDecoder: NSCoder) {
+            super.init(coder: aDecoder)
+        }
+
         public override func prepareForReuse() {
             super.prepareForReuse()
             textLabel?.numberOfLines = 0

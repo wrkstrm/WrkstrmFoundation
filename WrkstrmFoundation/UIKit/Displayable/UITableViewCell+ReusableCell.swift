@@ -12,6 +12,8 @@ import UIKit
 public protocol StyleableCell: ReusableCell {
 
     static var cellStyle: UITableViewCell.CellStyle { get }
+
+    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?)
 }
 
 extension UITableViewCell: ReusableCell {

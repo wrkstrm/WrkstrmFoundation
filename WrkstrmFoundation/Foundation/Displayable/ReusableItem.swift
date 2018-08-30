@@ -10,5 +10,5 @@ import Foundation
 
 public protocol ReusableItem: Equatable {
 
-    var reusableCell: UITableViewCell.Type { get }
+    var reusableCell: ReusableCell.Type { get }
 }

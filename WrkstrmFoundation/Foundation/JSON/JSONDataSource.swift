@@ -46,7 +46,7 @@ public struct JSON {
 
         case any(String, String)
 
-        public var reusableCell: UITableViewCell.Type {
+        public var reusableCell: ReusableCell.Type {
             switch self {
 
             case .integer:

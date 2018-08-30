@@ -35,7 +35,7 @@ public class TableViewDataSource<Model: TableViewDisplayable>: NSObject, UITable
 
     public let items: [[Model.Item]]
 
-    private var reusableTypes: [[UITableViewCell.Type]]
+    private var reusableTypes: [[ReusableCell.Type]]
 
     public var registrar: Registrar?
 
@@ -84,8 +84,9 @@ public class TableViewDataSource<Model: TableViewDisplayable>: NSObject, UITable
             if let cachedCell = tableView.dequeueReusableCell(withIdentifier: styleableType.reuseIdentifier()) {
                 cell = cachedCell
             } else {
-                cell = reusableType.init(style: styleableType.cellStyle,
-                                         reuseIdentifier: styleableType.reuseIdentifier())
+                cell = (styleableType.init(style: styleableType.cellStyle,
+                                           reuseIdentifier: styleableType.reuseIdentifier()) as! UITableViewCell)
+                //swiftlint:disable:previous force_cast
                 cell.prepareForReuse()
             }
         default:

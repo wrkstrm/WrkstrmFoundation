@@ -9,7 +9,9 @@
 import Foundation
 
 public struct Registrar {
+
     public var classes: [ReusableCell.Type]?
+
     public var nibs: [ReusableCell.Type]?
 
     public init(classes: [ReusableCell.Type]? = nil, nibs: [ReusableCell.Type]? = nil) {
