@@ -79,7 +79,7 @@ open class StackViewController: UIViewController {
         }
     }
 
-    public func view(for stack: UIStackView, indexPath: IndexPath) -> UIView {
+    open func view(for stack: UIStackView, indexPath: IndexPath) -> UIView {
         return UIView(frame: .zero)
     }
 }
