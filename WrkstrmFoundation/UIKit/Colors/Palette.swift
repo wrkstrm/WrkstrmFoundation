@@ -4,9 +4,9 @@ import Foundation
 import UIKit
 import HSLuv
 
-enum Palette {
+public enum Palette {
 
-    enum Gradient: Int {
+    public enum Gradient: Int {
         case red = 0
         case green
         case blue
@@ -15,7 +15,7 @@ enum Palette {
         case yellow
     }
 
-    enum Wrkstrm: Int {
+    public enum Wrkstrm: Int {
         case physical
         case work
         case social
@@ -26,7 +26,7 @@ enum Palette {
 
 extension Palette {
 
-    static func hsluv(for gradient: Gradient, index: Int, count: Int, reversed: Bool = false) -> UIColor {
+    public static func hsluv(for gradient: Gradient, index: Int, count: Int, reversed: Bool = false) -> UIColor {
         var newIndex = Double(index)
         let newCount = Double(count)
 
@@ -64,14 +64,15 @@ extension Palette {
         }
     }
 
-    static func color(for wrkstrm: Wrkstrm, index: Int, count: Int, reversed: Bool = false) -> UIColor {
+    public static func color(for wrkstrm: Wrkstrm, index: Int, count: Int, reversed: Bool = false) -> UIColor {
         return color(for: Gradient(rawValue: wrkstrm.rawValue)!,
                      index: index,
                      count: count,
                      reversed: reversed)
     }
+    
     //swiftlint:disable:next function_body_length
-    static func color(for gradient: Gradient, index: Int, count: Int, reversed: Bool = false) -> UIColor {
+    public static func color(for gradient: Gradient, index: Int, count: Int, reversed: Bool = false) -> UIColor {
         var newIndex = CGFloat(index)
         var newCount = CGFloat(count)
 

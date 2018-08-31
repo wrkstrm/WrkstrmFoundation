@@ -11,7 +11,7 @@
 		583422B82138D245001FB13F /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422B72138D245001FB13F /* CollectionViewDataSource.swift */; };
 		583422BB2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422BA2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift */; };
 		583422BD2138D4DF001FB13F /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422BC2138D4DF001FB13F /* LinkedList.swift */; };
-		583422C12138D54B001FB13F /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422C02138D54B001FB13F /* ColorPalette.swift */; };
+		583422C12138D54B001FB13F /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422C02138D54B001FB13F /* Palette.swift */; };
 		583422C42138D79D001FB13F /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422C32138D79D001FB13F /* UIView+Constraints.swift */; };
 		587D53102136174F00FB0B58 /* Encoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587D530F2136174E00FB0B58 /* Encoders.swift */; };
 		58DF7E502135CE05000D3CF9 /* WrkstrmFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */; };
@@ -53,7 +53,7 @@
 		583422B72138D245001FB13F /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
 		583422BA2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView+ReusableCell.swift"; sourceTree = "<group>"; };
 		583422BC2138D4DF001FB13F /* LinkedList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
-		583422C02138D54B001FB13F /* ColorPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
+		583422C02138D54B001FB13F /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		583422C32138D79D001FB13F /* UIView+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		587D530F2136174E00FB0B58 /* Encoders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encoders.swift; sourceTree = "<group>"; };
 		58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WrkstrmFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,7 +151,7 @@
 		583422C22138D54F001FB13F /* Colors */ = {
 			isa = PBXGroup;
 			children = (
-				583422C02138D54B001FB13F /* ColorPalette.swift */,
+				583422C02138D54B001FB13F /* Palette.swift */,
 			);
 			path = Colors;
 			sourceTree = "<group>";
@@ -430,7 +430,7 @@
 				58DF7E8C2135D156000D3CF9 /* CodableArchiver.swift in Sources */,
 				58DF7E872135D10B000D3CF9 /* Collection+Utilities.swift in Sources */,
 				58DF7E722135D02D000D3CF9 /* UITableViewCell+ReusableCell.swift in Sources */,
-				583422C12138D54B001FB13F /* ColorPalette.swift in Sources */,
+				583422C12138D54B001FB13F /* Palette.swift in Sources */,
 				58DF7E6D2135D02D000D3CF9 /* Displayable.swift in Sources */,
 				58DF7E6C2135D02D000D3CF9 /* Registrar.swift in Sources */,
 				58DF7E732135D02D000D3CF9 /* UITableView+ReusableCell.swift in Sources */,
