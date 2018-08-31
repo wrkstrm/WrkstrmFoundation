@@ -15,7 +15,7 @@ public protocol GridDelegate: AnyObject {
     func view(for stack: UIStackView, indexPath: IndexPath) -> UIView
 }
 
-public class StackViewController: UIViewController {
+open class StackViewController: UIViewController {
 
     public enum Style {
         case elements([UIView])
@@ -53,7 +53,7 @@ public class StackViewController: UIViewController {
         super.init(coder: aDecoder)
     }
 
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         if case let .grid(grid) = style {
             let vertical = UIStackView()

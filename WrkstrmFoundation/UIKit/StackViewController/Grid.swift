@@ -17,7 +17,7 @@ public struct Grid {
         self.columns = columns
     }
 
-    func itemSize(for frame: CGSize) -> CGSize {
+    public func itemSize(for frame: CGSize) -> CGSize {
         return CGSize(width: frame.width / CGFloat(rows),
                       height: frame.height / CGFloat(columns))
     }
