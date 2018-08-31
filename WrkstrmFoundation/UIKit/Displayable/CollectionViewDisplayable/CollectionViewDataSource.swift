@@ -20,15 +20,15 @@ public protocol CollectionViewDisplayable: Displayable {
 
 }
 
-public extension CollectionViewDisplayable {
+extension CollectionViewDisplayable {
 
-    func dataSource(config: CollectionViewDataSource<Self>.CellConfig? = nil) -> CollectionViewDataSource<Self> {
+    public func dataSource(config: CollectionViewDataSource<Self>.CellConfig? = nil) -> CollectionViewDataSource<Self> {
         return CollectionViewDataSource(model: self, config: config)
     }
 
-    func supplementaryElementView(for collectionView: UICollectionView,
-                                  of kind: String,
-                                  at indexPath: IndexPath) -> UICollectionReusableView? {
+    public func supplementaryElementView(for collectionView: UICollectionView,
+                                         of kind: String,
+                                         at indexPath: IndexPath) -> UICollectionReusableView? {
         return nil
     }
 }
@@ -80,9 +80,7 @@ NSObject, UICollectionViewDataSource, Displayable {
     public func collectionView(_ collectionView: UICollectionView,
                                viewForSupplementaryElementOfKind kind: String,
                                at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let supplementaryView = displayable.supplementaryElementView(for: collectionView,
-                                                                           of: kind,
-                                                                           at: indexPath) else {
+        guard let view = displayable.supplementaryElementView(for: collectionView, of: kind, at: indexPath) else {
             let identifier = PlaceholderSupplementaryCell.reuseIdentifier()
             collectionView.register(UICollectionViewCell.self,
                                     forSupplementaryViewOfKind: kind,
@@ -91,7 +89,7 @@ NSObject, UICollectionViewDataSource, Displayable {
                                                                    withReuseIdentifier: identifier,
                                                                    for: indexPath)
         }
-        return supplementaryView
+        return view
     }
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
