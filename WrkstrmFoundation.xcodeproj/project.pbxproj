@@ -13,6 +13,8 @@
 		583422BD2138D4DF001FB13F /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422BC2138D4DF001FB13F /* LinkedList.swift */; };
 		583422C12138D54B001FB13F /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422C02138D54B001FB13F /* Palette.swift */; };
 		583422C42138D79D001FB13F /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422C32138D79D001FB13F /* UIView+Constraints.swift */; };
+		583422D22138EDF1001FB13F /* StackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422D12138EDF1001FB13F /* StackViewController.swift */; };
+		583422D42138EE08001FB13F /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422D32138EE08001FB13F /* Grid.swift */; };
 		587D53102136174F00FB0B58 /* Encoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587D530F2136174E00FB0B58 /* Encoders.swift */; };
 		58DF7E502135CE05000D3CF9 /* WrkstrmFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */; };
 		58DF7E552135CE05000D3CF9 /* WrkstrmFoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E542135CE05000D3CF9 /* WrkstrmFoundationTests.swift */; };
@@ -55,6 +57,8 @@
 		583422BC2138D4DF001FB13F /* LinkedList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
 		583422C02138D54B001FB13F /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		583422C32138D79D001FB13F /* UIView+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
+		583422D12138EDF1001FB13F /* StackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViewController.swift; sourceTree = "<group>"; };
+		583422D32138EE08001FB13F /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		587D530F2136174E00FB0B58 /* Encoders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encoders.swift; sourceTree = "<group>"; };
 		58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WrkstrmFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58DF7E492135CE05000D3CF9 /* WrkstrmFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WrkstrmFoundation.h; sourceTree = "<group>"; };
@@ -164,6 +168,15 @@
 			path = UIView;
 			sourceTree = "<group>";
 		};
+		583422D52138EE0F001FB13F /* StackViewController */ = {
+			isa = PBXGroup;
+			children = (
+				583422D32138EE08001FB13F /* Grid.swift */,
+				583422D12138EDF1001FB13F /* StackViewController.swift */,
+			);
+			path = StackViewController;
+			sourceTree = "<group>";
+		};
 		58DF7E3C2135CE05000D3CF9 = {
 			isa = PBXGroup;
 			children = (
@@ -218,6 +231,7 @@
 		58DF7E612135CFE9000D3CF9 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				583422D52138EE0F001FB13F /* StackViewController */,
 				583422C52138D7A2001FB13F /* UIView */,
 				583422C22138D54F001FB13F /* Colors */,
 				58DF7E7E2135D0D2000D3CF9 /* Displayable */,
@@ -440,6 +454,8 @@
 				58DF7E7B2135D07D000D3CF9 /* JSONCells.swift in Sources */,
 				583422B82138D245001FB13F /* CollectionViewDataSource.swift in Sources */,
 				583422C42138D79D001FB13F /* UIView+Constraints.swift in Sources */,
+				583422D22138EDF1001FB13F /* StackViewController.swift in Sources */,
+				583422D42138EE08001FB13F /* Grid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

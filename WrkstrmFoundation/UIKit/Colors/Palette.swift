@@ -70,7 +70,7 @@ extension Palette {
                      count: count,
                      reversed: reversed)
     }
-    
+
     //swiftlint:disable:next function_body_length
     public static func color(for gradient: Gradient, index: Int, count: Int, reversed: Bool = false) -> UIColor {
         var newIndex = CGFloat(index)
