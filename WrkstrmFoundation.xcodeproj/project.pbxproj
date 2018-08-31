@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		581759562136246C00388C55 /* HSLuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 581759552136246C00388C55 /* HSLuv.framework */; };
+		583422B82138D245001FB13F /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422B72138D245001FB13F /* CollectionViewDataSource.swift */; };
+		583422BB2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422BA2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift */; };
+		583422BD2138D4DF001FB13F /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422BC2138D4DF001FB13F /* LinkedList.swift */; };
+		583422C12138D54B001FB13F /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422C02138D54B001FB13F /* ColorPalette.swift */; };
+		583422C42138D79D001FB13F /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422C32138D79D001FB13F /* UIView+Constraints.swift */; };
 		587D53102136174F00FB0B58 /* Encoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587D530F2136174E00FB0B58 /* Encoders.swift */; };
 		58DF7E502135CE05000D3CF9 /* WrkstrmFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */; };
 		58DF7E552135CE05000D3CF9 /* WrkstrmFoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E542135CE05000D3CF9 /* WrkstrmFoundationTests.swift */; };
@@ -45,6 +50,11 @@
 
 /* Begin PBXFileReference section */
 		581759552136246C00388C55 /* HSLuv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HSLuv.framework; path = Carthage/Build/iOS/HSLuv.framework; sourceTree = "<group>"; };
+		583422B72138D245001FB13F /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
+		583422BA2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView+ReusableCell.swift"; sourceTree = "<group>"; };
+		583422BC2138D4DF001FB13F /* LinkedList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
+		583422C02138D54B001FB13F /* ColorPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
+		583422C32138D79D001FB13F /* UIView+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		587D530F2136174E00FB0B58 /* Encoders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encoders.swift; sourceTree = "<group>"; };
 		58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WrkstrmFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58DF7E492135CE05000D3CF9 /* WrkstrmFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WrkstrmFoundation.h; sourceTree = "<group>"; };
@@ -101,6 +111,59 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		583422B62138D22C001FB13F /* TableViewDisplayable */ = {
+			isa = PBXGroup;
+			children = (
+				58DF7E682135D02D000D3CF9 /* TableViewController.swift */,
+				58DF7E672135D02D000D3CF9 /* TableViewDataSource.swift */,
+				58DF7E6A2135D02D000D3CF9 /* UITableView+ReusableCell.swift */,
+				58DF7E622135D02D000D3CF9 /* TableViewCell.swift */,
+				58DF7E692135D02D000D3CF9 /* UITableViewCell+ReusableCell.swift */,
+			);
+			path = TableViewDisplayable;
+			sourceTree = "<group>";
+		};
+		583422B92138D257001FB13F /* CollectionViewDisplayable */ = {
+			isa = PBXGroup;
+			children = (
+				583422BA2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift */,
+				583422B72138D245001FB13F /* CollectionViewDataSource.swift */,
+			);
+			path = CollectionViewDisplayable;
+			sourceTree = "<group>";
+		};
+		583422BE2138D4E3001FB13F /* Data Structures */ = {
+			isa = PBXGroup;
+			children = (
+				583422BF2138D52B001FB13F /* Enum Based */,
+			);
+			path = "Data Structures";
+			sourceTree = "<group>";
+		};
+		583422BF2138D52B001FB13F /* Enum Based */ = {
+			isa = PBXGroup;
+			children = (
+				583422BC2138D4DF001FB13F /* LinkedList.swift */,
+			);
+			path = "Enum Based";
+			sourceTree = "<group>";
+		};
+		583422C22138D54F001FB13F /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				583422C02138D54B001FB13F /* ColorPalette.swift */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		583422C52138D7A2001FB13F /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				583422C32138D79D001FB13F /* UIView+Constraints.swift */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
 		58DF7E3C2135CE05000D3CF9 = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +206,7 @@
 		58DF7E602135CFDB000D3CF9 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				583422BE2138D4E3001FB13F /* Data Structures */,
 				58DF7E8D2135D15D000D3CF9 /* Persistence */,
 				58DF7E8A2135D114000D3CF9 /* Extensions */,
 				58DF7E7D2135D0B5000D3CF9 /* Displayable */,
@@ -154,6 +218,8 @@
 		58DF7E612135CFE9000D3CF9 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				583422C52138D7A2001FB13F /* UIView */,
+				583422C22138D54F001FB13F /* Colors */,
 				58DF7E7E2135D0D2000D3CF9 /* Displayable */,
 				58DF7E7F2135D0DB000D3CF9 /* JSON */,
 			);
@@ -182,13 +248,10 @@
 		58DF7E7E2135D0D2000D3CF9 /* Displayable */ = {
 			isa = PBXGroup;
 			children = (
-				58DF7E632135D02D000D3CF9 /* Registrar.swift */,
 				58DF7E662135D02D000D3CF9 /* ReusableCell.swift */,
-				58DF7E622135D02D000D3CF9 /* TableViewCell.swift */,
-				58DF7E682135D02D000D3CF9 /* TableViewController.swift */,
-				58DF7E672135D02D000D3CF9 /* TableViewDataSource.swift */,
-				58DF7E6A2135D02D000D3CF9 /* UITableView+ReusableCell.swift */,
-				58DF7E692135D02D000D3CF9 /* UITableViewCell+ReusableCell.swift */,
+				58DF7E632135D02D000D3CF9 /* Registrar.swift */,
+				583422B62138D22C001FB13F /* TableViewDisplayable */,
+				583422B92138D257001FB13F /* CollectionViewDisplayable */,
 			);
 			path = Displayable;
 			sourceTree = "<group>";
@@ -357,6 +420,7 @@
 				58DF7E782135D07D000D3CF9 /* JSONSupport.swift in Sources */,
 				58DF7E712135D02D000D3CF9 /* TableViewController.swift in Sources */,
 				58DF7E792135D07D000D3CF9 /* JSONDataSource.swift in Sources */,
+				583422BD2138D4DF001FB13F /* LinkedList.swift in Sources */,
 				58DF7E6F2135D02D000D3CF9 /* ReusableCell.swift in Sources */,
 				58DF7E882135D10B000D3CF9 /* NumberFormatter+Utilities.swift in Sources */,
 				58DF7E892135D10B000D3CF9 /* String+Utilities.swift in Sources */,
@@ -366,12 +430,16 @@
 				58DF7E8C2135D156000D3CF9 /* CodableArchiver.swift in Sources */,
 				58DF7E872135D10B000D3CF9 /* Collection+Utilities.swift in Sources */,
 				58DF7E722135D02D000D3CF9 /* UITableViewCell+ReusableCell.swift in Sources */,
+				583422C12138D54B001FB13F /* ColorPalette.swift in Sources */,
 				58DF7E6D2135D02D000D3CF9 /* Displayable.swift in Sources */,
 				58DF7E6C2135D02D000D3CF9 /* Registrar.swift in Sources */,
 				58DF7E732135D02D000D3CF9 /* UITableView+ReusableCell.swift in Sources */,
 				58DF7E6E2135D02D000D3CF9 /* ReusableItem.swift in Sources */,
 				58DF7E862135D10B000D3CF9 /* Injectable.swift in Sources */,
+				583422BB2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift in Sources */,
 				58DF7E7B2135D07D000D3CF9 /* JSONCells.swift in Sources */,
+				583422B82138D245001FB13F /* CollectionViewDataSource.swift in Sources */,
+				583422C42138D79D001FB13F /* UIView+Constraints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
