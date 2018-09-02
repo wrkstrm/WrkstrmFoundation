@@ -13,7 +13,9 @@ class NumberSequenceViewController: CollectionViewController<[String]> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        genericDataSource = (0...10).map({ String($0) }).collectionDataSource()
+        let datasource = (0...1000).map({ String($0) }).collectionDataSource()
+        datasource.registrar = Registrar(classes: [StringCell.self], nibs: nil)
+        genericDataSource = datasource
     }
 }
 
@@ -26,6 +28,6 @@ extension String: CollectionReusableItem {
 class StringCell: UICollectionViewCell {
 
     func prepare(for model: Any?, path: IndexPath) {
-        print("this get's called")
+        backgroundColor = Palette.hsluv(for: .red, index: path.row, count: 1000)
     }
 }
