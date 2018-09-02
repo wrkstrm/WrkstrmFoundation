@@ -1,6 +1,6 @@
 //
 //  JSONCells.swift
-//  WrkstrmUtilities
+//  WrkstrmFoundation
 //
 //  Created by Cristian Monterroza on 7/8/18.
 //  Copyright © 2018 Cristian Monterroza. All rights reserved.
