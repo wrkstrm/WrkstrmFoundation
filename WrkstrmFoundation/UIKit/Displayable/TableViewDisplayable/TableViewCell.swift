@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class TableViewCell: UITableViewCell {
+open class TableViewCell: UITableViewCell {
 
     var model: Any?
 

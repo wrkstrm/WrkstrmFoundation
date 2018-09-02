@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		581759562136246C00388C55 /* HSLuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 581759552136246C00388C55 /* HSLuv.framework */; };
+		581759562136246C00388C55 /* HSLuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 581759552136246C00388C55 /* HSLuv.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		583422B82138D245001FB13F /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422B72138D245001FB13F /* CollectionViewDataSource.swift */; };
 		583422BB2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422BA2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift */; };
 		583422BD2138D4DF001FB13F /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422BC2138D4DF001FB13F /* LinkedList.swift */; };
@@ -15,6 +15,7 @@
 		583422C42138D79D001FB13F /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422C32138D79D001FB13F /* UIView+Constraints.swift */; };
 		583422D22138EDF1001FB13F /* StackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422D12138EDF1001FB13F /* StackViewController.swift */; };
 		583422D42138EE08001FB13F /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422D32138EE08001FB13F /* Grid.swift */; };
+		586AFEC1213B9CD20018DAA1 /* NotificationCenter+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */; };
 		587D53102136174F00FB0B58 /* Encoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587D530F2136174E00FB0B58 /* Encoders.swift */; };
 		58DF7E502135CE05000D3CF9 /* WrkstrmFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */; };
 		58DF7E552135CE05000D3CF9 /* WrkstrmFoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E542135CE05000D3CF9 /* WrkstrmFoundationTests.swift */; };
@@ -41,6 +42,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		586AFEDC213BA1510018DAA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58DF7E3D2135CE05000D3CF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 58DF7E452135CE05000D3CF9;
+			remoteInfo = WrkstrmFoundation;
+		};
 		58DF7E512135CE05000D3CF9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 58DF7E3D2135CE05000D3CF9 /* Project object */;
@@ -59,6 +67,8 @@
 		583422C32138D79D001FB13F /* UIView+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		583422D12138EDF1001FB13F /* StackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViewController.swift; sourceTree = "<group>"; };
 		583422D32138EE08001FB13F /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Utilities.swift"; sourceTree = "<group>"; };
+		586AFEC8213BA1100018DAA1 /* Samples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Samples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		587D530F2136174E00FB0B58 /* Encoders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encoders.swift; sourceTree = "<group>"; };
 		58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WrkstrmFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58DF7E492135CE05000D3CF9 /* WrkstrmFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WrkstrmFoundation.h; sourceTree = "<group>"; };
@@ -88,6 +98,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		586AFEC5213BA1100018DAA1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		58DF7E432135CE05000D3CF9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -192,6 +209,7 @@
 			children = (
 				58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */,
 				58DF7E4F2135CE05000D3CF9 /* WrkstrmFoundationTests.xctest */,
+				586AFEC8213BA1100018DAA1 /* Samples.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -282,6 +300,7 @@
 		58DF7E8A2135D114000D3CF9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */,
 				58DF7E822135D10A000D3CF9 /* Collection+Utilities.swift */,
 				58DF7E802135D10A000D3CF9 /* DateFormatter+Utilities.swift */,
 				58DF7E832135D10A000D3CF9 /* NumberFormatter+Utilities.swift */,
@@ -313,6 +332,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		586AFEC7213BA1100018DAA1 /* Samples */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 586AFED7213BA1120018DAA1 /* Build configuration list for PBXNativeTarget "Samples" */;
+			buildPhases = (
+				586AFEC4213BA1100018DAA1 /* Sources */,
+				586AFEC5213BA1100018DAA1 /* Frameworks */,
+				586AFEC6213BA1100018DAA1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				586AFEDD213BA1510018DAA1 /* PBXTargetDependency */,
+			);
+			name = Samples;
+			productName = Samples;
+			productReference = 586AFEC8213BA1100018DAA1 /* Samples.app */;
+			productType = "com.apple.product-type.application";
+		};
 		58DF7E452135CE05000D3CF9 /* WrkstrmFoundation */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 58DF7E5A2135CE05000D3CF9 /* Build configuration list for PBXNativeTarget "WrkstrmFoundation" */;
@@ -321,7 +358,7 @@
 				58DF7E422135CE05000D3CF9 /* Sources */,
 				58DF7E432135CE05000D3CF9 /* Frameworks */,
 				58DF7E442135CE05000D3CF9 /* Resources */,
-				587D53112136176500FB0B58 /* ShellScript */,
+				587D53112136176500FB0B58 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -360,6 +397,9 @@
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Cristian Monterroza";
 				TargetAttributes = {
+					586AFEC7213BA1100018DAA1 = {
+						CreatedOnToolsVersion = 10.0;
+					};
 					58DF7E452135CE05000D3CF9 = {
 						CreatedOnToolsVersion = 10.0;
 						LastSwiftMigration = 1000;
@@ -375,6 +415,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 58DF7E3C2135CE05000D3CF9;
 			productRefGroup = 58DF7E472135CE05000D3CF9 /* Products */;
@@ -383,11 +424,19 @@
 			targets = (
 				58DF7E452135CE05000D3CF9 /* WrkstrmFoundation */,
 				58DF7E4E2135CE05000D3CF9 /* WrkstrmFoundationTests */,
+				586AFEC7213BA1100018DAA1 /* Samples */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		586AFEC6213BA1100018DAA1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		58DF7E442135CE05000D3CF9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -405,7 +454,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		587D53112136176500FB0B58 /* ShellScript */ = {
+		587D53112136176500FB0B58 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -414,6 +463,7 @@
 			);
 			inputPaths = (
 			);
+			name = SwiftLint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -425,6 +475,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		586AFEC4213BA1100018DAA1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		58DF7E422135CE05000D3CF9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -445,6 +502,7 @@
 				58DF7E872135D10B000D3CF9 /* Collection+Utilities.swift in Sources */,
 				58DF7E722135D02D000D3CF9 /* UITableViewCell+ReusableCell.swift in Sources */,
 				583422C12138D54B001FB13F /* Palette.swift in Sources */,
+				586AFEC1213B9CD20018DAA1 /* NotificationCenter+Utilities.swift in Sources */,
 				58DF7E6D2135D02D000D3CF9 /* Displayable.swift in Sources */,
 				58DF7E6C2135D02D000D3CF9 /* Registrar.swift in Sources */,
 				58DF7E732135D02D000D3CF9 /* UITableView+ReusableCell.swift in Sources */,
@@ -470,6 +528,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		586AFEDD213BA1510018DAA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 58DF7E452135CE05000D3CF9 /* WrkstrmFoundation */;
+			targetProxy = 586AFEDC213BA1510018DAA1 /* PBXContainerItemProxy */;
+		};
 		58DF7E522135CE05000D3CF9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 58DF7E452135CE05000D3CF9 /* WrkstrmFoundation */;
@@ -478,6 +541,42 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		586AFED8213BA1120018DAA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BM6B69ZQSR;
+				INFOPLIST_FILE = Samples/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrkstrm.ios.Samples;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		586AFED9213BA1120018DAA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BM6B69ZQSR;
+				INFOPLIST_FILE = Samples/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrkstrm.ios.Samples;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		58DF7E582135CE05000D3CF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -704,6 +803,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		586AFED7213BA1120018DAA1 /* Build configuration list for PBXNativeTarget "Samples" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				586AFED8213BA1120018DAA1 /* Debug */,
+				586AFED9213BA1120018DAA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		58DF7E402135CE05000D3CF9 /* Build configuration list for PBXProject "WrkstrmFoundation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
