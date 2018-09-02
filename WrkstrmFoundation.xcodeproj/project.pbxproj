@@ -23,6 +23,7 @@
 		587D53102136174F00FB0B58 /* Encoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587D530F2136174E00FB0B58 /* Encoders.swift */; };
 		58CFA702213C684C009D0F3F /* TableViewDisplayble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA701213C684C009D0F3F /* TableViewDisplayble.swift */; };
 		58CFA704213C6B45009D0F3F /* CollectionViewDisplayble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA703213C6B45009D0F3F /* CollectionViewDisplayble.swift */; };
+		58CFA70A213C8EBD009D0F3F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA709213C8EBD009D0F3F /* CollectionViewCell.swift */; };
 		58DF7E502135CE05000D3CF9 /* WrkstrmFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */; };
 		58DF7E552135CE05000D3CF9 /* WrkstrmFoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E542135CE05000D3CF9 /* WrkstrmFoundationTests.swift */; };
 		58DF7E572135CE05000D3CF9 /* WrkstrmFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 58DF7E492135CE05000D3CF9 /* WrkstrmFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -74,6 +75,7 @@
 		587D530F2136174E00FB0B58 /* Encoders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encoders.swift; sourceTree = "<group>"; };
 		58CFA701213C684C009D0F3F /* TableViewDisplayble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDisplayble.swift; sourceTree = "<group>"; };
 		58CFA703213C6B45009D0F3F /* CollectionViewDisplayble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDisplayble.swift; sourceTree = "<group>"; };
+		58CFA709213C8EBD009D0F3F /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WrkstrmFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58DF7E492135CE05000D3CF9 /* WrkstrmFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WrkstrmFoundation.h; sourceTree = "<group>"; };
 		58DF7E4A2135CE05000D3CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -148,8 +150,9 @@
 				583422BA2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift */,
 				58CFA703213C6B45009D0F3F /* CollectionViewDisplayble.swift */,
 				583422B72138D245001FB13F /* CollectionViewDataSource.swift */,
-				587954DC213BCF2A0064928C /* UICollectionView+ReusableCell.swift */,
 				587954DA213BCDEA0064928C /* CollectionViewController.swift */,
+				587954DC213BCF2A0064928C /* UICollectionView+ReusableCell.swift */,
+				58CFA709213C8EBD009D0F3F /* CollectionViewCell.swift */,
 			);
 			path = CollectionViewDisplayable;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 				58DF7E882135D10B000D3CF9 /* NumberFormatter+Utilities.swift in Sources */,
 				58CFA702213C684C009D0F3F /* TableViewDisplayble.swift in Sources */,
 				58DF7E892135D10B000D3CF9 /* String+Utilities.swift in Sources */,
+				58CFA70A213C8EBD009D0F3F /* CollectionViewCell.swift in Sources */,
 				587D53102136174F00FB0B58 /* Encoders.swift in Sources */,
 				58DF7E7A2135D07D000D3CF9 /* JSONTableViewController.swift in Sources */,
 				58DF7E6B2135D02D000D3CF9 /* TableViewCell.swift in Sources */,

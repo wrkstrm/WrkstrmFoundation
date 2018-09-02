@@ -39,6 +39,15 @@ class TypographyController: TableViewController<[String]> {
         // Setting the data source reloads the table view.
         genericDataSource = dataSource
     }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.indexPathsForSelectedRows?.forEach { tableView.deselectRow(at: $0, animated: true) }
+        let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = CGSize(width: 50, height: 50)
+        layout.scrollDirection = .horizontal
+        let detail = NumberSequenceViewController(collectionViewLayout: layout)
+        splitViewController?.showDetailViewController(detail, sender: nil)
+    }
 }
 
 // A "ReusableItem" identities what type of cell it re-uses during the dequeue-ing process.
@@ -64,7 +73,7 @@ class FontCell: TableViewCell, StyleableCell {
         super.init(coder: aDecoder)
     }
 
-    // All UITableViewCells with WrkstrmFoundation can implment this method
+    // All UITableViewCells with WrkstrmFoundation can implement this method
     // to have the data automatically passed to them by a TableViewDataSource
     func prepare(for model: Any?, path: IndexPath) {
         guard let fontName = model as? String else { return }
