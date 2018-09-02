@@ -22,7 +22,7 @@ public extension UITableView {
         }
     }
 
-    func dequeueReusableCell<Cell: ReusableCell>(_ cellClass: Cell.Type, for indexPath: IndexPath) -> Cell {
+    func dequeueReusableCell<Cell: TableReusableCell>(_ cellClass: Cell.Type, for indexPath: IndexPath) -> Cell {
         // swiftlint:disable:next force_cast
         return dequeueReusableCell(withIdentifier: cellClass.reuseIdentifier(), for: indexPath) as! Cell
     }

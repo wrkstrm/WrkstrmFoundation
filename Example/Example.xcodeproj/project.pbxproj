@@ -31,13 +31,6 @@
 			remoteGlobalIDString = 58DF7E4F2135CE05000D3CF9;
 			remoteInfo = WrkstrmFoundationTests;
 		};
-		5850828A213BAE4000293024 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 58508280213BAE4000293024 /* WrkstrmFoundation.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 586AFEC8213BA1100018DAA1;
-			remoteInfo = Samples;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -92,7 +85,6 @@
 			children = (
 				58508287213BAE4000293024 /* WrkstrmFoundation.framework */,
 				58508289213BAE4000293024 /* WrkstrmFoundationTests.xctest */,
-				5850828B213BAE4000293024 /* Samples.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -200,13 +192,6 @@
 			fileType = wrapper.cfbundle;
 			path = WrkstrmFoundationTests.xctest;
 			remoteRef = 58508288213BAE4000293024 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5850828B213BAE4000293024 /* Samples.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = Samples.app;
-			remoteRef = 5850828A213BAE4000293024 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

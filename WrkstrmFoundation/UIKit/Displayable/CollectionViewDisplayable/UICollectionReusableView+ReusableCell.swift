@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension UICollectionReusableView: ReusableCell {
+extension UICollectionReusableView: CollectionReusableCell {
 
     public static var defaultNib: UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))

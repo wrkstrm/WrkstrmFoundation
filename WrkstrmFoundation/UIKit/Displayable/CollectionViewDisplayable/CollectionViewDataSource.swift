@@ -12,35 +12,19 @@ public class PlaceholderSupplementaryCell: UICollectionViewCell {}
 
 public class PlaceholderCollectionCell: UICollectionViewCell {}
 
-public protocol CollectionViewDisplayable: Displayable {
-
-    func supplementaryElementView(for collectionView: UICollectionView,
-                                  of kind: String,
-                                  at indexPath: IndexPath) -> UICollectionReusableView?
-
-}
-
-extension CollectionViewDisplayable {
-
-    public func dataSource(config: CollectionViewDataSource<Self>.CellConfig? = nil) -> CollectionViewDataSource<Self> {
-        return CollectionViewDataSource(model: self, config: config)
-    }
-
-    public func supplementaryElementView(for collectionView: UICollectionView,
-                                         of kind: String,
-                                         at indexPath: IndexPath) -> UICollectionReusableView? {
-        return nil
-    }
-}
-
 public class CollectionViewDataSource<Model: CollectionViewDisplayable>:
 NSObject, UICollectionViewDataSource, Displayable {
 
     public typealias CellConfig = (UICollectionViewCell, Model.Item, IndexPath) -> Void
 
     private var displayable: Model
+
     public let items: [[Model.Item]]
+
     private let reuseIdentifiers: [[String]]
+
+    public var registrar: Registrar?
+
     var config: CellConfig?
 
     init(model: Model, config: CellConfig?) {
@@ -98,7 +82,7 @@ NSObject, UICollectionViewDataSource, Displayable {
 
     public func collectionView(_ collectionView: UICollectionView,
                                cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cellType = reusableCell(for: indexPath)
+        let cellType = item(for: indexPath).collectionReusableCell
         if cellType == PlaceholderCollectionCell.self {
             collectionView.register(cellType, forCellWithReuseIdentifier: cellType.reuseIdentifier())
         }

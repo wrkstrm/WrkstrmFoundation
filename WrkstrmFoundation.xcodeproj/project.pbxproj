@@ -18,7 +18,11 @@
 		5850828E213BB43300293024 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5850828D213BB43300293024 /* Result.swift */; };
 		58508299213BB94700293024 /* TreeClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58508298213BB94700293024 /* TreeClass.swift */; };
 		586AFEC1213B9CD20018DAA1 /* NotificationCenter+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */; };
+		587954DB213BCDEA0064928C /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587954DA213BCDEA0064928C /* CollectionViewController.swift */; };
+		587954DD213BCF2A0064928C /* UICollectionView+ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587954DC213BCF2A0064928C /* UICollectionView+ReusableCell.swift */; };
 		587D53102136174F00FB0B58 /* Encoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587D530F2136174E00FB0B58 /* Encoders.swift */; };
+		58CFA702213C684C009D0F3F /* TableViewDisplayble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA701213C684C009D0F3F /* TableViewDisplayble.swift */; };
+		58CFA704213C6B45009D0F3F /* CollectionViewDisplayble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA703213C6B45009D0F3F /* CollectionViewDisplayble.swift */; };
 		58DF7E502135CE05000D3CF9 /* WrkstrmFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */; };
 		58DF7E552135CE05000D3CF9 /* WrkstrmFoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E542135CE05000D3CF9 /* WrkstrmFoundationTests.swift */; };
 		58DF7E572135CE05000D3CF9 /* WrkstrmFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 58DF7E492135CE05000D3CF9 /* WrkstrmFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -65,7 +69,11 @@
 		5850828D213BB43300293024 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		58508298213BB94700293024 /* TreeClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeClass.swift; sourceTree = "<group>"; };
 		586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Utilities.swift"; sourceTree = "<group>"; };
+		587954DA213BCDEA0064928C /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		587954DC213BCF2A0064928C /* UICollectionView+ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReusableCell.swift"; sourceTree = "<group>"; };
 		587D530F2136174E00FB0B58 /* Encoders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encoders.swift; sourceTree = "<group>"; };
+		58CFA701213C684C009D0F3F /* TableViewDisplayble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDisplayble.swift; sourceTree = "<group>"; };
+		58CFA703213C6B45009D0F3F /* CollectionViewDisplayble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDisplayble.swift; sourceTree = "<group>"; };
 		58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WrkstrmFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58DF7E492135CE05000D3CF9 /* WrkstrmFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WrkstrmFoundation.h; sourceTree = "<group>"; };
 		58DF7E4A2135CE05000D3CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -124,11 +132,12 @@
 		583422B62138D22C001FB13F /* TableViewDisplayable */ = {
 			isa = PBXGroup;
 			children = (
-				58DF7E682135D02D000D3CF9 /* TableViewController.swift */,
+				58DF7E692135D02D000D3CF9 /* UITableViewCell+ReusableCell.swift */,
+				58CFA701213C684C009D0F3F /* TableViewDisplayble.swift */,
 				58DF7E672135D02D000D3CF9 /* TableViewDataSource.swift */,
+				58DF7E682135D02D000D3CF9 /* TableViewController.swift */,
 				58DF7E6A2135D02D000D3CF9 /* UITableView+ReusableCell.swift */,
 				58DF7E622135D02D000D3CF9 /* TableViewCell.swift */,
-				58DF7E692135D02D000D3CF9 /* UITableViewCell+ReusableCell.swift */,
 			);
 			path = TableViewDisplayable;
 			sourceTree = "<group>";
@@ -137,7 +146,10 @@
 			isa = PBXGroup;
 			children = (
 				583422BA2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift */,
+				58CFA703213C6B45009D0F3F /* CollectionViewDisplayble.swift */,
 				583422B72138D245001FB13F /* CollectionViewDataSource.swift */,
+				587954DC213BCF2A0064928C /* UICollectionView+ReusableCell.swift */,
+				587954DA213BCDEA0064928C /* CollectionViewController.swift */,
 			);
 			path = CollectionViewDisplayable;
 			sourceTree = "<group>";
@@ -268,8 +280,8 @@
 			isa = PBXGroup;
 			children = (
 				58DF7E812135D10A000D3CF9 /* Injectable.swift */,
-				58DF7E652135D02D000D3CF9 /* ReusableItem.swift */,
 				58DF7E642135D02D000D3CF9 /* Displayable.swift */,
+				58DF7E652135D02D000D3CF9 /* ReusableItem.swift */,
 			);
 			path = Displayable;
 			sourceTree = "<group>";
@@ -456,18 +468,22 @@
 				583422BD2138D4DF001FB13F /* ListEnum.swift in Sources */,
 				58DF7E6F2135D02D000D3CF9 /* ReusableCell.swift in Sources */,
 				58DF7E882135D10B000D3CF9 /* NumberFormatter+Utilities.swift in Sources */,
+				58CFA702213C684C009D0F3F /* TableViewDisplayble.swift in Sources */,
 				58DF7E892135D10B000D3CF9 /* String+Utilities.swift in Sources */,
 				587D53102136174F00FB0B58 /* Encoders.swift in Sources */,
 				58DF7E7A2135D07D000D3CF9 /* JSONTableViewController.swift in Sources */,
 				58DF7E6B2135D02D000D3CF9 /* TableViewCell.swift in Sources */,
+				587954DB213BCDEA0064928C /* CollectionViewController.swift in Sources */,
 				58DF7E8C2135D156000D3CF9 /* CodableArchiver.swift in Sources */,
 				58DF7E872135D10B000D3CF9 /* Collection+Utilities.swift in Sources */,
+				587954DD213BCF2A0064928C /* UICollectionView+ReusableCell.swift in Sources */,
 				58DF7E722135D02D000D3CF9 /* UITableViewCell+ReusableCell.swift in Sources */,
 				583422C12138D54B001FB13F /* Palette.swift in Sources */,
 				586AFEC1213B9CD20018DAA1 /* NotificationCenter+Utilities.swift in Sources */,
 				58DF7E6D2135D02D000D3CF9 /* Displayable.swift in Sources */,
 				58DF7E6C2135D02D000D3CF9 /* Registrar.swift in Sources */,
 				58DF7E732135D02D000D3CF9 /* UITableView+ReusableCell.swift in Sources */,
+				58CFA704213C6B45009D0F3F /* CollectionViewDisplayble.swift in Sources */,
 				58DF7E6E2135D02D000D3CF9 /* ReusableItem.swift in Sources */,
 				58508299213BB94700293024 /* TreeClass.swift in Sources */,
 				58DF7E862135D10B000D3CF9 /* Injectable.swift in Sources */,

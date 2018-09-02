@@ -42,8 +42,9 @@ class TypographyController: TableViewController<[String]> {
 }
 
 // A "ReusableItem" identities what type of cell it re-uses during the dequeue-ing process.
-extension String: ReusableItem {
-    public var reusableCell: ReusableCell.Type {
+extension String: TableReusableItem {
+
+    public var tableReusableCell: TableReusableCell.Type {
         return FontCell.self
     }
 }

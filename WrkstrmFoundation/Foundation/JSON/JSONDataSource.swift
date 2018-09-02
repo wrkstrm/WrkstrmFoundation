@@ -30,7 +30,7 @@ public struct JSON {
         }
     }
 
-    public enum Value: ReusableItem, Equatable {
+    public enum Value: TableReusableItem {
 
         case integer(String, Int)
 
@@ -46,7 +46,7 @@ public struct JSON {
 
         case any(String, String)
 
-        public var reusableCell: ReusableCell.Type {
+        public var tableReusableCell: TableReusableCell.Type {
             switch self {
 
             case .integer:

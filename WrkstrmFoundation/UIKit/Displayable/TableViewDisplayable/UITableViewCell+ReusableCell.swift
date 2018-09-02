@@ -9,14 +9,14 @@
 import UIKit
 
 @objc
-public protocol StyleableCell: ReusableCell {
+public protocol StyleableCell: TableReusableCell {
 
     static var cellStyle: UITableViewCell.CellStyle { get }
 
     init(style: UITableViewCell.CellStyle, reuseIdentifier: String?)
 }
 
-extension UITableViewCell: ReusableCell {
+extension UITableViewCell: TableReusableCell {
 
     @objc
     open class var defaultNib: UINib {

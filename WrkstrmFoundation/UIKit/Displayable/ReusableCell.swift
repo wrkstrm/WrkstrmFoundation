@@ -17,3 +17,9 @@ public protocol ReusableCell {
 
     @objc optional func prepare(for model: Any?, path: IndexPath)
 }
+
+@objc
+public protocol TableReusableCell: ReusableCell { }
+
+@objc
+public protocol CollectionReusableCell: ReusableCell { }

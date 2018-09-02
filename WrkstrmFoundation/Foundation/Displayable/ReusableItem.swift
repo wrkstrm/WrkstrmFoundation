@@ -8,7 +8,10 @@
 
 import Foundation
 
-public protocol ReusableItem: Equatable {
+public protocol TableReusableItem: Equatable {
+    var tableReusableCell: TableReusableCell.Type { get }
+}
 
-    var reusableCell: ReusableCell.Type { get }
+public protocol CollectionReusableItem: Equatable {
+    var collectionReusableCell: CollectionReusableCell.Type { get }
 }

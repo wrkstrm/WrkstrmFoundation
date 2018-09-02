@@ -10,11 +10,9 @@ import Foundation
 
 public protocol Displayable {
 
-    associatedtype Item: ReusableItem
+    associatedtype Item: Equatable
 
     var items: [[Item]] { get }
-
-    func reusableCell(for path: IndexPath) -> ReusableCell.Type
 
     func item(for path: IndexPath) -> Item
 
@@ -43,13 +41,9 @@ extension Displayable {
         }
         return nil
     }
-
-    public func reusableCell(for path: IndexPath) -> ReusableCell.Type {
-        return item(for: path).reusableCell
-    }
 }
 
-extension Array: Displayable where Element: ReusableItem & Equatable {
+extension Array: Displayable where Element: Equatable {
     public typealias Item = Element
 
     public var items: [[Element]] {

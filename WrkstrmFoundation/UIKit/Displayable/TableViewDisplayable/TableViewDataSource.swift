@@ -10,25 +10,6 @@ import UIKit
 
 class PlaceholderTableViewCell: UITableViewCell { }
 
-public protocol TableViewDisplayable: Displayable {
-
-    func dataSource(config: TableViewDataSource<Self>.CellConfig?) -> TableViewDataSource<Self>
-}
-
-public extension TableViewDisplayable {
-
-    func dataSource(config: TableViewDataSource<Self>.CellConfig? = nil) -> TableViewDataSource<Self> {
-        return TableViewDataSource(model: self, config: config)
-    }
-}
-
-extension Array: TableViewDisplayable where Element: ReusableItem {
-
-    public func dataSource(config: TableViewDataSource<[Element]>.CellConfig? = nil) -> TableViewDataSource<[Element]> {
-        return TableViewDataSource(items: [self], config: config)
-    }
-}
-
 public class TableViewDataSource<Model: TableViewDisplayable>: NSObject, UITableViewDataSource, Displayable {
 
     public typealias CellConfig = ((model: Model.Item, cell: UITableViewCell), IndexPath) -> Void
@@ -49,7 +30,7 @@ public class TableViewDataSource<Model: TableViewDisplayable>: NSObject, UITable
         self.items = items
         self.config = config
         self.registrar = registrar
-        self.reusableTypes = items.map { $0.map { $0.reusableCell } }
+        self.reusableTypes = items.map { $0.map { $0.tableReusableCell } }
     }
 
     public func modelFor(indexPath path: IndexPath) -> Model.Item? {
@@ -95,7 +76,7 @@ public class TableViewDataSource<Model: TableViewDisplayable>: NSObject, UITable
 
         let currentItem = item(for: indexPath)
         config?((model: currentItem, cell: cell), indexPath)
-        (cell as ReusableCell).prepare?(for: currentItem, path: indexPath)
+        (cell as TableReusableCell).prepare?(for: currentItem, path: indexPath)
         return cell
     }
 }
