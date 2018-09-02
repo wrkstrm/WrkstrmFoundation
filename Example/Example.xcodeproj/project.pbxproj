@@ -14,6 +14,7 @@
 		586AFEF1213BA4150018DAA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 586AFEEF213BA4150018DAA1 /* Main.storyboard */; };
 		586AFEF3213BA4160018DAA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 586AFEF2213BA4160018DAA1 /* Assets.xcassets */; };
 		586AFEF6213BA4160018DAA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 586AFEF4213BA4160018DAA1 /* LaunchScreen.storyboard */; };
+		58CFA708213C86B2009D0F3F /* NumberSequenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA707213C86B2009D0F3F /* NumberSequenceViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		586AFEF2213BA4160018DAA1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		586AFEF5213BA4160018DAA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		586AFEF7213BA4160018DAA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		58CFA707213C86B2009D0F3F /* NumberSequenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberSequenceViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			children = (
 				586AFEEB213BA4150018DAA1 /* AppDelegate.swift */,
 				5850827C213BAD3700293024 /* TypographyController.swift */,
+				58CFA707213C86B2009D0F3F /* NumberSequenceViewController.swift */,
 				586AFEEF213BA4150018DAA1 /* Main.storyboard */,
 				586AFEF2213BA4160018DAA1 /* Assets.xcassets */,
 				586AFEF4213BA4160018DAA1 /* LaunchScreen.storyboard */,
@@ -214,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58CFA708213C86B2009D0F3F /* NumberSequenceViewController.swift in Sources */,
 				5850827D213BAD3700293024 /* TypographyController.swift in Sources */,
 				586AFEEC213BA4150018DAA1 /* AppDelegate.swift in Sources */,
 			);

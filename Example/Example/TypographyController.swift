@@ -30,7 +30,7 @@ class TypographyController: TableViewController<[String]> {
         }
 
         // Data sources can be created by simply passing along any  array of Strings.
-        let dataSource = UIFont.familyNames.flatMap { UIFont.fontNames(forFamilyName: $0) }.dataSource()
+        let dataSource = UIFont.familyNames.flatMap { UIFont.fontNames(forFamilyName: $0) }.tableDataSource()
 
         // A datasource can register classes and nibs to the tableview automatically.
 

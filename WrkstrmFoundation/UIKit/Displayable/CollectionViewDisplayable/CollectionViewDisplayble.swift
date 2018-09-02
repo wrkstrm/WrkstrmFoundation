@@ -40,7 +40,7 @@ public extension CollectionViewDisplayable {
 extension Array: CollectionViewDisplayable where Element: CollectionReusableItem {
 
     // swiftlint:disable:next line_length
-    public func dataSource(config: CollectionViewDataSource<[Element]>.CellConfig? = nil) -> CollectionViewDataSource<[Element]> {
+    public func collectionDataSource(config: CollectionViewDataSource<[Element]>.CellConfig? = nil) -> CollectionViewDataSource<[Element]> {
         return CollectionViewDataSource(model: self, config: config)
     }
 }

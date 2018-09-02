@@ -28,7 +28,8 @@ public extension TableViewDisplayable {
 
 extension Array: TableViewDisplayable where Element: TableReusableItem {
 
-    public func dataSource(config: TableViewDataSource<[Element]>.CellConfig? = nil) -> TableViewDataSource<[Element]> {
+    // swiftlint:disable:next line_length
+    public func tableDataSource(config: TableViewDataSource<[Element]>.CellConfig? = nil) -> TableViewDataSource<[Element]> {
         return TableViewDataSource(items: items, config: config)
     }
 }
