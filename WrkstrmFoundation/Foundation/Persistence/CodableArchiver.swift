@@ -44,8 +44,8 @@ extension CodableArchiver {
 
 extension CodableArchiver {
 
-    public func get(_ key: AnyHashable) -> T? {
-        guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: filePathForKey(key)) as? Data else {
+    public func get(_ key: AnyHashable? = nil) -> T? {
+        guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: filePathForKey(key ?? self.key)) as? Data else {
             return nil
         }
 
@@ -56,25 +56,25 @@ extension CodableArchiver {
         return decoded
     }
 
-    public func set(_ value: T, forKey key: AnyHashable) -> Bool {
+    public func set(_ value: T, forKey key: AnyHashable? = nil) -> Bool {
         let data = try? encoder.encode(value)
         try? fileManager.createDirectory(at: archiveDirectory,
                                          withIntermediateDirectories: true,
                                          attributes: nil)
         if let data = data {
-            return NSKeyedArchiver.archiveRootObject(data, toFile: filePathForKey(key))
+            return NSKeyedArchiver.archiveRootObject(data, toFile: filePathForKey(key ?? self.key))
         } else {
             return false
         }
     }
 
-    public func set(_ value: [T], forKey key: AnyHashable) -> Bool {
+    public func set(_ value: [T], forKey key: AnyHashable? = nil) -> Bool {
         let encodedValues = try? value.map { try encoder.encode($0) }
         try? fileManager.createDirectory(at: archiveDirectory,
                                          withIntermediateDirectories: true,
                                          attributes: nil)
         if let encodedValues = encodedValues {
-            return NSKeyedArchiver.archiveRootObject(encodedValues, toFile: filePathForKey(key))
+            return NSKeyedArchiver.archiveRootObject(encodedValues, toFile: filePathForKey(key ?? self.key))
         } else {
             return false
         }
