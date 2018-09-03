@@ -37,14 +37,3 @@ open class TableViewController<Model: TableViewDisplayable>: UITableViewControll
         tableView.estimatedRowHeight = 200
     }
 }
-
-extension TableViewController: Injectable {
-
-    public func inject(_ resource: TableViewDataSource<Model>) {
-        genericDataSource = resource
-    }
-
-    public func assertDependencies() {
-        assert(genericDataSource != nil)
-    }
-}

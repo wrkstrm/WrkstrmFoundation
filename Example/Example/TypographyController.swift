@@ -30,7 +30,9 @@ class TypographyController: TableViewController<[String]> {
         }
 
         // Data sources can be created by simply passing along any  array of Strings.
-        let dataSource = UIFont.familyNames.flatMap { UIFont.fontNames(forFamilyName: $0) }.tableDataSource()
+        let dataSource = UIFont.familyNames.flatMap({ UIFont.fontNames(forFamilyName: $0) })
+            .sorted(by: <)
+            .tableDataSource()
 
         // A datasource can register classes and nibs to the tableview automatically.
 
@@ -42,10 +44,12 @@ class TypographyController: TableViewController<[String]> {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.indexPathsForSelectedRows?.forEach { tableView.deselectRow(at: $0, animated: true) }
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = CGSize(width: 50, height: 50)
         layout.scrollDirection = .horizontal
         let detail = NumberSequenceViewController(collectionViewLayout: layout)
+        detail.inject(cell.textLabel!.font)
         splitViewController?.showDetailViewController(detail, sender: nil)
     }
 }

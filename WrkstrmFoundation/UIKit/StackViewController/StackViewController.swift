@@ -43,7 +43,7 @@ open class StackViewController: UIViewController {
         view.addSubview(stack)
         stack.constrainEqual(attribute: .width, to: view)
         stack.constrainEqual(attribute: .height, to: view)
-        stack.center(in: view)
+        stack.constrainToCenter(in: view)
         view.backgroundColor = .white
     }
 

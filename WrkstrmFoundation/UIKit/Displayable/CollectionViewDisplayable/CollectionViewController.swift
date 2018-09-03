@@ -8,17 +8,6 @@
 
 import UIKit
 
-extension CollectionViewController: Injectable {
-
-    public func inject(_ resource: CollectionViewDataSource<Model>) {
-        genericDataSource = resource
-    }
-
-    public func assertDependencies() {
-        assert(genericDataSource != nil)
-    }
-}
-
 open class CollectionViewController<Model: CollectionViewDisplayable>: UICollectionViewController {
 
     open var displayableModel: Model? {

@@ -8,11 +8,21 @@
 
 import UIKit
 
+extension JSONTableViewController: Injectable {
+
+    public func inject(_ resource: TableViewDataSource<JSON.Displayable>) {
+        genericDataSource = resource
+    }
+
+    public func assertDependencies() {
+        assert(genericDataSource != nil)
+    }
+}
+
 open class JSONTableViewController: TableViewController<JSON.Displayable> {
 
     open override func viewDidLoad() {
         super.viewDidLoad()
-        assertDependencies()
     }
 
     open override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {

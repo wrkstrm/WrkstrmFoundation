@@ -12,12 +12,14 @@ extension NumberFormatter {
 
     public static let integer: NumberFormatter = { () -> NumberFormatter in
         let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 0
         return formatter
     }()
 
     public static let double: NumberFormatter = { () -> NumberFormatter in
         let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
         formatter.minimumFractionDigits = 2
         return formatter
     }()
