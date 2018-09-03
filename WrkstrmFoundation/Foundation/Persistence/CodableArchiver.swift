@@ -20,10 +20,10 @@ public struct CodableArchiver<T: Codable> {
     public let key: AnyHashable
 
     public init(key: AnyHashable,
-                encoder: JSONEncoder,
-                decoder: JSONDecoder,
                 directory: FileManager.SearchPathDirectory,
-                searchPathDomainMask: FileManager.SearchPathDomainMask) {
+                encoder: JSONEncoder = .default,
+                decoder: JSONDecoder = .default,
+                searchPathDomainMask: FileManager.SearchPathDomainMask = [.allDomainsMask]) {
         self.encoder = encoder
         self.decoder = decoder
         let archiveDirectory = fileManager.urls(for: directory, in: searchPathDomainMask).first!
