@@ -11,7 +11,7 @@ import Foundation
 public struct CodableArchiver<T: Codable> {
 
     public let encoder: JSONEncoder
-    
+
     public let decoder: JSONDecoder
 
     public let fileManager: FileManager = FileManager.default
@@ -32,14 +32,13 @@ public struct CodableArchiver<T: Codable> {
         self.key = key
     }
 
-    public init(key: AnyHashable,
-                directory: URL,
+    public init(directory: URL,
                 encoder: JSONEncoder = .default,
                 decoder: JSONDecoder = .default) {
         self.encoder = encoder
         self.decoder = decoder
-        self.archiveDirectory = directory.appendingPathComponent(String(key.description))
-        self.key = key
+        self.archiveDirectory = directory.deletingLastPathComponent()
+        self.key = directory.lastPathComponent
     }
 }
 
