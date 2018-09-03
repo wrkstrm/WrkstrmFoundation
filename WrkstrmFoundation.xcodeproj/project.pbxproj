@@ -24,6 +24,7 @@
 		58CFA702213C684C009D0F3F /* TableViewDisplayble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA701213C684C009D0F3F /* TableViewDisplayble.swift */; };
 		58CFA704213C6B45009D0F3F /* CollectionViewDisplayble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA703213C6B45009D0F3F /* CollectionViewDisplayble.swift */; };
 		58CFA70A213C8EBD009D0F3F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA709213C8EBD009D0F3F /* CollectionViewCell.swift */; };
+		58CFA70C213CBB0E009D0F3F /* Comparable+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA70B213CBB0E009D0F3F /* Comparable+Swift.swift */; };
 		58DF7E502135CE05000D3CF9 /* WrkstrmFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */; };
 		58DF7E552135CE05000D3CF9 /* WrkstrmFoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E542135CE05000D3CF9 /* WrkstrmFoundationTests.swift */; };
 		58DF7E572135CE05000D3CF9 /* WrkstrmFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 58DF7E492135CE05000D3CF9 /* WrkstrmFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -76,6 +77,7 @@
 		58CFA701213C684C009D0F3F /* TableViewDisplayble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDisplayble.swift; sourceTree = "<group>"; };
 		58CFA703213C6B45009D0F3F /* CollectionViewDisplayble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDisplayble.swift; sourceTree = "<group>"; };
 		58CFA709213C8EBD009D0F3F /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		58CFA70B213CBB0E009D0F3F /* Comparable+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+Swift.swift"; sourceTree = "<group>"; };
 		58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WrkstrmFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58DF7E492135CE05000D3CF9 /* WrkstrmFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WrkstrmFoundation.h; sourceTree = "<group>"; };
 		58DF7E4A2135CE05000D3CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				5850828D213BB43300293024 /* Result.swift */,
+				58CFA70B213CBB0E009D0F3F /* Comparable+Swift.swift */,
 				586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */,
 				58DF7E822135D10A000D3CF9 /* Collection+Utilities.swift */,
 				58DF7E802135D10A000D3CF9 /* DateFormatter+Utilities.swift */,
@@ -482,6 +485,7 @@
 				58DF7E872135D10B000D3CF9 /* Collection+Utilities.swift in Sources */,
 				587954DD213BCF2A0064928C /* UICollectionView+ReusableCell.swift in Sources */,
 				58DF7E722135D02D000D3CF9 /* UITableViewCell+ReusableCell.swift in Sources */,
+				58CFA70C213CBB0E009D0F3F /* Comparable+Swift.swift in Sources */,
 				583422C12138D54B001FB13F /* Palette.swift in Sources */,
 				586AFEC1213B9CD20018DAA1 /* NotificationCenter+Utilities.swift in Sources */,
 				58DF7E6D2135D02D000D3CF9 /* Displayable.swift in Sources */,
