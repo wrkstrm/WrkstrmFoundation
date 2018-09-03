@@ -8,45 +8,52 @@
 
 import Foundation
 
-public struct NotificationTransformer<A> {
-    public let name: Notification.Name
-    public let transform: (Notification) -> A
+extension Notification {
 
-    public init(name: Notification.Name,
-                transform: @escaping ((Notification) -> A) = { return (A.self == Void.self ? () : $0.object) as! A }) { // swiftlint:disable:this force_cast
-        // swiftlint:disable:previous line_length
-        self.name = name
-        self.transform = transform
-    }
-}
+    public struct Transformer<A> {
 
-/// NotifiationTokens automatically deregister themselves when their reference count reaches zero.
-public class NotificationToken {
-    public let token: NSObjectProtocol
-    public let center: NotificationCenter
+        public let name: Notification.Name
 
-    public init(token: NSObjectProtocol, center: NotificationCenter) {
-        self.token = token
-        self.center = center
+        public let transform: (Notification) -> A
+
+        public init(name: Notification.Name,
+                    transform: @escaping ((Notification) -> A) = { return (A.self == Void.self ? () : $0.object) as! A }) { // swiftlint:disable:this force_cast
+            // swiftlint:disable:previous line_length
+            self.name = name
+            self.transform = transform
+        }
     }
 
-    deinit {
-        center.removeObserver(token)
+    /// NotifiationTokens automatically deregister themselves when their reference count reaches zero.
+    public class Token {
+
+        public let token: NSObjectProtocol
+
+        public let center: NotificationCenter
+
+        public init(token: NSObjectProtocol, center: NotificationCenter) {
+            self.token = token
+            self.center = center
+        }
+
+        deinit {
+            center.removeObserver(token)
+        }
     }
 }
 
 public extension NotificationCenter {
 
-    public func addObserver<A>(for transformer: NotificationTransformer<A>,
+    public func addObserver<A>(for transformer: Notification.Transformer<A>,
                                queue: OperationQueue? = .main,
-                               using block: @escaping (A) -> Void) -> NotificationToken {
+                               using block: @escaping (A) -> Void) -> Notification.Token {
         let token = addObserver(forName: transformer.name, object: nil, queue: queue) { note in
             block(transformer.transform(note))
         }
-        return NotificationToken(token: token, center: self)
+        return Notification.Token(token: token, center: self)
     }
 
-    public func post<A>(_ transformer: NotificationTransformer<A>, value: A) {
+    public func post<A>(_ transformer: Notification.Transformer<A>, value: A) {
         post(name: transformer.name, object: A.self == Void.self ? nil : value)
     }
 }

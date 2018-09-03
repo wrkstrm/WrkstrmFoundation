@@ -10,13 +10,13 @@ import UIKit
 import WrkstrmFoundation
 
 // Global Notification transformers allow for consistent notifications across the app.
-let fontChanges = NotificationTransformer<Void>(name: UIContentSizeCategory.didChangeNotification)
+let fontChanges = Notification.Transformer<Void>(name: UIContentSizeCategory.didChangeNotification)
 
 // Although this is a Typography Controller, the TableViewController will accept any [String] as it's datasource.
 class TypographyController: TableViewController<[String]> {
 
     // Notification Tokens automatically remove themselves as observers on controller deinit.
-    var token: NotificationToken?
+    var token: Notification.Token?
 
     override func viewDidLoad() {
         super.viewDidLoad()
