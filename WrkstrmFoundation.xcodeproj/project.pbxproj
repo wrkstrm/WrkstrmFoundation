@@ -18,6 +18,8 @@
 		5850828E213BB43300293024 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5850828D213BB43300293024 /* Result.swift */; };
 		58508299213BB94700293024 /* TreeClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58508298213BB94700293024 /* TreeClass.swift */; };
 		58624C05213DCA8300E23B17 /* UIView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58624C04213DCA8300E23B17 /* UIView+Loading.swift */; };
+		58624C09213DD1BE00E23B17 /* UITableView+Registrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58624C08213DD1BE00E23B17 /* UITableView+Registrar.swift */; };
+		58624C0B213DD28C00E23B17 /* UICollectionView+Registrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58624C0A213DD28C00E23B17 /* UICollectionView+Registrar.swift */; };
 		586AFEC1213B9CD20018DAA1 /* NotificationCenter+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */; };
 		587954DB213BCDEA0064928C /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587954DA213BCDEA0064928C /* CollectionViewController.swift */; };
 		587954DD213BCF2A0064928C /* UICollectionView+ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587954DC213BCF2A0064928C /* UICollectionView+ReusableCell.swift */; };
@@ -72,6 +74,8 @@
 		5850828D213BB43300293024 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		58508298213BB94700293024 /* TreeClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeClass.swift; sourceTree = "<group>"; };
 		58624C04213DCA8300E23B17 /* UIView+Loading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Loading.swift"; sourceTree = "<group>"; };
+		58624C08213DD1BE00E23B17 /* UITableView+Registrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Registrar.swift"; sourceTree = "<group>"; };
+		58624C0A213DD28C00E23B17 /* UICollectionView+Registrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Registrar.swift"; sourceTree = "<group>"; };
 		586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Utilities.swift"; sourceTree = "<group>"; };
 		587954DA213BCDEA0064928C /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		587954DC213BCF2A0064928C /* UICollectionView+ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReusableCell.swift"; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 				58DF7E672135D02D000D3CF9 /* TableViewDataSource.swift */,
 				58DF7E682135D02D000D3CF9 /* TableViewController.swift */,
 				58DF7E6A2135D02D000D3CF9 /* UITableView+ReusableCell.swift */,
+				58624C08213DD1BE00E23B17 /* UITableView+Registrar.swift */,
 				58DF7E622135D02D000D3CF9 /* TableViewCell.swift */,
 			);
 			path = TableViewDisplayable;
@@ -156,6 +161,7 @@
 				583422B72138D245001FB13F /* CollectionViewDataSource.swift */,
 				587954DA213BCDEA0064928C /* CollectionViewController.swift */,
 				587954DC213BCF2A0064928C /* UICollectionView+ReusableCell.swift */,
+				58624C0A213DD28C00E23B17 /* UICollectionView+Registrar.swift */,
 				58CFA709213C8EBD009D0F3F /* CollectionViewCell.swift */,
 			);
 			path = CollectionViewDisplayable;
@@ -476,7 +482,9 @@
 				58DF7E792135D07D000D3CF9 /* JSONDataSource.swift in Sources */,
 				583422BD2138D4DF001FB13F /* ListEnum.swift in Sources */,
 				58624C05213DCA8300E23B17 /* UIView+Loading.swift in Sources */,
+				58624C09213DD1BE00E23B17 /* UITableView+Registrar.swift in Sources */,
 				58DF7E6F2135D02D000D3CF9 /* ReusableCell.swift in Sources */,
+				58624C0B213DD28C00E23B17 /* UICollectionView+Registrar.swift in Sources */,
 				58DF7E882135D10B000D3CF9 /* NumberFormatter+Utilities.swift in Sources */,
 				58CFA702213C684C009D0F3F /* TableViewDisplayble.swift in Sources */,
 				58DF7E892135D10B000D3CF9 /* String+Utilities.swift in Sources */,
