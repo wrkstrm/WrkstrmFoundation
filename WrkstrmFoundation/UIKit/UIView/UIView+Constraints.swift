@@ -3,6 +3,7 @@
 import UIKit
 
 extension UIView {
+
     public func constrainEqual(attribute: NSLayoutConstraint.Attribute,
                                to: AnyObject,
                                multiplier: CGFloat = 1,
@@ -22,7 +23,8 @@ extension UIView {
                                                         attribute: attribute,
                                                         relatedBy: .equal,
                                                         toItem: to,
-                                                        attribute: toAttribute, multiplier: multiplier,
+                                                        attribute: toAttribute,
+                                                        multiplier: multiplier,
                                                         constant: constant)])
     }
 
