@@ -56,6 +56,7 @@ extension CodableArchiver {
         return decoded
     }
 
+    @discardableResult
     public func set(_ value: T, forKey key: AnyHashable? = nil) -> Bool {
         let data = try? encoder.encode(value)
         try? fileManager.createDirectory(at: archiveDirectory,
@@ -68,6 +69,7 @@ extension CodableArchiver {
         }
     }
 
+    @discardableResult
     public func set(_ value: [T], forKey key: AnyHashable? = nil) -> Bool {
         let encodedValues = try? value.map { try encoder.encode($0) }
         try? fileManager.createDirectory(at: archiveDirectory,
