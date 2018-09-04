@@ -3,6 +3,44 @@
 import UIKit
 
 extension UIView {
+
+    private struct AssociatedKey {
+
+        static var constraintCache = "wsm_constraintCache"
+    }
+
+    typealias ConstraintCache = [NSLayoutConstraint: CGFloat]
+
+    private var constraintCache: ConstraintCache {
+        get {
+            if let cache = objc_getAssociatedObject(self,
+                                                    &AssociatedKey.constraintCache) as? ConstraintCache {
+                return cache
+            } else {
+                let cache = ConstraintCache()
+                objc_setAssociatedObject(self,
+                                         &AssociatedKey.constraintCache,
+                                         cache,
+                                         .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                return cache
+            }
+        }
+        set {
+            objc_setAssociatedObject(self,
+                                     &AssociatedKey.constraintCache,
+                                     newValue,
+                                     .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    public func cache(_ constraint: NSLayoutConstraint) {
+        constraintCache[constraint] = constraint.constant
+    }
+
+    public func reset(_ constraint: NSLayoutConstraint) {
+        constraint.constant = constraintCache[constraint, default: 0]
+    }
+
     public func constrainEqual(attribute: NSLayoutConstraint.Attribute,
                                to: AnyObject,
                                multiplier: CGFloat = 1,
@@ -22,7 +60,8 @@ extension UIView {
                                                         attribute: attribute,
                                                         relatedBy: .equal,
                                                         toItem: to,
-                                                        attribute: toAttribute, multiplier: multiplier,
+                                                        attribute: toAttribute,
+                                                        multiplier: multiplier,
                                                         constant: constant)])
     }
 

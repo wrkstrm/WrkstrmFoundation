@@ -20,11 +20,8 @@ open class TableViewController<Model: TableViewDisplayable>: UITableViewControll
 
     open var genericDataSource: TableViewDataSource<Model>? {
         didSet {
-            if let classes = genericDataSource?.registrar?.classes as? [UITableViewCell.Type] {
-                tableView.register(classes: classes)
-            }
-            if let nibs = genericDataSource?.registrar?.nibs as? [UITableViewCell.Type] {
-                tableView.register(nib: nibs)
+            if let registrar = genericDataSource?.registrar {
+                tableView.addRegistar(registrar)
             }
             tableView.dataSource = genericDataSource
             tableView.reloadData()

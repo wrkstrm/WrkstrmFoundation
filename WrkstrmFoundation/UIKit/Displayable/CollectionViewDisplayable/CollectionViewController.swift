@@ -20,11 +20,8 @@ open class CollectionViewController<Model: CollectionViewDisplayable>: UICollect
 
     open var genericDataSource: CollectionViewDataSource<Model>? {
         didSet {
-            if let classes = genericDataSource?.registrar?.classes as? [UICollectionReusableView.Type] {
-                collectionView.register(classes: classes)
-            }
-            if let nibs = genericDataSource?.registrar?.nibs as? [UICollectionReusableView.Type] {
-                collectionView.register(nib: nibs)
+            if let registrar = genericDataSource?.registrar {
+                collectionView.addRegistar(registrar)
             }
             collectionView.dataSource = genericDataSource
             collectionView.reloadData()
