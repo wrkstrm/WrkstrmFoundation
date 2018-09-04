@@ -10,7 +10,7 @@ import Foundation
 
 extension CGFloat {
 
-    static let minAlphaForTouchInput: CGFloat = 0.010000001
+    public static let minAlphaForTouchInput: CGFloat = 0.010000001
 }
 
 extension UIView {
