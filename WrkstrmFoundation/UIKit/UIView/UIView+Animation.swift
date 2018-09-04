@@ -15,39 +15,46 @@ extension CGFloat {
 
 extension UIView {
 
-    func perform(animation: Animation, completion: ((UIViewAnimatingPosition) -> Void)?) {
-        guard case let .animation(options, stage, next) = animation else { return }
+    @discardableResult
+    public func perform(animation: Animation,
+                        completion: ((UIViewAnimatingPosition) -> Void)?) -> UIViewPropertyAnimator {
+        let options = animation.options
+        let stage = animation.stage
 
         stage.load?()
         self.layoutIfNeeded()
 
-        let animations = {
+        let animations = { [weak self] in
             stage.perform?()
-            self.layoutIfNeeded()
+            self?.layoutIfNeeded()
         }
 
-        let finalCompletion: (UIViewAnimatingPosition) -> Void = { position in
+        let finalCompletion: (UIViewAnimatingPosition) -> Void = { [weak self] position in
+            guard let strongSelf = self else {
+                completion?(position)
+                return
+            }
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + options.hold) {
-                if let next = next {
-                    self.perform(animation: next, completion: completion)
+                if let next = animation.next {
+                    strongSelf.perform(animation: next, completion: completion)
                 } else {
                     completion?(position)
                 }
             }
         }
 
-        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: options.duration,
-                                                       delay: options.delay,
-                                                       options: options.timingOptions,
-                                                       animations: animations,
-                                                       completion: finalCompletion)
+        return UIViewPropertyAnimator.runningPropertyAnimator(withDuration: options.duration,
+                                                              delay: options.delay,
+                                                              options: options.timingOptions,
+                                                              animations: animations,
+                                                              completion: finalCompletion)
     }
 
-    func hide(_ views: [UIView]) {
+    public func hide(_ views: [UIView]) {
         views.forEach { $0.alpha = .minAlphaForTouchInput }
     }
 
-    func show(_ views: [UIView]) {
+    public func show(_ views: [UIView]) {
         views.forEach { $0.alpha = 1 }
     }
 }

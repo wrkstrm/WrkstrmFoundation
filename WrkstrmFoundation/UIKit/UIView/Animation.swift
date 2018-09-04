@@ -8,9 +8,26 @@
 
 import UIKit
 
-public indirect enum Animation {
+public class Animation {
 
-    case animation(Options, Stage, Animation?)
+    public let options: Options
+
+    public let stage: Stage
+
+    public var next: Animation?
+
+    public init(options: Options, stage: Stage, next: Animation?) {
+        self.options = options
+        self.stage = stage
+        self.next = next
+    }
+
+    public convenience init(options: Options, stage: Stage) {
+        self.init(options: options, stage: stage, next: nil)
+    }
+}
+
+extension Animation {
 
     public struct Options: Equatable {
 
@@ -60,19 +77,8 @@ public indirect enum Animation {
     }
 }
 
-public extension Animation {
-
-    public init(options: Options, stage: Stage, next: Animation?) {
-        self = .animation(options, stage, next)
-    }
-
-    public init(options: Options, stage: Stage) {
-        self = .animation(options, stage, nil)
-    }
-}
-
 extension Animation: Sequence {
-    
+
     public func makeIterator() -> AnimationIterator {
         return AnimationIterator(animation: self)
     }
@@ -83,11 +89,10 @@ public struct AnimationIterator: IteratorProtocol {
     var animation: Animation?
 
     public mutating func next() -> Animation? {
-        switch animation {
-        case let .animation(_, _, next)?:
-            animation = next
+        if let next = animation {
+            animation = next.next
             return next
-        case .none:
+        } else {
             return nil
         }
     }
