@@ -22,10 +22,10 @@ public indirect enum Animation {
 
         public let hold: TimeInterval
 
-        init(duration: TimeInterval,
-             delay: TimeInterval = 0,
-             timingOptions: UIView.AnimationOptions = [],
-             hold: TimeInterval = 0) {
+        public init(duration: TimeInterval,
+                    delay: TimeInterval = 0,
+                    timingOptions: UIView.AnimationOptions = [],
+                    hold: TimeInterval = 0) {
             self.duration = duration
             self.delay = delay
             self.timingOptions = timingOptions
@@ -72,7 +72,7 @@ public extension Animation {
 }
 
 extension Animation: Sequence {
-
+    
     public func makeIterator() -> AnimationIterator {
         return AnimationIterator(animation: self)
     }
