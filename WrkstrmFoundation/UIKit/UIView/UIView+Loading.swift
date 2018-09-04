@@ -18,7 +18,7 @@ extension UIView {
         static var embeddedView = "wsm_embeddedView"
     }
 
-    @IBOutlet var embeddedView: UIView? {
+    @IBOutlet public var embeddedView: UIView? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKey.embeddedView) as? UIView
         }
@@ -32,7 +32,7 @@ extension UIView {
 
     // MARK: View Loading
 
-    class func forDefaultNib<View: UIView>(_ viewClass: View.Type) -> View {
+    open class func forDefaultNib<View: UIView>(_ viewClass: View.Type) -> View {
         let nibName = String(describing: viewClass)
         let nibObjects = Bundle(for: viewClass).loadNibNamed(nibName, owner: self, options: nil)
         if let view = nibObjects?.first as? View {
@@ -44,19 +44,19 @@ extension UIView {
 
     /// Returns the center of the bounds.
     /// Helpful when trying to center a subview insdide another subview.
-    var boundsCenter: CGPoint {
+    public var boundsCenter: CGPoint {
         return CGPoint(x: bounds.midX, y: bounds.midY)
     }
 
     /// Override this method to specify a nib that is not named similarly to the class name.
     /// This is required for Nested view types in Swift.
     //// Names like Nested.View are translated to simply "View"
-    var defaultNib: UINib? {
+    open var defaultNib: UINib? {
         return nil
     }
 
     /// Calls this method in a commonInit after both init with frame and coder to add the embedded view.
-    func loadEmbeddedView() {
+    open func loadEmbeddedView() {
         let nib = defaultNib ?? UINib(nibName: String(describing: type(of: self)),
                                       bundle: Bundle(for: type(of: self)))
         nib.instantiate(withOwner: self, options: nil)
@@ -69,7 +69,7 @@ extension UIView {
         }
     }
 
-    func round(corners: UIRectCorner, radius: CGFloat) {
+    public func round(corners: UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: bounds,
                                 byRoundingCorners: corners,
                                 cornerRadii: CGSize(width: radius, height: radius))
