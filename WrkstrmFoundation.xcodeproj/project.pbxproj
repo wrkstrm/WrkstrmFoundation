@@ -17,11 +17,12 @@
 		583422D42138EE08001FB13F /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422D32138EE08001FB13F /* Grid.swift */; };
 		5850828E213BB43300293024 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5850828D213BB43300293024 /* Result.swift */; };
 		58508299213BB94700293024 /* TreeClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58508298213BB94700293024 /* TreeClass.swift */; };
-		58624C05213DCA8300E23B17 /* UIView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58624C04213DCA8300E23B17 /* UIView+Loading.swift */; };
+		58624C05213DCA8300E23B17 /* UIView+Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58624C04213DCA8300E23B17 /* UIView+Geometry.swift */; };
 		58624C09213DD1BE00E23B17 /* UITableView+Registrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58624C08213DD1BE00E23B17 /* UITableView+Registrar.swift */; };
 		58624C0B213DD28C00E23B17 /* UICollectionView+Registrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58624C0A213DD28C00E23B17 /* UICollectionView+Registrar.swift */; };
 		58624C11213E094400E23B17 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58624C10213E094400E23B17 /* Animation.swift */; };
 		58624C17213E09F300E23B17 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58624C16213E09F300E23B17 /* UIView+Animation.swift */; };
+		58624C3D2143DBA400E23B17 /* UINibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58624C3C2143DBA400E23B17 /* UINibView.swift */; };
 		586AFEC1213B9CD20018DAA1 /* NotificationCenter+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */; };
 		587954DB213BCDEA0064928C /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587954DA213BCDEA0064928C /* CollectionViewController.swift */; };
 		587954DD213BCF2A0064928C /* UICollectionView+ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587954DC213BCF2A0064928C /* UICollectionView+ReusableCell.swift */; };
@@ -75,11 +76,12 @@
 		583422D32138EE08001FB13F /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		5850828D213BB43300293024 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		58508298213BB94700293024 /* TreeClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeClass.swift; sourceTree = "<group>"; };
-		58624C04213DCA8300E23B17 /* UIView+Loading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Loading.swift"; sourceTree = "<group>"; };
+		58624C04213DCA8300E23B17 /* UIView+Geometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Geometry.swift"; sourceTree = "<group>"; };
 		58624C08213DD1BE00E23B17 /* UITableView+Registrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Registrar.swift"; sourceTree = "<group>"; };
 		58624C0A213DD28C00E23B17 /* UICollectionView+Registrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Registrar.swift"; sourceTree = "<group>"; };
 		58624C10213E094400E23B17 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		58624C16213E09F300E23B17 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
+		58624C3C2143DBA400E23B17 /* UINibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINibView.swift; sourceTree = "<group>"; };
 		586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Utilities.swift"; sourceTree = "<group>"; };
 		587954DA213BCDEA0064928C /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		587954DC213BCF2A0064928C /* UICollectionView+ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReusableCell.swift"; sourceTree = "<group>"; };
@@ -199,9 +201,10 @@
 		583422C52138D7A2001FB13F /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				58624C3C2143DBA400E23B17 /* UINibView.swift */,
 				58624C10213E094400E23B17 /* Animation.swift */,
 				58624C16213E09F300E23B17 /* UIView+Animation.swift */,
-				58624C04213DCA8300E23B17 /* UIView+Loading.swift */,
+				58624C04213DCA8300E23B17 /* UIView+Geometry.swift */,
 				583422C32138D79D001FB13F /* UIView+Constraints.swift */,
 			);
 			path = UIView;
@@ -487,7 +490,7 @@
 				58DF7E712135D02D000D3CF9 /* TableViewController.swift in Sources */,
 				58DF7E792135D07D000D3CF9 /* JSONDataSource.swift in Sources */,
 				583422BD2138D4DF001FB13F /* ListEnum.swift in Sources */,
-				58624C05213DCA8300E23B17 /* UIView+Loading.swift in Sources */,
+				58624C05213DCA8300E23B17 /* UIView+Geometry.swift in Sources */,
 				58624C09213DD1BE00E23B17 /* UITableView+Registrar.swift in Sources */,
 				58DF7E6F2135D02D000D3CF9 /* ReusableCell.swift in Sources */,
 				58624C0B213DD28C00E23B17 /* UICollectionView+Registrar.swift in Sources */,
@@ -503,6 +506,7 @@
 				58DF7E8C2135D156000D3CF9 /* CodableArchiver.swift in Sources */,
 				58DF7E872135D10B000D3CF9 /* Collection+Utilities.swift in Sources */,
 				587954DD213BCF2A0064928C /* UICollectionView+ReusableCell.swift in Sources */,
+				58624C3D2143DBA400E23B17 /* UINibView.swift in Sources */,
 				58DF7E722135D02D000D3CF9 /* UITableViewCell+ReusableCell.swift in Sources */,
 				58CFA70C213CBB0E009D0F3F /* Comparable+Swift.swift in Sources */,
 				583422C12138D54B001FB13F /* Palette.swift in Sources */,
