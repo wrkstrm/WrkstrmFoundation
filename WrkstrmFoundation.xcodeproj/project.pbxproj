@@ -26,10 +26,12 @@
 		587954DB213BCDEA0064928C /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587954DA213BCDEA0064928C /* CollectionViewController.swift */; };
 		587954DD213BCF2A0064928C /* UICollectionView+ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587954DC213BCF2A0064928C /* UICollectionView+ReusableCell.swift */; };
 		587D53102136174F00FB0B58 /* Encoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587D530F2136174E00FB0B58 /* Encoders.swift */; };
+		58CDE6B921463A93005EB16E /* Sequence+Decompose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CDE6B821463A93005EB16E /* Sequence+Decompose.swift */; };
+		58CDE6BB21463B2D005EB16E /* Calendar+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CDE6BA21463B2D005EB16E /* Calendar+Utilities.swift */; };
 		58CFA702213C684C009D0F3F /* TableViewDisplayble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA701213C684C009D0F3F /* TableViewDisplayble.swift */; };
 		58CFA704213C6B45009D0F3F /* CollectionViewDisplayble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA703213C6B45009D0F3F /* CollectionViewDisplayble.swift */; };
 		58CFA70A213C8EBD009D0F3F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA709213C8EBD009D0F3F /* CollectionViewCell.swift */; };
-		58CFA70C213CBB0E009D0F3F /* Comparable+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA70B213CBB0E009D0F3F /* Comparable+Swift.swift */; };
+		58CFA70C213CBB0E009D0F3F /* SortStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA70B213CBB0E009D0F3F /* SortStruct.swift */; };
 		58DF7E502135CE05000D3CF9 /* WrkstrmFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */; };
 		58DF7E552135CE05000D3CF9 /* WrkstrmFoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E542135CE05000D3CF9 /* WrkstrmFoundationTests.swift */; };
 		58DF7E572135CE05000D3CF9 /* WrkstrmFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 58DF7E492135CE05000D3CF9 /* WrkstrmFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -84,10 +86,12 @@
 		587954DA213BCDEA0064928C /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		587954DC213BCF2A0064928C /* UICollectionView+ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReusableCell.swift"; sourceTree = "<group>"; };
 		587D530F2136174E00FB0B58 /* Encoders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encoders.swift; sourceTree = "<group>"; };
+		58CDE6B821463A93005EB16E /* Sequence+Decompose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sequence+Decompose.swift"; sourceTree = "<group>"; };
+		58CDE6BA21463B2D005EB16E /* Calendar+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calendar+Utilities.swift"; sourceTree = "<group>"; };
 		58CFA701213C684C009D0F3F /* TableViewDisplayble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDisplayble.swift; sourceTree = "<group>"; };
 		58CFA703213C6B45009D0F3F /* CollectionViewDisplayble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDisplayble.swift; sourceTree = "<group>"; };
 		58CFA709213C8EBD009D0F3F /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
-		58CFA70B213CBB0E009D0F3F /* Comparable+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+Swift.swift"; sourceTree = "<group>"; };
+		58CFA70B213CBB0E009D0F3F /* SortStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortStruct.swift; sourceTree = "<group>"; };
 		58DF7E462135CE05000D3CF9 /* WrkstrmFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WrkstrmFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58DF7E492135CE05000D3CF9 /* WrkstrmFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WrkstrmFoundation.h; sourceTree = "<group>"; };
 		58DF7E4A2135CE05000D3CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -330,10 +334,12 @@
 			isa = PBXGroup;
 			children = (
 				5850828D213BB43300293024 /* Result.swift */,
-				58CFA70B213CBB0E009D0F3F /* Comparable+Swift.swift */,
+				58CFA70B213CBB0E009D0F3F /* SortStruct.swift */,
+				58CDE6B821463A93005EB16E /* Sequence+Decompose.swift */,
 				586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */,
 				58DF7E822135D10A000D3CF9 /* Collection+Utilities.swift */,
 				58DF7E802135D10A000D3CF9 /* DateFormatter+Utilities.swift */,
+				58CDE6BA21463B2D005EB16E /* Calendar+Utilities.swift */,
 				58DF7E832135D10A000D3CF9 /* NumberFormatter+Utilities.swift */,
 				58DF7E842135D10B000D3CF9 /* String+Utilities.swift */,
 			);
@@ -489,6 +495,7 @@
 				583422BD2138D4DF001FB13F /* ListEnum.swift in Sources */,
 				58624C05213DCA8300E23B17 /* UIView+Geometry.swift in Sources */,
 				58624C09213DD1BE00E23B17 /* UITableView+Registrar.swift in Sources */,
+				58CDE6BB21463B2D005EB16E /* Calendar+Utilities.swift in Sources */,
 				58DF7E6F2135D02D000D3CF9 /* ReusableCell.swift in Sources */,
 				58624C0B213DD28C00E23B17 /* UICollectionView+Registrar.swift in Sources */,
 				58DF7E882135D10B000D3CF9 /* NumberFormatter+Utilities.swift in Sources */,
@@ -504,7 +511,7 @@
 				58DF7E872135D10B000D3CF9 /* Collection+Utilities.swift in Sources */,
 				587954DD213BCF2A0064928C /* UICollectionView+ReusableCell.swift in Sources */,
 				58DF7E722135D02D000D3CF9 /* UITableViewCell+ReusableCell.swift in Sources */,
-				58CFA70C213CBB0E009D0F3F /* Comparable+Swift.swift in Sources */,
+				58CFA70C213CBB0E009D0F3F /* SortStruct.swift in Sources */,
 				583422C12138D54B001FB13F /* Palette.swift in Sources */,
 				586AFEC1213B9CD20018DAA1 /* NotificationCenter+Utilities.swift in Sources */,
 				58DF7E6D2135D02D000D3CF9 /* Displayable.swift in Sources */,
@@ -515,6 +522,7 @@
 				58DF7E6E2135D02D000D3CF9 /* ReusableItem.swift in Sources */,
 				58508299213BB94700293024 /* TreeClass.swift in Sources */,
 				58DF7E862135D10B000D3CF9 /* Injectable.swift in Sources */,
+				58CDE6B921463A93005EB16E /* Sequence+Decompose.swift in Sources */,
 				583422BB2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift in Sources */,
 				58DF7E7B2135D07D000D3CF9 /* JSONCells.swift in Sources */,
 				5850828E213BB43300293024 /* Result.swift in Sources */,

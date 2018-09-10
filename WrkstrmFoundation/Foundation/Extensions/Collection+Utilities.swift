@@ -9,6 +9,7 @@
 import Foundation
 
 public extension Collection where Element: Comparable, Index == Int {
+
     public func search(key: Element) -> Int? {
         var lower = self.startIndex
         var upper = self.endIndex
@@ -28,6 +29,7 @@ public extension Collection where Element: Comparable, Index == Int {
 }
 
 public extension Collection where Element: Comparable, Index == Int {
+
     func mergeSort() -> [Element] {
         guard self.count > 1 else { return Array(self) }
 

@@ -24,7 +24,7 @@ extension Notification {
         }
     }
 
-    /// NotifiationTokens automatically deregister themselves when their reference count reaches zero.
+    /// A Notifiation.Token automatically deregister itself when it's reference count reaches zero.
     public class Token {
 
         public let token: NSObjectProtocol
@@ -56,4 +56,11 @@ public extension NotificationCenter {
     public func post<A>(_ transformer: Notification.Transformer<A>, value: A) {
         post(name: transformer.name, object: A.self == Void.self ? nil : value)
     }
+}
+
+// MARK: - Common Notification Transformers
+
+public extension Notification {
+
+    static let contentSize = Transformer<Void>(name: UIContentSizeCategory.didChangeNotification)
 }
