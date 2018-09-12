@@ -6,7 +6,7 @@
 //  Copyright © 2018 Cristian Monterroza. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension CGFloat {
 

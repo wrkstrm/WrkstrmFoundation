@@ -16,7 +16,7 @@ extension Calendar {
 extension Date {
 
     func component(_ component: Calendar.Component,
-                       calendar: Calendar = Calendar.default) -> Int {
+                   calendar: Calendar = Calendar.default) -> Int {
         return calendar.component(component, from: self)
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5810233A2148E5BE00E87B82 /* CAGradientLayer+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581023392148E5BE00E87B82 /* CAGradientLayer+Utilities.swift */; };
 		581759562136246C00388C55 /* HSLuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 581759552136246C00388C55 /* HSLuv.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		583422B82138D245001FB13F /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422B72138D245001FB13F /* CollectionViewDataSource.swift */; };
 		583422BB2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583422BA2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift */; };
@@ -67,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		581023392148E5BE00E87B82 /* CAGradientLayer+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CAGradientLayer+Utilities.swift"; sourceTree = "<group>"; };
 		581759552136246C00388C55 /* HSLuv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HSLuv.framework; path = Carthage/Build/iOS/HSLuv.framework; sourceTree = "<group>"; };
 		583422B72138D245001FB13F /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
 		583422BA2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView+ReusableCell.swift"; sourceTree = "<group>"; };
@@ -192,21 +194,15 @@
 			path = "Enum Based";
 			sourceTree = "<group>";
 		};
-		583422C22138D54F001FB13F /* Colors */ = {
-			isa = PBXGroup;
-			children = (
-				583422C02138D54B001FB13F /* Palette.swift */,
-			);
-			path = Colors;
-			sourceTree = "<group>";
-		};
 		583422C52138D7A2001FB13F /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				583422C02138D54B001FB13F /* Palette.swift */,
 				58624C10213E094400E23B17 /* Animation.swift */,
 				58624C16213E09F300E23B17 /* UIView+Animation.swift */,
 				58624C04213DCA8300E23B17 /* UIView+Geometry.swift */,
 				583422C32138D79D001FB13F /* UIView+Constraints.swift */,
+				581023392148E5BE00E87B82 /* CAGradientLayer+Utilities.swift */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -282,9 +278,8 @@
 		58DF7E612135CFE9000D3CF9 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				583422D52138EE0F001FB13F /* StackViewController */,
 				583422C52138D7A2001FB13F /* UIView */,
-				583422C22138D54F001FB13F /* Colors */,
+				583422D52138EE0F001FB13F /* StackViewController */,
 				58DF7E7E2135D0D2000D3CF9 /* Displayable */,
 				58DF7E7F2135D0DB000D3CF9 /* JSON */,
 			);
@@ -336,8 +331,8 @@
 				5850828D213BB43300293024 /* Result.swift */,
 				58CFA70B213CBB0E009D0F3F /* SortStruct.swift */,
 				58CDE6B821463A93005EB16E /* Sequence+Decompose.swift */,
-				586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */,
 				58DF7E822135D10A000D3CF9 /* Collection+Utilities.swift */,
+				586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */,
 				58DF7E802135D10A000D3CF9 /* DateFormatter+Utilities.swift */,
 				58CDE6BA21463B2D005EB16E /* Calendar+Utilities.swift */,
 				58DF7E832135D10A000D3CF9 /* NumberFormatter+Utilities.swift */,
@@ -523,6 +518,7 @@
 				58508299213BB94700293024 /* TreeClass.swift in Sources */,
 				58DF7E862135D10B000D3CF9 /* Injectable.swift in Sources */,
 				58CDE6B921463A93005EB16E /* Sequence+Decompose.swift in Sources */,
+				5810233A2148E5BE00E87B82 /* CAGradientLayer+Utilities.swift in Sources */,
 				583422BB2138D278001FB13F /* UICollectionReusableView+ReusableCell.swift in Sources */,
 				58DF7E7B2135D07D000D3CF9 /* JSONCells.swift in Sources */,
 				5850828E213BB43300293024 /* Result.swift in Sources */,
@@ -604,13 +600,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -662,12 +659,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
