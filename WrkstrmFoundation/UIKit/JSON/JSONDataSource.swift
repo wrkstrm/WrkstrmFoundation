@@ -148,13 +148,13 @@ public struct JSON {
 
 public protocol JSONTableViewDisplayable {
 
-    func jsonDataSource(config: TableViewDataSource<JSON.Displayable>.CellConfig?) ->
+    func jsonDictionaryDataSource(config: TableViewDataSource<JSON.Displayable>.CellConfig?) ->
         TableViewDataSource<JSON.Displayable>
 }
 
 extension JSONTableViewDisplayable where Self: Codable {
 
-    public func convertToJSON() -> JSONDictionary {
+    public func convertToJSONDictionary() -> JSONDictionary {
 
         // swiftlint:disable:next force_try
         let data = try! JSONEncoder.default.encode(self)
@@ -164,10 +164,10 @@ extension JSONTableViewDisplayable where Self: Codable {
         // swiftlint:disable:previous force_cast
     }
 
-    public func jsonDataSource(config: TableViewDataSource<JSON.Displayable>.CellConfig? = nil) ->
+    public func jsonDictionaryDataSource(config: TableViewDataSource<JSON.Displayable>.CellConfig? = nil) ->
         TableViewDataSource<JSON.Displayable> {
 
-            let displayble = JSON.Displayable(jsonArray: [convertToJSON()],
+            let displayble = JSON.Displayable(jsonArray: [convertToJSONDictionary()],
                                               dateKeyFuzzyOverride: ["time", "date"])
             let dataSource = displayble.dataSource(config: config)
             dataSource.registrar = JSON.registrar
