@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol TableViewDisplayable: Displayable where Item: TableReusableItem {
+public protocol TableViewDisplayable: Indexable where Item: TableReusableItem {
 
     func reusableCell(for path: IndexPath) -> TableReusableCell.Type
 

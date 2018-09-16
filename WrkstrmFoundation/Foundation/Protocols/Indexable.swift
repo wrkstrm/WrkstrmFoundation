@@ -1,5 +1,5 @@
 //
-//  Displayable.swift
+//  Indexable.swift
 //  WrkstrmFoundation
 //
 //  Created by Cristian Monterroza on 7/5/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol Displayable {
+public protocol Indexable {
 
     associatedtype Item: Equatable
 
@@ -19,7 +19,7 @@ public protocol Displayable {
     func indexPath(for item: Item) -> IndexPath?
 }
 
-extension Displayable {
+extension Indexable {
 
     var numberOfSections: Int {
         return items.count
@@ -43,11 +43,11 @@ extension Displayable {
     }
 }
 
-extension Array: Displayable where Element: Equatable {
+extension Array: Indexable where Element: Equatable {
 
     public typealias Item = Element
 
-    public var items: [[Element]] {
+    public var items: [[Item]] {
         return [self]
     }
 }

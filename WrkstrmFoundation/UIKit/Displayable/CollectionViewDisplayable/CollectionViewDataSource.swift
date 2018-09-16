@@ -13,7 +13,7 @@ public class PlaceholderSupplementaryCell: UICollectionViewCell {}
 public class PlaceholderCollectionCell: UICollectionViewCell {}
 
 public class CollectionViewDataSource<Model: CollectionViewDisplayable>:
-NSObject, UICollectionViewDataSource, Displayable {
+NSObject, UICollectionViewDataSource, Indexable {
 
     public typealias CellConfig = (UICollectionViewCell, Model.Item, IndexPath) -> Void
 

@@ -23,12 +23,12 @@
 		58624C0B213DD28C00E23B17 /* UICollectionView+Registrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58624C0A213DD28C00E23B17 /* UICollectionView+Registrar.swift */; };
 		58624C11213E094400E23B17 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58624C10213E094400E23B17 /* Animation.swift */; };
 		58624C17213E09F300E23B17 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58624C16213E09F300E23B17 /* UIView+Animation.swift */; };
-		586AFEC1213B9CD20018DAA1 /* NotificationCenter+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */; };
+		586AFEC1213B9CD20018DAA1 /* NotificationCenter+Transformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586AFEC0213B9CD20018DAA1 /* NotificationCenter+Transformers.swift */; };
 		587954DB213BCDEA0064928C /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587954DA213BCDEA0064928C /* CollectionViewController.swift */; };
 		587954DD213BCF2A0064928C /* UICollectionView+ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587954DC213BCF2A0064928C /* UICollectionView+ReusableCell.swift */; };
-		587D53102136174F00FB0B58 /* Encoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587D530F2136174E00FB0B58 /* Encoders.swift */; };
+		587D53102136174F00FB0B58 /* JSONCoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587D530F2136174E00FB0B58 /* JSONCoders.swift */; };
 		58CDE6B921463A93005EB16E /* Sequence+Decompose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CDE6B821463A93005EB16E /* Sequence+Decompose.swift */; };
-		58CDE6BB21463B2D005EB16E /* Calendar+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CDE6BA21463B2D005EB16E /* Calendar+Utilities.swift */; };
+		58CDE6BB21463B2D005EB16E /* Date+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CDE6BA21463B2D005EB16E /* Date+Utilities.swift */; };
 		58CFA702213C684C009D0F3F /* TableViewDisplayble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA701213C684C009D0F3F /* TableViewDisplayble.swift */; };
 		58CFA704213C6B45009D0F3F /* CollectionViewDisplayble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA703213C6B45009D0F3F /* CollectionViewDisplayble.swift */; };
 		58CFA70A213C8EBD009D0F3F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CFA709213C8EBD009D0F3F /* CollectionViewCell.swift */; };
@@ -38,7 +38,7 @@
 		58DF7E572135CE05000D3CF9 /* WrkstrmFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 58DF7E492135CE05000D3CF9 /* WrkstrmFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		58DF7E6B2135D02D000D3CF9 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E622135D02D000D3CF9 /* TableViewCell.swift */; };
 		58DF7E6C2135D02D000D3CF9 /* Registrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E632135D02D000D3CF9 /* Registrar.swift */; };
-		58DF7E6D2135D02D000D3CF9 /* Displayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E642135D02D000D3CF9 /* Displayable.swift */; };
+		58DF7E6D2135D02D000D3CF9 /* Indexable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E642135D02D000D3CF9 /* Indexable.swift */; };
 		58DF7E6E2135D02D000D3CF9 /* ReusableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E652135D02D000D3CF9 /* ReusableItem.swift */; };
 		58DF7E6F2135D02D000D3CF9 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E662135D02D000D3CF9 /* ReusableCell.swift */; };
 		58DF7E702135D02D000D3CF9 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E672135D02D000D3CF9 /* TableViewDataSource.swift */; };
@@ -52,8 +52,8 @@
 		58DF7E852135D10B000D3CF9 /* DateFormatter+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E802135D10A000D3CF9 /* DateFormatter+Utilities.swift */; };
 		58DF7E862135D10B000D3CF9 /* Injectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E812135D10A000D3CF9 /* Injectable.swift */; };
 		58DF7E872135D10B000D3CF9 /* Collection+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E822135D10A000D3CF9 /* Collection+Utilities.swift */; };
-		58DF7E882135D10B000D3CF9 /* NumberFormatter+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E832135D10A000D3CF9 /* NumberFormatter+Utilities.swift */; };
-		58DF7E892135D10B000D3CF9 /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E842135D10B000D3CF9 /* String+Utilities.swift */; };
+		58DF7E882135D10B000D3CF9 /* NumberFormatter+Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E832135D10A000D3CF9 /* NumberFormatter+Localize.swift */; };
+		58DF7E892135D10B000D3CF9 /* String+Casing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E842135D10B000D3CF9 /* String+Casing.swift */; };
 		58DF7E8C2135D156000D3CF9 /* CodableArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF7E8B2135D156000D3CF9 /* CodableArchiver.swift */; };
 /* End PBXBuildFile section */
 
@@ -84,12 +84,12 @@
 		58624C0A213DD28C00E23B17 /* UICollectionView+Registrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Registrar.swift"; sourceTree = "<group>"; };
 		58624C10213E094400E23B17 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		58624C16213E09F300E23B17 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
-		586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Utilities.swift"; sourceTree = "<group>"; };
+		586AFEC0213B9CD20018DAA1 /* NotificationCenter+Transformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Transformers.swift"; sourceTree = "<group>"; };
 		587954DA213BCDEA0064928C /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		587954DC213BCF2A0064928C /* UICollectionView+ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReusableCell.swift"; sourceTree = "<group>"; };
-		587D530F2136174E00FB0B58 /* Encoders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encoders.swift; sourceTree = "<group>"; };
+		587D530F2136174E00FB0B58 /* JSONCoders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONCoders.swift; sourceTree = "<group>"; };
 		58CDE6B821463A93005EB16E /* Sequence+Decompose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sequence+Decompose.swift"; sourceTree = "<group>"; };
-		58CDE6BA21463B2D005EB16E /* Calendar+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calendar+Utilities.swift"; sourceTree = "<group>"; };
+		58CDE6BA21463B2D005EB16E /* Date+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Utilities.swift"; sourceTree = "<group>"; };
 		58CFA701213C684C009D0F3F /* TableViewDisplayble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDisplayble.swift; sourceTree = "<group>"; };
 		58CFA703213C6B45009D0F3F /* CollectionViewDisplayble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDisplayble.swift; sourceTree = "<group>"; };
 		58CFA709213C8EBD009D0F3F /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 		58DF7E562135CE05000D3CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58DF7E622135D02D000D3CF9 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		58DF7E632135D02D000D3CF9 /* Registrar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Registrar.swift; sourceTree = "<group>"; };
-		58DF7E642135D02D000D3CF9 /* Displayable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Displayable.swift; sourceTree = "<group>"; };
+		58DF7E642135D02D000D3CF9 /* Indexable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Indexable.swift; sourceTree = "<group>"; };
 		58DF7E652135D02D000D3CF9 /* ReusableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableItem.swift; sourceTree = "<group>"; };
 		58DF7E662135D02D000D3CF9 /* ReusableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
 		58DF7E672135D02D000D3CF9 /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
@@ -116,8 +116,8 @@
 		58DF7E802135D10A000D3CF9 /* DateFormatter+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Utilities.swift"; sourceTree = "<group>"; };
 		58DF7E812135D10A000D3CF9 /* Injectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Injectable.swift; sourceTree = "<group>"; };
 		58DF7E822135D10A000D3CF9 /* Collection+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Utilities.swift"; sourceTree = "<group>"; };
-		58DF7E832135D10A000D3CF9 /* NumberFormatter+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Utilities.swift"; sourceTree = "<group>"; };
-		58DF7E842135D10B000D3CF9 /* String+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Utilities.swift"; sourceTree = "<group>"; };
+		58DF7E832135D10A000D3CF9 /* NumberFormatter+Localize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Localize.swift"; sourceTree = "<group>"; };
+		58DF7E842135D10B000D3CF9 /* String+Casing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Casing.swift"; sourceTree = "<group>"; };
 		58DF7E8B2135D156000D3CF9 /* CodableArchiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableArchiver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,6 +224,25 @@
 			path = "Class Based";
 			sourceTree = "<group>";
 		};
+		588C67C9214F0563009611FA /* Dates and Calendars */ = {
+			isa = PBXGroup;
+			children = (
+				58CDE6BA21463B2D005EB16E /* Date+Utilities.swift */,
+				58DF7E802135D10A000D3CF9 /* DateFormatter+Utilities.swift */,
+			);
+			path = "Dates and Calendars";
+			sourceTree = "<group>";
+		};
+		588C67CA214F0577009611FA /* Collection Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				58CFA70B213CBB0E009D0F3F /* SortStruct.swift */,
+				58CDE6B821463A93005EB16E /* Sequence+Decompose.swift */,
+				58DF7E822135D10A000D3CF9 /* Collection+Utilities.swift */,
+			);
+			path = "Collection Protocols";
+			sourceTree = "<group>";
+		};
 		58DF7E3C2135CE05000D3CF9 = {
 			isa = PBXGroup;
 			children = (
@@ -269,7 +288,7 @@
 				583422BE2138D4E3001FB13F /* Data Structures */,
 				58DF7E8D2135D15D000D3CF9 /* Persistence */,
 				58DF7E8A2135D114000D3CF9 /* Extensions */,
-				58DF7E7D2135D0B5000D3CF9 /* Displayable */,
+				58DF7E7D2135D0B5000D3CF9 /* Protocols */,
 				58DF7E7C2135D097000D3CF9 /* JSON */,
 			);
 			path = Foundation;
@@ -294,13 +313,14 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
-		58DF7E7D2135D0B5000D3CF9 /* Displayable */ = {
+		58DF7E7D2135D0B5000D3CF9 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				5850828D213BB43300293024 /* Result.swift */,
 				58DF7E812135D10A000D3CF9 /* Injectable.swift */,
-				58DF7E642135D02D000D3CF9 /* Displayable.swift */,
+				58DF7E642135D02D000D3CF9 /* Indexable.swift */,
 			);
-			path = Displayable;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		58DF7E7E2135D0D2000D3CF9 /* Displayable */ = {
@@ -328,15 +348,11 @@
 		58DF7E8A2135D114000D3CF9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				5850828D213BB43300293024 /* Result.swift */,
-				58CFA70B213CBB0E009D0F3F /* SortStruct.swift */,
-				58CDE6B821463A93005EB16E /* Sequence+Decompose.swift */,
-				58DF7E822135D10A000D3CF9 /* Collection+Utilities.swift */,
-				586AFEC0213B9CD20018DAA1 /* NotificationCenter+Utilities.swift */,
-				58DF7E802135D10A000D3CF9 /* DateFormatter+Utilities.swift */,
-				58CDE6BA21463B2D005EB16E /* Calendar+Utilities.swift */,
-				58DF7E832135D10A000D3CF9 /* NumberFormatter+Utilities.swift */,
-				58DF7E842135D10B000D3CF9 /* String+Utilities.swift */,
+				58DF7E842135D10B000D3CF9 /* String+Casing.swift */,
+				586AFEC0213B9CD20018DAA1 /* NotificationCenter+Transformers.swift */,
+				58DF7E832135D10A000D3CF9 /* NumberFormatter+Localize.swift */,
+				588C67CA214F0577009611FA /* Collection Protocols */,
+				588C67C9214F0563009611FA /* Dates and Calendars */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -344,7 +360,7 @@
 		58DF7E8D2135D15D000D3CF9 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
-				587D530F2136174E00FB0B58 /* Encoders.swift */,
+				587D530F2136174E00FB0B58 /* JSONCoders.swift */,
 				58DF7E8B2135D156000D3CF9 /* CodableArchiver.swift */,
 			);
 			path = Persistence;
@@ -490,14 +506,14 @@
 				583422BD2138D4DF001FB13F /* ListEnum.swift in Sources */,
 				58624C05213DCA8300E23B17 /* UIView+Geometry.swift in Sources */,
 				58624C09213DD1BE00E23B17 /* UITableView+Registrar.swift in Sources */,
-				58CDE6BB21463B2D005EB16E /* Calendar+Utilities.swift in Sources */,
+				58CDE6BB21463B2D005EB16E /* Date+Utilities.swift in Sources */,
 				58DF7E6F2135D02D000D3CF9 /* ReusableCell.swift in Sources */,
 				58624C0B213DD28C00E23B17 /* UICollectionView+Registrar.swift in Sources */,
-				58DF7E882135D10B000D3CF9 /* NumberFormatter+Utilities.swift in Sources */,
+				58DF7E882135D10B000D3CF9 /* NumberFormatter+Localize.swift in Sources */,
 				58CFA702213C684C009D0F3F /* TableViewDisplayble.swift in Sources */,
-				58DF7E892135D10B000D3CF9 /* String+Utilities.swift in Sources */,
+				58DF7E892135D10B000D3CF9 /* String+Casing.swift in Sources */,
 				58CFA70A213C8EBD009D0F3F /* CollectionViewCell.swift in Sources */,
-				587D53102136174F00FB0B58 /* Encoders.swift in Sources */,
+				587D53102136174F00FB0B58 /* JSONCoders.swift in Sources */,
 				58DF7E7A2135D07D000D3CF9 /* JSONTableViewController.swift in Sources */,
 				58DF7E6B2135D02D000D3CF9 /* TableViewCell.swift in Sources */,
 				587954DB213BCDEA0064928C /* CollectionViewController.swift in Sources */,
@@ -508,8 +524,8 @@
 				58DF7E722135D02D000D3CF9 /* UITableViewCell+ReusableCell.swift in Sources */,
 				58CFA70C213CBB0E009D0F3F /* SortStruct.swift in Sources */,
 				583422C12138D54B001FB13F /* Palette.swift in Sources */,
-				586AFEC1213B9CD20018DAA1 /* NotificationCenter+Utilities.swift in Sources */,
-				58DF7E6D2135D02D000D3CF9 /* Displayable.swift in Sources */,
+				586AFEC1213B9CD20018DAA1 /* NotificationCenter+Transformers.swift in Sources */,
+				58DF7E6D2135D02D000D3CF9 /* Indexable.swift in Sources */,
 				58624C17213E09F300E23B17 /* UIView+Animation.swift in Sources */,
 				58DF7E6C2135D02D000D3CF9 /* Registrar.swift in Sources */,
 				58DF7E732135D02D000D3CF9 /* UITableView+ReusableCell.swift in Sources */,

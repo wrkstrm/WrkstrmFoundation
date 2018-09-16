@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol CollectionViewDisplayable: Displayable where Item: CollectionReusableItem {
+public protocol CollectionViewDisplayable: Indexable where Item: CollectionReusableItem {
 
     func reusableCell(for path: IndexPath) -> CollectionReusableCell.Type
 
