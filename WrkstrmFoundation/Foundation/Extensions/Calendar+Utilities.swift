@@ -10,13 +10,13 @@ import UIKit
 
 extension Calendar {
 
-    static let `default` = Calendar(identifier: .gregorian)
+    public static let `default` = Calendar(identifier: .gregorian)
 }
 
 extension Date {
 
-    func component(_ component: Calendar.Component,
-                   calendar: Calendar = Calendar.default) -> Int {
+    public func component(_ component: Calendar.Component,
+                          calendar: Calendar = Calendar.default) -> Int {
         return calendar.component(component, from: self)
     }
 }
