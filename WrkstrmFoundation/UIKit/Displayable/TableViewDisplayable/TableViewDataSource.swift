@@ -14,6 +14,8 @@ public class TableViewDataSource<Model: TableViewDisplayable>: NSObject, UITable
 
     public typealias CellConfig = ((model: Model.Item, cell: UITableViewCell), IndexPath) -> Void
 
+    public let model: Model?
+
     public let items: [[Model.Item]]
 
     private var reusableTypes: [[ReusableCell.Type]]
@@ -27,6 +29,7 @@ public class TableViewDataSource<Model: TableViewDisplayable>: NSObject, UITable
     }
 
     init(items: [[Model.Item]], registrar: Registrar? = nil, config: CellConfig? = nil) {
+        model = nil
         self.items = items
         self.config = config
         self.registrar = registrar
@@ -42,7 +45,9 @@ public class TableViewDataSource<Model: TableViewDisplayable>: NSObject, UITable
     }
 
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if numberOfSections > 1 {
+        if let model = model {
+            return model.title(for: section)
+        } else if numberOfSections > 1 {
             return .localizedStringWithFormat("Item %@", (section + 1).integerString())
         } else {
             return nil

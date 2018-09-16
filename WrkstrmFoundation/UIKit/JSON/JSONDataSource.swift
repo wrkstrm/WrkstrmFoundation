@@ -107,6 +107,10 @@ public struct JSON {
             return values
         }
 
+        public func title(for section: Int) -> String? {
+            return nil
+        }
+
         func generateDateValue(_ key: String, anyValue: Any) -> Value {
             return .date(key, Date())
         }

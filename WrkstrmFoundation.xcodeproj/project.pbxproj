@@ -289,7 +289,6 @@
 		58DF7E7C2135D097000D3CF9 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
-				58DF7E752135D07D000D3CF9 /* JSONDataSource.swift */,
 				58DF7E742135D07D000D3CF9 /* JSONSupport.swift */,
 			);
 			path = JSON;
@@ -300,7 +299,6 @@
 			children = (
 				58DF7E812135D10A000D3CF9 /* Injectable.swift */,
 				58DF7E642135D02D000D3CF9 /* Displayable.swift */,
-				58DF7E652135D02D000D3CF9 /* ReusableItem.swift */,
 			);
 			path = Displayable;
 			sourceTree = "<group>";
@@ -309,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				58DF7E662135D02D000D3CF9 /* ReusableCell.swift */,
+				58DF7E652135D02D000D3CF9 /* ReusableItem.swift */,
 				58DF7E632135D02D000D3CF9 /* Registrar.swift */,
 				583422B62138D22C001FB13F /* TableViewDisplayable */,
 				583422B92138D257001FB13F /* CollectionViewDisplayable */,
@@ -320,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				58DF7E772135D07D000D3CF9 /* JSONCells.swift */,
+				58DF7E752135D07D000D3CF9 /* JSONDataSource.swift */,
 				58DF7E762135D07D000D3CF9 /* JSONTableViewController.swift */,
 			);
 			path = JSON;

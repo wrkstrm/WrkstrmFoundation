@@ -83,6 +83,7 @@ extension Sequence {
             }
             batch.append(item)
         }
+        all.append(batch)
         return all
     }
 

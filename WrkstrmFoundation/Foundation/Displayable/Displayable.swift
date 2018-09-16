@@ -44,6 +44,7 @@ extension Displayable {
 }
 
 extension Array: Displayable where Element: Equatable {
+
     public typealias Item = Element
 
     public var items: [[Element]] {

@@ -12,6 +12,8 @@ public protocol TableViewDisplayable: Displayable where Item: TableReusableItem 
 
     func reusableCell(for path: IndexPath) -> TableReusableCell.Type
 
+    func title(for section: Int) -> String?
+
     func dataSource(config: TableViewDataSource<Self>.CellConfig?) -> TableViewDataSource<Self>
 }
 
@@ -27,6 +29,10 @@ public extension TableViewDisplayable {
 }
 
 extension Array: TableViewDisplayable where Element: TableReusableItem {
+
+    public func title(for section: Int) -> String? {
+        return nil
+    }
 
     // swiftlint:disable:next line_length
     public func tableDataSource(config: TableViewDataSource<[Element]>.CellConfig? = nil) -> TableViewDataSource<[Element]> {
