@@ -1,6 +1,6 @@
 import Foundation
 
-extension Foundation.Calendar {
+public extension Foundation.Calendar {
 
-  public static let `default` = Foundation.Calendar(identifier: .gregorian)
+  static let `default` = Foundation.Calendar(identifier: .gregorian)
 }

@@ -39,7 +39,8 @@ public struct Sort<Type> {
   /// A convinience comparator creator given a comparable property.
   @_specialize(where Type: _NativeClass, P: _Trivial)
   public static func by<P: Comparable>(ascending: Bool = true,
-                                       _ property: @escaping Property<P>) -> Comparator {
+                                       _ property: @escaping Property<P>) -> Comparator
+  {
     if ascending {
       return { property($0) < property($1) }
     } else {

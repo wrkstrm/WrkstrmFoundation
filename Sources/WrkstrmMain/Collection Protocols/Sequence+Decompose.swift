@@ -1,8 +1,8 @@
-extension Sequence {
+public extension Sequence {
 
   // MARK: - Decompose
 
-  public func decomposeFirst(with predicate: (Element) -> Bool) -> (Element?, [Element]) {
+  func decomposeFirst(with predicate: (Element) -> Bool) -> (Element?, [Element]) {
     var first: Element?
     var others = [Element]()
     var iterator = makeIterator()
@@ -16,11 +16,11 @@ extension Sequence {
     return (first, others)
   }
 
-  public func decompose() -> (Element?, [Element]) {
+  func decompose() -> (Element?, [Element]) {
     decomposeFirst { _ in true }
   }
 
-  public func decomposeAll(with predicate: (Element) -> Bool) -> ([Element]?, [Element]) {
+  func decomposeAll(with predicate: (Element) -> Bool) -> ([Element]?, [Element]) {
     var all = [Element]()
     var others = [Element]()
     var iterator = makeIterator()
@@ -34,7 +34,7 @@ extension Sequence {
     return (all.isEmpty ? nil : all, others)
   }
 
-  public func decomposeUntil(with predicate: (Element) -> Bool) -> ([Element]?, [Element]) {
+  func decomposeUntil(with predicate: (Element) -> Bool) -> ([Element]?, [Element]) {
     var all = [Element]()
     var others = [Element]()
     var iterator = makeIterator()
@@ -52,17 +52,17 @@ extension Sequence {
 
   // MARK: - Contain
 
-  public func allMatch(_ predicate: (Element) -> Bool) -> Bool {
+  func allMatch(_ predicate: (Element) -> Bool) -> Bool {
     !contains { !predicate($0) }
   }
 
-  public func noneMatch(_ predicate: (Element) -> Bool) -> Bool {
+  func noneMatch(_ predicate: (Element) -> Bool) -> Bool {
     !contains { predicate($0) }
   }
 
   // MARK: - Batching
 
-  public func batches(by predicate: ([Element], Element) -> Bool) -> [[Element]] {
+  func batches(by predicate: ([Element], Element) -> Bool) -> [[Element]] {
     var all = [[Element]]()
     var batch = [Element]()
     var iterator = makeIterator()
@@ -77,7 +77,7 @@ extension Sequence {
     return all
   }
 
-  func split(batchSize: Int) -> [[Element]] {
+  internal func split(batchSize: Int) -> [[Element]] {
     batches { batch, _ in batch.count < batchSize }
   }
 }

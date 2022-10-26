@@ -1,6 +1,6 @@
-extension String {
+public extension String {
 
-  public func containsUniqueChars() -> Bool {
+  func containsUniqueChars() -> Bool {
     var set = Set<Character>()
     for character in self {
       if set.contains(character) {
@@ -12,9 +12,9 @@ extension String {
     return true
   }
 
-  public func isPermutation(_ other: String) -> Bool {
+  func isPermutation(_ other: String) -> Bool {
     guard count == other.count else { return false }
     return unicodeScalars.reduce(0) { return $0 + $1.value }
-      == other.unicodeScalars.reduce(0) { return $0 + $1.value }
+      == other.unicodeScalars.reduce(0) { $0 + $1.value }
   }
 }

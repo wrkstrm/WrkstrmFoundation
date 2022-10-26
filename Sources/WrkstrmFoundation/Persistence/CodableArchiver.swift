@@ -6,7 +6,7 @@ public struct CodableArchiver<T: Codable> {
 
   public let decoder: JSONDecoder
 
-  public let fileManager: FileManager = FileManager.default
+  public let fileManager: FileManager = .default
 
   public let archiveDirectory: URL
 
@@ -17,7 +17,8 @@ public struct CodableArchiver<T: Codable> {
     directory: FileManager.SearchPathDirectory,
     encoder: JSONEncoder = .default,
     decoder: JSONDecoder = .default,
-    searchPathDomainMask: FileManager.SearchPathDomainMask = [.allDomainsMask]) {
+    searchPathDomainMask: FileManager.SearchPathDomainMask = [.allDomainsMask])
+  {
     self.encoder = encoder
     self.decoder = decoder
     // swiftlint:disable:next force_unwrapping
@@ -29,7 +30,8 @@ public struct CodableArchiver<T: Codable> {
   public init(
     directory: URL,
     encoder: JSONEncoder = .default,
-    decoder: JSONDecoder = .default) {
+    decoder: JSONDecoder = .default)
+  {
     self.encoder = encoder
     self.decoder = decoder
     archiveDirectory = directory.deletingLastPathComponent()
@@ -39,18 +41,18 @@ public struct CodableArchiver<T: Codable> {
 
 // MARK: - Filemanager helpers
 
-extension CodableArchiver {
+public extension CodableArchiver {
 
-  public func filePathForKey(_ key: AnyHashable) -> String {
+  func filePathForKey(_ key: AnyHashable) -> String {
     archiveDirectory.appendingPathComponent(String(key.description)).path
   }
 }
 
 // MARK: - Workflow operations
 
-extension CodableArchiver {
+public extension CodableArchiver {
 
-  public func get(_ key: AnyHashable? = nil) -> T? {
+  func get(_ key: AnyHashable? = nil) -> T? {
     guard
       let data =
       NSKeyedUnarchiver.unarchiveObject(withFile: filePathForKey(key ?? self.key)) as? Data
@@ -66,7 +68,7 @@ extension CodableArchiver {
   }
 
   @discardableResult
-  public func set(_ value: T, forKey key: AnyHashable? = nil) -> Bool {
+  func set(_ value: T, forKey key: AnyHashable? = nil) -> Bool {
     let data = try? encoder.encode(value)
     try? fileManager.createDirectory(
       at: archiveDirectory,
@@ -80,7 +82,7 @@ extension CodableArchiver {
   }
 
   @discardableResult
-  public func set(_ value: [T], forKey key: AnyHashable? = nil) -> Bool {
+  func set(_ value: [T], forKey key: AnyHashable? = nil) -> Bool {
     let encodedValues = try? value.map { try encoder.encode($0) }
     try? fileManager.createDirectory(
       at: archiveDirectory,
@@ -95,7 +97,7 @@ extension CodableArchiver {
     }
   }
 
-  public func clear() throws {
+  func clear() throws {
     try fileManager.removeItem(at: archiveDirectory)
   }
 }

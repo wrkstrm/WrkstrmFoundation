@@ -25,7 +25,8 @@ public struct SortedArray<Element>: Collection {
 
   public init<S: Sequence>(
     unsorted: S,
-    sortOrder: @escaping Comparator<S.Element>) where S.Element == Element {
+    sortOrder: @escaping Comparator<S.Element>) where S.Element == Element
+  {
     elements = unsorted.sorted(by: sortOrder)
     self.sortOrder = sortOrder
   }
@@ -63,18 +64,18 @@ public struct SortedArray<Element>: Collection {
   public func max() -> Element? { elements.last }
 }
 
-extension SortedArray where Element: Comparable {
+public extension SortedArray where Element: Comparable {
 
-  public init() {
+  init() {
     self.init(unsorted: [Element](), sortOrder: <)
   }
 
-  public init<S: Sequence>(unsorted: S) where S.Element == Element {
+  init<S: Sequence>(unsorted: S) where S.Element == Element {
     self.init(unsorted: unsorted, sortOrder: <)
   }
 }
 
-extension Array where Element: Comparable {
+public extension Array where Element: Comparable {
 
-  public var sortedArray: SortedArray<Element> { SortedArray(unsorted: self) }
+  var sortedArray: SortedArray<Element> { SortedArray(unsorted: self) }
 }

@@ -1,17 +1,17 @@
 import Foundation
 
-extension JSONDecoder {
+public extension JSONDecoder {
 
-  public static let `default` = { () -> JSONDecoder in
+  static let `default` = { () -> JSONDecoder in
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .custom(Decoding.customDateDecoder)
     return decoder
   }()
 }
 
-extension JSONEncoder {
+public extension JSONEncoder {
 
-  public static let `default` = { () -> JSONEncoder in
+  static let `default` = { () -> JSONEncoder in
     let encoder = JSONEncoder()
     encoder.dateEncodingStrategy = .custom(Encoding.customDateEncoder)
     return encoder

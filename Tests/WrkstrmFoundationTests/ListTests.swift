@@ -11,7 +11,7 @@ final class ListTests: XCTestCase {
 
   var one = List.single(1, next: nil)
 
-  lazy var two = { List.single(2, next: one) }()
+  lazy var two = List.single(2, next: one)
 
   override func setUp() {
     super.setUp()

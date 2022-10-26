@@ -1,8 +1,8 @@
-extension Collection where Element: Comparable, Index == Int {
+public extension Collection where Element: Comparable, Index == Int {
 
   // MARK: - Binary Search
 
-  public func search(key: Element) -> Int? {
+  func search(key: Element) -> Int? {
     var lowerBound = startIndex
     var upperBound = endIndex
 
@@ -21,7 +21,7 @@ extension Collection where Element: Comparable, Index == Int {
 
   // MARK: - Merge Sort
 
-  public func mergeSort() -> [Element] {
+  func mergeSort() -> [Element] {
     guard count > 1 else { return Array(self) }
 
     let midIndex = startIndex + (endIndex - startIndex) / 2

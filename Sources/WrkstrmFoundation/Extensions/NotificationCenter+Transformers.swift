@@ -1,8 +1,8 @@
 import Foundation
 
-extension Notification {
+public extension Notification {
 
-  public struct Transformer<A> {
+  struct Transformer<A> {
 
     public let name: Notification.Name
 
@@ -11,14 +11,15 @@ extension Notification {
     public init(
       name: Notification.Name,  // swiftlint:disable:next force_cast
       transform: @escaping ((Notification) -> A) = { (A.self == Void.self ? () : $0.object) as! A
-      }) {
+      })
+    {
       self.name = name
       self.transform = transform
     }
   }
 
   /// A Notifiation.Token automatically deregister itself when it's reference count reaches zero.
-  public class Token {
+  class Token {
 
     public let token: NSObjectProtocol
 
@@ -35,19 +36,20 @@ extension Notification {
   }
 }
 
-extension NotificationCenter {
+public extension NotificationCenter {
 
-  public func addObserver<A>(
+  func addObserver<A>(
     for transformer: Notification.Transformer<A>,
     queue: OperationQueue? = .main,
-    using block: @escaping (A) -> Void) -> Notification.Token {
+    using block: @escaping (A) -> Void) -> Notification.Token
+  {
     let token = addObserver(forName: transformer.name, object: nil, queue: queue) { note in
       block(transformer.transform(note))
     }
     return Notification.Token(token: token, center: self)
   }
 
-  public func post<A>(_ transformer: Notification.Transformer<A>, value: A) {
+  func post<A>(_ transformer: Notification.Transformer<A>, value: A) {
     post(name: transformer.name, object: A.self == Void.self ? nil : value)
   }
 }

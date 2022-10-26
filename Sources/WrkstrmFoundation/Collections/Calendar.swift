@@ -10,9 +10,9 @@ public struct Calendar {
   }
 }
 
-extension Calendar {
+public extension Calendar {
 
-  public struct Event: Comparable, Equatable {
+  struct Event: Comparable, Equatable {
 
     public static func < (lhs: Event, rhs: Event) -> Bool {
       lhs.start < rhs.start
@@ -23,7 +23,7 @@ extension Calendar {
     let end: Date
 
     var interval: ClosedRange<TimeInterval> {
-      (start.timeIntervalSince1970...end.timeIntervalSince1970)
+      start.timeIntervalSince1970...end.timeIntervalSince1970
     }
 
     func overlaps(_ other: Event, gap: Double = 0) -> Bool {
