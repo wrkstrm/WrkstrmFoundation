@@ -35,9 +35,7 @@ final class BinaryTreeTests: XCTestCase {
   func testRandomTreeCount() {
     let randomTree = BinaryTree(1)
     let randomCount = Int.random(in: 0...10)
-    // Index starts at 1 because starting at 0 would add an extra element
-    // For example, 0..2, adds 3 elements instead of 2.
-    (1...randomCount).forEach { _ in
+    (0..<randomCount).forEach { _ in
       randomTree.insert(Int.random(in: 0...10))
     }
     XCTAssertTrue(randomTree.count == (randomCount + 1))
