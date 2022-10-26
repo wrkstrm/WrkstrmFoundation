@@ -1,4 +1,5 @@
 @testable import WrkstrmFoundation
+@testable import WrkstrmMain
 import XCTest
 
 final class CalendarTests: XCTestCase {
