@@ -34,15 +34,15 @@ public protocol LocalizedValues {
 extension LocalizedValues {
 
   public func integerString() -> String {
-    NumberFormatter.integer.string(for: self)!  //swiftlint:disable:this force_unwrapping
+    NumberFormatter.integer.string(for: self)!  // swiftlint:disable:this force_unwrapping
   }
 
   public func doubleString() -> String {
-    NumberFormatter.double.string(for: self)!  //swiftlint:disable:this force_unwrapping
+    NumberFormatter.double.string(for: self)!  // swiftlint:disable:this force_unwrapping
   }
 
   public func dollarString() -> String {
-    NumberFormatter.dollar.string(for: self)!  //swiftlint:disable:this force_unwrapping
+    NumberFormatter.dollar.string(for: self)!  // swiftlint:disable:this force_unwrapping
   }
 }
 

@@ -30,20 +30,20 @@ class BinaryTree<Value: Comparable> {
       } else {
         left = BinaryTree(value, parent: self)
       }
-      return left!  //swiftlint:disable:this force_unwrapping
+      return left!  // swiftlint:disable:this force_unwrapping
     } else {
       if let right = right {
         right.insert(value)
       } else {
         right = BinaryTree(value, parent: self)
       }
-      return right!  //swiftlint:disable:this force_unwrapping
+      return right!  // swiftlint:disable:this force_unwrapping
     }
   }
 
   enum Order {
     case pre
-    case `in`  //swiftlint:disable:this identifier_name
+    case `in`  // swiftlint:disable:this identifier_name
     case post
   }
 

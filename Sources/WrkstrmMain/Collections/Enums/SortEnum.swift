@@ -50,7 +50,7 @@ public struct Sort<Type> {
   /// A convinience comparator combinator given an array of simple comparators.
   @_specialize(where Type: _NativeClass)
   public static func by(_ comparators: [Comparator]) -> Comparator {
-    {  //swiftlint:disable:this opening_brace
+    {  // swiftlint:disable:this opening_brace
       for comparator in comparators {
         if comparator($0, $1) { return true }
         if comparator($1, $0) { return false }
@@ -63,7 +63,7 @@ public struct Sort<Type> {
   /// function.
   @_specialize(where Type: _NativeClass)
   public static func by(_ comparators: Sort<Type>...) -> Comparator {
-    {  //swiftlint:disable:this opening_brace
+    {  // swiftlint:disable:this opening_brace
       for order in comparators {
         if order.comparator($0, $1) { return true }
         if order.comparator($1, $0) { return false }
@@ -76,7 +76,7 @@ public struct Sort<Type> {
   /// function.
   @_specialize(where Type: _NativeClass)
   public static func by(_ comparators: [Sort<Type>]) -> Comparator {
-    {  //swiftlint:disable:this opening_brace
+    {  // swiftlint:disable:this opening_brace
       for order in comparators {
         if order.comparator($0, $1) { return true }
         if order.comparator($1, $0) { return false }

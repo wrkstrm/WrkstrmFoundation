@@ -38,7 +38,7 @@ extension Collection where Element: Comparable, Index == Int {
     var right = ArraySlice(right)
 
     while !left.isEmpty, !right.isEmpty {
-      if left.first! < right.first! {  //swiftlint:disable:this force_unwrapping
+      if left.first! < right.first! {  // swiftlint:disable:this force_unwrapping
         mergedArray.append(left.removeFirst())
       } else {
         mergedArray.append(right.removeFirst())

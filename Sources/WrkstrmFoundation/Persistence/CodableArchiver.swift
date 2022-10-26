@@ -20,7 +20,7 @@ public struct CodableArchiver<T: Codable> {
     searchPathDomainMask: FileManager.SearchPathDomainMask = [.allDomainsMask]) {
     self.encoder = encoder
     self.decoder = decoder
-    //swiftlint:disable:next force_unwrapping
+    // swiftlint:disable:next force_unwrapping
     let archiveDirectory = fileManager.urls(for: directory, in: searchPathDomainMask).first!
     self.archiveDirectory = archiveDirectory.appendingPathComponent(String(key.description))
     self.key = key
