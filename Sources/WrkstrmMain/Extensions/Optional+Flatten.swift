@@ -1,5 +1,5 @@
 public protocol AnyFlattenable {
-  
+
   /// Unwraps any value to potentially a nil base value
   func flattened() -> Any?
 }
