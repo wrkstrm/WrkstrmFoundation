@@ -1,5 +1,7 @@
 @testable import WrkstrmFoundation
 @testable import WrkstrmMain
+import WrkstrmColor
+import WrkstrmLog
 import XCTest
 
 final class CalendarTests: XCTestCase {
@@ -22,7 +24,7 @@ final class CalendarTests: XCTestCase {
     super.setUp()
     calendar.insert(.init())
     calendar.insert(.init())
-    print("Calendar: \(calendar)")
+    Log.verbose("Calendar: \(calendar)")
   }
 
   override func tearDown() {
@@ -61,7 +63,7 @@ final class CalendarTests: XCTestCase {
   func testInsertAtIncreasing() {
     var sortedArray = SortedArray(unsorted: [5, 4, 2], sortOrder: <)
     sortedArray.insert(1)
-    print(sortedArray)
+    Log.verbose("\(sortedArray)")
     XCTAssertTrue(sortedArray.elements == [1, 2, 4, 5])
   }
 
@@ -73,14 +75,14 @@ final class CalendarTests: XCTestCase {
   func testInsertAtDecreasing() {
     var sortedArray = SortedArray(unsorted: [5, 4, 2], sortOrder: >)
     sortedArray.insert(1)
-    print(sortedArray)
+    Log.verbose("\(sortedArray)")
     XCTAssertTrue(sortedArray.elements == [5, 4, 2, 1])
   }
 
   func testInsertAtDecreasingMiddle() {
     var sortedArray = SortedArray(unsorted: [5, 4, 2], sortOrder: >)
     sortedArray.insert(3)
-    print(sortedArray)
+    Log.verbose("\(sortedArray)")
     XCTAssertTrue(sortedArray.elements == [5, 4, 3, 2])
   }
 }
