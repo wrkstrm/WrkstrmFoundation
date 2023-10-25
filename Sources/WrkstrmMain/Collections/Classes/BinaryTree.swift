@@ -25,14 +25,14 @@ class BinaryTree<Value: Comparable> {
 
   @discardableResult public func insert(_ value: Value) -> BinaryTree {
     if value < self.value {
-      if let left = left {
+      if let left {
         left.insert(value)
       } else {
         left = BinaryTree(value, parent: self)
       }
       return left!  // swiftlint:disable:this force_unwrapping
     } else {
-      if let right = right {
+      if let right {
         right.insert(value)
       } else {
         right = BinaryTree(value, parent: self)
