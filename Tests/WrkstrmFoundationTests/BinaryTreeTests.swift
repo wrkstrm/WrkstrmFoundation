@@ -13,14 +13,6 @@ final class BinaryTreeTests: XCTestCase {
 
   var tree = BinaryTree(1)
 
-  override func setUp() {
-    super.setUp()
-  }
-
-  override func tearDown() {
-    super.tearDown()
-  }
-
   func testBasicInsertion() {
     tree.insert(3)
     tree.insert(5)

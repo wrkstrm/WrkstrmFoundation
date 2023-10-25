@@ -37,19 +37,19 @@ extension List: Equatable {
     case let .single(lhsElement, lhsNext):
       switch rhs {
       case let .single(rhsElement, rhsNext):
-        return lhsElement == rhsElement && lhsNext == rhsNext
+        lhsElement == rhsElement && lhsNext == rhsNext
 
       default:
-        return false
+        false
       }
 
     case let .double(previous: lhsPrevious, current: lhsCurrent, next: lhsNext):
       switch rhs {
       case let .double(previous: rhsPrevious, current: rhsCurrent, next: rhsNext):
-        return lhsPrevious == rhsPrevious && lhsCurrent == rhsCurrent && lhsNext == rhsNext
+        lhsPrevious == rhsPrevious && lhsCurrent == rhsCurrent && lhsNext == rhsNext
 
       default:
-        return false
+        false
       }
     }
   }

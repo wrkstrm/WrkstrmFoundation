@@ -70,7 +70,7 @@ public extension SortedArray where Element: Comparable {
     self.init(unsorted: [Element](), sortOrder: <)
   }
 
-  init<S: Sequence>(unsorted: S) where S.Element == Element {
+  init(unsorted: some Sequence<Element>) {
     self.init(unsorted: unsorted, sortOrder: <)
   }
 }

@@ -9,14 +9,6 @@ final class CollectionTests: XCTestCase {
 
   let randomElements = [5, 4, 1, 6, 0, -10]
 
-  override func setUp() {
-    super.setUp()
-  }
-
-  override func tearDown() {
-    super.tearDown()
-  }
-
   func testSearchWithIncreasingElements() {
     XCTAssertTrue(increasingElements.search(key: 3) == 1)
   }
