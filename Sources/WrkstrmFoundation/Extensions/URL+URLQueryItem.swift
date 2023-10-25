@@ -15,7 +15,7 @@ public extension URL {
   }
 }
 
-public extension Dictionary where Key == String, Value == Double {
+public extension [String: Double] {
 
   func withQueryItems(_: [String: String]) -> [URLQueryItem] {
     reduce(into: [URLQueryItem]()) { $0.append(URLQueryItem(name: $1.key, value: "\($1.value)")) }
