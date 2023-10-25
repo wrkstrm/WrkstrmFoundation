@@ -1,6 +1,6 @@
 import Foundation
-import WrkstrmLog
 import WrkstrmMain
+import WrkstrmLog
 
 public extension NSObject {
 

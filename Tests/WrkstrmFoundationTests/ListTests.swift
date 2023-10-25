@@ -21,6 +21,10 @@ final class ListTests: XCTestCase {
     five.forEach { dump($0) }
   }
 
+  override func tearDown() {
+    super.tearDown()
+  }
+
   func testBasicEquality() {
     let first = List.single(1, next: nil)
     XCTAssertTrue(one == first)

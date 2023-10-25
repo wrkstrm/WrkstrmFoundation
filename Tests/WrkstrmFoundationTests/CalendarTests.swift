@@ -1,7 +1,7 @@
-import WrkstrmColor
 @testable import WrkstrmFoundation
-import WrkstrmLog
 @testable import WrkstrmMain
+import WrkstrmColor
+import WrkstrmLog
 import XCTest
 
 final class CalendarTests: XCTestCase {
@@ -25,6 +25,10 @@ final class CalendarTests: XCTestCase {
     calendar.insert(.init())
     calendar.insert(.init())
     Log.verbose("Calendar: \(calendar)")
+  }
+
+  override func tearDown() {
+    super.tearDown()
   }
 
   func testBasicEvents() {

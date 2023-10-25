@@ -11,36 +11,40 @@ public struct Sort<Type> {
   // MARK: - Initializers
 
   /// Convinience initializer for an ascending sort struct. (A, B, C...)
-  public static func ascending(_ ascending: @escaping Property<some Comparable>) -> Sort<Type> {
+  @_specialize(where Type: _NativeClass, P: _Trivial)
+  public static func ascending<P: Comparable>(_ ascending: @escaping Property<P>) -> Sort<Type> {
     Self(ascending: ascending)
   }
 
   /// Convinience initializer for an descending sort struct. (...3, 2, 1)
-  public static func descending(_ descending: @escaping Property<some Comparable>) -> Sort<Type> {
+  @_specialize(where Type: _NativeClass, P: _Trivial)
+  public static func descending<P: Comparable>(_ descending: @escaping Property<P>) -> Sort<Type> {
     Self(descending: descending)
   }
 
   let comparator: Comparator
 
-  public init(ascending: @escaping Property<some Comparable>) {
+  @_specialize(where Type: _NativeClass, P: _Trivial)
+  public init<P: Comparable>(ascending: @escaping Property<P>) {
     comparator = { ascending($0) < ascending($1) }
   }
 
-  public init(descending: @escaping Property<some Comparable>) {
+  @_specialize(where Type: _NativeClass, P: _Trivial)
+  public init<P: Comparable>(descending: @escaping Property<P>) {
     comparator = { descending($0) > descending($1) }
   }
 
   // MARK: - Comparator Generators
 
   /// A convinience comparator creator given a comparable property.
-  public static func by(ascending: Bool = true,
-                        _ property: @escaping Property<some Comparable>)
-    -> Comparator
+  @_specialize(where Type: _NativeClass, P: _Trivial)
+  public static func by<P: Comparable>(ascending: Bool = true,
+                                       _ property: @escaping Property<P>) -> Comparator
   {
     if ascending {
-      { property($0) < property($1) }
+      return { property($0) < property($1) }
     } else {
-      { property($0) > property($1) }
+      return { property($0) > property($1) }
     }
   }
 
