@@ -8,9 +8,14 @@ extension Optional: AnyFlattenable {
 
   public func flattened() -> Any? {
     switch self {
-    case let .some(x as AnyFlattenable): return x.flattened()
-    case let .some(x): return x
-    case .none: return nil
+    case let .some(x as AnyFlattenable):
+      return x.flattened()
+
+    case let .some(x):
+      return x
+
+    case .none:
+      return nil
     }
   }
 }

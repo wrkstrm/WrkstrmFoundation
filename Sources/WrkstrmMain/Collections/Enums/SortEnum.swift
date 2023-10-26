@@ -38,11 +38,10 @@ public struct Sort<Type> {
     _ property: @escaping Property<some Comparable>)
     -> Comparator
   {
-    if ascending {
-      return { property($0) < property($1) }
-    } else {
+    guard ascending else {
       return { property($0) > property($1) }
     }
+    return { property($0) < property($1) }
   }
 
   /// A convinience comparator combinator given an array of simple comparators.

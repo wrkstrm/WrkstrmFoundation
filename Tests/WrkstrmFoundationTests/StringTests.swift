@@ -12,10 +12,6 @@ final class StringTests: XCTestCase {
     ("testIsPermutation", testIsPermutation),
   ]
 
-  override func tearDown() {
-    super.tearDown()
-  }
-
   func testUnique() {
     XCTAssert("ab".containsUniqueChars(), "Expected unique characters to be true.")
   }

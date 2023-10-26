@@ -1,6 +1,6 @@
 import WrkstrmFoundationTests
 import XCTest
 
-var tests = [XCTestCaseEntry]()
+var tests: [XCTestCaseEntry] = []
 tests += WrkstrmFoundationTests.allTests()
 XCTMain(tests)

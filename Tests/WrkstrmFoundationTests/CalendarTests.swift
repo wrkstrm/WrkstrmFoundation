@@ -28,10 +28,6 @@ final class CalendarTests: XCTestCase {
     Log.verbose("Calendar: \(calendar)")
   }
 
-  override func tearDown() {
-    super.tearDown()
-  }
-
   func testBasicEvents() {
     let event1 = Calendar.Event(start: 1, end: 2)
     let event2 = Calendar.Event(start: 3, end: 4)

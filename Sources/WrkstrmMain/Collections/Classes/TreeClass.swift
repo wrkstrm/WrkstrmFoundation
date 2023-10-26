@@ -3,7 +3,7 @@ public class Tree<T>: CustomDebugStringConvertible {
   /// The value contained in this node
   public let value: T
 
-  public var children = [Tree]()
+  public var children: [Tree] = []
 
   public weak var parent: Tree?
 

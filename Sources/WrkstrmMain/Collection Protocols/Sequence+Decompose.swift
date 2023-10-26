@@ -4,7 +4,7 @@ public extension Sequence {
 
   func decomposeFirst(with predicate: (Element) -> Bool) -> (Element?, [Element]) {
     var first: Element?
-    var others = [Element]()
+    var others: [Element] = []
     var iterator = makeIterator()
     while let item = iterator.next() {
       if first == nil, predicate(item) {
@@ -21,8 +21,8 @@ public extension Sequence {
   }
 
   func decomposeAll(with predicate: (Element) -> Bool) -> ([Element]?, [Element]) {
-    var all = [Element]()
-    var others = [Element]()
+    var all: [Element] = []
+    var others: [Element] = []
     var iterator = makeIterator()
     while let item = iterator.next() {
       if predicate(item) {
@@ -35,8 +35,8 @@ public extension Sequence {
   }
 
   func decomposeUntil(with predicate: (Element) -> Bool) -> ([Element]?, [Element]) {
-    var all = [Element]()
-    var others = [Element]()
+    var all: [Element] = []
+    var others: [Element] = []
     var iterator = makeIterator()
     var continueAccumulation = true
     while let item = iterator.next() {
@@ -63,8 +63,8 @@ public extension Sequence {
   // MARK: - Batching
 
   func batches(by predicate: ([Element], Element) -> Bool) -> [[Element]] {
-    var all = [[Element]]()
-    var batch = [Element]()
+    var all: [[Element]] = []
+    var batch: [Element] = []
     var iterator = makeIterator()
     while let item = iterator.next() {
       if !predicate(batch, item) {

@@ -9,9 +9,9 @@ public extension Notification {
     public let transform: (Notification) -> A
 
     public init(
-      name: Notification.Name,  // swiftlint:disable:next force_cast
+      name: Notification.Name,
       transform: @escaping ((Notification) -> A) = {
-        (A.self == Void.self ? () : $0.object) as! A
+        (A.self == Void.self ? () : $0.object) as! A  // swiftlint:disable:this force_cast
       })
     {
       self.name = name

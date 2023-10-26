@@ -74,11 +74,10 @@ public extension CodableArchiver {
       at: archiveDirectory,
       withIntermediateDirectories: true,
       attributes: nil)
-    if let data {
-      return NSKeyedArchiver.archiveRootObject(data, toFile: filePathForKey(key ?? self.key))
-    } else {
+    guard let data else {
       return false
     }
+    return NSKeyedArchiver.archiveRootObject(data, toFile: filePathForKey(key ?? self.key))
   }
 
   @discardableResult
@@ -88,13 +87,12 @@ public extension CodableArchiver {
       at: archiveDirectory,
       withIntermediateDirectories: true,
       attributes: nil)
-    if let encodedValues {
-      return NSKeyedArchiver.archiveRootObject(
-        encodedValues,
-        toFile: filePathForKey(key ?? self.key))
-    } else {
+    guard let encodedValues else {
       return false
     }
+    return NSKeyedArchiver.archiveRootObject(
+      encodedValues,
+      toFile: filePathForKey(key ?? self.key))
   }
 
   func clear() throws {

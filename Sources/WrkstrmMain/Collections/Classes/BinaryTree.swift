@@ -24,14 +24,7 @@ class BinaryTree<Value: Comparable> {
   public var count: Int { (left?.count ?? 0) + 1 + (right?.count ?? 0) }
 
   @discardableResult public func insert(_ value: Value) -> BinaryTree {
-    if value < self.value {
-      if let left {
-        left.insert(value)
-      } else {
-        left = BinaryTree(value, parent: self)
-      }
-      return left!  // swiftlint:disable:this force_unwrapping
-    } else {
+    guard value < self.value else {
       if let right {
         right.insert(value)
       } else {
@@ -39,6 +32,12 @@ class BinaryTree<Value: Comparable> {
       }
       return right!  // swiftlint:disable:this force_unwrapping
     }
+    if let left {
+      left.insert(value)
+    } else {
+      left = BinaryTree(value, parent: self)
+    }
+    return left!
   }
 
   enum Order {
