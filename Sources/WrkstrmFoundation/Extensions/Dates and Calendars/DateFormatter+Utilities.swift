@@ -43,13 +43,13 @@ public extension Date {
   func localizedString(with style: DateFormatter.Style = .medium) -> String {
     switch style {
     case .long:
-      DateFormatter.longDate.string(from: self)
+      return DateFormatter.longDate.string(from: self)
 
     case .medium:
-      DateFormatter.mediumDate.string(from: self)
+      return DateFormatter.mediumDate.string(from: self)
 
     default:
-      DateFormatter.mediumDate.string(from: self)
+      return DateFormatter.mediumDate.string(from: self)
     }
   }
 }

@@ -1,7 +1,7 @@
-import WrkstrmColor
 @testable import WrkstrmFoundation
-import WrkstrmLog
 @testable import WrkstrmMain
+import WrkstrmColor
+import WrkstrmLog
 import XCTest
 
 final class CalendarTests: XCTestCase {
