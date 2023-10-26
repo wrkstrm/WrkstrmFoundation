@@ -74,7 +74,7 @@ public extension CodableArchiver {
       at: archiveDirectory,
       withIntermediateDirectories: true,
       attributes: nil)
-    if let data = data {
+    if let data {
       return NSKeyedArchiver.archiveRootObject(data, toFile: filePathForKey(key ?? self.key))
     } else {
       return false
@@ -88,7 +88,7 @@ public extension CodableArchiver {
       at: archiveDirectory,
       withIntermediateDirectories: true,
       attributes: nil)
-    if let encodedValues = encodedValues {
+    if let encodedValues {
       return NSKeyedArchiver.archiveRootObject(
         encodedValues,
         toFile: filePathForKey(key ?? self.key))
