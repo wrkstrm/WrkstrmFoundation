@@ -9,15 +9,16 @@ public extension URL {
   }
 
   func withQueryItems(_ items: [String: String]) -> URL {
-    withQueryItems(items.reduce(into: [URLQueryItem]()) { queryItems, pair in
-      queryItems.append(URLQueryItem(name: pair.key, value: pair.value))
-    })
+    withQueryItems(
+      items.reduce(into: [URLQueryItem]()) { queryItems, pair in
+        queryItems.append(URLQueryItem(name: pair.key, value: pair.value))
+      })
   }
 }
 
-public extension [String: Double] {
+extension [String: Double] {
 
-  func withQueryItems(_: [String: String]) -> [URLQueryItem] {
+  public func withQueryItems(_: [String: String]) -> [URLQueryItem] {
     reduce(into: [URLQueryItem]()) { $0.append(URLQueryItem(name: $1.key, value: "\($1.value)")) }
   }
 }

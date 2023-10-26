@@ -33,8 +33,9 @@ public struct Sort<Type> {
   // MARK: - Comparator Generators
 
   /// A convinience comparator creator given a comparable property.
-  public static func by(ascending: Bool = true,
-                        _ property: @escaping Property<some Comparable>)
+  public static func by(
+    ascending: Bool = true,
+    _ property: @escaping Property<some Comparable>)
     -> Comparator
   {
     if ascending {

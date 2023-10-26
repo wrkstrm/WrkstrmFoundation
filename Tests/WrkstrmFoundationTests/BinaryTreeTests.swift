@@ -1,8 +1,10 @@
+import XCTest
+
+@testable import WrkstrmMain
+
 #if canImport(UIKit)
 import UIKit
 #endif
-@testable import WrkstrmMain
-import XCTest
 
 final class BinaryTreeTests: XCTestCase {
 

@@ -10,7 +10,8 @@ public extension Notification {
 
     public init(
       name: Notification.Name,  // swiftlint:disable:next force_cast
-      transform: @escaping ((Notification) -> A) = { (A.self == Void.self ? () : $0.object) as! A
+      transform: @escaping ((Notification) -> A) = {
+        (A.self == Void.self ? () : $0.object) as! A
       })
     {
       self.name = name

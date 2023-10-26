@@ -1,5 +1,6 @@
-@testable import WrkstrmFoundation
 import XCTest
+
+@testable import WrkstrmFoundation
 
 final class OptionalComparableTests: XCTestCase {
 
