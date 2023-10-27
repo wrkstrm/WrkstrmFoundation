@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
   name: "WrkstrmFoundation",
   platforms: [
-    .iOS(.v15),
+    .iOS(.v14),
     .macOS(.v12),
     .tvOS(.v12),
     .watchOS(.v5),
