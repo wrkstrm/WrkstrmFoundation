@@ -11,7 +11,7 @@
 @import Foundation;
 #ifdef UIKit
 @import UIKit;
-#elseif TARGET_OS_OSX
+#elif TARGET_OS_OSX
 @import AppKit;
 #endif
 @import SpriteKit;
