@@ -1,12 +1,10 @@
 public enum SearchResult<N: Numeric> {
-
   case found(at: N)
 
   case notFound(insertAt: N)
 }
 
 public struct SortedArray<Element>: Collection {
-
   public typealias Comparator<A> = (A, A) -> Bool
 
   public var elements: [Element]
@@ -65,7 +63,6 @@ public struct SortedArray<Element>: Collection {
 }
 
 extension SortedArray where Element: Comparable {
-
   public init() {
     self.init(unsorted: [Element](), sortOrder: <)
   }
@@ -76,6 +73,5 @@ extension SortedArray where Element: Comparable {
 }
 
 extension Array where Element: Comparable {
-
   public var sortedArray: SortedArray<Element> { SortedArray(unsorted: self) }
 }

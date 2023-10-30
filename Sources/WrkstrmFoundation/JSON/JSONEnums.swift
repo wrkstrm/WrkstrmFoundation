@@ -2,9 +2,7 @@ import Foundation
 import WrkstrmMain
 
 public enum JSON {
-
   public enum EquatableArray: Equatable {
-
     case any([Any])
 
     case dictionary([JSONDictionary])
@@ -13,14 +11,12 @@ public enum JSON {
   }
 
   public enum EquatableDictionary: Equatable {
-
     case any(JSONDictionary)
 
     public static func == (_: EquatableDictionary, _: EquatableDictionary) -> Bool { true }
   }
 
   public enum Value: Equatable {
-
     case integer(String, Int)
 
     case double(String, Double)

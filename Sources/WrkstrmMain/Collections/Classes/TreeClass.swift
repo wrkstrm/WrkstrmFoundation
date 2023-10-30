@@ -1,5 +1,4 @@
 public class Tree<T>: CustomDebugStringConvertible {
-
   /// The value contained in this node
   public let value: T
 

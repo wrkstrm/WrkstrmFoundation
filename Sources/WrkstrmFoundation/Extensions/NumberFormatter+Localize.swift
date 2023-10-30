@@ -1,7 +1,6 @@
 import Foundation
 
 extension NumberFormatter {
-
   public static let integer: NumberFormatter = {
     let formatter = NumberFormatter()
     formatter.numberStyle = .decimal
@@ -27,12 +26,10 @@ extension NumberFormatter {
 }
 
 public protocol LocalizedValues {
-
   func integerString() -> String
 }
 
 extension LocalizedValues {
-
   public func integerString() -> String {
     NumberFormatter.integer.string(for: self)!  // swiftlint:disable:this force_unwrapping
   }

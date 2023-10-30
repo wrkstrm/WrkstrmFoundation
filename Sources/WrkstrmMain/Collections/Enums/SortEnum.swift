@@ -1,6 +1,5 @@
 /// A generic struct that aides in sorting.
 public struct Sort<Type> {
-
   // MARK: - Typealias
 
   /// A sort comparator function signature alias.

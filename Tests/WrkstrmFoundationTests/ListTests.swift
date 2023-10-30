@@ -3,7 +3,6 @@ import XCTest
 @testable import WrkstrmMain
 
 final class ListTests: XCTestCase {
-
   static var allTests = [
     ("testBasicEquality", testBasicEquality),
     ("testBasicInequality", testBasicSingleInequality),

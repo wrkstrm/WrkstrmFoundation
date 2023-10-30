@@ -1,11 +1,9 @@
 public indirect enum List<A: Equatable> {
-
   case single(A, next: List<A>?)
 
   case double(previous: List<A>?, current: A, next: List<A>?)
 
   public struct Iterator: IteratorProtocol {
-
     var list: List<A>?
 
     public mutating func next() -> List<A>? {
@@ -26,12 +24,10 @@ public indirect enum List<A: Equatable> {
 }
 
 extension List: Sequence {
-
   public func makeIterator() -> Iterator { Iterator(list: self) }
 }
 
 extension List: Equatable {
-
   public static func == (lhs: List<A>, rhs: List<A>) -> Bool {
     switch lhs {
       case let .single(lhsElement, lhsNext):

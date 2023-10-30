@@ -3,7 +3,6 @@ import XCTest
 @testable import WrkstrmFoundation
 
 final class CollectionTests: XCTestCase {
-
   static var allTests = [("testSearchWithIncreasingElements", testSearchWithIncreasingElements)]
 
   let increasingElements = [1, 3, 5]

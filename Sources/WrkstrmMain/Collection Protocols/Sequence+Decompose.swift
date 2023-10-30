@@ -1,5 +1,4 @@
 extension Sequence {
-
   // MARK: - Decompose
 
   public func decomposeFirst(with predicate: (Element) -> Bool) -> (Element?, [Element]) {

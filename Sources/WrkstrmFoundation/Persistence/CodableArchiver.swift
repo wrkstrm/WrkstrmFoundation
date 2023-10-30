@@ -1,7 +1,6 @@
 import Foundation
 
 public struct CodableArchiver<T: Codable> {
-
   public let encoder: JSONEncoder
 
   public let decoder: JSONDecoder
@@ -42,7 +41,6 @@ public struct CodableArchiver<T: Codable> {
 // MARK: - Filemanager helpers
 
 extension CodableArchiver {
-
   public func filePathForKey(_ key: AnyHashable) -> String {
     archiveDirectory.appendingPathComponent(String(key.description)).path
   }
@@ -51,7 +49,6 @@ extension CodableArchiver {
 // MARK: - Workflow operations
 
 extension CodableArchiver {
-
   public func get(_ key: AnyHashable? = nil) -> T? {
     guard
       let data =

@@ -3,7 +3,6 @@ import XCTest
 @testable import WrkstrmFoundation
 
 final class OptionalComparableTests: XCTestCase {
-
   static var allTests = [("testSearchWithIncreasingElements", testNilLessThanNil)]
 
   let none: Int? = .none

@@ -1,7 +1,6 @@
 import Foundation
 
 extension DateFormatter {
-
   public static let longDate = { () -> DateFormatter in
     let formatter = DateFormatter()
     formatter.dateStyle = .long
@@ -39,7 +38,6 @@ extension DateFormatter {
 }
 
 extension Date {
-
   public func localizedString(with style: DateFormatter.Style = .medium) -> String {
     switch style {
       case .long:

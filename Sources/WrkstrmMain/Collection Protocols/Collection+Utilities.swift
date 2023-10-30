@@ -1,5 +1,4 @@
 extension Collection where Element: Comparable, Index == Int {
-
   // MARK: - Binary Search
 
   public func search(key: Element) -> Int? {

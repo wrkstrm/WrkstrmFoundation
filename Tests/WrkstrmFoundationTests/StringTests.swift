@@ -3,7 +3,6 @@ import XCTest
 @testable import WrkstrmFoundation
 
 final class StringTests: XCTestCase {
-
   static var allTests = [
     ("testUnique", testUnique),
     ("testRepeating", testRepeating),

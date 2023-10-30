@@ -1,5 +1,4 @@
 extension String {
-
   public func containsUniqueChars() -> Bool {
     var set = Set<Character>()
     for character in self {

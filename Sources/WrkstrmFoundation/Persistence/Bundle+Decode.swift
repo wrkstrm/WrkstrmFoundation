@@ -2,7 +2,6 @@ import Foundation
 import WrkstrmLog
 
 extension Bundle {
-
   public func decode<T: Decodable>(
     _ type: T.Type,
     from file: String,

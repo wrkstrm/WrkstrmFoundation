@@ -1,9 +1,7 @@
 import Foundation
 
 extension Notification {
-
   public struct Transformer<A> {
-
     public let name: Notification.Name
 
     public let transform: (Notification) -> A
@@ -21,7 +19,6 @@ extension Notification {
 
   /// A Notifiation.Token automatically deregister itself when it's reference count reaches zero.
   public class Token {
-
     public let token: NSObjectProtocol
 
     public let center: NotificationCenter
@@ -38,7 +35,6 @@ extension Notification {
 }
 
 extension NotificationCenter {
-
   public func addObserver<A>(
     for transformer: Notification.Transformer<A>,
     queue: OperationQueue? = .main,

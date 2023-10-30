@@ -7,7 +7,6 @@ import UIKit
 #endif
 
 final class BinaryTreeTests: XCTestCase {
-
   static var allTests = [
     ("testBasicInsertion", testBasicInsertion),
     ("testRandomTreeCount", testRandomTreeCount),

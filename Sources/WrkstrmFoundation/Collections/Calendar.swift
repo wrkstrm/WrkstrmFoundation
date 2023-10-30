@@ -2,7 +2,6 @@ import Foundation
 import WrkstrmMain
 
 public struct Calendar {
-
   var events = SortedArray<Event>(unsorted: [Event](), sortOrder: <)
 
   mutating func insert(_ event: Event) {
@@ -11,9 +10,7 @@ public struct Calendar {
 }
 
 extension Calendar {
-
   public struct Event: Comparable, Equatable {
-
     public static func < (lhs: Event, rhs: Event) -> Bool {
       lhs.start < rhs.start
     }

@@ -6,7 +6,6 @@ import XCTest
 @testable import WrkstrmMain
 
 final class CalendarTests: XCTestCase {
-
   static var allTests = [
     ("testBasicEvents", testBasicEvents),
     ("testBasicEventOverlapping", testBasicEventOverlapping),

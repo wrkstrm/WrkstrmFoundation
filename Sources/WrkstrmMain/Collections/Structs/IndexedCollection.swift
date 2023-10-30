@@ -1,5 +1,4 @@
 struct IndexedCollection<Base: RandomAccessCollection>: RandomAccessCollection {
-
   typealias Index = Base.Index
 
   typealias Element = (index: Index, element: Base.Element)

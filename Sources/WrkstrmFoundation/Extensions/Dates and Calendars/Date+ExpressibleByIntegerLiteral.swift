@@ -1,7 +1,6 @@
 import Foundation
 
 extension Date: ExpressibleByIntegerLiteral {
-
   public typealias IntegerLiteralType = Int
 
   public init(integerLiteral value: Int) {
