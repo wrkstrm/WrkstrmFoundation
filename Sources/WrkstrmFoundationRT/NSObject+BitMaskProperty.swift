@@ -3,7 +3,6 @@ import WrkstrmLog
 import WrkstrmMain
 
 extension NSObject {
-
   /// Sets a bit mask to a property on an object.
   public func property(_ property: String, set: [UInt], clear: [UInt]) {
     guard let value = self.value(forKey: property) as? UInt else {
