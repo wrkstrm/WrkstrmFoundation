@@ -13,15 +13,14 @@ let package: Package = .init(
     .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"]),
     .library(name: "WrkstrmFoundationRT", targets: ["WrkstrmFoundationRT"]),
     .library(name: "WrkstrmFoundationObjC", type: .dynamic, targets: ["WrkstrmFoundationObjC"]),
-    .library(name: "WrkstrmMain", targets: ["WrkstrmMain"]),
   ],
   dependencies: [
     .package(name: "WrkstrmLog", path: "../WrkstrmLog"),
+    .package(name: "WrkstrmMain", path: "../WrkstrmMain"),
   ],
   targets: [
     .target(name: "WrkstrmFoundationObjC", dependencies: []),
     .target(name: "WrkstrmFoundation", dependencies: ["WrkstrmLog", "WrkstrmMain"]),
     .target(name: "WrkstrmFoundationRT", dependencies: ["WrkstrmLog", "WrkstrmMain"]),
-    .target(name: "WrkstrmMain", dependencies: []),
     .testTarget(name: "WrkstrmFoundationTests", dependencies: ["WrkstrmFoundation"]),
   ])
