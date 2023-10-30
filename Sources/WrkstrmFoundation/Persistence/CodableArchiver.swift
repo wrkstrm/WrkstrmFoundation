@@ -17,8 +17,8 @@ public struct CodableArchiver<T: Codable> {
     directory: FileManager.SearchPathDirectory,
     encoder: JSONEncoder = .default,
     decoder: JSONDecoder = .default,
-    searchPathDomainMask: FileManager.SearchPathDomainMask = [.allDomainsMask])
-  {
+    searchPathDomainMask: FileManager.SearchPathDomainMask = [.allDomainsMask]
+  ) {
     self.encoder = encoder
     self.decoder = decoder
     // swiftlint:disable:next force_unwrapping
@@ -30,8 +30,8 @@ public struct CodableArchiver<T: Codable> {
   public init(
     directory: URL,
     encoder: JSONEncoder = .default,
-    decoder: JSONDecoder = .default)
-  {
+    decoder: JSONDecoder = .default
+  ) {
     self.encoder = encoder
     self.decoder = decoder
     archiveDirectory = directory.deletingLastPathComponent()
@@ -55,7 +55,7 @@ extension CodableArchiver {
   public func get(_ key: AnyHashable? = nil) -> T? {
     guard
       let data =
-      NSKeyedUnarchiver.unarchiveObject(withFile: filePathForKey(key ?? self.key)) as? Data
+        NSKeyedUnarchiver.unarchiveObject(withFile: filePathForKey(key ?? self.key)) as? Data
     else {
       return nil
     }

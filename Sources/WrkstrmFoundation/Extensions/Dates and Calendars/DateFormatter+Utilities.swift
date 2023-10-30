@@ -42,14 +42,14 @@ extension Date {
 
   public func localizedString(with style: DateFormatter.Style = .medium) -> String {
     switch style {
-    case .long:
-      DateFormatter.longDate.string(from: self)
+      case .long:
+        DateFormatter.longDate.string(from: self)
 
-    case .medium:
-      DateFormatter.mediumDate.string(from: self)
+      case .medium:
+        DateFormatter.mediumDate.string(from: self)
 
-    default:
-      DateFormatter.mediumDate.string(from: self)
+      default:
+        DateFormatter.mediumDate.string(from: self)
     }
   }
 }

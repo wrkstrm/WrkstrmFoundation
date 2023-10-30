@@ -15,18 +15,18 @@ public struct SortedArray<Element>: Collection {
 
   public mutating func insert(_ element: Element) {
     switch search(for: element) {
-    case let .found(at: index):
-      elements.insert(element, at: index)
+      case let .found(at: index):
+        elements.insert(element, at: index)
 
-    case let .notFound(insertAt: index):
-      elements.insert(element, at: index)
+      case let .notFound(insertAt: index):
+        elements.insert(element, at: index)
     }
   }
 
   public init<S: Sequence>(
     unsorted: S,
-    sortOrder: @escaping Comparator<S.Element>) where S.Element == Element
-  {
+    sortOrder: @escaping Comparator<S.Element>
+  ) where S.Element == Element {
     elements = unsorted.sorted(by: sortOrder)
     self.sortOrder = sortOrder
   }

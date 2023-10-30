@@ -35,7 +35,8 @@ public struct Sort<Type> {
   /// A convinience comparator creator given a comparable property.
   public static func by(
     ascending: Bool = true,
-    _ property: @escaping Property<some Comparable>)
+    _ property: @escaping Property<some Comparable>
+  )
     -> Comparator
   {
     guard ascending else {
@@ -45,7 +46,7 @@ public struct Sort<Type> {
   }
 
   /// A convinience comparator combinator given an array of simple comparators.
-  @_specialize(where Type: _NativeClass)
+  @_specialize(where Type:_NativeClass)
   public static func by(_ comparators: [Comparator]) -> Comparator {
     {
       for comparator in comparators {
@@ -58,7 +59,7 @@ public struct Sort<Type> {
 
   /// A sort struct combinator. Takes in a sequence of Sort structs and returns one comparator
   /// function.
-  @_specialize(where Type: _NativeClass)
+  @_specialize(where Type:_NativeClass)
   public static func by(_ comparators: Sort<Type>...) -> Comparator {
     {
       for order in comparators {
@@ -71,7 +72,7 @@ public struct Sort<Type> {
 
   /// A sort struct combinator. Takes in an array of Sort structs and returns one comparator
   /// function.
-  @_specialize(where Type: _NativeClass)
+  @_specialize(where Type:_NativeClass)
   public static func by(_ comparators: [Sort<Type>]) -> Comparator {
     {
       for order in comparators {

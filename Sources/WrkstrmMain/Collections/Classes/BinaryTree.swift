@@ -48,20 +48,20 @@ class BinaryTree<Value: Comparable> {
 
   public func traverse(_ order: Order = .in, block: (BinaryTree) -> Void) {
     switch order {
-    case .pre:
-      block(self)
-      left?.traverse(block: block)
-      right?.traverse(block: block)
+      case .pre:
+        block(self)
+        left?.traverse(block: block)
+        right?.traverse(block: block)
 
-    case .in:
-      left?.traverse(block: block)
-      block(self)
-      right?.traverse(block: block)
+      case .in:
+        left?.traverse(block: block)
+        block(self)
+        right?.traverse(block: block)
 
-    case .post:
-      left?.traverse(block: block)
-      right?.traverse(block: block)
-      block(self)
+      case .post:
+        left?.traverse(block: block)
+        right?.traverse(block: block)
+        block(self)
     }
   }
 }

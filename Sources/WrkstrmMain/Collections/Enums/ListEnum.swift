@@ -10,15 +10,15 @@ public indirect enum List<A: Equatable> {
 
     public mutating func next() -> List<A>? {
       switch list {
-      case let .single(_, next):
-        list = next
-        return next
+        case let .single(_, next):
+          list = next
+          return next
 
-      case let .double(previous: _, current: _, next: next):
-        list = next
+        case let .double(previous: _, current: _, next: next):
+          list = next
 
-      default:
-        return nil
+        default:
+          return nil
       }
       return nil
     }
@@ -34,23 +34,23 @@ extension List: Equatable {
 
   public static func == (lhs: List<A>, rhs: List<A>) -> Bool {
     switch lhs {
-    case let .single(lhsElement, lhsNext):
-      switch rhs {
-      case let .single(rhsElement, rhsNext):
-        lhsElement == rhsElement && lhsNext == rhsNext
+      case let .single(lhsElement, lhsNext):
+        switch rhs {
+          case let .single(rhsElement, rhsNext):
+            lhsElement == rhsElement && lhsNext == rhsNext
 
-      default:
-        false
-      }
+          default:
+            false
+        }
 
-    case let .double(previous: lhsPrevious, current: lhsCurrent, next: lhsNext):
-      switch rhs {
-      case let .double(previous: rhsPrevious, current: rhsCurrent, next: rhsNext):
-        lhsPrevious == rhsPrevious && lhsCurrent == rhsCurrent && lhsNext == rhsNext
+      case let .double(previous: lhsPrevious, current: lhsCurrent, next: lhsNext):
+        switch rhs {
+          case let .double(previous: rhsPrevious, current: rhsCurrent, next: rhsNext):
+            lhsPrevious == rhsPrevious && lhsCurrent == rhsCurrent && lhsNext == rhsNext
 
-      default:
-        false
-      }
+          default:
+            false
+        }
     }
   }
 }

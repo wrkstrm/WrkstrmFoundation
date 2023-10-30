@@ -12,8 +12,8 @@ extension Notification {
       name: Notification.Name,
       transform: @escaping ((Notification) -> A) = {
         (A.self == Void.self ? () : $0.object) as! A  // swiftlint:disable:this force_cast
-      })
-    {
+      }
+    ) {
       self.name = name
       self.transform = transform
     }
@@ -42,8 +42,8 @@ extension NotificationCenter {
   public func addObserver<A>(
     for transformer: Notification.Transformer<A>,
     queue: OperationQueue? = .main,
-    using block: @escaping (A) -> Void) -> Notification.Token
-  {
+    using block: @escaping (A) -> Void
+  ) -> Notification.Token {
     let token = addObserver(forName: transformer.name, object: nil, queue: queue) { note in
       block(transformer.transform(note))
     }
