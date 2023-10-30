@@ -1,8 +1,8 @@
-public extension Sequence {
+extension Sequence {
 
   // MARK: - Decompose
 
-  func decomposeFirst(with predicate: (Element) -> Bool) -> (Element?, [Element]) {
+  public func decomposeFirst(with predicate: (Element) -> Bool) -> (Element?, [Element]) {
     var first: Element?
     var others: [Element] = []
     var iterator = makeIterator()
@@ -16,11 +16,11 @@ public extension Sequence {
     return (first, others)
   }
 
-  func decompose() -> (Element?, [Element]) {
+  public func decompose() -> (Element?, [Element]) {
     decomposeFirst { _ in true }
   }
 
-  func decomposeAll(with predicate: (Element) -> Bool) -> ([Element]?, [Element]) {
+  public func decomposeAll(with predicate: (Element) -> Bool) -> ([Element]?, [Element]) {
     var all: [Element] = []
     var others: [Element] = []
     var iterator = makeIterator()
@@ -34,7 +34,7 @@ public extension Sequence {
     return (all.isEmpty ? nil : all, others)
   }
 
-  func decomposeUntil(with predicate: (Element) -> Bool) -> ([Element]?, [Element]) {
+  public func decomposeUntil(with predicate: (Element) -> Bool) -> ([Element]?, [Element]) {
     var all: [Element] = []
     var others: [Element] = []
     var iterator = makeIterator()
@@ -52,17 +52,17 @@ public extension Sequence {
 
   // MARK: - Contain
 
-  func allMatch(_ predicate: (Element) -> Bool) -> Bool {
+  public func allMatch(_ predicate: (Element) -> Bool) -> Bool {
     !contains { !predicate($0) }
   }
 
-  func noneMatch(_ predicate: (Element) -> Bool) -> Bool {
+  public func noneMatch(_ predicate: (Element) -> Bool) -> Bool {
     !contains { predicate($0) }
   }
 
   // MARK: - Batching
 
-  func batches(by predicate: ([Element], Element) -> Bool) -> [[Element]] {
+  public func batches(by predicate: ([Element], Element) -> Bool) -> [[Element]] {
     var all: [[Element]] = []
     var batch: [Element] = []
     var iterator = makeIterator()
@@ -77,7 +77,7 @@ public extension Sequence {
     return all
   }
 
-  internal func split(batchSize: Int) -> [[Element]] {
+  public func split(batchSize: Int) -> [[Element]] {
     batches { batch, _ in batch.count < batchSize }
   }
 }

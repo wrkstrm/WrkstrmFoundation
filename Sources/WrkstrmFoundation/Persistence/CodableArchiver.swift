@@ -41,18 +41,18 @@ public struct CodableArchiver<T: Codable> {
 
 // MARK: - Filemanager helpers
 
-public extension CodableArchiver {
+extension CodableArchiver {
 
-  func filePathForKey(_ key: AnyHashable) -> String {
+  public func filePathForKey(_ key: AnyHashable) -> String {
     archiveDirectory.appendingPathComponent(String(key.description)).path
   }
 }
 
 // MARK: - Workflow operations
 
-public extension CodableArchiver {
+extension CodableArchiver {
 
-  func get(_ key: AnyHashable? = nil) -> T? {
+  public func get(_ key: AnyHashable? = nil) -> T? {
     guard
       let data =
       NSKeyedUnarchiver.unarchiveObject(withFile: filePathForKey(key ?? self.key)) as? Data
@@ -68,7 +68,7 @@ public extension CodableArchiver {
   }
 
   @discardableResult
-  func set(_ value: T, forKey key: AnyHashable? = nil) -> Bool {
+  public func set(_ value: T, forKey key: AnyHashable? = nil) -> Bool {
     let data = try? encoder.encode(value)
     try? fileManager.createDirectory(
       at: archiveDirectory,

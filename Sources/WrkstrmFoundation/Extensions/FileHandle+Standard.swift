@@ -1,8 +1,8 @@
 import Foundation
 
-public extension FileHandle {
+extension FileHandle {
 
-  var standardHandles: [FileHandle] { [.standardInput, .standardError, .standardOutput] }
+  public var standardHandles: [FileHandle] { [.standardInput, .standardError, .standardOutput] }
 
-  var isStandard: Bool { standardHandles.contains(self) }
+  public var isStandard: Bool { standardHandles.contains(self) }
 }

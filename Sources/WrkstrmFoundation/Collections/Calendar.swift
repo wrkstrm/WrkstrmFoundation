@@ -10,41 +10,41 @@ public struct Calendar {
   }
 }
 
-public extension Calendar {
+extension Calendar {
 
-  struct Event: Comparable, Equatable {
+  public struct Event: Comparable, Equatable {
 
     public static func < (lhs: Event, rhs: Event) -> Bool {
       lhs.start < rhs.start
     }
 
-    let start: Date
+    public let start: Date
 
-    let end: Date
+    public let end: Date
 
-    var interval: ClosedRange<TimeInterval> {
+    public var interval: ClosedRange<TimeInterval> {
       start.timeIntervalSince1970...end.timeIntervalSince1970
     }
 
-    func overlaps(_ other: Event, gap: Double = 0) -> Bool {
+    public func overlaps(_ other: Event, gap: Double = 0) -> Bool {
       let adjustedStart = other.start.timeIntervalSince1970.advanced(by: -gap)
       let adjustedEnd = other.end.timeIntervalSince1970.advanced(by: gap)
       return interval.overlaps(adjustedStart...adjustedEnd)
     }
 
     /// Using interval computed property.
-    func overlaps(computed other: Event, gap: Double = 0) -> Bool {
+    public func overlaps(computed other: Event, gap: Double = 0) -> Bool {
       interval.contains(other.start.timeIntervalSince1970.advanced(by: -gap))
         || interval.contains(other.end.timeIntervalSince1970.advanced(by: gap))
     }
 
     /// Manually checking start and end.
-    func overlaps(manually other: Event, gap: Double = 0) -> Bool {
+    public func overlaps(manually other: Event, gap: Double = 0) -> Bool {
       (start >= other.start.addingTimeInterval(-gap) && start <= other.end.addingTimeInterval(gap))
         || (end >= other.start.addingTimeInterval(-gap) && end <= other.end.addingTimeInterval(gap))
     }
 
-    var description: String {
+    public var description: String {
       "[\(DateFormatter.mediumDate.string(from: start)) "
         + " -\(DateFormatter.mediumDate.string(from: end))]"
     }
@@ -52,7 +52,7 @@ public extension Calendar {
 }
 
 extension Calendar.Event {
-  init(startDate: Date = Date(timeIntervalSinceNow: .random(in: 0...Double(200_000_000)))) {
+  public init(startDate: Date = Date(timeIntervalSinceNow: .random(in: 0...Double(200_000_000)))) {
     start = startDate
     end = Date(timeIntervalSinceNow: start.timeIntervalSinceNow + 100_000)
   }

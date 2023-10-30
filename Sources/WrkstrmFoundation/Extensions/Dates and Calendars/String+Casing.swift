@@ -1,8 +1,8 @@
 import Foundation
 
-public extension String {
+extension String {
 
-  func titlecased() -> String {
+  public func titlecased() -> String {
     replacingOccurrences(
       of: "([A-Z])",
       with: " $1",

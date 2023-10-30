@@ -1,14 +1,14 @@
 import Foundation
 
-public extension URL {
+extension URL {
 
-  func withQueryItems(_ items: [URLQueryItem]) -> URL {
+  public func withQueryItems(_ items: [URLQueryItem]) -> URL {
     var components = URLComponents(url: self, resolvingAgainstBaseURL: false)
     components?.queryItems = items
     return (components?.url)!  // swiftlint:disable:this force_unwrapping
   }
 
-  func withQueryItems(_ items: [String: String]) -> URL {
+  public func withQueryItems(_ items: [String: String]) -> URL {
     withQueryItems(
       items.reduce(into: [URLQueryItem]()) { queryItems, pair in
         queryItems.append(URLQueryItem(name: pair.key, value: pair.value))

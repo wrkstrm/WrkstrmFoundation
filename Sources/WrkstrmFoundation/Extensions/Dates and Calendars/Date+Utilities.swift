@@ -1,8 +1,8 @@
 import Foundation
 
-public extension Date {
+extension Date {
 
-  func component(
+  public func component(
     _ component: Foundation.Calendar.Component,
     calendar: Foundation.Calendar = .default) -> Int
   {

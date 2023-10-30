@@ -1,9 +1,9 @@
-public extension Range where Range.Bound: BinaryFloatingPoint & Comparable {
+extension Range where Range.Bound: BinaryFloatingPoint & Comparable {
 
-  var magnitude: Bound { upperBound - lowerBound }
+  public var magnitude: Bound { upperBound - lowerBound }
 }
 
-public extension ClosedRange where ClosedRange.Bound: BinaryFloatingPoint & Comparable {
+extension ClosedRange where ClosedRange.Bound: BinaryFloatingPoint & Comparable {
 
-  var magnitude: Bound { upperBound - lowerBound }
+  public var magnitude: Bound { upperBound - lowerBound }
 }

@@ -64,18 +64,18 @@ public struct SortedArray<Element>: Collection {
   public func max() -> Element? { elements.last }
 }
 
-public extension SortedArray where Element: Comparable {
+extension SortedArray where Element: Comparable {
 
-  init() {
+  public init() {
     self.init(unsorted: [Element](), sortOrder: <)
   }
 
-  init(unsorted: some Sequence<Element>) {
+  public init(unsorted: some Sequence<Element>) {
     self.init(unsorted: unsorted, sortOrder: <)
   }
 }
 
-public extension Array where Element: Comparable {
+extension Array where Element: Comparable {
 
-  var sortedArray: SortedArray<Element> { SortedArray(unsorted: self) }
+  public var sortedArray: SortedArray<Element> { SortedArray(unsorted: self) }
 }

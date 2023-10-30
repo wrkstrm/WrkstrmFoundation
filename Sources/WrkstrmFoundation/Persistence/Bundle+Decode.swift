@@ -1,9 +1,9 @@
 import Foundation
 import WrkstrmLog
 
-public extension Bundle {
+extension Bundle {
 
-  func decode<T: Decodable>(
+  public func decode<T: Decodable>(
     _ type: T.Type,
     from file: String,
     decoder: JSONDecoder = JSONDecoder()) -> T

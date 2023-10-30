@@ -1,8 +1,8 @@
 import Foundation
 
-public extension Bundle {
+extension Bundle {
 
-  static var mainAppVersion: String {
+  public static var mainAppVersion: String {
     "Version: \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] ?? "") "
       + "Build: (\(Bundle.main.infoDictionary?["CFBundleVersion"] ?? ""))"
   }

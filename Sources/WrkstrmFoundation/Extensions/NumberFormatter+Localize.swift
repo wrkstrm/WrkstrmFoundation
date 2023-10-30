@@ -1,8 +1,8 @@
 import Foundation
 
-public extension NumberFormatter {
+extension NumberFormatter {
 
-  static let integer: NumberFormatter = {
+  public static let integer: NumberFormatter = {
     let formatter = NumberFormatter()
     formatter.numberStyle = .decimal
     formatter.maximumFractionDigits = 0
@@ -10,14 +10,14 @@ public extension NumberFormatter {
     return formatter
   }()
 
-  static let double: NumberFormatter = {
+  public static let double: NumberFormatter = {
     let formatter = NumberFormatter()
     formatter.numberStyle = .decimal
     formatter.minimumFractionDigits = 2
     return formatter
   }()
 
-  static let dollar: NumberFormatter = {
+  public static let dollar: NumberFormatter = {
     let formatter = NumberFormatter()
     formatter.numberStyle = .currency
     formatter.maximumFractionDigits = 4
@@ -31,17 +31,17 @@ public protocol LocalizedValues {
   func integerString() -> String
 }
 
-public extension LocalizedValues {
+extension LocalizedValues {
 
-  func integerString() -> String {
+  public func integerString() -> String {
     NumberFormatter.integer.string(for: self)!  // swiftlint:disable:this force_unwrapping
   }
 
-  func doubleString() -> String {
+  public func doubleString() -> String {
     NumberFormatter.double.string(for: self)!  // swiftlint:disable:this force_unwrapping
   }
 
-  func dollarString() -> String {
+  public func dollarString() -> String {
     NumberFormatter.dollar.string(for: self)!  // swiftlint:disable:this force_unwrapping
   }
 }

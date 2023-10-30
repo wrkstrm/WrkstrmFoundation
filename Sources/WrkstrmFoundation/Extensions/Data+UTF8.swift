@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Data {
+extension Data {
 
-  func utf8StringValue() -> String? { String(data: self, encoding: .utf8) }
+  public func utf8StringValue() -> String? { String(data: self, encoding: .utf8) }
 }
