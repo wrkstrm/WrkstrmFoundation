@@ -2,7 +2,7 @@ import Foundation
 
 extension URL {
   public func withQueryItems(_ items: [URLQueryItem]) -> URL {
-    var components = URLComponents(url: self, resolvingAgainstBaseURL: false)
+    var components: URLComponents? = .init(url: self, resolvingAgainstBaseURL: false)
     components?.queryItems = items
     return (components?.url)!  // swiftlint:disable:this force_unwrapping
   }

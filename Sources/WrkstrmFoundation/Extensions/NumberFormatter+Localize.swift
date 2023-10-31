@@ -2,7 +2,7 @@ import Foundation
 
 extension NumberFormatter {
   public static let integer: NumberFormatter = {
-    let formatter = NumberFormatter()
+    let formatter: NumberFormatter = .init()
     formatter.numberStyle = .decimal
     formatter.maximumFractionDigits = 0
     formatter.minimumIntegerDigits = 0
@@ -10,14 +10,14 @@ extension NumberFormatter {
   }()
 
   public static let double: NumberFormatter = {
-    let formatter = NumberFormatter()
+    let formatter: NumberFormatter = .init()
     formatter.numberStyle = .decimal
     formatter.minimumFractionDigits = 2
     return formatter
   }()
 
   public static let dollar: NumberFormatter = {
-    let formatter = NumberFormatter()
+    let formatter: NumberFormatter = .init()
     formatter.numberStyle = .currency
     formatter.maximumFractionDigits = 4
     formatter.minimumFractionDigits = 2

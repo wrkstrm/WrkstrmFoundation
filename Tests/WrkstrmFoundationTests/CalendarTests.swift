@@ -18,7 +18,7 @@ final class CalendarTests: XCTestCase {
     ("testInsertAtDecreasingMiddle", testInsertAtDecreasingMiddle),
   ]
 
-  var calendar = Calendar()
+  var calendar: Calendar = .init()
 
   override func setUp() {
     super.setUp()
@@ -52,31 +52,31 @@ final class CalendarTests: XCTestCase {
   }
 
   func testIncreasingOrder() {
-    let sortedArray = SortedArray(unsorted: [5, 4, 2], sortOrder: <)
+    let sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: <)
     XCTAssertTrue(sortedArray.elements == [2, 4, 5])
   }
 
   func testInsertAtIncreasing() {
-    var sortedArray = SortedArray(unsorted: [5, 4, 2], sortOrder: <)
+    var sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: <)
     sortedArray.insert(1)
     Log.verbose("\(sortedArray)")
     XCTAssertTrue(sortedArray.elements == [1, 2, 4, 5])
   }
 
   func testDecreasingOrder() {
-    let sortedArray = SortedArray(unsorted: [5, 4, 2], sortOrder: >)
+    let sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: >)
     XCTAssertTrue(sortedArray.elements == [5, 4, 2])
   }
 
   func testInsertAtDecreasing() {
-    var sortedArray = SortedArray(unsorted: [5, 4, 2], sortOrder: >)
+    var sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: >)
     sortedArray.insert(1)
     Log.verbose("\(sortedArray)")
     XCTAssertTrue(sortedArray.elements == [5, 4, 2, 1])
   }
 
   func testInsertAtDecreasingMiddle() {
-    var sortedArray = SortedArray(unsorted: [5, 4, 2], sortOrder: >)
+    var sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: >)
     sortedArray.insert(3)
     Log.verbose("\(sortedArray)")
     XCTAssertTrue(sortedArray.elements == [5, 4, 3, 2])
