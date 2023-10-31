@@ -1,4 +1,3 @@
-import WrkstrmColor
 import WrkstrmLog
 import XCTest
 
