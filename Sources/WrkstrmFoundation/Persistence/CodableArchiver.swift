@@ -1,4 +1,9 @@
+#if os(Linux)
+// Needed because DispatchQueue isn't Sendable on Linux
+@preconcurrency import Foundation
+#else
 import Foundation
+#endif
 
 public struct CodableArchiver<T: Codable> {
   public let encoder: JSONEncoder

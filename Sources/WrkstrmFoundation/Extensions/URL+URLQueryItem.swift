@@ -1,4 +1,9 @@
+#if os(Linux)
+// Needed because DispatchQueue isn't Sendable on Linux
+@preconcurrency import Foundation
+#else
 import Foundation
+#endif
 
 extension URL {
   public func withQueryItems(_ items: [URLQueryItem]) -> URL {
