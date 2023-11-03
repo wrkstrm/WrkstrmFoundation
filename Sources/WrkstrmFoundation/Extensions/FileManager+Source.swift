@@ -1,11 +1,12 @@
+import WrkstrmLog
+import WrkstrmMain
+
 #if os(Linux)
 // Needed because DispatchQueue isn't Sendable on Linux
 @preconcurrency import Foundation
 #else
 import Foundation
 #endif
-import WrkstrmLog
-import WrkstrmMain
 
 // MARK: - FileManager + Localization Searches
 

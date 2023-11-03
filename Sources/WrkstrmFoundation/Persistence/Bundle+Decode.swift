@@ -1,17 +1,18 @@
+import WrkstrmLog
+
 #if os(Linux)
 // Needed because DispatchQueue isn't Sendable on Linux
 @preconcurrency import Foundation
 #else
 import Foundation
 #endif
-import WrkstrmLog
 
 extension Bundle {
   public func decode<T: Decodable>(
     _ type: T.Type,
     from file: String,
-    decoder: JSONDecoder = JSONDecoder()
-  ) -> T {
+    decoder: JSONDecoder = JSONDecoder()) -> T
+  {
     guard let url = url(forResource: file, withExtension: "json") else {
       Log.guard("Failed to locate \(file) in bundle.")
     }

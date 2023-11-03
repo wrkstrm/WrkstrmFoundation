@@ -1,10 +1,11 @@
+import WrkstrmMain
+
 #if os(Linux)
 // Needed because DispatchQueue isn't Sendable on Linux
 @preconcurrency import Foundation
 #else
 import Foundation
 #endif
-import WrkstrmMain
 
 public struct Calendar {
   var events = SortedArray<Event>(unsorted: [Event](), sortOrder: <)
