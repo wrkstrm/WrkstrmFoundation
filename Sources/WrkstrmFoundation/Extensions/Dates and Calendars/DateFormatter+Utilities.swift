@@ -33,6 +33,13 @@ extension DateFormatter {
     formatter.timeZone = TimeZone(secondsFromGMT: 0)
     return formatter
   }()
+  
+  /// `The` standard gitlog dateFormatter.
+  public static let gitLog = { () -> DateFormatter in
+    let formatter: DateFormatter = .init()
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+    return formatter
+  }()
 
   /// A basic date-only formatter.
   public static let dateOnlyEncoder = { () -> DateFormatter in
