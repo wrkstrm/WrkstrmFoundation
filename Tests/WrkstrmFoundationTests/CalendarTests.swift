@@ -17,7 +17,7 @@ final class CalendarTests: XCTestCase {
     ("testInsertAtDecreasingMiddle", testInsertAtDecreasingMiddle),
   ]
 
-  var calendar: Calendar = .init()
+  var calendar: WrkstrmFoundation.Calendar = .init()
 
   override func setUp() {
     super.setUp()
