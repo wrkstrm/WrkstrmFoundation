@@ -4,7 +4,7 @@ import PackageDescription
 extension SwiftSetting {
   static let profile: SwiftSetting = .unsafeFlags([
     "-Xfrontend",
-    "-warn-long-expression-type-checking=25",
+    "-warn-long-expression-type-checking=10",
   ])
 }
 
