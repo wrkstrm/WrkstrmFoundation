@@ -2,7 +2,7 @@ import Foundation
 import WrkstrmMain
 
 public struct Calendar {
-  var events = SortedArray<Event>(unsorted: [Event](), sortOrder: <)
+  var events: SortedArray<Event> = SortedArray<Event>(unsorted: [Event](), sortOrder: <)
 
   mutating func insert(_ event: Event) {
     events.insert(event)

@@ -31,7 +31,7 @@ private enum Encoding {
 
 private enum Decoding {
   static func customDateDecoder(_ decoder: Decoder) throws -> Date {
-    let dateString = try decoder.singleValueContainer().decode(String.self)
+    let dateString: String = try decoder.singleValueContainer().decode(String.self)
     if let date = DateFormatter.iso8601.date(from: dateString) {
       return date
     }
