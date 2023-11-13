@@ -1,16 +1,26 @@
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore
 
-# Xcode
-#
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+& Swift.gitignore
 
 # OS X
+
 .DS_Store
 
+# Xcode
+
+*.mobileprovision
+
+# Xcode Tulsi
+apple/trader-mac/Trader.xcodeproj/*
+
 ## Build generated
+
+.build/
 build/
 DerivedData/
 
 ## Various settings
+
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -21,9 +31,9 @@ DerivedData/
 !default.perspectivev3
 xcuserdata/
 profile
-*.moved-aside
 
 ## Other
+
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
@@ -34,26 +44,14 @@ profile
 *.dSYM.zip
 *.dSYM
 
-## Playgrounds
-timeline.xctimeline
-playground.xcworkspace
-
 # Bundler
 
 .bundle
 
-# Carthage
-#
-# Avoid checking in source code from Carthage dependencies.
+## Playgrounds
 
-Carthage/Checkouts
-
-!Carthage/Build
-Carthage/Build/*
-!Carthage/Build/iOS/
-Carthage/Build/iOS/*
-# Add specific frameworks so that you don't have to bootstrap Carthage
-!Carthage/Build/iOS/HSLuv.framework/
+timeline.xctimeline
+playground.xcworkspace
 
 # Swift Package Manager
 #
@@ -61,7 +59,7 @@ Carthage/Build/iOS/*
 # Packages/
 # Package.pins
 # Package.resolved
-.build/
+/apple/spm/.build
 
 # CocoaPods
 #
@@ -70,9 +68,21 @@ Carthage/Build/iOS/*
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
 #
 # Pods/
+
+# Carthage
 #
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
+# Add this line if you want to avoid checking in source code from Carthage dependencies.
+
+Carthage/Carthage/Checkouts/*
+!Carthage/Carthage/Checkouts/ZIPFoundation/
+!Carthage/Carthage/Checkouts/ReactiveCocoa/
+
+Carthage/Carthage/Build/*
+!Carthage/Carthage/Build/iOS/
+Carthage/Carthage/Build/iOS/*.bcsymbolmap
+
+# Add specific frameworks so that you don't have to bootstrap Carthage
+!Carthage/Build/iOS/ZIPFoundation.framework/
 
 # fastlane
 #
@@ -83,5 +93,13 @@ Carthage/Build/iOS/*
 
 fastlane/report.xml
 fastlane/Preview.html
-fastlane/screenshots/**/*.png
+fastlane/screenshots
 fastlane/test_output
+
+# Markdoc
+
+node_modules/
+.next/
+.vercel
+package-lock.json
+yarn.lock

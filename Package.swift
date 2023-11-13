@@ -5,7 +5,7 @@ import class Foundation.ProcessInfo
 extension SwiftSetting {
   static let profile: SwiftSetting = .unsafeFlags([
     "-Xfrontend",
-    "-warn-long-expression-type-checking=5",
+    "-warn-long-expression-type-checking=6",
   ])
 }
 
@@ -18,7 +18,7 @@ extension ProcessInfo {
 let wrkstrmDeps: [PackageDescription.Package.Dependency]  =
   ProcessInfo.useLocalDeps ? PackageDescription.Package.Dependency.local : PackageDescription.Package.Dependency.remote
 print("---- Wrkstrm Deps ----")
-print(wrkstrmDeps)
+print(wrkstrmDeps.map { $0.kind })
 print("---- Wrkstrm Deps ----")
 
 extension PackageDescription.Package.Dependency {
@@ -31,8 +31,8 @@ extension PackageDescription.Package.Dependency {
 
   static var remote: [PackageDescription.Package.Dependency] {
     [
-      .package(url: "https://github.com/wrkstrm/WrkstrmLog", branch: "main"),
-      .package(url: "https://github.com/wrkstrm/WrkstrmMain", branch: "main"),
+      .package(url: "https://github.com/wrkstrm/WrkstrmLog.git", branch: "main"),
+      .package(url: "https://github.com/wrkstrm/WrkstrmMain.git", branch: "main"),
     ]
   }
 }
