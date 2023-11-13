@@ -18,7 +18,7 @@ extension ProcessInfo {
 let wrkstrmDeps: [PackageDescription.Package.Dependency]  =
   ProcessInfo.useLocalDeps ? PackageDescription.Package.Dependency.local : PackageDescription.Package.Dependency.remote
 print("---- Wrkstrm Deps ----")
-print(wrkstrmDeps)
+print(wrkstrmDeps.map { $0.kind })
 print("---- Wrkstrm Deps ----")
 
 extension PackageDescription.Package.Dependency {
