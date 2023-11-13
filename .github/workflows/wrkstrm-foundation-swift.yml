@@ -24,8 +24,8 @@ jobs:
       id: cache-spm
       uses: actions/cache@v3
       with:
-        restore-keys: ${{ runner.os }}-spm-WrkstrmFoundation-
         path: apple/WrkstrmFoundation/.build
+        restore-keys: ${{ runner.os }}-spm-WrkstrmFoundation-
         key: ${{ runner.os }}-spm-WrkstrmFoundation-${{ hashFiles('**/Package.resolved')
           }}
     - name: Check Cache

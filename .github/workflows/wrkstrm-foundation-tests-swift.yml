@@ -1,13 +1,13 @@
 name: "\U0001F6A7 Swift Test| WrkstrmFoundationTests"
 on:
+  pull_request:
+    branches:
+    - main
   push:
     branches:
     - main
     paths:
     - '**'
-  pull_request:
-    branches:
-    - main
 jobs:
   swift-test:
     strategy:
@@ -24,9 +24,9 @@ jobs:
       id: cache-spm
       uses: actions/cache@v3
       with:
+        path: apple/WrkstrmFoundation/.build
         key: ${{ runner.os }}-spm-WrkstrmFoundation-${{ hashFiles('**/Package.resolved')
           }}
-        path: apple/WrkstrmFoundation/.build
         restore-keys: ${{ runner.os }}-spm-WrkstrmFoundation-
     - name: Check Cache
       run: 'echo ''Cache hit: ${{ steps.cache-spm.outputs.cache-hit }}'''
