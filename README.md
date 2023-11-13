@@ -1,6 +1,6 @@
 # WrkstrmFoundation
 
-There are portions of this package which are not availabe in Linux. 
+This package is compatible with Linux. 
 
 <!-- START_SECTION:status -->
 
