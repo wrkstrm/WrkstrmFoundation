@@ -1,0 +1,4 @@
+framework module HSLuv {
+  header "HSLuv-Swift.h"
+  requires objc
+}
