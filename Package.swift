@@ -1,6 +1,6 @@
 // swift-tools-version:5.9
-import PackageDescription
 import class Foundation.ProcessInfo
+import PackageDescription
 
 extension SwiftSetting {
   static let profile: SwiftSetting = .unsafeFlags([
@@ -16,9 +16,14 @@ extension ProcessInfo {
 }
 
 let wrkstrmDeps: [PackageDescription.Package.Dependency]  =
-  ProcessInfo.useLocalDeps ? PackageDescription.Package.Dependency.local : PackageDescription.Package.Dependency.remote
+  ProcessInfo.useLocalDeps ? PackageDescription.Package.Dependency.local : PackageDescription
+    .Package.Dependency.remote
 print("---- Wrkstrm Deps ----")
+<<<<<<< Updated upstream
 print(wrkstrmDeps)
+=======
+print(wrkstrmDeps.map(\.kind))
+>>>>>>> Stashed changes
 print("---- Wrkstrm Deps ----")
 
 extension PackageDescription.Package.Dependency {
