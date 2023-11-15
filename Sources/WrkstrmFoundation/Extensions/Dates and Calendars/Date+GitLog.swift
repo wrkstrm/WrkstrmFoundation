@@ -2,10 +2,9 @@ import Foundation
 
 extension Date {
   public init?(gitLogString: String) {
-    if let date = DateFormatter.gitLog.date(from: gitLogString) {
-      self = date
-    } else {
+    guard let date = DateFormatter.gitLog.date(from: gitLogString) else {
       return nil
     }
+    self = date
   }
 }
