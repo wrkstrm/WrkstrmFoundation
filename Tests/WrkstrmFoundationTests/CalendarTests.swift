@@ -23,7 +23,7 @@ final class CalendarTests: XCTestCase {
     super.setUp()
     calendar.insert(.init())
     calendar.insert(.init())
-    Log.verbose("Calendar: \(calendar)")
+    Log.foundation.verbose("Calendar: \(calendar)")
   }
 
   func testBasicEvents() {
@@ -58,7 +58,7 @@ final class CalendarTests: XCTestCase {
   func testInsertAtIncreasing() {
     var sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: <)
     sortedArray.insert(1)
-    Log.verbose("\(sortedArray)")
+    Log.foundation.verbose("\(sortedArray)")
     XCTAssertTrue(sortedArray.elements == [1, 2, 4, 5])
   }
 
@@ -70,14 +70,14 @@ final class CalendarTests: XCTestCase {
   func testInsertAtDecreasing() {
     var sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: >)
     sortedArray.insert(1)
-    Log.verbose("\(sortedArray)")
+    Log.foundation.verbose("\(sortedArray)")
     XCTAssertTrue(sortedArray.elements == [5, 4, 2, 1])
   }
 
   func testInsertAtDecreasingMiddle() {
     var sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: >)
     sortedArray.insert(3)
-    Log.verbose("\(sortedArray)")
+    Log.foundation.verbose("\(sortedArray)")
     XCTAssertTrue(sortedArray.elements == [5, 4, 3, 2])
   }
 }
