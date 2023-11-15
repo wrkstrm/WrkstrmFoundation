@@ -1,5 +1,5 @@
 // swift-tools-version:5.9
-import class Foundation.ProcessInfo
+import Foundation
 import PackageDescription
 
 extension SwiftSetting {
