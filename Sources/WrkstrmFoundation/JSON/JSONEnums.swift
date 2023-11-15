@@ -7,19 +7,19 @@ import WrkstrmMain
 import Foundation
 #endif
 
-public enum JSON {
-  public enum EquatableArray: Equatable {
+extension WrkstrmMain.JSON {
+  public enum AnyEquatableArrayEnum: Equatable {
     case any([Any])
 
-    case dictionary([JSONDictionary])
+    case dictionary([WrkstrmMain.JSON.Dictionary])
 
-    public static func == (_: EquatableArray, _: EquatableArray) -> Bool { true }
+    public static func == (_: Self, _: Self) -> Bool { true }
   }
 
-  public enum EquatableDictionary: Equatable {
-    case any(JSONDictionary)
+  public enum AnyEquatableDictionaryEnum: Equatable {
+    case any(WrkstrmMain.JSON.Dictionary)
 
-    public static func == (_: EquatableDictionary, _: EquatableDictionary) -> Bool { true }
+    public static func == (_: Self, _: Self) -> Bool { true }
   }
 
   public enum Value: Equatable {
@@ -31,9 +31,9 @@ public enum JSON {
 
     case date(String, Date)
 
-    case array(String, EquatableArray)
+    case array(String, JSON.AnyEquatableArrayEnum)
 
-    case dictionary(String, EquatableDictionary)
+    case dictionary(String, JSON.AnyEquatableDictionaryEnum)
 
     case any(String, String)
   }
