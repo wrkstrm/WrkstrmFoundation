@@ -19,11 +19,7 @@ let wrkstrmDeps: [PackageDescription.Package.Dependency]  =
   ProcessInfo.useLocalDeps ? PackageDescription.Package.Dependency.local : PackageDescription
     .Package.Dependency.remote
 print("---- Wrkstrm Deps ----")
-<<<<<<< Updated upstream
-print(wrkstrmDeps)
-=======
 print(wrkstrmDeps.map(\.kind))
->>>>>>> Stashed changes
 print("---- Wrkstrm Deps ----")
 
 extension PackageDescription.Package.Dependency {
