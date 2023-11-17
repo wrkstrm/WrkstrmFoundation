@@ -11,7 +11,7 @@ extension SwiftSetting {
 
 extension ProcessInfo {
   static var useLocalDeps: Bool {
-    ProcessInfo.processInfo.environment["SPM_CI_USE_LOCAL_DEPS"] == "true"
+    ProcessInfo.processInfo.environment["SPM_USE_LOCAL_DEPS"] == "true"
   }
 }
 
