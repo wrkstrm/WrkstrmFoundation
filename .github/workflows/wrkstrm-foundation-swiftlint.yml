@@ -1,13 +1,13 @@
 name: "\U0001F9F9 Swift Lint| WrkstrmFoundation"
 on:
+  pull_request:
+    branches:
+    - main
   push:
     branches:
     - main
     paths:
     - '**'
-  pull_request:
-    branches:
-    - main
 jobs:
   swift-build:
     strategy:
@@ -23,8 +23,8 @@ jobs:
       id: cache-brew
       uses: actions/cache@v3
       with:
-        key: ${{ runner.os }}-homebrew-${{ hashFiles('**/Brewfile') }
         path: /usr/local/Homebrew ~/Library/Caches/Homebrew
+        key: ${{ runner.os }}-homebrew-${{ hashFiles('**/Brewfile') }}
     - name: Check Cache
       run: 'echo ''Cache hit: ${{ steps.cache-brew.outputs.cache-hit }}'''
     - name: Setup Xcode
@@ -39,8 +39,11 @@ jobs:
         || echo "SPM_CI_USE_LOCAL_DEPS is set to ${SPM_CI_USE_LOCAL_DEPS}"'
       env:
         SPM_CI_USE_LOCAL_DEPS: ${{ env.SPM_CI_USE_LOCAL_DEPS }}
-    - name: Swift SWIFTLINT
+    - name: brew install swiftlint
       if: steps.cache-brew.outputs.cache-hit != 'true'
       run: brew install swiftlint
+    - name: Download SwiftLint Configuration
+      if: matrix.os == 'macos-latest' || matrix.os == 'macos-13'
+      run: curl -O https://raw.githubusercontent.com/wrkstrm/WrkstrmConfig/main/.swiftlint.yml
     - name: SwiftLint
       run: swiftlint

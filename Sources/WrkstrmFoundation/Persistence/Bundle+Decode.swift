@@ -38,7 +38,8 @@ extension Bundle {
         "Failed to decode \(file) from bundle due to missing \(type) value – "
           + "\(context.debugDescription)")
     } catch DecodingError.dataCorrupted(_) {
-      Log.foundation.guard("Failed to decode \(file) from bundle because it appears to be invalid JSON")
+      Log.foundation
+        .guard("Failed to decode \(file) from bundle because it appears to be invalid JSON")
     } catch {
       Log.foundation.guard("Failed to decode \(file) from bundle: \(error.localizedDescription)")
     }

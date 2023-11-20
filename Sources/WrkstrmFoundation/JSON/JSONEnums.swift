@@ -11,13 +11,13 @@ extension WrkstrmMain.JSON {
   public enum AnyEquatableArrayEnum: Equatable {
     case any([Any])
 
-    case dictionary([WrkstrmMain.JSON.Dictionary])
+    case dictionary([JSON.AnyDictionary])
 
     public static func == (_: Self, _: Self) -> Bool { true }
   }
 
   public enum AnyEquatableDictionaryEnum: Equatable {
-    case any(WrkstrmMain.JSON.Dictionary)
+    case any(JSON.AnyDictionary)
 
     public static func == (_: Self, _: Self) -> Bool { true }
   }
