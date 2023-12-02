@@ -6,27 +6,34 @@ import Foundation
 #endif
 
 extension DateFormatter {
+
+  /// A formatter for representing dates in a long style format.
+  /// Usage: `DateFormatter.longDate.string(from: date)`
   public static let longDate = { () -> DateFormatter in
     let formatter: DateFormatter = .init()
     formatter.dateStyle = .long
     return formatter
   }()
 
+  /// A formatter for representing dates in a medium style format.
+  /// Usage: `DateFormatter.mediumDate.string(from: date)`
   public static let mediumDate = { () -> DateFormatter in
     let formatter: DateFormatter = .init()
     formatter.dateStyle = .medium
     return formatter
   }()
 
-  /// `The` standard iso8601 dateFormatter. Takes into account the `-` before the timeZone.
+  /// A standard ISO8601 dateFormatter taking into account the `-` before the timeZone.
+  /// Usage: `DateFormatter.iso8601.string(from: date)`
   public static let iso8601 = { () -> DateFormatter in
     let formatter: DateFormatter = .init()
     formatter.dateFormat = "yyyyMMdd'T'HHmmssZ"
     return formatter
   }()
 
-  /// A common, but incorrect io8601 format. The `Z` at the end of the format string does not
-  /// represent the timeZone. In this case we assume the `timeZone` is `0` seconds from GMT.
+  /// A common but incorrect ISO8601 format. Assumes timeZone is `0` seconds from GMT.
+  /// Note: The `Z` at the end of the format string does not represent the timeZone.
+  /// Usage: `DateFormatter.iso8601Z.string(from: date)`
   public static let iso8601Z = { () -> DateFormatter in
     let formatter: DateFormatter = .init()
     formatter.dateFormat = "yyyyMMdd'T'HHmmss'Z'"
@@ -34,7 +41,8 @@ extension DateFormatter {
     return formatter
   }()
 
-  /// `The` standard gitlog dateFormatter.
+  /// A standard formatter for Git log dates.
+  /// Usage: `DateFormatter.gitLog.string(from: date)`
   public static let gitLog = { () -> DateFormatter in
     let formatter: DateFormatter = .init()
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
@@ -42,6 +50,7 @@ extension DateFormatter {
   }()
 
   /// A basic date-only formatter.
+  /// Usage: `DateFormatter.dateOnlyEncoder.string(from: date)`
   public static let dateOnlyEncoder = { () -> DateFormatter in
     let formatter: DateFormatter = .init()
     formatter.dateFormat = "yyyyMMdd"
@@ -50,16 +59,21 @@ extension DateFormatter {
 }
 
 extension Date {
+
+  /// Converts the date to a localized string with the specified style.
+  /// - Parameter style: The formatting style to use. Defaults to `.medium`.
+  /// - Returns: A localized string representation of the date.
+  /// Usage: `date.localizedString() or date.localizedString(with: .long)`
   public func localizedString(with style: DateFormatter.Style = .medium) -> String {
     switch style {
       case .long:
-        DateFormatter.longDate.string(from: self)
+        return DateFormatter.longDate.string(from: self)
 
       case .medium:
-        DateFormatter.mediumDate.string(from: self)
+        return DateFormatter.mediumDate.string(from: self)
 
       default:
-        DateFormatter.mediumDate.string(from: self)
+        return DateFormatter.mediumDate.string(from: self)
     }
   }
 }
