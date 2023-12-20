@@ -1,21 +1,36 @@
 #if os(Linux)
-// Needed because DispatchQueue isn't Sendable on Linux
+// Necessary import for Linux due to DispatchQueue not being Sendable.
 @preconcurrency import Foundation
 #else
 import Foundation
 #endif
 
+/// A struct for archiving (`Codable`) objects using JSON encoding and decoding.
+/// It provides methods to save, retrieve, and remove objects from a specified directory.
 public struct CodableArchiver<T: Codable> {
+  /// The JSON encoder to use for archiving.
   public let encoder: JSONEncoder
 
+  /// The JSON decoder to use for unarchiving.
   public let decoder: JSONDecoder
 
+  /// The file manager instance to handle file operations.
   public let fileManager: FileManager = .default
 
+  /// The directory where the archives are stored.
   public let archiveDirectory: URL
 
+  /// The key used to identify the archive file.
   public let key: AnyHashable
 
+  /// Initializes a new `CodableArchiver` with the given parameters.
+  ///
+  /// - Parameters:
+  ///   - key: A unique key to identify the archive.
+  ///   - directory: The directory where the archive will be stored.
+  ///   - encoder: A custom `JSONEncoder` for encoding objects. Defaults to `.default`.
+  ///   - decoder: A custom `JSONDecoder` for decoding objects. Defaults to `.default`.
+  ///   - searchPathDomainMask: The domain mask to use when searching for the directory.
   public init(
     key: AnyHashable,
     directory: FileManager.SearchPathDirectory,
@@ -31,6 +46,12 @@ public struct CodableArchiver<T: Codable> {
     self.key = key
   }
 
+  /// Initializes a new `CodableArchiver` with a specific URL for the archive directory.
+  ///
+  /// - Parameters:
+  ///   - directory: The URL of the directory where the archive will be stored.
+  ///   - encoder: A custom `JSONEncoder` for encoding objects. Defaults to `.default`.
+  ///   - decoder: A custom `JSONDecoder` for decoding objects. Defaults to `.default`.
   public init(
     directory: URL,
     encoder: JSONEncoder = .default,
@@ -46,6 +67,10 @@ public struct CodableArchiver<T: Codable> {
 // MARK: - Filemanager helpers
 
 extension CodableArchiver {
+  /// Returns the file path for a given key within the archive directory.
+  ///
+  /// - Parameter key: The key for which to generate the file path.
+  /// - Returns: The file path as a `String`.
   public func filePathForKey(_ key: AnyHashable) -> String {
     archiveDirectory.appendingPathComponent(String(key.description)).path
   }
@@ -54,11 +79,12 @@ extension CodableArchiver {
 // MARK: - Workflow operations
 
 extension CodableArchiver {
+  /// Retrieves and decodes an object of type `T` associated with the given key.
+  ///
+  /// - Parameter key: The key for the object to retrieve. Defaults to the archiver's key.
+  /// - Returns: An optional object of type `T`, if it exists and can be decoded.
   public func get(_ key: AnyHashable? = nil) -> T? {
-    guard
-      let data =
-      NSKeyedUnarchiver.unarchiveObject(withFile: filePathForKey(key ?? self.key)) as? Data
-    else {
+    guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: filePathForKey(key ?? self.key)) as? Data else {
       return nil
     }
 
@@ -69,35 +95,50 @@ extension CodableArchiver {
     return decoded
   }
 
+  /// Encodes and archives an object of type `T` associated with the given key.
+  ///
+  /// - Parameters:
+  ///   - value: The object to archive.
+  ///   - key: The key to associate with the object. Defaults to the archiver's key.
+  /// - Returns: A `Bool` indicating success or failure.
   @discardableResult
   public func set(_ value: T, forKey key: AnyHashable? = nil) -> Bool {
-    let data = try? encoder.encode(value)
+    guard let data = try? encoder.encode(value) else {
+      return false
+    }
+
     try? fileManager.createDirectory(
       at: archiveDirectory,
       withIntermediateDirectories: true,
       attributes: nil)
-    guard let data else {
-      return false
-    }
+
     return NSKeyedArchiver.archiveRootObject(data, toFile: filePathForKey(key ?? self.key))
   }
 
+  /// Encodes and archives an array of objects of type `T` associated with the given key.
+  ///
+  /// - Parameters:
+  ///   - value: The array of objects to archive.
+  ///   - key: The key to associate with the objects. Defaults to the archiver's key.
+  /// - Returns: A `Bool` indicating success or failure.
   @discardableResult
-  func set(_ value: [T], forKey key: AnyHashable? = nil) -> Bool {
-    let encodedValues = try? value.map { try encoder.encode($0) }
+  public func set(_ value: [T], forKey key: AnyHashable? = nil) -> Bool {
+    guard let encodedValues = try? value.map({ try encoder.encode($0) }) else {
+      return false
+    }
+
     try? fileManager.createDirectory(
       at: archiveDirectory,
       withIntermediateDirectories: true,
       attributes: nil)
-    guard let encodedValues else {
-      return false
-    }
-    return NSKeyedArchiver.archiveRootObject(
-      encodedValues,
-      toFile: filePathForKey(key ?? self.key))
+
+    return NSKeyedArchiver.archiveRootObject(encodedValues, toFile: filePathForKey(key ?? self.key))
   }
 
-  func clear() throws {
+  /// Clears the archive by removing all items in the directory.
+  ///
+  /// - Throws: An error if the directory cannot be removed.
+  public func clear() throws {
     try fileManager.removeItem(at: archiveDirectory)
   }
 }
