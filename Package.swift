@@ -1,4 +1,4 @@
-// swift-tools-version:5.9
+// swift-tools-version:5.10
 import Foundation
 import PackageDescription
 
@@ -43,7 +43,9 @@ let package = Package(
   platforms: [
     .iOS(.v16),
     .macOS(.v13),
+    .macCatalyst(.v13),
     .tvOS(.v16),
+    .visionOS(.v1),
     .watchOS(.v9),
   ],
   products: [
