@@ -5,9 +5,9 @@
 import Foundation
 #endif
 
-/// An extension to `JSONDecoder` to provide a customized decoder for handling specific date formats.
+/// An extension to `JSONDecoder` to provide a customized decoder for handling specific date
+/// formats.
 extension JSONDecoder {
-
   /// A static instance of `JSONDecoder` with a custom date decoding strategy.
   ///
   /// This decoder uses a custom strategy for decoding dates from JSON. The strategy
@@ -26,9 +26,9 @@ extension JSONDecoder {
   }()
 }
 
-/// An extension to `JSONEncoder` to provide a customized encoder for handling specific date formats.
+/// An extension to `JSONEncoder` to provide a customized encoder for handling specific date
+/// formats.
 extension JSONEncoder {
-
   /// A static instance of `JSONEncoder` with a custom date encoding strategy.
   ///
   /// This encoder uses a custom strategy for encoding dates to JSON. The strategy
