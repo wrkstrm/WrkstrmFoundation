@@ -6,7 +6,8 @@ import Foundation
 #endif
 
 extension FileHandle {
-  /// Provides an array of standard file handles - standard input, standard error, and standard output.
+  /// Provides an array of standard file handles - standard input, standard error, and standard
+  /// output.
   ///
   /// This property can be used to access the common file handles used for input, output, and error
   /// in command-line interfaces or scripts.
@@ -23,7 +24,8 @@ extension FileHandle {
   /// Determines whether the instance of `FileHandle` is one of the standard file handles.
   ///
   /// This method checks if the current file handle instance is standard input, output, or error.
-  /// It's useful in scripts where different actions might be taken based on the type of file handle.
+  /// It's useful in scripts where different actions might be taken based on the type of file
+  /// handle.
   ///
   /// Usage:
   /// ```swift
@@ -34,6 +36,7 @@ extension FileHandle {
   /// }
   /// ```
   ///
-  /// - Returns: `true` if the file handle is either standard input, output, or error; otherwise, `false`.
+  /// - Returns: `true` if the file handle is either standard input, output, or error; otherwise,
+  /// `false`.
   public var isStandard: Bool { standardHandles.contains(self) }
 }
