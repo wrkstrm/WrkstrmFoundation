@@ -35,13 +35,24 @@ extension PackageDescription.Package.Dependency {
   }
 }
 
-// MARK: - Package Declaration
+// MARK: - Package Service
 
-let wrkstrmDeps: [PackageDescription.Package.Dependency]  =
-  ProcessInfo.useLocalDeps ? PackageDescription.Package.Dependency.local : PackageDescription
-    .Package.Dependency.remote
+struct PackageService {
+  static let shared = PackageService()
+
+  var swiftSettings: [SwiftSetting]
+  var packages:[ PackageDescription.Package.Dependency]
+
+  init() {
+    swiftSettings = ProcessInfo.useLocalDeps ? [SwiftSetting.profile] : []
+    packages = ProcessInfo.useLocalDeps ? PackageDescription.Package.Dependency.local : PackageDescription
+      .Package.Dependency.remote
+  }
+}
+
+// MARK: - Package Declaration
 print("---- Wrkstrm Deps ----")
-print(wrkstrmDeps.map(\.kind))
+print(PackageService.shared.packages.map(\.kind))
 print("---- Wrkstrm Deps ----")
 
 let package = Package(
@@ -57,14 +68,14 @@ let package = Package(
   products: [
     .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"]),
   ],
-  dependencies: wrkstrmDeps,
+  dependencies: PackageService.shared.packages,
   targets: [
     .target(
       name: "WrkstrmFoundation",
       dependencies: ["WrkstrmLog", "WrkstrmMain"],
-      swiftSettings: [.profile]),
+      swiftSettings: PackageService.shared.swiftSettings),
     .testTarget(
       name: "WrkstrmFoundationTests",
       dependencies: ["WrkstrmFoundation"],
-      swiftSettings: ProcessInfo.useLocalDeps ? [.profile] : []),
+      swiftSettings: PackageService.shared.swiftSettings),
   ])
