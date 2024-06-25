@@ -13,47 +13,48 @@ extension ProcessInfo {
 // MARK: - PackageDescription extensions
 
 extension SwiftSetting {
-  static let profile: SwiftSetting = .unsafeFlags([
+  static let localSwiftSettings: SwiftSetting = .unsafeFlags([
     "-Xfrontend",
     "-warn-long-expression-type-checking=10",
   ])
 }
 
-extension PackageDescription.Package.Dependency {
-  static var local: [PackageDescription.Package.Dependency] {
+// MARK: - PackageDescription extensions
+
+extension [PackageDescription.Package.Dependency] {
+  static let local: [PackageDescription.Package.Dependency]  =
     [
       .package(name: "WrkstrmLog", path: "../WrkstrmLog"),
       .package(name: "WrkstrmMain", path: "../WrkstrmMain"),
     ]
-  }
 
-  static var remote: [PackageDescription.Package.Dependency] {
+  static let remote: [PackageDescription.Package.Dependency] =
     [
       .package(url: "https://github.com/wrkstrm/WrkstrmLog.git", from: "0.0.4"),
       .package(url: "https://github.com/wrkstrm/WrkstrmMain.git", from: "0.5.1"),
     ]
-  }
 }
 
-// MARK: - Package Service
+// MARK: - Configuration Service
 
-struct PackageService {
-  static let shared = PackageService()
+struct ConfigurationService {
+  let swiftSettings: [SwiftSetting]
+  let dependencies: [PackageDescription.Package.Dependency]
 
-  var swiftSettings: [SwiftSetting]
-  var packages:[ PackageDescription.Package.Dependency]
+  private static let local: ConfigurationService = .init(
+    swiftSettings: [.localSwiftSettings],
+    dependencies: .local)
 
-  init() {
-    swiftSettings = ProcessInfo.useLocalDeps ? [SwiftSetting.profile] : []
-    packages = ProcessInfo.useLocalDeps ? PackageDescription.Package.Dependency.local : PackageDescription
-      .Package.Dependency.remote
-  }
+  private static let remote: ConfigurationService = .init(swiftSettings: [], dependencies: .remote)
+
+  static let shared: ConfigurationService = ProcessInfo.useLocalDeps ? .local : .remote
 }
 
 // MARK: - Package Declaration
-print("---- Wrkstrm Deps ----")
-print(PackageService.shared.packages.map(\.kind))
-print("---- Wrkstrm Deps ----")
+
+print("---- ConfigurationService Deps ----")
+print(ConfigurationService.shared.dependencies.map(\.kind))
+print("---- ConfigurationService Deps ----")
 
 let package = Package(
   name: "WrkstrmFoundation",
@@ -68,14 +69,14 @@ let package = Package(
   products: [
     .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"]),
   ],
-  dependencies: PackageService.shared.packages,
+  dependencies: ConfigurationService.shared.dependencies,
   targets: [
     .target(
       name: "WrkstrmFoundation",
       dependencies: ["WrkstrmLog", "WrkstrmMain"],
-      swiftSettings: PackageService.shared.swiftSettings),
+      swiftSettings: ConfigurationService.shared.swiftSettings),
     .testTarget(
       name: "WrkstrmFoundationTests",
       dependencies: ["WrkstrmFoundation"],
-      swiftSettings: PackageService.shared.swiftSettings),
+      swiftSettings: ConfigurationService.shared.swiftSettings),
   ])
