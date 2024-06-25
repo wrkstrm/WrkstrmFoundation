@@ -6,7 +6,6 @@ import Foundation
 #endif
 
 extension DateFormatter {
-
   /// A formatter for representing dates in a long style format.
   /// Usage: `DateFormatter.longDate.string(from: date)`
   public static let longDate = { () -> DateFormatter in
@@ -59,7 +58,6 @@ extension DateFormatter {
 }
 
 extension Date {
-
   /// Converts the date to a localized string with the specified style.
   /// - Parameter style: The formatting style to use. Defaults to `.medium`.
   /// - Returns: A localized string representation of the date.
@@ -67,13 +65,13 @@ extension Date {
   public func localizedString(with style: DateFormatter.Style = .medium) -> String {
     switch style {
       case .long:
-        return DateFormatter.longDate.string(from: self)
+        DateFormatter.longDate.string(from: self)
 
       case .medium:
-        return DateFormatter.mediumDate.string(from: self)
+        DateFormatter.mediumDate.string(from: self)
 
       default:
-        return DateFormatter.mediumDate.string(from: self)
+        DateFormatter.mediumDate.string(from: self)
     }
   }
 }
