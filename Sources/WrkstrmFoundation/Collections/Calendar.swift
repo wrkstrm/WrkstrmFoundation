@@ -1,8 +1,9 @@
 import Foundation
 import WrkstrmMain
 
-/// `Calendar` is a structure that represents a collection of events, each defined by a start and end date.
-/// It stores `Event` instances in a `SortedArray`, ensuring they are always in chronological order based on their start date.
+/// `Calendar` is a structure that represents a collection of events, each defined by a start and
+/// end date.It stores `Event` instances in a `SortedArray`, ensuring they are always in 
+/// chronological order based on their start date.
 public struct Calendar {
   /// A sorted array of `Event` objects.
   var events: SortedArray<Event> = .init(unsorted: [Event](), sortOrder: <)
@@ -19,7 +20,8 @@ extension Calendar {
   /// `Event` is a structure representing a time-bound occurrence in the `Calendar`.
   /// It is `Comparable` and `Equatable` based on its start and end dates.
   public struct Event: Comparable, Equatable {
-    /// Returns a Boolean value indicating whether the first event (`lhs`) starts before the second event (`rhs`).
+    /// Returns a Boolean value indicating whether the first event (`lhs`) starts before the second
+    /// event (`rhs`).
     public static func < (lhs: Event, rhs: Event) -> Bool {
       lhs.start < rhs.start
     }
@@ -76,7 +78,8 @@ extension Calendar {
 
 extension Calendar.Event {
   /// Initializes a new `Event` with a random start date and a fixed duration.
-  /// - Parameter startDate: The starting date of the event. Defaults to a random date within a range.
+  /// - Parameter startDate: The starting date of the event. Defaults to a random date within a
+  /// range.
   public init(startDate: Date = Date(timeIntervalSinceNow: .random(in: 0...Double(200_000_000)))) {
     start = startDate
     end = Date(timeIntervalSinceNow: start.timeIntervalSinceNow + 100_000)
