@@ -3,7 +3,7 @@ import XCTest
 
 public func allTests() -> [XCTestCaseEntry] {
   [
-    testCase(CalendarTests.allTests),
+    testCase(CalendarTests.allTests)
   ]
 }
 #endif
