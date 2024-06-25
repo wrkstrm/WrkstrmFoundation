@@ -7,7 +7,6 @@ import Foundation
 
 /// An extension to the `URL` class to facilitate the addition of query parameters.
 extension URL {
-
   /// Creates a new URL by adding the specified query items to the existing URL.
   ///
   /// This method takes an array of `URLQueryItem` and appends them to the URL as query parameters.
@@ -45,19 +44,21 @@ extension URL {
   }
 }
 
-/// An extension for dictionaries with `String` keys and `Double` values to support URL query item creation.
+/// An extension for dictionaries with `String` keys and `Double` values to support URL query item
+/// creation.
 extension [String: Double] {
-
   /// Converts the dictionary into an array of `URLQueryItem`.
   ///
   /// This method iterates over the dictionary entries and creates `URLQueryItem` instances,
-  /// where the dictionary key is used as the name and the string representation of the double value as the value.
+  /// where the dictionary key is used as the name and the string representation of the double value
+  /// as the value.
   ///
   /// Example:
   /// ```
   /// let parameters: [String: Double] = ["param1": 1.23, "param2": 4.56]
   /// let queryItems = parameters.withQueryItems([:])
-  /// // queryItems will contain [URLQueryItem(name: "param1", value: "1.23"), URLQueryItem(name: "param2", value: "4.56")]
+  /// // queryItems will contain [URLQueryItem(name: "param1", value: "1.23"), URLQueryItem(name:
+  /// "param2", value: "4.56")]
   /// ```
   ///
   /// - Returns: An array of `URLQueryItem` representing the dictionary entries.
