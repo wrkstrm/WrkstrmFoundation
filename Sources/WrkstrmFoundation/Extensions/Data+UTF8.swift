@@ -20,6 +20,7 @@ extension Data {
   /// }
   /// ```
   ///
-  /// - Returns: A `String?` which is the UTF-8 representation of the data, or `nil` if the conversion fails.
+  /// - Returns: A `String?` which is the UTF-8 representation of the data, or `nil` if the
+  /// conversion fails.
   public func utf8StringValue() -> String? { String(data: self, encoding: .utf8) }
 }
