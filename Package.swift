@@ -30,8 +30,8 @@ extension [PackageDescription.Package.Dependency] {
 
   static let remote: [PackageDescription.Package.Dependency] =
     [
-      .package(url: "https://github.com/wrkstrm/WrkstrmLog.git", from: "0.0.4"),
-      .package(url: "https://github.com/wrkstrm/WrkstrmMain.git", from: "0.5.1"),
+      .package(url: "https://github.com/wrkstrm/WrkstrmLog.git", from: "0.4.0"),
+      .package(url: "https://github.com/wrkstrm/WrkstrmMain.git", from: "0.5.5"),
     ]
 }
 
