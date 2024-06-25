@@ -8,7 +8,6 @@ import Foundation
 #endif
 
 extension Bundle {
-
   /// Decodes a JSON file into a specified `Decodable` type.
   ///
   /// This method attempts to locate a JSON file in the bundle, load its contents, and
@@ -32,8 +31,8 @@ extension Bundle {
   public func decode<T: Decodable>(
     _ type: T.Type,
     from file: String,
-    decoder: JSONDecoder = JSONDecoder()) -> T
-  {
+    decoder: JSONDecoder = JSONDecoder()
+  ) -> T {
     guard let url = url(forResource: file, withExtension: "json") else {
       Log.foundation.guard("Failed to locate \(file) in bundle.")
     }
@@ -49,15 +48,15 @@ extension Bundle {
     } catch let DecodingError.keyNotFound(key, context) {
       Log.foundation.guard(
         "Failed to decode \(file) from bundle due to missing key "
-        + "\(key.stringValue)" + "not found – \(context.debugDescription)")
+          + "\(key.stringValue)" + "not found – \(context.debugDescription)")
     } catch let DecodingError.typeMismatch(_, context) {
       Log.foundation.guard(
         "Failed to decode \(file) from bundle due to type mismatch – "
-        + "\(context.debugDescription)")
+          + "\(context.debugDescription)")
     } catch let DecodingError.valueNotFound(type, context) {
       Log.foundation.guard(
         "Failed to decode \(file) from bundle due to missing \(type) value – "
-        + "\(context.debugDescription)")
+          + "\(context.debugDescription)")
     } catch DecodingError.dataCorrupted(_) {
       Log.foundation
         .guard("Failed to decode \(file) from bundle because it appears to be invalid JSON")
