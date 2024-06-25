@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os:
-        - macos-13
+        - macos-14
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
         submodules: recursive
     - name: Cache Homebrew dependencies
       id: cache-brew
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: /usr/local/Homebrew ~/Library/Caches/Homebrew
         key: ${{ runner.os }}-homebrew-${{ hashFiles('**/Brewfile') }}
@@ -29,9 +29,9 @@ jobs:
       run: 'echo ''Cache hit: ${{ steps.cache-brew.outputs.cache-hit }}'''
     - name: Setup Xcode
       uses: maxim-lobanov/setup-xcode@v1
-      if: matrix.os == 'macos-latest' || matrix.os == 'macos-13' || matrix.os == 'self-hosted'
+      if: matrix.os == 'macos-latest' || matrix.os == 'macos-14' || matrix.os == 'self-hosted'
       with:
-        xcode-version: '15.0'
+        xcode-version: '15.3'
     - name: Set CI Style
       run: echo "SPM_CI_USE_LOCAL_DEPS=false" >> $GITHUB_ENV
     - name: Check CI Style
