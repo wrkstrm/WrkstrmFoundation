@@ -9,7 +9,6 @@ import Foundation
 
 /// Extensions to the `WrkstrmMain.JSON` namespace to provide additional JSON value representations.
 extension WrkstrmMain.JSON {
-
   /// An enum representing arrays with equatable functionality.
   ///
   /// This enum provides a way to handle arrays in a type-safe manner with the capability
@@ -19,7 +18,8 @@ extension WrkstrmMain.JSON {
     /// Represents a generic array of `Any` type.
     case any([Any])
 
-    /// Represents an array of dictionaries, with each dictionary conforming to `JSON.AnyDictionary`.
+    /// Represents an array of dictionaries, with each dictionary conforming to
+    /// `JSON.AnyDictionary`.
     case dictionary([JSON.AnyDictionary])
 
     /// A static method to compare two `AnyEquatableArrayEnum` values.
