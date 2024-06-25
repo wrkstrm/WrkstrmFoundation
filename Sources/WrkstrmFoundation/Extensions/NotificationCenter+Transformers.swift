@@ -6,7 +6,6 @@ import Foundation
 #endif
 
 extension Notification {
-
   /// A structure that represents a transformer for notifications, allowing for type-safe handling.
   ///
   /// It includes the notification name and a transformation function that converts a Notification
@@ -28,8 +27,8 @@ extension Notification {
       name: Notification.Name,
       transform: @escaping ((Notification) -> A) = {
         (A.self == Void.self ? () : $0.object) as! A  // swiftlint:disable:this force_cast
-      })
-    {
+      }
+    ) {
       self.name = name
       self.transform = transform
     }
@@ -37,8 +36,8 @@ extension Notification {
 
   /// A token that represents a subscription to a notification.
   ///
-  /// Automatically deregisters itself from the notification center upon deinitialization.
-  /// This helps manage the lifecycle of notification observers in a more controlled and automatic way.
+  /// Automatically deregisters itself from the notification center upon deinitialization. This
+  /// helps manage the lifecycle of notification observers in a more controlled and automatic way.
   ///
   /// - Parameters:
   ///   - token: The observer token returned by the notification center.
@@ -59,7 +58,6 @@ extension Notification {
 }
 
 extension NotificationCenter {
-
   /// Adds an observer for a given transformer and executes a block when the notification is posted.
   ///
   /// The block receives the transformed notification content as defined in the transformer.
@@ -72,8 +70,8 @@ extension NotificationCenter {
   public func addObserver<A>(
     for transformer: Notification.Transformer<A>,
     queue: OperationQueue? = .main,
-    using block: @escaping (A) -> Void) -> Notification.Token
-  {
+    using block: @escaping (A) -> Void
+  ) -> Notification.Token {
     let token = addObserver(forName: transformer.name, object: nil, queue: queue) { note in
       block(transformer.transform(note))
     }
