@@ -7,7 +7,6 @@ import Foundation
 
 /// An extension to the `String` class to add functionality for converting strings to title case.
 extension String {
-
   /// Converts a string from camelCase or PascalCase to a human-readable title case format.
   ///
   /// This method inserts spaces before uppercase characters and capitalizes the first letter
@@ -27,8 +26,9 @@ extension String {
       of: "([A-Z])",
       with: " $1",
       options: .regularExpression,
-      range: range(of: self))
-      .trimmingCharacters(in: .whitespacesAndNewlines)
-      .capitalized
+      range: range(of: self)
+    )
+    .trimmingCharacters(in: .whitespacesAndNewlines)
+    .capitalized
   }
 }
