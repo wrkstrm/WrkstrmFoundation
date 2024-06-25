@@ -2,12 +2,7 @@
 import Foundation
 import PackageDescription
 
-extension SwiftSetting {
-  static let profile: SwiftSetting = .unsafeFlags([
-    "-Xfrontend",
-    "-warn-long-expression-type-checking=10",
-  ])
-}
+// MARK: - Foundation extensions
 
 extension ProcessInfo {
   static var useLocalDeps: Bool {
@@ -15,12 +10,14 @@ extension ProcessInfo {
   }
 }
 
-let wrkstrmDeps: [PackageDescription.Package.Dependency]  =
-  ProcessInfo.useLocalDeps ? PackageDescription.Package.Dependency.local : PackageDescription
-    .Package.Dependency.remote
-print("---- Wrkstrm Deps ----")
-print(wrkstrmDeps.map(\.kind))
-print("---- Wrkstrm Deps ----")
+// MARK: - PackageDescription extensions
+
+extension SwiftSetting {
+  static let profile: SwiftSetting = .unsafeFlags([
+    "-Xfrontend",
+    "-warn-long-expression-type-checking=10",
+  ])
+}
 
 extension PackageDescription.Package.Dependency {
   static var local: [PackageDescription.Package.Dependency] {
@@ -37,6 +34,15 @@ extension PackageDescription.Package.Dependency {
     ]
   }
 }
+
+// MARK: - Package Declaration
+
+let wrkstrmDeps: [PackageDescription.Package.Dependency]  =
+  ProcessInfo.useLocalDeps ? PackageDescription.Package.Dependency.local : PackageDescription
+    .Package.Dependency.remote
+print("---- Wrkstrm Deps ----")
+print(wrkstrmDeps.map(\.kind))
+print("---- Wrkstrm Deps ----")
 
 let package = Package(
   name: "WrkstrmFoundation",
@@ -60,5 +66,5 @@ let package = Package(
     .testTarget(
       name: "WrkstrmFoundationTests",
       dependencies: ["WrkstrmFoundation"],
-      swiftSettings: [.profile]),
+      swiftSettings: ProcessInfo.useLocalDeps ? [.profile] : []),
   ])
