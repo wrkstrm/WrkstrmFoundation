@@ -8,8 +8,11 @@ import Foundation
 extension Bundle {
   /// Retrieves the main application's version and build number from the Info.plist.
   ///
-  /// This property concatenates the app's version number (CFBundleShortVersionString) and build number
-  /// (CFBundleVersion) into a single string, formatted as "Version: [version] Build: ([build])".
+  /// This property concatenates the app's version number (CFBundleShortVersionString) and build
+  /// number (CFBundleVersion) into a single string, formatted as:
+  /// ```
+  /// "Version: [version] Build: ([build])"
+  /// ```
   /// If either value is not found, it defaults to an empty string.
   ///
   /// Usage:
