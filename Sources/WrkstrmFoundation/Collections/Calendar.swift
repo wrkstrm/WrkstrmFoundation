@@ -2,7 +2,7 @@ import Foundation
 import WrkstrmMain
 
 /// `Calendar` is a structure that represents a collection of events, each defined by a start and
-/// end date.It stores `Event` instances in a `SortedArray`, ensuring they are always in 
+/// end date.It stores `Event` instances in a `SortedArray`, ensuring they are always in
 /// chronological order based on their start date.
 public struct Calendar {
   /// A sorted array of `Event` objects.

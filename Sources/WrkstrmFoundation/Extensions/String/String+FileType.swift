@@ -4,7 +4,7 @@ import Foundation
 extension String {
   /// Computes the file extension from the string representing a file path.
   ///
-  /// This computed property uses the `URL` struct from the Foundation framework to parse the 
+  /// This computed property uses the `URL` struct from the Foundation framework to parse the
   /// string as a file URL and extract its path extension. It's useful for quickly determining the
   /// file type of a given file path.
   ///
