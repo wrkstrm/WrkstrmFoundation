@@ -12,8 +12,7 @@ extension WrkstrmMain.JSON {
     ///
     /// - Parameter fileName: The name of the JSON file to load (without the `.json` extension).
     /// - Parameter relativeToFilePath: The relative file path to load the resource from. By
-    /// default, from
-    ///  the calling file.
+    /// default, from the file which calls this function.
     /// - Returns: The `Data` content of the JSON file if it exists, or `nil` if an error occurs.
     public static func load(fileName: String, relativeToFilePath file: String = #file) -> Data? {
       // URL of the current file
