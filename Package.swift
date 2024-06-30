@@ -1,59 +1,22 @@
 // swift-tools-version:5.10
-import Foundation
 import PackageDescription
-
-// MARK: - Foundation extensions
-
-extension ProcessInfo {
-  static var useLocalDeps: Bool {
-    ProcessInfo.processInfo.environment["SPM_USE_LOCAL_DEPS"] == "true"
-  }
-}
-
-// MARK: - PackageDescription extensions
-
-extension SwiftSetting {
-  static let localSwiftSettings: SwiftSetting = .unsafeFlags([
-    "-Xfrontend",
-    "-warn-long-expression-type-checking=10",
-  ])
-}
-
-// MARK: - PackageDescription extensions
-
-extension [PackageDescription.Package.Dependency] {
-  static let local: [PackageDescription.Package.Dependency]  =
-    [
-      .package(name: "WrkstrmLog", path: "../WrkstrmLog"),
-      .package(name: "WrkstrmMain", path: "../WrkstrmMain"),
-    ]
-
-  static let remote: [PackageDescription.Package.Dependency] =
-    [
-      .package(url: "https://github.com/wrkstrm/WrkstrmLog.git", from: "0.4.0"),
-      .package(url: "https://github.com/wrkstrm/WrkstrmMain.git", from: "0.5.5"),
-    ]
-}
 
 // MARK: - Configuration Service
 
-struct ConfigurationService {
-  let swiftSettings: [SwiftSetting]
-  let dependencies: [PackageDescription.Package.Dependency]
+ConfigurationService.local.dependencies = [
+  .package(name: "WrkstrmLog", path: "../WrkstrmLog"),
+  .package(name: "WrkstrmMain", path: "../WrkstrmMain"),
+]
 
-  private static let local: ConfigurationService = .init(
-    swiftSettings: [.localSwiftSettings],
-    dependencies: .local)
-
-  private static let remote: ConfigurationService = .init(swiftSettings: [], dependencies: .remote)
-
-  static let shared: ConfigurationService = ProcessInfo.useLocalDeps ? .local : .remote
-}
+ConfigurationService.remote.dependencies = [
+  .package(url: "https://github.com/wrkstrm/WrkstrmLog.git", from: "0.4.0"),
+  .package(url: "https://github.com/wrkstrm/WrkstrmMain.git", from: "0.5.5"),
+]
 
 // MARK: - Package Declaration
 
 print("---- ConfigurationService Deps ----")
-print(ConfigurationService.shared.dependencies.map(\.kind))
+print(ConfigurationService.inject.dependencies.map(\.kind))
 print("---- ConfigurationService Deps ----")
 
 let package = Package(
@@ -69,14 +32,50 @@ let package = Package(
   products: [
     .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"]),
   ],
-  dependencies: ConfigurationService.shared.dependencies,
+  dependencies: ConfigurationService.inject.dependencies,
   targets: [
     .target(
       name: "WrkstrmFoundation",
       dependencies: ["WrkstrmLog", "WrkstrmMain"],
-      swiftSettings: ConfigurationService.shared.swiftSettings),
+      swiftSettings: ConfigurationService.inject.swiftSettings),
     .testTarget(
       name: "WrkstrmFoundationTests",
       dependencies: ["WrkstrmFoundation"],
-      swiftSettings: ConfigurationService.shared.swiftSettings),
+      swiftSettings: ConfigurationService.inject.swiftSettings),
   ])
+
+// CONFIG_SERVICE_START_V1_HASH:{{CONFIG_HASH}}
+import Foundation
+
+// MARK: - Configuration Service
+
+public struct ConfigurationService {
+  public static let version = "0.0.0"
+
+  public var swiftSettings: [SwiftSetting] = []
+  var dependencies: [PackageDescription.Package.Dependency] = []
+
+  public static let inject: ConfigurationService = ProcessInfo.useLocalDeps ? .local : .remote
+
+  static var local: ConfigurationService = .init(swiftSettings: [.localSwiftSettings])
+  static var remote: ConfigurationService = .init()
+}
+
+// MARK: - PackageDescription extensions
+
+extension SwiftSetting {
+  public static let localSwiftSettings: SwiftSetting = .unsafeFlags([
+    "-Xfrontend",
+    "-warn-long-expression-type-checking=10",
+  ])
+}
+
+// MARK: - Foundation extensions
+
+extension ProcessInfo {
+  public static var useLocalDeps: Bool {
+    ProcessInfo.processInfo.environment["SPM_USE_LOCAL_DEPS"] == "true"
+  }
+}
+
+// CONFIG_SERVICE_END_V1_HASH:{{CONFIG_HASH}}
