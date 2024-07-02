@@ -1,23 +1,23 @@
 // swift-tools-version:5.10
 import PackageDescription
 
-// MARK: - Configuration Service
+// MARK: - Package Service
 
-ConfigurationService.local.dependencies = [
+Package.Service.local.dependencies = [
   .package(name: "WrkstrmLog", path: "../WrkstrmLog"),
   .package(name: "WrkstrmMain", path: "../WrkstrmMain"),
 ]
 
-ConfigurationService.remote.dependencies = [
+Package.Service.remote.dependencies = [
   .package(url: "https://github.com/wrkstrm/WrkstrmLog.git", from: "0.4.0"),
   .package(url: "https://github.com/wrkstrm/WrkstrmMain.git", from: "0.5.5"),
 ]
 
 // MARK: - Package Declaration
 
-print("---- ConfigurationService Deps ----")
-print(ConfigurationService.inject.dependencies.map(\.kind))
-print("---- ConfigurationService Deps ----")
+print("---- Package.Service Deps ----")
+print(Package.Service.inject.dependencies.map(\.kind))
+print("---- Package.Service Deps ----")
 
 let package = Package(
   name: "WrkstrmFoundation",
@@ -32,33 +32,35 @@ let package = Package(
   products: [
     .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"]),
   ],
-  dependencies: ConfigurationService.inject.dependencies,
+  dependencies: Package.Service.inject.dependencies,
   targets: [
     .target(
       name: "WrkstrmFoundation",
       dependencies: ["WrkstrmLog", "WrkstrmMain"],
-      swiftSettings: ConfigurationService.inject.swiftSettings),
+      swiftSettings: Package.Service.inject.swiftSettings),
     .testTarget(
       name: "WrkstrmFoundationTests",
       dependencies: ["WrkstrmFoundation"],
-      swiftSettings: ConfigurationService.inject.swiftSettings),
+      swiftSettings: Package.Service.inject.swiftSettings),
   ])
 
-// CONFIG_SERVICE_START_V1_HASH:{{CONFIG_HASH}}
+// PACKAGE_SERVICE_START_V1_HASH:{{CONFIG_HASH}}
 import Foundation
 
-// MARK: - Configuration Service
+// MARK: - Package Service
 
-public struct ConfigurationService {
-  public static let version = "0.0.0"
-
-  public var swiftSettings: [SwiftSetting] = []
-  var dependencies: [PackageDescription.Package.Dependency] = []
-
-  public static let inject: ConfigurationService = ProcessInfo.useLocalDeps ? .local : .remote
-
-  static var local: ConfigurationService = .init(swiftSettings: [.localSwiftSettings])
-  static var remote: ConfigurationService = .init()
+extension Package {
+  public struct Service {
+    public static let version = "0.0.1"
+    
+    public var swiftSettings: [SwiftSetting] = []
+    var dependencies: [PackageDescription.Package.Dependency] = []
+    
+    public static let inject: Package.Service = ProcessInfo.useLocalDeps ? .local : .remote
+    
+    static var local: Package.Service = .init(swiftSettings: [.localSwiftSettings])
+    static var remote: Package.Service = .init()
+  }
 }
 
 // MARK: - PackageDescription extensions
@@ -78,4 +80,4 @@ extension ProcessInfo {
   }
 }
 
-// CONFIG_SERVICE_END_V1_HASH:{{CONFIG_HASH}}
+// PACKAGE_SERVICE_END_V1_HASH:{{CONFIG_HASH}}
