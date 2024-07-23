@@ -113,7 +113,8 @@ extension CodableArchiver {
     try? fileManager.createDirectory(
       at: archiveDirectory,
       withIntermediateDirectories: true,
-      attributes: nil)
+      attributes: nil
+    )
 
     return NSKeyedArchiver.archiveRootObject(data, toFile: filePathForKey(key ?? self.key))
   }
@@ -133,7 +134,8 @@ extension CodableArchiver {
     try? fileManager.createDirectory(
       at: archiveDirectory,
       withIntermediateDirectories: true,
-      attributes: nil)
+      attributes: nil
+    )
 
     return NSKeyedArchiver.archiveRootObject(encodedValues, toFile: filePathForKey(key ?? self.key))
   }

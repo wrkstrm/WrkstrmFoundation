@@ -1,4 +1,5 @@
 // swift-tools-version:5.10
+import Foundation
 import PackageDescription
 
 // MARK: - Configuration Service
@@ -30,22 +31,22 @@ let package = Package(
     .watchOS(.v9),
   ],
   products: [
-    .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"]),
+    .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"])
   ],
   dependencies: ConfigurationService.inject.dependencies,
   targets: [
     .target(
       name: "WrkstrmFoundation",
       dependencies: ["WrkstrmLog", "WrkstrmMain"],
-      swiftSettings: ConfigurationService.inject.swiftSettings),
+      swiftSettings: ConfigurationService.inject.swiftSettings
+    ),
     .testTarget(
       name: "WrkstrmFoundationTests",
       dependencies: ["WrkstrmFoundation"],
-      swiftSettings: ConfigurationService.inject.swiftSettings),
-  ])
-
-// CONFIG_SERVICE_START_V1_HASH:{{CONFIG_HASH}}
-import Foundation
+      swiftSettings: ConfigurationService.inject.swiftSettings
+    ),
+  ]
+)
 
 // MARK: - Configuration Service
 

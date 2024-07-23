@@ -86,7 +86,8 @@ private enum Decoding {
     let error =
       DecodingError.Context(
         codingPath: decoder.codingPath,
-        debugDescription: "Error Decoding Date \(dateString)")
+        debugDescription: "Error Decoding Date \(dateString)"
+      )
     throw DecodingError.valueNotFound(Date.self, error)
   }
 }
