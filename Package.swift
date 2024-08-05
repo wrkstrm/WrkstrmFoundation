@@ -5,8 +5,8 @@ import PackageDescription
 // MARK: - Configuration Service
 
 ConfigurationService.local.dependencies = [
-  .package(name: "WrkstrmLog", path: "../../universal/WrkstrmLog"),
-  .package(name: "WrkstrmMain", path: "../../universal/WrkstrmMain"),
+  .package(name: "WrkstrmLog", path: "../WrkstrmLog"),
+  .package(name: "WrkstrmMain", path: "../WrkstrmMain"),
 ]
 
 ConfigurationService.remote.dependencies = [
