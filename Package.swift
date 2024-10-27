@@ -11,7 +11,7 @@ ConfigurationService.local.dependencies = [
 
 ConfigurationService.remote.dependencies = [
   .package(url: "https://github.com/wrkstrm/WrkstrmLog.git", from: "0.4.0"),
-  .package(url: "https://github.com/wrkstrm/WrkstrmMain.git", from: "0.5.5"),
+  .package(url: "https://github.com/wrkstrm/WrkstrmMain.git", from: "1.0.0"),
 ]
 
 // MARK: - Package Declaration

@@ -8,7 +8,7 @@ import Foundation
 /// Extension of `Date` to conform to `ExpressibleByIntegerLiteral`.
 /// This allows `Date` instances to be initialized using an integer literal, representing the number
 /// of seconds since January 1, 1970.
-extension Date: ExpressibleByIntegerLiteral {
+extension Date: @retroactive ExpressibleByIntegerLiteral {
   /// The type of integer literal used to initialize `Date`.
   public typealias IntegerLiteralType = Int
 
