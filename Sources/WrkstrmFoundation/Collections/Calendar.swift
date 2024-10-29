@@ -22,7 +22,7 @@ extension Calendar {
   public struct Event: Comparable, Equatable {
     /// Returns a Boolean value indicating whether the first event (`lhs`) starts before the second
     /// event (`rhs`).
-    public static func < (lhs: Event, rhs: Event) -> Bool {
+    public static func < (lhs: Self, rhs: Self) -> Bool {
       lhs.start < rhs.start
     }
 
@@ -42,7 +42,7 @@ extension Calendar {
     ///   - other: The `Event` to compare with.
     ///   - gap: An optional time gap to consider between events. Defaults to 0.
     /// - Returns: `true` if there is an overlap; otherwise, `false`.
-    public func overlaps(_ other: Event, gap: Double = 0) -> Bool {
+    public func overlaps(_ other: Self, gap: Double = 0) -> Bool {
       let adjustedStart = other.start.timeIntervalSince1970.advanced(by: -gap)
       let adjustedEnd = other.end.timeIntervalSince1970.advanced(by: gap)
       return interval.overlaps(adjustedStart...adjustedEnd)
@@ -53,7 +53,7 @@ extension Calendar {
     ///   - computed: The `Event` to compare with.
     ///   - gap: An optional time gap to consider between events. Defaults to 0.
     /// - Returns: `true` if there is an overlap; otherwise, `false`.
-    public func overlaps(computed other: Event, gap: Double = 0) -> Bool {
+    public func overlaps(computed other: Self, gap: Double = 0) -> Bool {
       interval.contains(other.start.timeIntervalSince1970.advanced(by: -gap))
         || interval.contains(other.end.timeIntervalSince1970.advanced(by: gap))
     }
@@ -63,7 +63,7 @@ extension Calendar {
     ///   - manually: The `Event` to compare with.
     ///   - gap: An optional time gap to consider between events. Defaults to 0.
     /// - Returns: `true` if there is an overlap; otherwise, `false`.
-    public func overlaps(manually other: Event, gap: Double = 0) -> Bool {
+    public func overlaps(manually other: Self, gap: Double = 0) -> Bool {
       (start >= other.start.addingTimeInterval(-gap) && start <= other.end.addingTimeInterval(gap))
         || (end >= other.start.addingTimeInterval(-gap) && end <= other.end.addingTimeInterval(gap))
     }
