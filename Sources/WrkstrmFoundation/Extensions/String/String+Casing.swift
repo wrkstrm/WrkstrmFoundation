@@ -5,7 +5,7 @@
 import Foundation
 #endif
 
-/// An extension to the `String` class to add functionality for converting strings to title case.
+/// An extension to the `String` struct to add functionality for converting strings to title case.
 extension String {
   /// Converts a string from camelCase or PascalCase to a human-readable title case format.
   ///

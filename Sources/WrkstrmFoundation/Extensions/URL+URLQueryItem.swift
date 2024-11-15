@@ -5,7 +5,7 @@
 import Foundation
 #endif
 
-/// An extension to the `URL` class to facilitate the addition of query parameters.
+/// An extension to the `URL` struct to facilitate the addition of query parameters.
 extension URL {
   /// Creates a new URL by adding the specified query items to the existing URL.
   ///

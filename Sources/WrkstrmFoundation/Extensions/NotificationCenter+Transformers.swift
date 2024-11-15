@@ -42,7 +42,7 @@ extension Notification {
   /// - Parameters:
   ///   - token: The observer token returned by the notification center.
   ///   - center: The notification center where the observer is registered.
-  public class Token {
+  public final class Token {
     public let token: NSObjectProtocol
     public let center: NotificationCenter
 

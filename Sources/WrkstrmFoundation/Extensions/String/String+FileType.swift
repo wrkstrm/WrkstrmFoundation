@@ -1,6 +1,6 @@
 import Foundation
 
-/// An extension to the `String` class to provide additional functionality related to file paths.
+/// An extension to the `String` struct to provide additional functionality related to file paths.
 extension String {
   /// Computes the file extension from the string representing a file path.
   ///

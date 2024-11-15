@@ -1,6 +1,6 @@
 import Foundation
 
-/// An extension to the `String` class providing a method to expand the tilde in file paths.
+/// An extension to the `String` struct providing a method to expand the tilde in file paths.
 extension String {
   /// Expands the tilde (`~`) in the string to the user's home directory path.
   ///
