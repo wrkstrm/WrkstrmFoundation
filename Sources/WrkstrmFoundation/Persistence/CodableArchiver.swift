@@ -41,7 +41,7 @@ public struct CodableArchiver<T: Codable> {
     self.encoder = encoder
     self.decoder = decoder
     // swiftlint:disable:next force_unwrapping
-    let archiveDirectory = fileManager.urls(for: directory, in: searchPathDomainMask).first!
+    let archiveDirectory: URL = fileManager.urls(for: directory, in: searchPathDomainMask).first!
     self.archiveDirectory = archiveDirectory.appendingPathComponent(String(key.description))
     self.key = key
   }
@@ -62,11 +62,9 @@ public struct CodableArchiver<T: Codable> {
     archiveDirectory = directory.deletingLastPathComponent()
     key = directory.lastPathComponent
   }
-}
 
-// MARK: - Filemanager helpers
+  // MARK: - Filemanager helpers
 
-extension CodableArchiver {
   /// Returns the file path for a given key within the archive directory.
   ///
   /// - Parameter key: The key for which to generate the file path.
@@ -74,11 +72,9 @@ extension CodableArchiver {
   public func filePathForKey(_ key: AnyHashable) -> String {
     archiveDirectory.appendingPathComponent(String(key.description)).path
   }
-}
 
-// MARK: - Workflow operations
+  // MARK: - Workflow operations
 
-extension CodableArchiver {
   /// Retrieves and decodes an object of type `T` associated with the given key.
   ///
   /// - Parameter key: The key for the object to retrieve. Defaults to the archiver's key.
@@ -123,7 +119,7 @@ extension CodableArchiver {
   ///
   /// - Parameters:
   ///   - value: The array of objects to archive.
-  ///   - key: The key to associate with the objects. Defaults to the archiver's key.
+  ///   - key: The key to associate with the objects. Default s to the archiver's key.
   /// - Returns: A `Bool` indicating success or failure.
   @discardableResult
   public func set(_ value: [T], forKey key: AnyHashable? = nil) -> Bool {
