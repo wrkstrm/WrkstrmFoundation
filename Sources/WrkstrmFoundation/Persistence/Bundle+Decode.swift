@@ -41,7 +41,7 @@ extension Bundle {
       Log.foundation.guard("Failed to load \(file) from bundle.")
     }
 
-    let decoder = decoder
+    let decoder: JSONDecoder = decoder
 
     do {
       return try decoder.decode(T.self, from: data)
