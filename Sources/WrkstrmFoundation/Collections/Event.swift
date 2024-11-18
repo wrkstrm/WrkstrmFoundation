@@ -35,6 +35,14 @@ extension Calendar {
       start = startDate
       end = Date(timeIntervalSinceNow: start.timeIntervalSinceNow + 100_000)
     }
+    
+    /// Default initializer with a start and end date for an event.
+    /// - Parameter start: The starting date of the event.
+    /// - Parameter end: The ending date of the event.
+    public init(start: Date, end: Date) {
+      self.start = start
+      self.end = end
+    }
 
     /// Determines if the event overlaps with another event, considering an optional gap.
     /// - Parameters:
