@@ -35,7 +35,7 @@ extension Calendar {
       start = startDate
       end = Date(timeIntervalSinceNow: start.timeIntervalSinceNow + 100_000)
     }
-    
+
     /// Default initializer with a start and end date for an event.
     /// - Parameter start: The starting date of the event.
     /// - Parameter end: The ending date of the event.
