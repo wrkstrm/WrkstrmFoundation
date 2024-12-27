@@ -45,7 +45,7 @@ extension WrkstrmMain.JSON {
   /// This enum is useful for representing and handling different kinds of JSON values
   /// in a type-safe manner. Each case is associated with a string key and a value of
   /// a specific type.
-  public enum Value: Equatable {
+  public enum KVPair: Equatable {
     /// Represents an integer value associated with a string key.
     case integer(String, Int)
 
