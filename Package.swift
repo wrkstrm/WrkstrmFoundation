@@ -50,6 +50,7 @@ let package = Package(
 
 // MARK: - Configuration Service
 
+@MainActor
 public struct ConfigurationService {
   public static let version = "0.0.0"
 
