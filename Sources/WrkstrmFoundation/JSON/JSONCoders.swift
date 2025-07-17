@@ -24,6 +24,34 @@ extension JSONDecoder {
     decoder.dateDecodingStrategy = .custom(Decoding.customDateDecoder)
     return decoder
   }()
+  
+  public static let snakecase: JSONDecoder = {
+    let decoder: JSONDecoder = .init()
+    decoder.dateDecodingStrategy = .custom { decoder in
+      let container = try decoder.singleValueContainer()
+      let dateString = try container.decode(String.self)
+      
+      // Try multiple date formats commonly used
+      let formatters: [DateFormatter] = [
+        .iso8601Full,
+        .iso8601Simple,
+        .iso8601WithoutMilliseconds,
+      ]
+      
+      for formatter in formatters {
+        if let date = formatter.date(from: dateString) {
+          return date
+        }
+      }
+      
+      throw DecodingError.dataCorruptedError(
+        in: container,
+        debugDescription: "Cannot decode date string: \(dateString)"
+      )
+    }
+    decoder.keyDecodingStrategy = .convertFromSnakeCase
+    return decoder
+  }()
 }
 
 /// An extension to `JSONEncoder` to provide a customized encoder for handling specific date
@@ -39,9 +67,16 @@ extension JSONEncoder {
   /// let myObject = MyEncodableType(date: Date())
   /// let jsonData = try JSONEncoder.default.encode(myObject)
   /// ```
-  public static let `default` = { () -> JSONEncoder in
+  public static let `default`: JSONEncoder = {
     let encoder: JSONEncoder = .init()
     encoder.dateEncodingStrategy = .custom(Encoding.customDateEncoder)
+    return encoder
+  }()
+  
+  public static let snakecase: JSONEncoder = {
+    let encoder: JSONEncoder = .init()
+    encoder.dateEncodingStrategy = .formatted(.iso8601Full)
+    encoder.keyEncodingStrategy = .convertToSnakeCase
     return encoder
   }()
 }

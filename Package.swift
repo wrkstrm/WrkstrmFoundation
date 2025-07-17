@@ -31,7 +31,8 @@ let package = Package(
     .watchOS(.v9),
   ],
   products: [
-    .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"])
+    .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"]),
+    .library(name: "WrkstrmNetworking", targets: ["WrkstrmNetworking"])
   ],
   dependencies: ConfigurationService.inject.dependencies,
   targets: [
@@ -40,9 +41,19 @@ let package = Package(
       dependencies: ["WrkstrmLog", "WrkstrmMain"],
       swiftSettings: ConfigurationService.inject.swiftSettings
     ),
+    .target(
+      name: "WrkstrmNetworking",
+      dependencies: ["WrkstrmFoundation","WrkstrmLog", "WrkstrmMain"],
+      swiftSettings: ConfigurationService.inject.swiftSettings
+    ),
     .testTarget(
       name: "WrkstrmFoundationTests",
       dependencies: ["WrkstrmFoundation"],
+      swiftSettings: ConfigurationService.inject.swiftSettings
+    ),
+    .testTarget(
+      name: "WrkstrmNetworkingTests",
+      dependencies: ["WrkstrmNetworking"],
       swiftSettings: ConfigurationService.inject.swiftSettings
     ),
   ]
