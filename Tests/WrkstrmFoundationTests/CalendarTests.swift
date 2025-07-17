@@ -1,83 +1,79 @@
-import WrkstrmLog
-import XCTest
-
+import Testing
 @testable import WrkstrmFoundation
-@testable import WrkstrmMain
+import WrkstrmLog
+import WrkstrmMain
 
-final class CalendarTests: XCTestCase {
-  static var allTests = [
-    ("testBasicEvents", testBasicEvents),
-    ("testBasicEventOverlapping", testBasicEventOverlapping),
-    ("testBasicEventWithNoGapTolerance", testBasicEventWithNoGapTolerance),
-    ("testBasicEventGapByOne", testBasicEventGapByOne),
-    ("testIncreasingOrder", testIncreasingOrder),
-    ("testInsertAtIncreasing", testInsertAtIncreasing),
-    ("testDecreasingOrder", testDecreasingOrder),
-    ("testInsertAtDecreasing", testInsertAtDecreasing),
-    ("testInsertAtDecreasingMiddle", testInsertAtDecreasingMiddle),
-  ]
+@Suite("WrkstrmFoundation")
+struct CalendarTests {
+  var calendar: WrkstrmFoundation.Calendar = {
+    var cal = WrkstrmFoundation.Calendar()
+    cal.insert(.init())
+    cal.insert(.init())
+    Log.foundation.verbose("Calendar: \(cal)")
+    return cal
+  }()
 
-  var calendar: WrkstrmFoundation.Calendar = .init()
-
-  override func setUp() {
-    super.setUp()
-    calendar.insert(.init())
-    calendar.insert(.init())
-    Log.foundation.verbose("Calendar: \(calendar)")
-  }
-
+  @Test
   func testBasicEvents() {
-    let event1 = Calendar.Event(start: 1, end: 2)
-    let event2 = Calendar.Event(start: 3, end: 4)
-    XCTAssertTrue(!event1.overlaps(event2))
+    let event1 = WrkstrmFoundation.Calendar.Event(start: 1, end: 2)
+    let event2 = WrkstrmFoundation.Calendar.Event(start: 3, end: 4)
+    #expect(!event1.overlaps(event2))
   }
 
+  @Test
   func testBasicEventOverlapping() {
-    let event1 = Calendar.Event(start: 1, end: 2)
-    let event2 = Calendar.Event(start: 2, end: 4)
-    XCTAssertTrue(event1.overlaps(event2))
+    let event1 = WrkstrmFoundation.Calendar.Event(start: 1, end: 2)
+    let event2 = WrkstrmFoundation.Calendar.Event(start: 2, end: 4)
+    #expect(event1.overlaps(event2))
   }
 
+  @Test
   func testBasicEventWithNoGapTolerance() {
-    let event1 = Calendar.Event(start: 1, end: 2)
-    let event2 = Calendar.Event(start: 3, end: 4)
-    XCTAssertTrue(!event1.overlaps(event2))
+    let event1 = WrkstrmFoundation.Calendar.Event(start: 1, end: 2)
+    let event2 = WrkstrmFoundation.Calendar.Event(start: 3, end: 4)
+    #expect(!event1.overlaps(event2))
   }
 
+  @Test
   func testBasicEventGapByOne() {
-    let event1 = Calendar.Event(start: 1, end: 2)
-    let event2 = Calendar.Event(start: 3, end: 4)
-    XCTAssertTrue(event1.overlaps(event2, gap: 1))
+    let event1 = WrkstrmFoundation.Calendar.Event(start: 1, end: 2)
+    let event2 = WrkstrmFoundation.Calendar.Event(start: 3, end: 4)
+    #expect(event1.overlaps(event2, gap: 1))
   }
 
+  @Test
   func testIncreasingOrder() {
     let sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: <)
-    XCTAssertTrue(sortedArray.elements == [2, 4, 5])
+    #expect(sortedArray.elements == [2, 4, 5])
   }
 
+  @Test
   func testInsertAtIncreasing() {
     var sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: <)
     sortedArray.insert(1)
     Log.foundation.verbose(sortedArray)
-    XCTAssertTrue(sortedArray.elements == [1, 2, 4, 5])
+    #expect(sortedArray.elements == [1, 2, 4, 5])
   }
 
+  @Test
   func testDecreasingOrder() {
     let sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: >)
-    XCTAssertTrue(sortedArray.elements == [5, 4, 2])
+    #expect(sortedArray.elements == [5, 4, 2])
   }
 
+  @Test
   func testInsertAtDecreasing() {
     var sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: >)
     sortedArray.insert(1)
     Log.foundation.verbose(sortedArray)
-    XCTAssertTrue(sortedArray.elements == [5, 4, 2, 1])
+    #expect(sortedArray.elements == [5, 4, 2, 1])
   }
 
+  @Test
   func testInsertAtDecreasingMiddle() {
     var sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: >)
     sortedArray.insert(3)
     Log.foundation.verbose(sortedArray)
-    XCTAssertTrue(sortedArray.elements == [5, 4, 3, 2])
+    #expect(sortedArray.elements == [5, 4, 3, 2])
   }
 }
