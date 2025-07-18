@@ -15,7 +15,7 @@ extension DateFormatter {
     formatter.dateStyle = .long
     return formatter
   }()
-  
+
   /// Formatter for dates in medium style (e.g., "Jan 1, 2025").
   ///
   /// Usage:
@@ -25,7 +25,7 @@ extension DateFormatter {
     formatter.dateStyle = .medium
     return formatter
   }()
-  
+
   /// Formatter for ISO8601 date strings without dashes or colons (format: yyyyMMdd'T'HHmmssZ).
   ///
   /// Usage:
@@ -35,7 +35,7 @@ extension DateFormatter {
     formatter.dateFormat = "yyyyMMdd'T'HHmmssZ"
     return formatter
   }()
-  
+
   /// Formatter for ISO8601-like strings with a literal 'Z' (format: yyyyMMdd'T'HHmmss'Z').
   /// Sets the timezone to GMT (UTC).
   ///
@@ -47,7 +47,7 @@ extension DateFormatter {
     formatter.timeZone = TimeZone(secondsFromGMT: 0)
     return formatter
   }()
-  
+
   /// Formatter for Git log dates (format: yyyy-MM-dd HH:mm:ss Z).
   ///
   /// Usage:
@@ -57,7 +57,7 @@ extension DateFormatter {
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
     return formatter
   }()
-  
+
   /// Formatter for date-only strings (format: yyyyMMdd).
   ///
   /// Usage:
@@ -67,7 +67,7 @@ extension DateFormatter {
     formatter.dateFormat = "yyyyMMdd"
     return formatter
   }()
-  
+
   /// Formatter for full ISO8601 strings with milliseconds (format: yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ).
   /// Uses ISO8601 calendar, UTC timezone, and en_US_POSIX locale.
   ///
@@ -81,7 +81,7 @@ extension DateFormatter {
     formatter.locale = .init(identifier: "en_US_POSIX")
     return formatter
   }()
-  
+
   /// Formatter for basic ISO8601 strings, UTC and POSIX locale (format: yyyy-MM-dd'T'HH:mm:ss'Z').
   ///
   /// Usage:
@@ -94,7 +94,7 @@ extension DateFormatter {
     formatter.locale = .init(identifier: "en_US_POSIX")
     return formatter
   }()
-  
+
   /// Formatter for ISO8601 strings without milliseconds (format: yyyy-MM-dd'T'HH:mm:ssZZZZZ).
   /// Sets ISO8601 calendar, UTC, and en_US_POSIX locale.
   ///
@@ -117,14 +117,14 @@ extension Date {
   /// Usage: `date.localizedString() or date.localizedString(with: .long)`
   public func localizedString(with style: DateFormatter.Style = .medium) -> String {
     switch style {
-    case .long:
-      DateFormatter.longDate.string(from: self)
-      
-    case .medium:
-      DateFormatter.mediumDate.string(from: self)
-      
-    default:
-      DateFormatter.mediumDate.string(from: self)
+      case .long:
+        DateFormatter.longDate.string(from: self)
+
+      case .medium:
+        DateFormatter.mediumDate.string(from: self)
+
+      default:
+        DateFormatter.mediumDate.string(from: self)
     }
   }
 }

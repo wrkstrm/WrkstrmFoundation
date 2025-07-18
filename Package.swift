@@ -32,7 +32,7 @@ let package = Package(
   ],
   products: [
     .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"]),
-    .library(name: "WrkstrmNetworking", targets: ["WrkstrmNetworking"])
+    .library(name: "WrkstrmNetworking", targets: ["WrkstrmNetworking"]),
   ],
   dependencies: ConfigurationService.inject.dependencies,
   targets: [
@@ -43,7 +43,7 @@ let package = Package(
     ),
     .target(
       name: "WrkstrmNetworking",
-      dependencies: ["WrkstrmFoundation","WrkstrmLog", "WrkstrmMain"],
+      dependencies: ["WrkstrmFoundation", "WrkstrmLog", "WrkstrmMain"],
       swiftSettings: ConfigurationService.inject.swiftSettings
     ),
     .testTarget(

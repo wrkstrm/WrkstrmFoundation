@@ -1,7 +1,8 @@
 import Testing
-@testable import WrkstrmFoundation
 import WrkstrmLog
 import WrkstrmMain
+
+@testable import WrkstrmFoundation
 
 @Suite("WrkstrmFoundation")
 struct CalendarTests {
