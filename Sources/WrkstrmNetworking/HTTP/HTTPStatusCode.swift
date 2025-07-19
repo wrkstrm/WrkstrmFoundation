@@ -10,5 +10,6 @@ extension HTTP {
     ///
     /// - 200 OK: The request has succeeded, and the server has returned the requested resource.
     case ok = 200
+    case multipleChoices = 300
   }
 }
