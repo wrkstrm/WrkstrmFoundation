@@ -13,12 +13,12 @@ extension HTTP {
     /// - Query parameters
     /// - Body content.
     /// It associates a codable response type that the request expects to receive.
-    public protocol Codable {
+    public protocol Codable: Sendable {
       /// The expected type of the response returned by this request.
-      associatedtype ResponseType: Swift.Codable
+      associatedtype ResponseType: Swift.Decodable
       /// The type of the request body data sent with this request.
       /// Defaults to `Never` for requests that have no body.
-      associatedtype RequestBody: Swift.Codable = Never
+      associatedtype RequestBody: Swift.Encodable = Never
 
       /// The HTTP method used for the request (e.g., GET, POST).
       var method: HTTP.Method { get }
@@ -30,6 +30,8 @@ extension HTTP {
       var body: RequestBody? { get }
       /// The full URL constructed from the path and query items.
       var url: URL { get }
+
+      var options: HTTP.Request.Options { get }
     }
   }
 }
