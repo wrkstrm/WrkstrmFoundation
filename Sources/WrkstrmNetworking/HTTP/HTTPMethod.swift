@@ -4,7 +4,7 @@ import Foundation
 /// Each case corresponds to a standard HTTP method,
 /// indicating the action to be performed on a given resource.
 extension HTTP {
-  public enum Method: String {
+  public enum Method: String, Sendable {
     /// The GET method requests a representation of the specified resource.
     case get = "GET"
     /// The POST method submits data to be processed to the identified resource.
