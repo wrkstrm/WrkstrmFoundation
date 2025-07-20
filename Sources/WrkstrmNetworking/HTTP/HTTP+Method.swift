@@ -1,9 +1,7 @@
-import Foundation
-
-/// An enumeration of HTTP methods used in requests.
-/// Each case corresponds to a standard HTTP method,
-/// indicating the action to be performed on a given resource.
 extension HTTP {
+  /// An enumeration of HTTP methods used in requests.
+  /// Each case corresponds to a standard HTTP method,
+  /// indicating the action to be performed on a given resource.
   public enum Method: String, Sendable {
     /// The GET method requests a representation of the specified resource.
     case get = "GET"

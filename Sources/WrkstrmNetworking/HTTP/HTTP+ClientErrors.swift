@@ -1,11 +1,6 @@
 /// Provides core error types and configuration interfaces for interacting with HTTP APIs.
 /// Includes error handling, API error models, and a protocol for HTTP client implementations.
-
-import Foundation
-import WrkstrmFoundation
-
 extension HTTP {
-  
   /// Errors that can be thrown by an HTTP client during request execution, encoding, decoding, or network failure.
   public enum ClientError: Error {
     case invalidResponse
@@ -53,37 +48,5 @@ extension HTTP {
       // Unable to connect to the underlying database.
       case databaseConnectionUnavailable = "database_connection_unavailable"
     }
-  }
-
-  /// Describes the configuration for an HTTP client, including default headers and request preparation.
-  public protocol Client {
-    /// The default HTTP headers sent with every request.
-    var headers: HTTP.Request.Headers { get }
-  }
-}
-
-extension HTTP.Client {
-  /// Creates a complete URLRequest ready for sending, encoding the request body if necessary.
-  /// - Parameters:
-  ///   - request: An object conforming to HTTP.CodableURLRequest.
-  ///   - headers: HTTP header values to include in the request.
-  ///   - encoder: The encoder to use for the body if present. Defaults to .snakecase.
-  /// - Throws: HTTP.ClientError.encodingError if body encoding fails.
-  /// - Returns: A fully constructed URLRequest.
-  public func buildURLRequest(
-    for request: some HTTP.CodableURLRequest,
-    headers: HTTP.Request.Headers,
-    encoder: JSONEncoder = .snakecase
-  ) throws -> URLRequest {
-    var urlRequest: URLRequest =
-      try request.asURLRequest(with: headers)
-    if let body = request.body {
-      do {
-        urlRequest.httpBody = try encoder.encode(body)
-      } catch {
-        throw HTTP.ClientError.encodingError(error)
-      }
-    }
-    return urlRequest
   }
 }

@@ -27,6 +27,7 @@ extension DateFormatter {
   }()
 
   /// Formatter for ISO8601 date strings without dashes or colons (format: yyyyMMdd'T'HHmmssZ).
+  /// Useful for Tradier integration.
   ///
   /// Usage:
   ///   `DateFormatter.iso8601.string(from: date)`
@@ -70,6 +71,7 @@ extension DateFormatter {
 
   /// Formatter for full ISO8601 strings with milliseconds (format: yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ).
   /// Uses ISO8601 calendar, UTC timezone, and en_US_POSIX locale.
+  /// Useful for Notion integration.
   ///
   /// Usage:
   ///   `DateFormatter.iso8601Full.string(from: date)`
@@ -83,7 +85,7 @@ extension DateFormatter {
   }()
 
   /// Formatter for basic ISO8601 strings, UTC and POSIX locale (format: yyyy-MM-dd'T'HH:mm:ss'Z').
-  ///
+  /// Useful for Notion integration.
   /// Usage:
   ///   `DateFormatter.iso8601Simple.string(from: date)`
   public static let iso8601Simple: DateFormatter = {
@@ -97,6 +99,7 @@ extension DateFormatter {
 
   /// Formatter for ISO8601 strings without milliseconds (format: yyyy-MM-dd'T'HH:mm:ssZZZZZ).
   /// Sets ISO8601 calendar, UTC, and en_US_POSIX locale.
+  /// Useful for Notion integration.
   ///
   /// Usage:
   ///   `DateFormatter.iso8601WithoutMilliseconds.string(from: date)`
