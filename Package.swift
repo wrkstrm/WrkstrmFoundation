@@ -4,21 +4,17 @@ import PackageDescription
 
 // MARK: - Configuration Service
 
-ConfigurationService.local.dependencies = [
+Package.Inject.local.dependencies = [
   .package(name: "WrkstrmLog", path: "../WrkstrmLog"),
   .package(name: "WrkstrmMain", path: "../WrkstrmMain"),
 ]
 
-ConfigurationService.remote.dependencies = [
+Package.Inject.remote.dependencies = [
   .package(url: "https://github.com/wrkstrm/WrkstrmLog.git", from: "1.0.0"),
   .package(url: "https://github.com/wrkstrm/WrkstrmMain.git", from: "1.0.0"),
 ]
 
 // MARK: - Package Declaration
-
-print("---- ConfigurationService Deps ----")
-print(ConfigurationService.inject.dependencies.map(\.kind))
-print("---- ConfigurationService Deps ----")
 
 let package = Package(
   name: "WrkstrmFoundation",
@@ -34,44 +30,51 @@ let package = Package(
     .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"]),
     .library(name: "WrkstrmNetworking", targets: ["WrkstrmNetworking"]),
   ],
-  dependencies: ConfigurationService.inject.dependencies,
+  dependencies: Package.Inject.shared.dependencies,
   targets: [
     .target(
       name: "WrkstrmFoundation",
       dependencies: ["WrkstrmLog", "WrkstrmMain"],
-      swiftSettings: ConfigurationService.inject.swiftSettings
+      swiftSettings: Package.Inject.shared.swiftSettings
     ),
     .target(
       name: "WrkstrmNetworking",
       dependencies: ["WrkstrmFoundation", "WrkstrmLog", "WrkstrmMain"],
-      swiftSettings: ConfigurationService.inject.swiftSettings
+      swiftSettings: Package.Inject.shared.swiftSettings
     ),
     .testTarget(
       name: "WrkstrmFoundationTests",
       dependencies: ["WrkstrmFoundation"],
-      swiftSettings: ConfigurationService.inject.swiftSettings
+      swiftSettings: Package.Inject.shared.swiftSettings
     ),
     .testTarget(
       name: "WrkstrmNetworkingTests",
       dependencies: ["WrkstrmNetworking"],
-      swiftSettings: ConfigurationService.inject.swiftSettings
+      swiftSettings: Package.Inject.shared.swiftSettings
     ),
   ]
 )
 
-// MARK: - Configuration Service
+// MARK: - Package Service
 
-@MainActor
-public struct ConfigurationService {
-  public static let version = "1.0.0"
+print("---- Package Inject Deps: Begin ----")
+print("Use Local Deps? \(ProcessInfo.useLocalDeps)")
+print(Package.Inject.shared.dependencies.map(\.kind))
+print("---- Package Inject Deps: End ----")
 
-  public var swiftSettings: [SwiftSetting] = []
-  var dependencies: [PackageDescription.Package.Dependency] = []
+extension Package {
+  @MainActor
+  public struct Inject {
+    public static let version = "1.0.0"
 
-  public static let inject: ConfigurationService = ProcessInfo.useLocalDeps ? .local : .remote
+    public var swiftSettings: [SwiftSetting] = []
+    var dependencies: [PackageDescription.Package.Dependency] = []
 
-  static var local: ConfigurationService = .init(swiftSettings: [.localSwiftSettings])
-  static var remote: ConfigurationService = .init()
+    public static let shared: Inject = ProcessInfo.useLocalDeps ? .local : .remote
+
+    static var local: Inject = .init(swiftSettings: [.localSwiftSettings])
+    static var remote: Inject = .init()
+  }
 }
 
 // MARK: - PackageDescription extensions
@@ -91,4 +94,4 @@ extension ProcessInfo {
   }
 }
 
-// CONFIG_SERVICE_END_V1_HASH:{{CONFIG_HASH}}
+// PACKAGE_SERVICE_END_V1
