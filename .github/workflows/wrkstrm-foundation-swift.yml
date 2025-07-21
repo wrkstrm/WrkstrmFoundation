@@ -34,7 +34,7 @@ jobs:
       uses: maxim-lobanov/setup-xcode@v1
       if: matrix.os == 'macos-latest' || matrix.os == 'macos-14' || matrix.os == 'self-hosted'
       with:
-        xcode-version: '15.3'
+        xcode-version: '16.4'
     - name: Swift Describe
       if: steps.cache-spm.outputs.cache-hit != 'true'
       run: swift package describe --type json
