@@ -1,13 +1,14 @@
 #if os(Linux)
 // Required due to the lack of support for DispatchQueue being Sendable on Linux platforms.
 @preconcurrency import Foundation
-#if canImport(FoundationInternationalization)
-import FoundationInternationalization
-#endif
 #else
 import Foundation
 #endif
+#if canImport(FoundationInternationalization)
+import FoundationInternationalization
+#endif
 
+#if canImport(FoundationInternationalization) || !os(Linux)
 extension RelativeDateTimeFormatter {
   /// Returns a non breaking localized string describing the relative time between the provided
   /// timestamp and now.
@@ -35,3 +36,4 @@ extension RelativeDateTimeFormatter {
       )
   }
 }
+#endif // canImport(FoundationInternationalization) || !os(Linux)
