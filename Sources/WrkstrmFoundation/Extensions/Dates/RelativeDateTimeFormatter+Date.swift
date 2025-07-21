@@ -6,9 +6,7 @@ import Foundation
 #endif
 #if canImport(FoundationInternationalization)
 import FoundationInternationalization
-#endif
 
-#if canImport(FoundationInternationalization) || !os(Linux)
 extension RelativeDateTimeFormatter {
   /// Returns a non breaking localized string describing the relative time between the provided
   /// timestamp and now.
@@ -36,4 +34,4 @@ extension RelativeDateTimeFormatter {
       )
   }
 }
-#endif // canImport(FoundationInternationalization) || !os(Linux)
+#endif // canImport(FoundationInternationalization)
