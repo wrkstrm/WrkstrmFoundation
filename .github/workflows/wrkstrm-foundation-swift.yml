@@ -32,7 +32,7 @@ jobs:
       run: 'echo ''Cache hit: ${{ steps.cache-spm.outputs.cache-hit }}'''
     - name: Setup Xcode
       uses: maxim-lobanov/setup-xcode@v1
-      if: matrix.os == 'macos-latest' || matrix.os == 'macos-14' || matrix.os == 'self-hosted'
+      if: matrix.os == 'macos-latest' || matrix.os == 'macos-15' || matrix.os == 'self-hosted'
       with:
         xcode-version: '16.4'
     - name: Swift Describe
