@@ -19,13 +19,13 @@ extension Notification {
   /// - Parameters:
   ///   - name: The name of the notification.
   ///   - transform: A closure that transforms a `Notification` into type `A`.
-  public struct Transformer<A> {
+  public struct Transformer<A>: Sendable where A: Sendable {
     public let name: Notification.Name
-    public let transform: (Notification) -> A
+    public let transform: @Sendable (Notification) -> A
 
     public init(
       name: Notification.Name,
-      transform: @escaping ((Notification) -> A) = {
+      transform: @escaping (@Sendable (Notification) -> A) = {
         (A.self == Void.self ? () : $0.object) as! A  // swiftlint:disable:this force_cast
       }
     ) {
