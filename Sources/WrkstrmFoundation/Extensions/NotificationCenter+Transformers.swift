@@ -19,7 +19,7 @@ extension Notification {
   /// - Parameters:
   ///   - name: The name of the notification.
   ///   - transform: A closure that transforms a `Notification` into type `A`.
-  public struct Transformer<A>: Sendable where A: Sendable {
+  public struct Transformer<A>: Sendable {
     public let name: Notification.Name
     public let transform: @Sendable (Notification) -> A
 
@@ -67,13 +67,15 @@ extension NotificationCenter {
   ///   - queue: The operation queue where the block should be executed. Defaults to the main queue.
   ///   - block: The block to be executed when the notification is received.
   /// - Returns: A `Notification.Token` which controls the lifecycle of the observer.
+  @Sendable
   public func addObserver<A>(
     for transformer: Notification.Transformer<A>,
     queue: OperationQueue? = .main,
-    using block: @escaping (A) -> Void
+    using block: @escaping (@Sendable (A) -> Void)
   ) -> Notification.Token {
     let token = addObserver(forName: transformer.name, object: nil, queue: queue) { note in
-      block(transformer.transform(note))
+      let value = transformer.transform(note)
+      block(value)
     }
     return Notification.Token(token: token, center: self)
   }
