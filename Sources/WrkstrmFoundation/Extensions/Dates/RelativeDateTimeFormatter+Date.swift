@@ -1,6 +1,9 @@
 #if os(Linux)
 // Required due to the lack of support for DispatchQueue being Sendable on Linux platforms.
 @preconcurrency import Foundation
+#if canImport(FoundationInternationalization)
+import FoundationInternationalization
+#endif
 #else
 import Foundation
 #endif
