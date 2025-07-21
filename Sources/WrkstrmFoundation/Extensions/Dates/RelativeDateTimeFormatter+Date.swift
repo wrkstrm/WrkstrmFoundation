@@ -8,6 +8,7 @@ import FoundationInternationalization
 import Foundation
 #endif
 
+#if !os(Linux)
 extension RelativeDateTimeFormatter {
   /// Returns a non breaking localized string describing the relative time between the provided
   /// timestamp and now.
@@ -35,3 +36,4 @@ extension RelativeDateTimeFormatter {
       )
   }
 }
+#endif // !os(Linux)
