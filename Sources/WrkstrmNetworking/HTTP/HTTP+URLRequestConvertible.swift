@@ -42,8 +42,10 @@ extension URLRequestConvertible where Self: HTTP.Request.Codable {
   /// - Throws: An error if JSON serialization of the body fails.
   /// - Returns: A URLRequest configured with the URL, HTTP method, headers, and body.
   public func asURLRequest(with environment: HTTP.Environment) throws -> URLRequest {
-    // Ensure that apiVersion and path are added to .path
-    let pathComponents = [environment.baseURLString, environment.apiVersion, path].compactMap { $0 }
+    let pathComponents = environment.scheme.rawValue +
+    // Ensure that apiVersion and path are added to path
+    [environment.baseURLString, environment.apiVersion, path]
+      .compactMap { $0 }
       .joined(separator: "/")
       .replacingOccurrences(of: "//", with: "/") // Clean up accidental double slashes
     var urlComponents = URLComponents(string: pathComponents)

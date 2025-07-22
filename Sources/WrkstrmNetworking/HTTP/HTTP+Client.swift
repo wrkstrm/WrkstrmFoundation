@@ -11,9 +11,6 @@ extension HTTP {
     /// HTTP header key-value pairs.
     typealias Headers = [String: String]
 
-    /// Default HTTP headers sent with requests.
-    var headers: Headers { get }
-
     /// The environment to use for requests.
     var environment: HTTP.Environment { get }
 
