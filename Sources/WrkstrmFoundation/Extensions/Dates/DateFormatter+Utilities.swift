@@ -1,8 +1,8 @@
 #if os(Linux)
-// Needed because DispatchQueue isn't Sendable on Linux
-@preconcurrency import Foundation
+  // Needed because DispatchQueue isn't Sendable on Linux
+  @preconcurrency import Foundation
 #else
-import Foundation
+  import Foundation
 #endif
 
 extension DateFormatter {
@@ -120,14 +120,14 @@ extension Date {
   /// Usage: `date.localizedString() or date.localizedString(with: .long)`
   public func localizedString(with style: DateFormatter.Style = .medium) -> String {
     switch style {
-      case .long:
-        DateFormatter.longDate.string(from: self)
+    case .long:
+      DateFormatter.longDate.string(from: self)
 
-      case .medium:
-        DateFormatter.mediumDate.string(from: self)
+    case .medium:
+      DateFormatter.mediumDate.string(from: self)
 
-      default:
-        DateFormatter.mediumDate.string(from: self)
+    default:
+      DateFormatter.mediumDate.string(from: self)
     }
   }
 }

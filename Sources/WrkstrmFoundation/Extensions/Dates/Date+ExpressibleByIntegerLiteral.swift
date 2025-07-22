@@ -1,8 +1,8 @@
 #if os(Linux)
-// Needed because DispatchQueue isn't Sendable on Linux
-@preconcurrency import Foundation
+  // Needed because DispatchQueue isn't Sendable on Linux
+  @preconcurrency import Foundation
 #else
-import Foundation
+  import Foundation
 #endif
 
 /// Extension of `Date` to conform to `ExpressibleByIntegerLiteral`.

@@ -1,8 +1,8 @@
 #if os(Linux)
-// Necessary due to the lack of DispatchQueue being Sendable on Linux platforms.
-@preconcurrency import Foundation
+  // Necessary due to the lack of DispatchQueue being Sendable on Linux platforms.
+  @preconcurrency import Foundation
 #else
-import Foundation
+  import Foundation
 #endif
 
 extension FileHandle {

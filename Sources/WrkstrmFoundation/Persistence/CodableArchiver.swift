@@ -1,8 +1,8 @@
 #if os(Linux)
-// Necessary import for Linux due to DispatchQueue not being Sendable.
-@preconcurrency import Foundation
+  // Necessary import for Linux due to DispatchQueue not being Sendable.
+  @preconcurrency import Foundation
 #else
-import Foundation
+  import Foundation
 #endif
 
 /// A struct for archiving (`Codable`) objects using JSON encoding and decoding.
@@ -36,7 +36,7 @@ public struct CodableArchiver<T: Codable> {
     directory: FileManager.SearchPathDirectory,
     encoder: JSONEncoder = .default,
     decoder: JSONDecoder = .default,
-    searchPathDomainMask: FileManager.SearchPathDomainMask = [.allDomainsMask]
+    searchPathDomainMask: FileManager.SearchPathDomainMask = [.allDomainsMask],
   ) {
     self.encoder = encoder
     self.decoder = decoder
@@ -55,7 +55,7 @@ public struct CodableArchiver<T: Codable> {
   public init(
     directory: URL,
     encoder: JSONEncoder = .default,
-    decoder: JSONDecoder = .default
+    decoder: JSONDecoder = .default,
   ) {
     self.encoder = encoder
     self.decoder = decoder
@@ -109,7 +109,7 @@ public struct CodableArchiver<T: Codable> {
     try? fileManager.createDirectory(
       at: archiveDirectory,
       withIntermediateDirectories: true,
-      attributes: nil
+      attributes: nil,
     )
 
     return NSKeyedArchiver.archiveRootObject(data, toFile: filePathForKey(key ?? self.key))
@@ -130,7 +130,7 @@ public struct CodableArchiver<T: Codable> {
     try? fileManager.createDirectory(
       at: archiveDirectory,
       withIntermediateDirectories: true,
-      attributes: nil
+      attributes: nil,
     )
 
     return NSKeyedArchiver.archiveRootObject(encodedValues, toFile: filePathForKey(key ?? self.key))

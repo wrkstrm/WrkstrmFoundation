@@ -1,8 +1,8 @@
 #if os(Linux)
-// Required for Linux compatibility due to differences in DispatchQueue implementation.
-@preconcurrency import Foundation
+  // Required for Linux compatibility due to differences in DispatchQueue implementation.
+  @preconcurrency import Foundation
 #else
-import Foundation
+  import Foundation
 #endif
 
 extension Date {
@@ -21,7 +21,7 @@ extension Date {
   /// is requested, it returns the year part of the date.
   public func component(
     _ component: Foundation.Calendar.Component,
-    calendar: Foundation.Calendar = .default
+    calendar: Foundation.Calendar = .default,
   ) -> Int {
     calendar.component(component, from: self)
   }

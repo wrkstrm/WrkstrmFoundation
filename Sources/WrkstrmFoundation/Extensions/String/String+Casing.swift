@@ -1,8 +1,8 @@
 #if os(Linux)
-// Necessary import for Linux due to DispatchQueue not being Sendable.
-@preconcurrency import Foundation
+  // Necessary import for Linux due to DispatchQueue not being Sendable.
+  @preconcurrency import Foundation
 #else
-import Foundation
+  import Foundation
 #endif
 
 /// An extension to the `String` struct to add functionality for converting strings to title case.
@@ -26,7 +26,7 @@ extension String {
       of: "([A-Z])",
       with: " $1",
       options: .regularExpression,
-      range: range(of: self)
+      range: range(of: self),
     )
     .trimmingCharacters(in: .whitespacesAndNewlines)
     .capitalized

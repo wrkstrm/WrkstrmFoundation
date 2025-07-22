@@ -1,8 +1,8 @@
 #if os(Linux)
-// Necessary import for Linux due to DispatchQueue not being Sendable.
-@preconcurrency import Foundation
+  // Necessary import for Linux due to DispatchQueue not being Sendable.
+  @preconcurrency import Foundation
 #else
-import Foundation
+  import Foundation
 #endif
 
 /// An extension to `JSONDecoder` to provide a customized decoder for handling specific date
@@ -46,7 +46,7 @@ extension JSONDecoder {
 
       throw DecodingError.dataCorruptedError(
         in: container,
-        debugDescription: "Cannot decode date string: \(dateString)"
+        debugDescription: "Cannot decode date string: \(dateString)",
       )
     }
     decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -121,7 +121,7 @@ private enum Decoding {
     let error =
       DecodingError.Context(
         codingPath: decoder.codingPath,
-        debugDescription: "Error Decoding Date \(dateString)"
+        debugDescription: "Error Decoding Date \(dateString)",
       )
     throw DecodingError.valueNotFound(Date.self, error)
   }
