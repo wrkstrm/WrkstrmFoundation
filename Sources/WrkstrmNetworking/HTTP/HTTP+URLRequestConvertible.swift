@@ -1,5 +1,6 @@
 import Foundation
 import WrkstrmFoundation
+import WrkstrmLog
 
 #if os(Linux)
   import FoundationNetworking
@@ -63,6 +64,7 @@ extension URLRequestConvertible where Self: HTTP.Request.Codable {
     if let body {
       urlRequest.httpBody = try JSONEncoder.snakecase.encode(body)
     }
+    CURL.printCURLCommand(from: urlRequest, in: environment)
     return urlRequest
   }
 }

@@ -36,9 +36,7 @@ extension HTTP {
     
     public nonisolated func send<T: HTTP.CodableURLRequest>(_ request: T) async throws -> T.ResponseType {
       let urlRequest: URLRequest = try await buildURLRequest(for: request, in: environment, with: json)
-      //      //      #if DEBUG
-      //      //      printCURLCommand(from: urlRequest)
-      //      //      #endif
+      
       let (data, response): (Data, URLResponse) = try await session.data(for: urlRequest)
 
       guard let httpResponse = response as? HTTPURLResponse else {
@@ -48,7 +46,7 @@ extension HTTP {
       guard httpResponse.statusCode.isHTTPOKStatusRange else {
         // Better error handling - log response data for debugging
         let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
-        Log.shared.error("🚨 HTTP Error [\(await environment.baseURLString)]: \(httpResponse.statusCode): \(errorMessage)")
+        Log.networking.error("🚨 HTTP Error [\(await environment.baseURLString)]: \(httpResponse.statusCode): \(errorMessage)")
 
         do {
           let jsonDictionary =
@@ -57,7 +55,7 @@ extension HTTP {
           throw HTTP.ClientError.networkError("Status Error: \(jsonDictionary)")
         } catch {
           // If we can't decode the API error, provide the raw error info
-          Log.shared.error("🚨 HTTP Error [\(await environment.baseURLString)]: Failed to decode API error: \(error)")
+          Log.networking.error("🚨 HTTP Error [\(await environment.baseURLString)]: Failed to decode API error: \(error)")
           throw HTTP.ClientError.networkError(error)
         }
       }
@@ -69,9 +67,9 @@ extension HTTP {
         return try JSONDecoder().decode(type, from: data)
       } catch {
         if let json = String(data: data, encoding: .utf8) {
-          Log.shared.error("🚨 HTTP Error [\(await environment.baseURLString)]: JSON response: \(json)")
+          Log.networking.error("🚨 HTTP Error [\(await environment.baseURLString)]: JSON response: \(json)")
         }
-        Log.shared.error("🚨 HTTP Error [\(await environment.baseURLString)]: Error decoding server JSON: \(error)")
+        Log.networking.error("🚨 HTTP Error [\(await environment.baseURLString)]: Error decoding server JSON: \(error)")
         throw error
       }
     }

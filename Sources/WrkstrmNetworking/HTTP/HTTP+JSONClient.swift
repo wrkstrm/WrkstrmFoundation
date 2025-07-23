@@ -46,7 +46,7 @@ extension HTTP {
       guard httpResponse.statusCode.isHTTPOKStatusRange else {
         // Better error handling - log response data for debugging
         let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
-        Log.shared.error("🚨 HTTP Error [\(await environment.baseURLString)]: \(httpResponse.statusCode): \(errorMessage)")
+        Log.networking.error("🚨 HTTP Error [\(await environment.baseURLString)]: \(httpResponse.statusCode): \(errorMessage)")
 
         do {
           let jsonDictionary =
@@ -55,7 +55,7 @@ extension HTTP {
           throw HTTP.ClientError.networkError("Status Error: \(jsonDictionary)")
         } catch {
           // If we can't decode the API error, provide the raw error info
-          Log.shared.error("🚨 HTTP Error [\(await environment.baseURLString)]: Failed to decode API error: \(error)")
+          Log.networking.error("🚨 HTTP Error [\(await environment.baseURLString)]: Failed to decode API error: \(error)")
           throw HTTP.ClientError.networkError(error)
         }
       }
@@ -65,8 +65,8 @@ extension HTTP {
           as! JSON.AnyDictionary
       } catch let decodingError {
         // Better error logging for debugging
-        Log.shared.error("🚨 HTTP Error [\(await environment.baseURLString)]: Decoding Error: \(decodingError)")
-        Log.shared.error("🚨 HTTP Error [\(await environment.baseURLString)]: Raw JSON: \(String(data: data, encoding: .utf8) ?? "Invalid UTF8")")
+        Log.networking.error("🚨 HTTP Error [\(await environment.baseURLString)]: Decoding Error: \(decodingError)")
+        Log.networking.error("🚨 HTTP Error [\(await environment.baseURLString)]: Raw JSON: \(String(data: data, encoding: .utf8) ?? "Invalid UTF8")")
         throw HTTP.ClientError.decodingError(decodingError)
       }
     }
