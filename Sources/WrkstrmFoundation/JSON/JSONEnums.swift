@@ -1,10 +1,10 @@
 import WrkstrmMain
 
 #if os(Linux)
-// Necessary import for Linux due to DispatchQueue not being Sendable.
-@preconcurrency import Foundation
+  // Necessary import for Linux due to DispatchQueue not being Sendable.
+  @preconcurrency import Foundation
 #else
-import Foundation
+  import Foundation
 #endif
 
 /// Extensions to the `WrkstrmMain.JSON` namespace to provide additional JSON value representations.

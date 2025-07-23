@@ -35,24 +35,24 @@ let package = Package(
     .target(
       name: "WrkstrmFoundation",
       dependencies: ["WrkstrmLog", "WrkstrmMain"],
-      swiftSettings: Package.Inject.shared.swiftSettings
+      swiftSettings: Package.Inject.shared.swiftSettings,
     ),
     .target(
       name: "WrkstrmNetworking",
       dependencies: ["WrkstrmFoundation", "WrkstrmLog", "WrkstrmMain"],
-      swiftSettings: Package.Inject.shared.swiftSettings
+      swiftSettings: Package.Inject.shared.swiftSettings,
     ),
     .testTarget(
       name: "WrkstrmFoundationTests",
       dependencies: ["WrkstrmFoundation"],
-      swiftSettings: Package.Inject.shared.swiftSettings
+      swiftSettings: Package.Inject.shared.swiftSettings,
     ),
     .testTarget(
       name: "WrkstrmNetworkingTests",
       dependencies: ["WrkstrmNetworking"],
-      swiftSettings: Package.Inject.shared.swiftSettings
+      swiftSettings: Package.Inject.shared.swiftSettings,
     ),
-  ]
+  ],
 )
 
 // MARK: - Package Service

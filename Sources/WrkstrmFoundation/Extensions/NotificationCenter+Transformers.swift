@@ -1,8 +1,8 @@
 #if os(Linux)
-// Required due to DispatchQueue's lack of Sendable conformance on Linux.
-@preconcurrency import Foundation
+  // Required due to DispatchQueue's lack of Sendable conformance on Linux.
+  @preconcurrency import Foundation
 #else
-import Foundation
+  import Foundation
 #endif
 
 extension Notification {
@@ -27,7 +27,7 @@ extension Notification {
       name: Notification.Name,
       transform: @escaping (@Sendable (Notification) -> A) = {
         (A.self == Void.self ? () : $0.object) as! A  // swiftlint:disable:this force_cast
-      }
+      },
     ) {
       self.name = name
       self.transform = transform
@@ -71,7 +71,7 @@ extension NotificationCenter {
   public func addObserver<A>(
     for transformer: Notification.Transformer<A>,
     queue: OperationQueue? = .main,
-    using block: @escaping (@Sendable (A) -> Void)
+    using block: @escaping (@Sendable (A) -> Void),
   ) -> Notification.Token {
     let token = addObserver(forName: transformer.name, object: nil, queue: queue) { note in
       let value = transformer.transform(note)

@@ -1,7 +1,7 @@
 import Foundation
 
 #if os(Linux)
-import FoundationNetworking
+  import FoundationNetworking
 #endif
 
 extension HTTP {
@@ -55,7 +55,7 @@ extension HTTP.Request {
     public init(
       timeout: TimeInterval = 300.0,
       queryItems: [URLQueryItem] = [],
-      headers: [String: String] = [:]
+      headers: [String: String] = [:],
     ) {
       self.timeout = timeout
       self.queryItems = queryItems

@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os:
-        - macos-14
+        - macos-15
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
@@ -31,7 +31,7 @@ jobs:
       uses: maxim-lobanov/setup-xcode@v1
       if: matrix.os == 'macos-latest' || matrix.os == 'macos-14' || matrix.os == 'self-hosted'
       with:
-        xcode-version: '15.3'
+        xcode-version: '16.4'
     - name: Set CI Style
       run: echo "SPM_CI_USE_LOCAL_DEPS=false" >> $GITHUB_ENV
     - name: Check CI Style

@@ -5,7 +5,7 @@ import Testing
 @Suite("WrkstrmNetworking")
 struct WrkstrmNetworkingTests {
   @Test
-  func testGenerateSingleFile() {
+  func generateSingleFile() {
     #expect(true)
   }
 }

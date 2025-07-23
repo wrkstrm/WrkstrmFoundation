@@ -35,7 +35,7 @@ extension String {
     let lines: [String] = content.components(separatedBy: .newlines)
 
     // Count the number of logical lines (non-empty lines) and whitespace lines.
-    let loc: Int = lines.filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }.count
+    let loc: Int = lines.count(where: { !$0.trimmingCharacters(in: .whitespaces).isEmpty })
     let whitespaceLines: Int = lines.count - loc
 
     return (loc, whitespaceLines)

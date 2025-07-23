@@ -1,7 +1,7 @@
 import Foundation
 
 #if os(Linux)
-import FoundationNetworking
+  import FoundationNetworking
 #endif
 
 extension HTTP {
@@ -11,7 +11,7 @@ extension HTTP {
   public protocol Environment: Sendable {
     /// String value of the client version
     var clientVersion: String? { get }
-    
+
     var scheme: Scheme { get }
     /// The base URL for HTTP requests in this environment.
     var baseURLString: String { get }
@@ -21,10 +21,10 @@ extension HTTP {
 
     /// Gives permission to talk to the backend.
     var apiKey: String? { get }
-    
+
     var headers: HTTP.Client.Headers { get }
   }
-  
+
   public enum Scheme: String, Sendable {
     case http = "http://"
     case https = "https://"

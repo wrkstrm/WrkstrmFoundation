@@ -2,7 +2,7 @@ import Foundation
 import WrkstrmFoundation
 
 #if os(Linux)
-import FoundationNetworking
+  import FoundationNetworking
 #endif
 
 /// A protocol that defines the conversion of an HTTP.Request into a URLRequest,
@@ -42,15 +42,16 @@ extension URLRequestConvertible where Self: HTTP.Request.Codable {
   /// - Throws: An error if JSON serialization of the body fails.
   /// - Returns: A URLRequest configured with the URL, HTTP method, headers, and body.
   public func asURLRequest(with environment: HTTP.Environment) throws -> URLRequest {
-    let pathComponents = environment.scheme.rawValue +
-    // Ensure that apiVersion and path are added to path
-    [environment.baseURLString, environment.apiVersion, path]
-      .compactMap { $0 }
+    let pathComponents =
+      environment.scheme.rawValue
+      // Ensure that apiVersion and path are added to path
+      + [environment.baseURLString, environment.apiVersion, path]
+      .compactMap(\.self)
       .joined(separator: "/")
-      .replacingOccurrences(of: "//", with: "/") // Clean up accidental double slashes
+      .replacingOccurrences(of: "//", with: "/")  // Clean up accidental double slashes
     var urlComponents = URLComponents(string: pathComponents)
     // Handle query items from URL.
-    urlComponents?.queryItems = self.options.queryItems
+    urlComponents?.queryItems = options.queryItems
     var urlRequest = URLRequest(url: urlComponents?.url ?? URL(string: "")!)
     // Apply the requests HTTP method
     urlRequest.httpMethod = method.rawValue

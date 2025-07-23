@@ -15,41 +15,41 @@ struct CalendarTests {
   }()
 
   @Test
-  func testBasicEvents() {
+  func basicEvents() {
     let event1 = WrkstrmFoundation.Calendar.Event(start: 1, end: 2)
     let event2 = WrkstrmFoundation.Calendar.Event(start: 3, end: 4)
     #expect(!event1.overlaps(event2))
   }
 
   @Test
-  func testBasicEventOverlapping() {
+  func basicEventOverlapping() {
     let event1 = WrkstrmFoundation.Calendar.Event(start: 1, end: 2)
     let event2 = WrkstrmFoundation.Calendar.Event(start: 2, end: 4)
     #expect(event1.overlaps(event2))
   }
 
   @Test
-  func testBasicEventWithNoGapTolerance() {
+  func basicEventWithNoGapTolerance() {
     let event1 = WrkstrmFoundation.Calendar.Event(start: 1, end: 2)
     let event2 = WrkstrmFoundation.Calendar.Event(start: 3, end: 4)
     #expect(!event1.overlaps(event2))
   }
 
   @Test
-  func testBasicEventGapByOne() {
+  func basicEventGapByOne() {
     let event1 = WrkstrmFoundation.Calendar.Event(start: 1, end: 2)
     let event2 = WrkstrmFoundation.Calendar.Event(start: 3, end: 4)
     #expect(event1.overlaps(event2, gap: 1))
   }
 
   @Test
-  func testIncreasingOrder() {
+  func increasingOrder() {
     let sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: <)
     #expect(sortedArray.elements == [2, 4, 5])
   }
 
   @Test
-  func testInsertAtIncreasing() {
+  func insertAtIncreasing() {
     var sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: <)
     sortedArray.insert(1)
     Log.foundation.verbose(sortedArray)
@@ -57,13 +57,13 @@ struct CalendarTests {
   }
 
   @Test
-  func testDecreasingOrder() {
+  func decreasingOrder() {
     let sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: >)
     #expect(sortedArray.elements == [5, 4, 2])
   }
 
   @Test
-  func testInsertAtDecreasing() {
+  func insertAtDecreasing() {
     var sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: >)
     sortedArray.insert(1)
     Log.foundation.verbose(sortedArray)
@@ -71,7 +71,7 @@ struct CalendarTests {
   }
 
   @Test
-  func testInsertAtDecreasingMiddle() {
+  func insertAtDecreasingMiddle() {
     var sortedArray: SortedArray = .init(unsorted: [5, 4, 2], sortOrder: >)
     sortedArray.insert(3)
     Log.foundation.verbose(sortedArray)

@@ -2,8 +2,9 @@ import Foundation
 import WrkstrmFoundation
 import WrkstrmLog
 import WrkstrmMain
+
 #if os(Linux)
-import FoundationNetworking
+  import FoundationNetworking
 #endif
 
 extension HTTP {
@@ -11,12 +12,12 @@ extension HTTP {
   @preconcurrency public protocol Client {
     /// HTTP header key-value pairs.
     typealias Headers = [String: String]
-    
+
     /// The environment to use for requests.
     var environment: HTTP.Environment { get }
-    
+
     /// The JSON decoder used for responses.
-    var json: (encoder: JSONEncoder, decoder: JSONDecoder)  { get }
+    var json: (encoder: JSONEncoder, decoder: JSONDecoder) { get }
   }
 }
 
@@ -31,10 +32,10 @@ extension HTTP.Client {
   public func buildURLRequest(
     for request: some HTTP.CodableURLRequest,
     in environment: HTTP.Environment,
-    with json: (encoder: JSONEncoder, decoder: JSONDecoder)   = (.default, .snakecase)
+    with json: (encoder: JSONEncoder, decoder: JSONDecoder) = (.default, .snakecase),
   ) throws -> URLRequest {
     var urlRequest: URLRequest =
-    try request.asURLRequest(with: environment)
+      try request.asURLRequest(with: environment)
     if let body = request.body {
       do {
         urlRequest.httpBody = try json.encoder.encode(body)
