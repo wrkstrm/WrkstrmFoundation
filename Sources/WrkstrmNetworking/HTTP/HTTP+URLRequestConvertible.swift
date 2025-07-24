@@ -11,9 +11,10 @@ import WrkstrmLog
 public protocol URLRequestConvertible {
   /// Converts the conforming type to a URLRequest, applying the given headers.
   /// - Parameter headers: The HTTP headers to set on the request.
+  /// - Parameter encoder: The json encoder to use
   /// - Throws: An error if the conversion to URLRequest fails.
   /// - Returns: A URLRequest with the specified headers applied.
-  func asURLRequest(with env: HTTP.Environment) throws -> URLRequest
+  func asURLRequest(with env: HTTP.Environment, encoder: JSONEncoder) throws -> URLRequest
 }
 
 extension HTTP {
@@ -23,12 +24,12 @@ extension HTTP {
   /// This is useful for working with HTTP requests that are both Decodable and convertible
   /// to a `URLRequest`, allowing convenient construction, manipulation,
   /// and encoding of requests in type-safe ways.
-  public typealias CodableURLRequest = HTTP.Request.Codable & URLRequestConvertible
+  public typealias CodableURLRequest = HTTP.Request.Encodable & URLRequestConvertible
 }
 
-extension URLRequestConvertible where Self: HTTP.Request.Codable {
+extension URLRequestConvertible where Self: HTTP.Request.Encodable {
   /// Provides a default implementation of `asURLRequest(with:)`
-  /// for types conforming to `HTTP.Request.Codable`.
+  /// for types conforming to `HTTP.Request.Encodable`.
   ///
   /// This implementation creates a concrete URLRequest from the request struct performing the following steps:
   /// - URL.
@@ -42,7 +43,7 @@ extension URLRequestConvertible where Self: HTTP.Request.Codable {
   ///                    Defaults to an empty dictionary.
   /// - Throws: An error if JSON serialization of the body fails.
   /// - Returns: A URLRequest configured with the URL, HTTP method, headers, and body.
-  public func asURLRequest(with environment: HTTP.Environment) throws -> URLRequest {
+  public func asURLRequest(with environment: HTTP.Environment, encoder: JSONEncoder) throws -> URLRequest {
     let pathComponents =
       environment.scheme.rawValue
       // Ensure that apiVersion and path are added to path

@@ -16,8 +16,10 @@ extension HTTP {
     /// The environment to use for requests.
     var environment: HTTP.Environment { get }
 
-    /// The JSON decoder used for responses.
-    var json: (encoder: JSONEncoder, decoder: JSONDecoder) { get }
+    /// The JSON decoder used for encoding requests and decoding responses.
+    var json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder) {
+      get
+    }
   }
 }
 
@@ -32,13 +34,13 @@ extension HTTP.Client {
   public func buildURLRequest(
     for request: some HTTP.CodableURLRequest,
     in environment: HTTP.Environment,
-    with json: (encoder: JSONEncoder, decoder: JSONDecoder) = (.default, .snakecase),
+    with jsonEncoder: JSONEncoder,
   ) throws -> URLRequest {
     var urlRequest: URLRequest =
-      try request.asURLRequest(with: environment)
+      try request.asURLRequest(with: environment, encoder: jsonEncoder)
     if let body = request.body {
       do {
-        urlRequest.httpBody = try json.encoder.encode(body)
+        urlRequest.httpBody = try jsonEncoder.encode(body)
       } catch {
         throw HTTP.ClientError.encodingError(error)
       }

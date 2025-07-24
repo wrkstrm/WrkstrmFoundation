@@ -73,6 +73,26 @@ extension JSONEncoder {
     return encoder
   }()
 
+  /// A static instance of `JSONDecoder`/`JSONEncoder` configured for snake_case conversion and custom date handling.
+  ///
+  /// For `JSONEncoder.snakecase`:
+  /// - Uses a custom date encoding strategy that formats dates using the full ISO 8601 date format.
+  /// - Applies `.convertToSnakeCase` to encode Swift property names in camelCase to snake_case keys in JSON.
+  ///
+  /// Use these static properties when working with APIs or data formats that require snake_case key
+  /// conversion and robust date handling.
+  ///
+  /// ### Example (Decoding)
+  /// ```swift
+  /// let decoder = JSONDecoder.snakecase
+  /// let model = try decoder.decode(MyType.self, from: jsonData)
+  /// ```
+  ///
+  /// ### Example (Encoding)
+  /// ```swift
+  /// let encoder = JSONEncoder.snakecase
+  /// let jsonData = try encoder.encode(myModel)
+  /// ```
   public static let snakecase: JSONEncoder = {
     let encoder: JSONEncoder = .init()
     encoder.dateEncodingStrategy = .formatted(.iso8601Full)
@@ -106,15 +126,22 @@ private enum Decoding {
   /// - Returns: The decoded `Date` object.
   /// - Throws: A decoding error if the date string cannot be decoded to a `Date`.
   static func customDateDecoder(_ decoder: Decoder) throws -> Date {
-    let dateString: String = try decoder.singleValueContainer().decode(String.self)
+    let dateString: String = try decoder.singleValueContainer().decode(
+      String.self
+    )
+    print("🕒 Attempting to parse date: \(dateString)")
     // Attempt to decode the date using various formats.
     if let date = DateFormatter.iso8601.date(from: dateString) {
       return date
     }
-    if dateString.last == Character("Z"), let date = DateFormatter.iso8601Z.date(from: dateString) {
+    if dateString.last == Character("Z"),
+      let date = DateFormatter.iso8601Z.date(from: dateString)
+    {
       return date
     }
-    if dateString.count == 8, let date = DateFormatter.dateOnlyEncoder.date(from: dateString) {
+    if dateString.count == 8,
+      let date = DateFormatter.dateOnlyEncoder.date(from: dateString)
+    {
       return date
     }
     // Throw an error if none of the formats match.

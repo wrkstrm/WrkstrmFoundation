@@ -10,7 +10,7 @@ extension HTTP {
     /// Defines requirements for an HTTP request that can be encoded/decoded.
     /// Used to build typed HTTP requests by specifying method, path, query parameters, and body content.
     /// Associates a codable response type.
-    public protocol Codable: Sendable {
+    public protocol Encodable: Sendable {
       /// The expected response type.
       associatedtype ResponseType: Swift.Decodable
       /// The type of the request body. Defaults to `Never` if there is no body.
@@ -28,7 +28,7 @@ extension HTTP {
   }
 }
 
-extension HTTP.Request.Codable where RequestBody == Never {
+extension HTTP.Request.Encodable where RequestBody == Never {
   /// Returns nil for requests without a body.
   public var body: RequestBody? { nil }
 }
