@@ -15,6 +15,7 @@ extension Data {
         )
         as! JSON.AnyDictionary
       #if DEBUG
+      if ProcessInfo.enableNetworkLogging {
         let formatted = try JSONSerialization.data(
           withJSONObject: jsonDictionary,
           options: [.prettyPrinted, .sortedKeys]
@@ -23,10 +24,10 @@ extension Data {
         Log.networking.verbose(
           "🚨 HTTP [\(environment.baseURLString)]: Raw JSON: \(prettyPrinted ?? "Invalid UTF8")"
         )
+      }
       #endif  // DEBUG
       return jsonDictionary
     } catch let decodingError {
-      // If we can't decode provide the raw error info
       throw HTTP.ClientError.networkError(decodingError)
     }
   }

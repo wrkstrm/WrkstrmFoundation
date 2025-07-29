@@ -56,28 +56,17 @@ extension HTTP {
       }
 
       guard httpResponse.statusCode.isHTTPOKStatusRange else {
-        // Better error handling - log response data for debugging
         let errorMessage =
           String(data: data, encoding: .utf8) ?? "Unknown error"
-        Log.networking.error(
-          "🚨 HTTP Error [\(await environment.baseURLString)]: \(httpResponse.statusCode): \(errorMessage)"
-        )
-
-        do {
-          let jsonDictionary =
-            try JSONSerialization.jsonObject(
-              with: data,
-              options: .mutableContainers
-            )
-            as! JSON.AnyDictionary
-          throw HTTP.ClientError.networkError("Status Error: \(jsonDictionary)")
-        } catch {
-          // If we can't decode the API error, provide the raw error info
+#if DEBUG
+        if ProcessInfo.enableNetworkLogging {
           Log.networking.error(
-            "🚨 HTTP Error [\(await environment.baseURLString)]: Failed to decode API error: \(error)"
+            "🚨 HTTP Error [\(await environment.baseURLString)]: \(httpResponse.statusCode): \(errorMessage)"
           )
-          throw HTTP.ClientError.networkError(error)
         }
+#endif // DEBUG
+        let jsonDictionary = try await data.serializeAsJSON(in: environment)
+        throw HTTP.ClientError.networkError("Status Error: \(jsonDictionary)")
       }
       return try await parseResponse(
         T.ResponseType.self,
@@ -101,11 +90,6 @@ extension HTTP {
       do {
         return try decoder.decode(type, from: data)
       } catch {
-        if let json = String(data: data, encoding: .utf8) {
-          Log.networking.error(
-            "🚨 HTTP Error [\(environment.baseURLString)]: JSON response: \(json)"
-          )
-        }
         Log.networking.error(
           "🚨 HTTP Error [\(environment.baseURLString)]: Error decoding server JSON: \(error)"
         )
