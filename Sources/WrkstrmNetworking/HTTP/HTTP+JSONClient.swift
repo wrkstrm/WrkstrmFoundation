@@ -56,46 +56,19 @@ extension HTTP {
       }
 
       guard httpResponse.statusCode.isHTTPOKStatusRange else {
-        // Better error handling - log response data for debugging
         let errorMessage =
           String(data: data, encoding: .utf8) ?? "Unknown error"
-        Log.networking.error(
-          "🚨 HTTP Error [\(await environment.baseURLString)]: \(httpResponse.statusCode): \(errorMessage)"
-        )
-
-        do {
-          let jsonDictionary =
-            try JSONSerialization.jsonObject(
-              with: data,
-              options: .mutableContainers
-            )
-            as! JSON.AnyDictionary
-          throw HTTP.ClientError.networkError("Status Error: \(jsonDictionary)")
-        } catch {
-          // If we can't decode the API error, provide the raw error info
+        if ProcessInfo.enableNetworkLogging {
           Log.networking.error(
-            "🚨 HTTP Error [\(await environment.baseURLString)]: Failed to decode API error: \(error)"
+            "🚨 HTTP Error [\(await environment.baseURLString)]: \(httpResponse.statusCode): \(errorMessage)"
           )
-          throw HTTP.ClientError.networkError(error)
         }
+        let jsonDictionary = try await data.serializeAsJSON(in: environment)
+        throw HTTP.ClientError.networkError("Status Error: \(jsonDictionary)")
       }
 
-      do {
-        return try JSONSerialization.jsonObject(
-          with: data,
-          options: .mutableContainers
-        )
-          as! JSON.AnyDictionary
-      } catch let decodingError {
-        // Better error logging for debugging
-        Log.networking.error(
-          "🚨 HTTP Error [\(await environment.baseURLString)]: Decoding Error: \(decodingError)"
-        )
-        Log.networking.error(
-          "🚨 HTTP Error [\(await environment.baseURLString)]: Raw JSON: \(String(data: data, encoding: .utf8) ?? "Invalid UTF8")"
-        )
-        throw HTTP.ClientError.decodingError(decodingError)
-      }
+      let jsonDictionary = try await data.serializeAsJSON(in: environment)
+      return jsonDictionary
     }
   }
 }

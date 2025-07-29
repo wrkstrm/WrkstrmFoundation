@@ -82,6 +82,7 @@ extension HTTP {
       return try await parseResponse(
         T.ResponseType.self,
         from: data,
+        in: environment,
         decoder: json.responseDecoder
       )
     }
@@ -89,18 +90,24 @@ extension HTTP {
     private nonisolated func parseResponse<T: Decodable>(
       _ type: T.Type,
       from data: Data,
+      in environment: HTTP.Environment,
       decoder: JSONDecoder,
     ) async throws -> T {
+#if DEBUG
+      if ProcessInfo.enableNetworkLogging {
+        _ = try data.serializeAsJSON(in: environment)
+      }
+#endif // DEBUG
       do {
         return try decoder.decode(type, from: data)
       } catch {
         if let json = String(data: data, encoding: .utf8) {
           Log.networking.error(
-            "🚨 HTTP Error [\(await environment.baseURLString)]: JSON response: \(json)"
+            "🚨 HTTP Error [\(environment.baseURLString)]: JSON response: \(json)"
           )
         }
         Log.networking.error(
-          "🚨 HTTP Error [\(await environment.baseURLString)]: Error decoding server JSON: \(error)"
+          "🚨 HTTP Error [\(environment.baseURLString)]: Error decoding server JSON: \(error)"
         )
         throw error
       }

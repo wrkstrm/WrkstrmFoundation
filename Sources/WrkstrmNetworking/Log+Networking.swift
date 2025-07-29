@@ -2,7 +2,7 @@ import Foundation
 import WrkstrmLog
 
 extension ProcessInfo {
-  fileprivate static var enableNetworkLogging: Bool {
+  static var enableNetworkLogging: Bool {
     ProcessInfo.processInfo.environment["WrkstrmNetworking:DebugLogEnabled"] == "true"
   }
 }
