@@ -1,6 +1,10 @@
 import Foundation
 import WrkstrmLog
 
+#if os(Linux)
+  import FoundationNetworking
+#endif
+
 public enum CURL {
   public static func command(
     from request: URLRequest,
