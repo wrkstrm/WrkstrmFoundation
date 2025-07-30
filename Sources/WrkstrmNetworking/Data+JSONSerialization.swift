@@ -18,10 +18,10 @@ extension Data {
       if ProcessInfo.enableNetworkLogging {
         let formatted = try JSONSerialization.data(
           withJSONObject: jsonDictionary,
-          options: [.prettyPrinted, .sortedKeys]
+          options: [.sortedKeys, .prettyPrinted]
         )
         let prettyPrinted = String(data: formatted, encoding: .utf8)
-        Log.networking.verbose(
+        print(
           "🚨 HTTP [\(environment.baseURLString)]: Raw JSON: \(prettyPrinted ?? "Invalid UTF8")"
         )
       }
