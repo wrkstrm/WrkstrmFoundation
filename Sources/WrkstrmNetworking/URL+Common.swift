@@ -5,7 +5,7 @@ import Foundation
 
 extension URL {
   /// Predefined URLs known to be valid at compile time.
-  static let google: URL = {
+  public static let google: URL = {
     guard let url = URL(string: "http://www.google.com") else {
       // These URLs are expected to be valid and should never fail.
       preconditionFailure("Invalid google URL")
@@ -14,7 +14,7 @@ extension URL {
   }()
 
   /// Predefined URLs known to be valid at compile time.
-  static let apple: URL = {
+  public static let apple: URL = {
     guard let url = URL(string: "http://apple.com") else {
       // These URLs are expected to be valid and should never fail.
       preconditionFailure("Invalid apple URL")
@@ -23,7 +23,7 @@ extension URL {
   }()
 
   /// Predefined URLs known to be valid at compile time.
-  static let reddit: URL = {
+  public static let reddit: URL = {
     guard let url = URL(string: "https://reddit.com") else {
       // These URLs are expected to be valid and should never fail.
       preconditionFailure("Invalid reddit URL")
