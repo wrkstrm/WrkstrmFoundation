@@ -31,17 +31,25 @@ public struct CodableArchiver<T: Codable> {
   ///   - encoder: A custom `JSONEncoder` for encoding objects. Defaults to `.default`.
   ///   - decoder: A custom `JSONDecoder` for decoding objects. Defaults to `.default`.
   ///   - searchPathDomainMask: The domain mask to use when searching for the directory.
+  /// - Throws: `ArchiverError.directoryNotFound` if the directory cannot be located.
+  public enum ArchiverError: Error {
+    case directoryNotFound
+  }
+
   public init(
     key: AnyHashable,
     directory: FileManager.SearchPathDirectory,
     encoder: JSONEncoder = .default,
     decoder: JSONDecoder = .default,
     searchPathDomainMask: FileManager.SearchPathDomainMask = [.allDomainsMask],
-  ) {
+  ) throws {
     self.encoder = encoder
     self.decoder = decoder
-    // swiftlint:disable:next force_unwrapping
-    let archiveDirectory: URL = fileManager.urls(for: directory, in: searchPathDomainMask).first!
+    guard
+      let archiveDirectory = fileManager.urls(for: directory, in: searchPathDomainMask).first
+    else {
+      throw ArchiverError.directoryNotFound
+    }
     self.archiveDirectory = archiveDirectory.appendingPathComponent(String(key.description))
     self.key = key
   }

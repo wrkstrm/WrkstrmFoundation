@@ -67,32 +67,32 @@ extension NumberFormatter {
 /// A protocol to provide localized string representations of numeric values.
 public protocol LocalizedValues {
   /// Returns a localized string representation of the conforming numeric type as an integer.
-  func integerString() -> String
+  func integerString() -> String?
 }
 
 extension LocalizedValues {
   /// Default implementation of `integerString` for types conforming to `LocalizedValues`.
   ///
   /// It uses `NumberFormatter.integer` to convert the numeric value to a string.
-  /// Force unwrapping is used as the formatter should always successfully convert a number to a
-  /// string.
-  public func integerString() -> String {
-    NumberFormatter.integer.string(for: self)!  // swiftlint:disable:this force_unwrapping
+  /// Returns `nil` if the value cannot be converted.
+  public func integerString() -> String? {
+    NumberFormatter.integer.string(for: self)
   }
 
   /// Returns a localized string representation of the conforming numeric type as a double.
   ///
   /// It uses `NumberFormatter.double` to convert the numeric value to a string with two decimal
-  /// points.
-  public func doubleString() -> String {
-    NumberFormatter.double.string(for: self)!  // swiftlint:disable:this force_unwrapping
+  /// points. Returns `nil` if the value cannot be converted.
+  public func doubleString() -> String? {
+    NumberFormatter.double.string(for: self)
   }
 
   /// Returns a localized string representation of the conforming numeric type as currency.
   ///
   /// It uses `NumberFormatter.dollar` to format the numeric value in a currency style.
-  public func dollarString() -> String {
-    NumberFormatter.dollar.string(for: self)!  // swiftlint:disable:this force_unwrapping
+  /// Returns `nil` if the value cannot be converted.
+  public func dollarString() -> String? {
+    NumberFormatter.dollar.string(for: self)
   }
 }
 
