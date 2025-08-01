@@ -22,11 +22,11 @@ extension URL {
   /// ```
   ///
   /// - Parameter items: An array of `URLQueryItem` to be added to the URL.
-  /// - Returns: A new `URL` with the query items added.
-  public func withQueryItems(_ items: [URLQueryItem]) -> URL {
+  /// - Returns: A new `URL` with the query items added, or `nil` if the URL could not be constructed.
+  public func withQueryItems(_ items: [URLQueryItem]) -> URL? {
     var components: URLComponents? = .init(url: self, resolvingAgainstBaseURL: false)
     components?.queryItems = items
-    return (components?.url)!  // swiftlint:disable:this force_unwrapping
+    return components?.url
   }
 
   /// Creates a new URL by adding the specified query items to the existing URL.
@@ -35,8 +35,8 @@ extension URL {
   /// converting them into `URLQueryItem` objects and appending them to the URL.
   ///
   /// - Parameter items: A dictionary of `String` key-value pairs to be added as query parameters.
-  /// - Returns: A new `URL` with the query items added.
-  public func withQueryItems(_ items: [String: String]) -> URL {
+  /// - Returns: A new `URL` with the query items added, or `nil` if the URL could not be constructed.
+  public func withQueryItems(_ items: [String: String]) -> URL? {
     withQueryItems(
       items.reduce(into: [URLQueryItem]()) { queryItems, pair in
         queryItems.append(URLQueryItem(name: pair.key, value: pair.value))

@@ -4,12 +4,30 @@ import Foundation
 #endif
 
 extension URL {
-  // swiftlint:disable:next force_unwrapping
-  static let google: URL = .init(string: "http://www.google.com")!
+  /// Predefined URLs known to be valid at compile time.
+  static let google: URL = {
+    guard let url = URL(string: "http://www.google.com") else {
+      // These URLs are expected to be valid and should never fail.
+      preconditionFailure("Invalid google URL")
+    }
+    return url
+  }()
 
-  // swiftlint:disable:next force_unwrapping
-  static let apple: URL = .init(string: "http://apple.com")!
+  /// Predefined URLs known to be valid at compile time.
+  static let apple: URL = {
+    guard let url = URL(string: "http://apple.com") else {
+      // These URLs are expected to be valid and should never fail.
+      preconditionFailure("Invalid apple URL")
+    }
+    return url
+  }()
 
-  // swiftlint:disable:next force_unwrapping
-  static let reddit: URL = .init(string: "https://reddit.com")!
+  /// Predefined URLs known to be valid at compile time.
+  static let reddit: URL = {
+    guard let url = URL(string: "https://reddit.com") else {
+      // These URLs are expected to be valid and should never fail.
+      preconditionFailure("Invalid reddit URL")
+    }
+    return url
+  }()
 }
