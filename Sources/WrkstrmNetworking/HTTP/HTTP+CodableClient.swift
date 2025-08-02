@@ -3,7 +3,7 @@ import WrkstrmFoundation
 import WrkstrmLog
 import WrkstrmMain
 
-#if os(Linux)
+#if canImport(FoundationNetworking)
   import FoundationNetworking
 #endif
 

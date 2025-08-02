@@ -1,5 +1,5 @@
 import Foundation
-#if os(Linux)
+#if canImport(FoundationNetworking)
   import FoundationNetworking
 #endif
 import Testing
@@ -30,7 +30,7 @@ struct WrkstrmNetworkingTests {
 
   @Test
   func errorResponseHandling() async {
-    URLProtocol.registerClass(MockURLProtocol.self)
+    let _ = URLProtocol.registerClass(MockURLProtocol.self)
     defer { URLProtocol.unregisterClass(MockURLProtocol.self) }
 
     let env = MockEnvironment()
@@ -44,13 +44,13 @@ struct WrkstrmNetworkingTests {
 
     do {
       _ = try await client.send(SampleRequest())
-      #expect(false, "Request should throw")
+      #expect(Bool(false), "Request should throw")
     } catch {
       switch error {
       case is HTTP.ClientError:
-        #expect(true)
+        #expect(Bool(true))
       default:
-        #expect(false, "Unexpected error: \(error)")
+        #expect(Bool(false), "Unexpected error: \(error)")
       }
     }
   }
