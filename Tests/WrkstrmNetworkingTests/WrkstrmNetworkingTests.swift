@@ -1,5 +1,5 @@
 import Foundation
-#if os(Linux)
+#if canImport(FoundationNetworking)
   import FoundationNetworking
 #endif
 import Testing
@@ -30,27 +30,37 @@ struct WrkstrmNetworkingTests {
 
   @Test
   func errorResponseHandling() async {
-    URLProtocol.registerClass(MockURLProtocol.self)
+    _ = URLProtocol.registerClass(MockURLProtocol.self)
     defer { URLProtocol.unregisterClass(MockURLProtocol.self) }
 
     let env = MockEnvironment()
     let client = HTTP.JSONClient(environment: env, json: (.snakecase, .snakecase))
 
     MockURLProtocol.handler = { request in
-      let data = try! JSONSerialization.data(withJSONObject: ["message": "bad"], options: [])
-      let response = HTTPURLResponse(url: request.url!, statusCode: 400, httpVersion: nil, headerFields: nil)!
+      guard let data = try? JSONSerialization.data(
+        withJSONObject: ["message": "bad"],
+        options: []
+      ) else {
+        fatalError("Failed to encode error JSON")
+      }
+      let response = HTTPURLResponse(
+        url: request.url!,
+        statusCode: 400,
+        httpVersion: nil,
+        headerFields: nil
+      )!
       return (response, data)
     }
 
     do {
       _ = try await client.send(SampleRequest())
-      #expect(false, "Request should throw")
+      #expect(Bool(false), "Request should throw")
     } catch {
       switch error {
       case is HTTP.ClientError:
-        #expect(true)
+        #expect(Bool(true))
       default:
-        #expect(false, "Unexpected error: \(error)")
+        #expect(Bool(false), "Unexpected error: \(error)")
       }
     }
   }
