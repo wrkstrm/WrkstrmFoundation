@@ -30,15 +30,25 @@ struct WrkstrmNetworkingTests {
 
   @Test
   func errorResponseHandling() async {
-    let _ = URLProtocol.registerClass(MockURLProtocol.self)
+    _ = URLProtocol.registerClass(MockURLProtocol.self)
     defer { URLProtocol.unregisterClass(MockURLProtocol.self) }
 
     let env = MockEnvironment()
     let client = HTTP.JSONClient(environment: env, json: (.snakecase, .snakecase))
 
     MockURLProtocol.handler = { request in
-      let data = try! JSONSerialization.data(withJSONObject: ["message": "bad"], options: [])
-      let response = HTTPURLResponse(url: request.url!, statusCode: 400, httpVersion: nil, headerFields: nil)!
+      guard let data = try? JSONSerialization.data(
+        withJSONObject: ["message": "bad"],
+        options: []
+      ) else {
+        fatalError("Failed to encode error JSON")
+      }
+      let response = HTTPURLResponse(
+        url: request.url!,
+        statusCode: 400,
+        httpVersion: nil,
+        headerFields: nil
+      )!
       return (response, data)
     }
 

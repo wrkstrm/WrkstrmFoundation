@@ -13,6 +13,7 @@ extension Data {
           with: self,
           options: [.mutableContainers]
         )
+        // swiftlint:disable:next force_cast
         as! JSON.AnyDictionary
       #if DEBUG
       if ProcessInfo.enableNetworkLogging {
