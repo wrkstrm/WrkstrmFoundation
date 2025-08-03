@@ -252,5 +252,38 @@ struct CodableArchiverTests {
     try archiver.clear()
     #expect(!FileManager.default.fileExists(atPath: path))
   }
+
+  @Test
+  @MainActor
+  func staticArchiverObjectRoundTrip() throws {
+    let profile = TestUserProfile(username: "tester")
+
+    #expect(TestUserProfile.archiver.set(profile))
+    let result = TestUserProfile.archiver.get()
+    #expect(result == profile)
+    try? TestUserProfile.archiver.clear()
+  }
+
+  @Test
+  @MainActor
+  func staticArchiverArrayRoundTrip() throws {
+    let profiles = [
+      TestUserProfile(username: "one"),
+      TestUserProfile(username: "two"),
+    ]
+
+    #expect(TestUserProfile.archiver.set(profiles))
+
+    let path = TestUserProfile.archiver.filePathForKey(TestUserProfile.archiver.key)
+    guard let archived = NSKeyedUnarchiver.unarchiveObject(withFile: path) as? [Data] else {
+      #expect(Bool(false))
+      return
+    }
+    let decoded = archived.compactMap {
+      try? TestUserProfile.archiver.decoder.decode(TestUserProfile.self, from: $0)
+    }
+    #expect(decoded == profiles)
+    try? TestUserProfile.archiver.clear()
+  }
 }
 
