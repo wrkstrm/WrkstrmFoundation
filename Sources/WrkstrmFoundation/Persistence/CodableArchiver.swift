@@ -120,7 +120,15 @@ public struct CodableArchiver<T: Codable> {
       attributes: nil,
     )
 
-    return NSKeyedArchiver.archiveRootObject(data, toFile: filePathForKey(key ?? self.key))
+    guard let archiveData = try? NSKeyedArchiver.archivedData(
+      withRootObject: data,
+      requiringSecureCoding: false
+    ) else {
+      return false
+    }
+
+    let path = filePathForKey(key ?? self.key)
+    return fileManager.createFile(atPath: path, contents: archiveData, attributes: nil)
   }
 
   /// Encodes and archives an array of objects of type `T` associated with the given key.
@@ -141,7 +149,15 @@ public struct CodableArchiver<T: Codable> {
       attributes: nil,
     )
 
-    return NSKeyedArchiver.archiveRootObject(encodedValues, toFile: filePathForKey(key ?? self.key))
+    guard let archiveData = try? NSKeyedArchiver.archivedData(
+      withRootObject: encodedValues,
+      requiringSecureCoding: false
+    ) else {
+      return false
+    }
+
+    let path = filePathForKey(key ?? self.key)
+    return fileManager.createFile(atPath: path, contents: archiveData, attributes: nil)
   }
 
   /// Clears the archive by removing all items in the directory.
