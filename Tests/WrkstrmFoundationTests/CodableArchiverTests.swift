@@ -254,6 +254,15 @@ struct CodableArchiverTests {
   }
 
   @Test
+  func writeFailureReturnsFalse() throws {
+    let url = URL(fileURLWithPath: "/dev/null/unwritable")
+    let archiver = CodableArchiver<TestCodableValue>(directory: url)
+    let value = TestCodableValue(value: "shouldFail")
+
+    #expect(!archiver.set(value))
+  }
+
+  @Test
   @MainActor
   func staticArchiverObjectRoundTrip() throws {
     let profile = TestUserProfile(username: "tester")

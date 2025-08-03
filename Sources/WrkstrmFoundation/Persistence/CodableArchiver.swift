@@ -120,8 +120,7 @@ public struct CodableArchiver<T: Codable> {
     }
 
     let path = filePathForKey(key ?? self.key)
-    _ = fileManager.createFile(atPath: path, contents: archiveData, attributes: nil)
-    return true
+    return fileManager.createFile(atPath: path, contents: archiveData, attributes: nil)
   }
 
   /// Encodes and archives an array of objects of type `T` associated with the given key.
@@ -150,8 +149,7 @@ public struct CodableArchiver<T: Codable> {
     }
 
     let path = filePathForKey(key ?? self.key)
-    _ = fileManager.createFile(atPath: path, contents: archiveData, attributes: nil)
-    return true
+    return fileManager.createFile(atPath: path, contents: archiveData, attributes: nil)
   }
 
   /// Clears the archive by removing all items in the directory.
