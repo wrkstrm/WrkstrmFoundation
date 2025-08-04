@@ -120,10 +120,12 @@ public struct CodableArchiver<T: Codable> {
       attributes: nil,
     )
 
-    guard let archiveData = try? NSKeyedArchiver.archivedData(
-      withRootObject: data,
-      requiringSecureCoding: false
-    ) else {
+    guard
+      let archiveData = try? NSKeyedArchiver.archivedData(
+        withRootObject: data,
+        requiringSecureCoding: false
+      )
+    else {
       return false
     }
 
@@ -149,10 +151,12 @@ public struct CodableArchiver<T: Codable> {
       attributes: nil,
     )
 
-    guard let archiveData = try? NSKeyedArchiver.archivedData(
-      withRootObject: encodedValues,
-      requiringSecureCoding: false
-    ) else {
+    guard
+      let archiveData = try? NSKeyedArchiver.archivedData(
+        withRootObject: encodedValues,
+        requiringSecureCoding: false
+      )
+    else {
       return false
     }
 

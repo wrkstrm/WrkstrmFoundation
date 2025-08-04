@@ -42,4 +42,3 @@ struct CodableArchiverStaticArchiverTests {
     try? TestUserProfile.archiver.clear()
   }
 }
-

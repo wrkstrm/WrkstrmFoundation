@@ -78,4 +78,3 @@ struct CodableArchiverClassTests {
     try? archiver.clear()
   }
 }
-

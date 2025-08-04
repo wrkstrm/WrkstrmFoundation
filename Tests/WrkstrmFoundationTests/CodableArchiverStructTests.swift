@@ -34,7 +34,9 @@ struct CodableArchiverStructTests {
       #expect(Bool(false))
       return
     }
-    let decoded = archived.compactMap { try? archiver.decoder.decode(TestCodableValue.self, from: $0) }
+    let decoded = archived.compactMap {
+      try? archiver.decoder.decode(TestCodableValue.self, from: $0)
+    }
     #expect(decoded == values)
     try? archiver.clear()
   }
@@ -49,7 +51,8 @@ struct CodableArchiverStructTests {
 
     let url = URL.tempDirectory.appendingPathComponent("nestedStruct")
     let archiver = CodableArchiver<Container>(directory: url)
-    let value = Container(id: 1, values: [TestCodableValue(value: "one"), TestCodableValue(value: "two")])
+    let value = Container(
+      id: 1, values: [TestCodableValue(value: "one"), TestCodableValue(value: "two")])
 
     #expect(archiver.set(value))
     let result = archiver.get()
@@ -91,4 +94,3 @@ struct CodableArchiverStructTests {
     try? archiver.clear()
   }
 }
-

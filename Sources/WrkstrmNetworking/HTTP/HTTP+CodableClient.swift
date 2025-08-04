@@ -58,13 +58,13 @@ extension HTTP {
       guard httpResponse.statusCode.isHTTPOKStatusRange else {
         let errorMessage =
           String(data: data, encoding: .utf8) ?? "Unknown error"
-#if DEBUG
-        if ProcessInfo.enableNetworkLogging {
-          Log.networking.error(
-            "🚨 HTTP Error [\(await environment.baseURLString)]: \(httpResponse.statusCode): \(errorMessage)"
-          )
-        }
-#endif // DEBUG
+        #if DEBUG
+          if ProcessInfo.enableNetworkLogging {
+            Log.networking.error(
+              "🚨 HTTP Error [\(await environment.baseURLString)]: \(httpResponse.statusCode): \(errorMessage)"
+            )
+          }
+        #endif  // DEBUG
         let jsonDictionary = try await data.serializeAsJSON(in: environment)
         throw HTTP.ClientError.networkError("Status Error: \(jsonDictionary)")
       }
@@ -82,11 +82,11 @@ extension HTTP {
       in environment: HTTP.Environment,
       decoder: JSONDecoder,
     ) async throws -> T {
-#if DEBUG
-      if ProcessInfo.enableNetworkLogging {
-        _ = try data.serializeAsJSON(in: environment)
-      }
-#endif // DEBUG
+      #if DEBUG
+        if ProcessInfo.enableNetworkLogging {
+          _ = try data.serializeAsJSON(in: environment)
+        }
+      #endif  // DEBUG
       do {
         return try decoder.decode(type, from: data)
       } catch {

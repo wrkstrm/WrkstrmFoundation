@@ -12,4 +12,3 @@ final class TestCodableClass<Value: Codable & Equatable>: Codable, Equatable {
     lhs.value == rhs.value
   }
 }
-

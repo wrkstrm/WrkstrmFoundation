@@ -43,7 +43,9 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
   ///                    Defaults to an empty dictionary.
   /// - Throws: An error if JSON serialization of the body fails.
   /// - Returns: A URLRequest configured with the URL, HTTP method, headers, and body.
-  public func asURLRequest(with environment: HTTP.Environment, encoder: JSONEncoder) throws -> URLRequest {
+  public func asURLRequest(with environment: HTTP.Environment, encoder: JSONEncoder) throws
+    -> URLRequest
+  {
     let pathComponents =
       environment.scheme.rawValue
       // Ensure that apiVersion and path are added to path

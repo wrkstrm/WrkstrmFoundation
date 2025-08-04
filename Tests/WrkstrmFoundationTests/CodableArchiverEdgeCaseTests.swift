@@ -31,7 +31,9 @@ struct CodableArchiverEdgeCaseTests {
       #expect(Bool(false))
       return
     }
-    let decoded = archived.compactMap { try? archiver.decoder.decode(TestCodableValue.self, from: $0) }
+    let decoded = archived.compactMap {
+      try? archiver.decoder.decode(TestCodableValue.self, from: $0)
+    }
     #expect(decoded.isEmpty)
     try? archiver.clear()
   }
@@ -48,7 +50,8 @@ struct CodableArchiverEdgeCaseTests {
       withIntermediateDirectories: true
     )
     let invalid = Data([0x00, 0x01, 0x02])
-    let archiveData = try NSKeyedArchiver.archivedData(withRootObject: invalid, requiringSecureCoding: false)
+    let archiveData = try NSKeyedArchiver.archivedData(
+      withRootObject: invalid, requiringSecureCoding: false)
     _ = archiver.fileManager.createFile(atPath: path, contents: archiveData, attributes: nil)
 
     let result = archiver.get()
@@ -80,4 +83,3 @@ struct CodableArchiverEdgeCaseTests {
     #expect(!archiver.set(value))
   }
 }
-

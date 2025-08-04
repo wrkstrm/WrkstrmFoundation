@@ -52,4 +52,3 @@ struct CodableArchiverDataTests {
     try? archiver.clear()
   }
 }
-

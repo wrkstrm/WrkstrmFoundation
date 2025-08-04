@@ -1,4 +1,5 @@
 import Foundation
+
 @testable import WrkstrmNetworking
 
 struct SampleRequest: HTTP.CodableURLRequest {

@@ -1,12 +1,13 @@
 import Foundation
+import Testing
+
+@testable import WrkstrmFoundation
+@testable import WrkstrmMain
+@testable import WrkstrmNetworking
+
 #if canImport(FoundationNetworking)
   import FoundationNetworking
 #endif
-import Testing
-
-@testable import WrkstrmNetworking
-@testable import WrkstrmFoundation
-@testable import WrkstrmMain
 
 @Suite("WrkstrmNetworking")
 struct WrkstrmNetworkingTests {
@@ -37,10 +38,12 @@ struct WrkstrmNetworkingTests {
     let client = HTTP.JSONClient(environment: env, json: (.snakecase, .snakecase))
 
     MockURLProtocol.handler = { request in
-      guard let data = try? JSONSerialization.data(
-        withJSONObject: ["message": "bad"],
-        options: []
-      ) else {
+      guard
+        let data = try? JSONSerialization.data(
+          withJSONObject: ["message": "bad"],
+          options: []
+        )
+      else {
         fatalError("Failed to encode error JSON")
       }
       let response = HTTPURLResponse(

@@ -125,7 +125,9 @@ private enum Decoding {
     let dateString: String = try decoder.singleValueContainer().decode(
       String.self
     )
-    Log.foundation.verbose("🕒 Attempting to parse date: \(dateString)")
+    #if DEBUG
+      Log.foundation.verbose("🕒 Attempting to parse date: \(dateString)")
+    #endif
 
     // Attempt to decode the date using various formats.
     if let date = DateFormatter.iso8601.date(from: dateString) {

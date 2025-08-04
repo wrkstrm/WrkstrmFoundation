@@ -10,7 +10,7 @@ extension ProcessInfo {
 extension Log {
   /// The argument required to enable additional logging.
   static let enableArgumentKey = "WrkstrmNetworking:DebugLogEnabled"
-  
+
   /// A static logger instance specifically configured for networking-related logs.
   ///
   /// The logger uses the "wrkstrm-foundation" system identifier and the "networking" category,

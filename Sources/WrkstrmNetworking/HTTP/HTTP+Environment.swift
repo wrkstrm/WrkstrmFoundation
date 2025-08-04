@@ -20,7 +20,7 @@ extension HTTP {
 
     /// The API version to be used in the requests.
     var apiVersion: String? { get }
-    
+
     /// String value of the client version
     var clientVersion: String? { get }
   }
