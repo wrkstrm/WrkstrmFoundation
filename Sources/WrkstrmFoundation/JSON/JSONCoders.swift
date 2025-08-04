@@ -1,9 +1,5 @@
-#if os(Linux)
-  // Necessary import for Linux due to DispatchQueue not being Sendable.
-  @preconcurrency import Foundation
-#else
-  import Foundation
-#endif
+import Foundation
+import WrkstrmLog
 
 /// An extension to `JSONDecoder` to provide a customized decoder for handling specific date
 /// formats.
@@ -129,9 +125,8 @@ private enum Decoding {
     let dateString: String = try decoder.singleValueContainer().decode(
       String.self
     )
-#if DEBUG
-    print("🕒 Attempting to parse date: \(dateString)")
-#endif
+    Log.foundation.verbose("🕒 Attempting to parse date: \(dateString)")
+
     // Attempt to decode the date using various formats.
     if let date = DateFormatter.iso8601.date(from: dateString) {
       return date

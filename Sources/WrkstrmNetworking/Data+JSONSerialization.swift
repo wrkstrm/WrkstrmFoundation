@@ -3,6 +3,7 @@ import WrkstrmFoundation
 import WrkstrmLog
 import WrkstrmMain
 
+
 extension Data {
   nonisolated func serializeAsJSON(in environment: any HTTP.Environment) throws
     -> JSON.AnyDictionary
@@ -22,7 +23,7 @@ extension Data {
           options: [.sortedKeys, .prettyPrinted]
         )
         let prettyPrinted = String(data: formatted, encoding: .utf8)
-        print(
+        Log.jsonPrint.info(
           "🚨 HTTP [\(environment.baseURLString)]: Raw JSON: \(prettyPrinted ?? "Invalid UTF8")"
         )
       }

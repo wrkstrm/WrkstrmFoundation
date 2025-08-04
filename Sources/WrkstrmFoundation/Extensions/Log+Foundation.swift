@@ -13,7 +13,7 @@ extension Log {
   ///
   /// - Returns: A configured `Log` instance for foundation-related logging.
   static let foundation: Log = {
-    var log = Log(system: "wrkstrm", category: "foundation")
+    var log = Log(system: "wrkstrm-foundation", category: "")
     log.maxFunctionLength = 25
     return log
   }()

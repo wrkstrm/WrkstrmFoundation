@@ -25,4 +25,22 @@ extension Log {
       .init(system: "wrkstrm-foundation", category: "networking", style: .disabled)
     }
   }()
+  
+  /// A static instance of `Log` configured for printing JSON-related networking messages.
+  ///
+  /// - NOTE: This logger wil not truncate JSON payloads printed to the command line.
+  ///
+  /// This logger uses the "wrkstrm-networking" system, targeting the "json" category,
+  /// and applies the `.print` style for straightforward output—useful for debugging
+  /// or inspecting JSON payloads in network operations.
+  ///
+  /// Usage:
+  /// ```swift
+  /// Log.jsonPrint.info("Serialized JSON: \(jsonString)")
+  /// ```
+  static let jsonPrint = Log(
+    system: "wrkstrm-networking",
+    category: "json",
+    style: .print
+  )
 }
