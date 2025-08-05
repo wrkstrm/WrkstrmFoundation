@@ -3,7 +3,6 @@ import WrkstrmFoundation
 import WrkstrmLog
 import WrkstrmMain
 
-
 extension Data {
   nonisolated func serializeAsJSON(in environment: any HTTP.Environment) throws
     -> JSON.AnyDictionary
@@ -17,7 +16,6 @@ extension Data {
         // swiftlint:disable:next force_cast
         as! JSON.AnyDictionary
       #if DEBUG
-<<<<<<< Updated upstream
       if ProcessInfo.enableNetworkLogging {
         let formatted = try JSONSerialization.data(
           withJSONObject: jsonDictionary,
@@ -28,18 +26,6 @@ extension Data {
           "🚨 HTTP [\(environment.baseURLString)]: Raw JSON: \(prettyPrinted ?? "Invalid UTF8")"
         )
       }
-=======
-        if ProcessInfo.enableNetworkLogging {
-          let formatted = try JSONSerialization.data(
-            withJSONObject: jsonDictionary,
-            options: [.sortedKeys, .prettyPrinted]
-          )
-          let prettyPrinted = String(data: formatted, encoding: .utf8)
-          print(
-            "🚨 HTTP [\(environment.baseURLString)]: Raw JSON: \(prettyPrinted ?? "Invalid UTF8")"
-          )
-        }
->>>>>>> Stashed changes
       #endif  // DEBUG
       return jsonDictionary
     } catch let decodingError {

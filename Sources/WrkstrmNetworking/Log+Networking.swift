@@ -25,7 +25,7 @@ extension Log {
       .init(system: "wrkstrm-foundation", category: "networking", style: .disabled)
     }
   }()
-  
+
   /// A static instance of `Log` configured for printing JSON-related networking messages.
   ///
   /// - NOTE: This logger wil not truncate JSON payloads printed to the command line.
