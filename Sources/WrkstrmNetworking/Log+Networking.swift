@@ -3,13 +3,13 @@ import WrkstrmLog
 
 extension ProcessInfo {
   static var enableNetworkLogging: Bool {
-    ProcessInfo.processInfo.environment["WrkstrmNetworking:DebugLogEnabled"] == "true"
+    ProcessInfo.processInfo.environment[Log.enableArgumentKey] == "true"
   }
 }
 
 extension Log {
   /// The argument required to enable additional logging.
-  static let enableArgumentKey = "WrkstrmNetworking:DebugLogEnabled"
+  static let enableArgumentKey = "WrkstrmNetworking-DebugLogEnabled"
 
   /// A static logger instance specifically configured for networking-related logs.
   ///
