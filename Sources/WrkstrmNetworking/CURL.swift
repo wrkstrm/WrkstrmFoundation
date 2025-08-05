@@ -33,7 +33,16 @@ public enum CURL {
     in environment: HTTP.Environment
   ) {
     #if DEBUG
-      let command = CURL.command(from: request, in: environment)
+      var command = CURL.command(from: request, in: environment)
+
+      if let authorization = environment.headers.first(where: { key, _ in
+        key.caseInsensitiveCompare("Authorization") == .orderedSame
+      })?.value {
+        let authHeader = "-H 'Authorization: \(authorization)' "
+        let maskedHeader = "-H 'Authorization: [REDACTED]' "
+        command = command.replacingOccurrences(of: authHeader, with: maskedHeader)
+      }
+
       Log.networking.info(
         """
         Creating request with the equivalent cURL command:
