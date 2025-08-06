@@ -28,7 +28,7 @@ extension Log {
 
   /// A static instance of `Log` configured for printing JSON-related networking messages.
   ///
-  /// - NOTE: This logger wil not truncate JSON payloads printed to the command line.
+  /// - NOTE: This logger will not truncate JSON payloads printed to the command line.
   ///
   /// This logger uses the "wrkstrm-networking" system, targeting the "json" category,
   /// and applies the `.print` style for straightforward output—useful for debugging
