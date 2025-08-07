@@ -1,11 +1,5 @@
-import Foundation
 import WrkstrmLog
-
-extension ProcessInfo {
-  static var enableNetworkLogging: Bool {
-    ProcessInfo.processInfo.environment[Log.enableArgumentKey] == "true"
-  }
-}
+import Foundation
 
 extension Log {
   /// The argument required to enable additional logging.
@@ -18,12 +12,7 @@ extension Log {
   /// and easily identifiable. Use this logger to record events, errors, and debugging
   /// information related to network communication throughout the application.
   public static let networking: Log = {
-    if ProcessInfo.enableNetworkLogging {
       .init(system: "wrkstrm-foundation", category: "networking", exposure: .trace)
-    } else {
-      // Return a valid logger that's using `OSLog.disabled` as the logger, hiding everything.
-      .init(system: "wrkstrm-foundation", category: "networking", style: .disabled)
-    }
   }()
 
   /// A static instance of `Log` configured for printing JSON-related networking messages.
