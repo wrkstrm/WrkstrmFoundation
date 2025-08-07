@@ -17,9 +17,9 @@ extension Log {
   /// ensuring that all logs pertaining to HTTP and networking operations are grouped
   /// and easily identifiable. Use this logger to record events, errors, and debugging
   /// information related to network communication throughout the application.
-  static let networking: Log = {
+  public static let networking: Log = {
     if ProcessInfo.enableNetworkLogging {
-      .init(system: "wrkstrm-foundation", category: "networking")
+      .init(system: "wrkstrm-foundation", category: "networking", exposure: .trace)
     } else {
       // Return a valid logger that's using `OSLog.disabled` as the logger, hiding everything.
       .init(system: "wrkstrm-foundation", category: "networking", style: .disabled)
@@ -38,9 +38,10 @@ extension Log {
   /// ```swift
   /// Log.jsonPrint.info("Serialized JSON: \(jsonString)")
   /// ```
-  static let jsonPrint = Log(
+  public static let jsonPrint = Log(
     system: "wrkstrm-networking",
     category: "json",
-    style: .print
+    style: .print,
+    exposure: .trace
   )
 }

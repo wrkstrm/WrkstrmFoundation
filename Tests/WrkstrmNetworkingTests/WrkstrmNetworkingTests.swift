@@ -1,5 +1,6 @@
 import Foundation
 import Testing
+import WrkstrmLog
 
 @testable import WrkstrmFoundation
 @testable import WrkstrmMain
@@ -11,7 +12,10 @@ import Testing
 
 @Suite("WrkstrmNetworking")
 struct WrkstrmNetworkingTests {
-  // Helpers defined in Support/MockEnvironment.swift and Support/SampleRequest.swift
+
+  init() {
+    Log.limitExposure(to: .trace)
+  }
 
   @Test
   func urlRequestEncoding() throws {
@@ -20,10 +24,15 @@ struct WrkstrmNetworkingTests {
     let urlRequest = try request.asURLRequest(with: env, encoder: .snakecase)
 
     #expect(urlRequest.httpMethod == "POST")
-    #expect(urlRequest.url?.absoluteString == "https://example.com/v1/users?debug=true")
+    #expect(
+      urlRequest.url?.absoluteString
+        == "https://example.com/v1/users?debug=true"
+    )
     #expect(urlRequest.value(forHTTPHeaderField: "X-Test") == "1")
 
-    let expectedBody = try JSONEncoder.snakecase.encode(SampleRequest.Body(name: "Bob"))
+    let expectedBody = try JSONEncoder.snakecase.encode(
+      SampleRequest.Body(name: "Bob")
+    )
     #expect(urlRequest.httpBody == expectedBody)
   }
 
@@ -35,13 +44,16 @@ struct WrkstrmNetworkingTests {
     defer { URLProtocol.unregisterClass(MockURLProtocol.self) }
 
     let env = MockEnvironment()
-    let client = HTTP.JSONClient(environment: env, json: (.snakecase, .snakecase))
+    let client = HTTP.JSONClient(
+      environment: env,
+      json: (.snakecase, .snakecase)
+    )
 
     MockURLProtocol.handler = { request in
       guard
         let data = try? JSONSerialization.data(
-          withJSONObject: ["message": "bad"],
-          options: []
+          withJSONObject: ["message": ["error": "bad"]],
+          options: [.fragmentsAllowed]
         )
       else {
         fatalError("Failed to encode error JSON")
