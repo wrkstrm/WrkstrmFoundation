@@ -35,7 +35,7 @@ extension HTTP.Request.Encodable where RequestBody == Never {
 
 extension HTTP.Request {
   /// Configuration for sending requests.
-  @available(iOS 15.0, macOS 11.0, macCatalyst 15.0, *)
+  @available(iOS 15.0, macOS 11.0, macCatalyst 14.0, *)
   public struct Options: Sendable {
     /// Timeout interval for the request (seconds).
     public let timeout: TimeInterval
