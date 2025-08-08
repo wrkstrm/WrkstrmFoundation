@@ -24,14 +24,14 @@ extension HTTP {
   }
 }
 
-public extension HTTPURLResponse {
+extension HTTPURLResponse {
   /// Returns the response headers as a dictionary of key-value pairs.
   ///
   /// ```swift
   /// let (data, response) = try await URLSession.shared.data(for: request)
   /// let headers = (response as? HTTPURLResponse)?.headers
   /// ```
-  var headers: HTTP.Headers {
+  public var headers: HTTP.Headers {
     allHeaderFields.reduce(into: HTTP.Headers()) { result, pair in
       guard let key = pair.key as? String else { return }
       result[key] = String(describing: pair.value)

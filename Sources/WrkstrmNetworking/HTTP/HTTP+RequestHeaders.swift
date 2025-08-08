@@ -23,4 +23,3 @@ public extension HTTP.Headers {
     return T(value)
   }
 }
-
