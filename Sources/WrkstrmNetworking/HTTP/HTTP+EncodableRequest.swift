@@ -41,7 +41,7 @@ extension HTTP.Request {
     public let timeout: TimeInterval
 
     /// Additional headers for the request.
-    public var headers: HTTP.Request.Headers
+    public var headers: HTTP.Headers
 
     /// Query parameters appended to the URL.
     var queryItems: [URLQueryItem]
@@ -55,7 +55,7 @@ extension HTTP.Request {
     public init(
       timeout: TimeInterval = 300.0,
       queryItems: [URLQueryItem] = [],
-      headers: [String: String] = [:],
+      headers: HTTP.Headers = [:],
     ) {
       self.timeout = timeout
       self.queryItems = queryItems
