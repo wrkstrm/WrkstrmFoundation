@@ -22,7 +22,11 @@ extension HTTP {
       if let remaining, remaining <= 0, let reset, reset > now {
         let delay = reset.timeIntervalSince(now)
         let nanoseconds = UInt64(delay * 1_000_000_000)
-        try? await Task.sleep(nanoseconds: nanoseconds)
+        do {
+          try await Task.sleep(nanoseconds: nanoseconds)
+        } catch {
+          print("RateLimiter: Task.sleep was interrupted: \(error)")
+        }
         self.remaining = limit
       }
 
