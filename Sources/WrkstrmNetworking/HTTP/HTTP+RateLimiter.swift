@@ -26,8 +26,8 @@ extension HTTP {
         self.remaining = limit
       }
 
-      if remaining != nil {
-        self.remaining! -= 1
+      if let remaining = remaining, remaining > 0 {
+        self.remaining = remaining - 1
       }
     }
 
