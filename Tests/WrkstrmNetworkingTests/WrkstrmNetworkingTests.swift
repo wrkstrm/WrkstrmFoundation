@@ -94,4 +94,11 @@ struct WrkstrmNetworkingTests {
 
     #expect(response.headers[headerKey] == headerValue)
   }
+
+  @Test
+  func headerValueDecoding() {
+    let headers: HTTP.Headers = ["X-Ratelimit-Allowed": "120"]
+    let allowed: Int? = headers.value("X-Ratelimit-Allowed")
+    #expect(allowed == 120)
+  }
 }
