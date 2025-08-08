@@ -27,7 +27,7 @@ extension HTTP {
         } catch {
           print("RateLimiter: Task.sleep was interrupted: \(error)")
         }
-        self.remaining = limit
+        // Do not reset remaining here; it will be updated from response headers.
       }
 
       if let remaining = remaining, remaining > 0 {
