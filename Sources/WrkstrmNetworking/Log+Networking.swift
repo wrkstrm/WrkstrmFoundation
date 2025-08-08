@@ -1,4 +1,5 @@
 import Foundation
+import Logging
 import WrkstrmLog
 
 extension Log {
@@ -33,4 +34,19 @@ extension Log {
     style: .print,
     exposure: .trace
   )
+}
+
+extension Log {
+  /// Executes `body` if the provided log level is enabled for the logger.
+  /// - Parameters:
+  ///   - logLevel: The level to evaluate.
+  ///   - body: Closure to execute when logging is permitted.
+  @inlinable
+  public func shouldLog(
+    logLevel: Logger.Level,
+    _ body: (Log) throws -> Void
+  ) rethrows {
+    guard logLevel >= level else { return }
+    try body(self)
+  }
 }

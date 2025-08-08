@@ -16,7 +16,16 @@ extension Data {
         // swiftlint:disable:next force_cast
         as! JSON.AnyDictionary
       #if DEBUG
-        // Debug logging removed
+        try Log.jsonPrint.shouldLog(logLevel: .trace) { logger in
+          let formatted = try JSONSerialization.data(
+            withJSONObject: jsonDictionary,
+            options: [.sortedKeys, .prettyPrinted, .fragmentsAllowed]
+          )
+          let prettyPrinted = String(data: formatted, encoding: .utf8)
+          logger.info(
+            "🚨 HTTP [\(environment.baseURLString)]: Raw JSON: \(prettyPrinted ?? "Invalid JSON")"
+          )
+        }
       #endif  // DEBUG
       return jsonDictionary
     } catch let decodingError {
