@@ -84,7 +84,10 @@ extension HTTP {
         throw HTTP.ClientError.invalidResponse
       }
 
-      await rateLimiter.update(from: httpResponse.headers)
+      // Store the current response headers for the next request's rate limiting
+      await MainActor.run {
+        self.lastResponseHeaders = httpResponse.headers
+      }
 
       guard httpResponse.statusCode.isHTTPOKStatusRange else {
         let errorMessage =
