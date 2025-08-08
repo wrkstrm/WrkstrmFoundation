@@ -1,8 +1,10 @@
 import Foundation
+
+@testable import WrkstrmNetworking
+
 #if canImport(FoundationNetworking)
   import FoundationNetworking
 #endif
-@testable import WrkstrmNetworking
 
 struct SampleRequest: HTTP.CodableURLRequest {
   typealias ResponseType = [String: String]

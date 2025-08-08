@@ -81,9 +81,9 @@ extension HTTP {
       decoder: JSONDecoder,
     ) async throws -> T {
       #if DEBUG
-      try Log.networking.shouldLog(logLevel: .trace) { _ in
-        _ = try data.serializeAsJSON(in: environment)
-      }
+        try Log.networking.shouldLog(logLevel: .trace) { _ in
+          _ = try data.serializeAsJSON(in: environment)
+        }
       #endif  // DEBUG
       do {
         return try decoder.decode(type, from: data)
