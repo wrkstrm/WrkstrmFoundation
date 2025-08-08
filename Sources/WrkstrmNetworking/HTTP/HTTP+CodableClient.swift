@@ -21,6 +21,9 @@ extension HTTP {
     /// The URLSession used to perform network requests.
     public let session: URLSession
 
+    /// Manages rate limiting based on server-provided headers.
+    private let rateLimiter = HTTP.RateLimiter()
+
     /// Initializes a new JSONClient.
     /// - Parameters:
     ///   - environment: The environment configuration to use.
@@ -66,6 +69,7 @@ extension HTTP {
     public nonisolated func sendResponse<T: HTTP.CodableURLRequest>(
       _ request: T
     ) async throws -> HTTP.Response<T.ResponseType> {
+      await rateLimiter.waitIfNeeded()
       let urlRequest: URLRequest = try await buildURLRequest(
         for: request,
         in: environment,
@@ -79,6 +83,8 @@ extension HTTP {
       guard let httpResponse = response as? HTTPURLResponse else {
         throw HTTP.ClientError.invalidResponse
       }
+
+      await rateLimiter.update(from: httpResponse.headers)
 
       guard httpResponse.statusCode.isHTTPOKStatusRange else {
         let errorMessage =
