@@ -107,7 +107,13 @@ extension HTTP {
       decoder: JSONDecoder,
     ) async throws -> T {
       #if DEBUG
-        _ = try? data.serializeAsJSON(in: environment)
+        do {
+          _ = try data.serializeAsJSON(in: environment)
+        } catch {
+          Log.networking.error(
+            "🚨 HTTP Debug: Failed to serialize response JSON for debugging: \(error)"
+          )
+        }
       #endif  // DEBUG
       do {
         return try decoder.decode(type, from: data)
