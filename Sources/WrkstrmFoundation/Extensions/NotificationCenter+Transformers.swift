@@ -67,10 +67,21 @@ extension NotificationCenter {
   ///   - queue: The operation queue where the block should be executed. Defaults to the main queue.
   ///   - block: The block to be executed when the notification is received.
   /// - Returns: A `Notification.Token` which controls the lifecycle of the observer.
-  @Sendable
+  @MainActor
   public func addObserver<A>(
     for transformer: Notification.Transformer<A>,
-    queue: OperationQueue? = .main,
+    using block: @escaping ((A) -> Void),
+  ) -> Notification.Token {
+    let token = addObserver(forName: transformer.name, object: nil, queue: .main) { note in
+      let value = transformer.transform(note)
+      block(value)
+    }
+    return Notification.Token(token: token, center: self)
+  }
+  
+  public func addObserver<A>(
+    for transformer: Notification.Transformer<A>,
+    queue: OperationQueue?,
     using block: @escaping (@Sendable (A) -> Void),
   ) -> Notification.Token {
     let token = addObserver(forName: transformer.name, object: nil, queue: queue) { note in
