@@ -85,9 +85,9 @@ extension HTTP {
       }
 
       // Store the current response headers for the next request's rate limiting
-      await MainActor.run {
-        self.lastResponseHeaders = httpResponse.headers
-      }
+//      await MainActor.run {
+//        self.lastResponseHeaders = httpResponse.headers
+//      }
 
       guard httpResponse.statusCode.isHTTPOKStatusRange else {
         let errorMessage =

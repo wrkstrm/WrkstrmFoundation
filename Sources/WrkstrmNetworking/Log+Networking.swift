@@ -13,7 +13,7 @@ extension Log {
   /// and easily identifiable. Use this logger to record events, errors, and debugging
   /// information related to network communication throughout the application.
   public static let networking: Log = {
-    .init(system: "wrkstrm-foundation", category: "networking", exposure: .trace)
+    .init(system: "wrkstrm-foundation", category: "networking", maxExposureLevel: .trace)
   }()
 
   /// A static instance of `Log` configured for printing JSON-related networking messages.
@@ -32,21 +32,6 @@ extension Log {
     system: "wrkstrm-networking",
     category: "json",
     style: .print,
-    exposure: .trace
+    maxExposureLevel: .trace
   )
-}
-
-extension Log {
-  /// Executes `body` if the provided log level is enabled for the logger.
-  /// - Parameters:
-  ///   - logLevel: The level to evaluate.
-  ///   - body: Closure to execute when logging is permitted.
-  @inlinable
-  public func shouldLog(
-    logLevel: Logger.Level,
-    _ body: (Log) throws -> Void
-  ) rethrows {
-    guard logLevel >= level else { return }
-    try body(self)
-  }
 }

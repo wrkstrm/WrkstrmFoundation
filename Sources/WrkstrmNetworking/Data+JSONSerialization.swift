@@ -16,7 +16,7 @@ extension Data {
         // swiftlint:disable:next force_cast
         as! JSON.AnyDictionary
       #if DEBUG
-        try Log.jsonPrint.shouldLog(logLevel: .trace) { logger in
+        try Log.jsonPrint.ifEnabled(for: .trace) { logger in
           let formatted = try JSONSerialization.data(
             withJSONObject: jsonDictionary,
             options: [.sortedKeys, .prettyPrinted, .fragmentsAllowed]
