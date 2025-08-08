@@ -38,9 +38,34 @@ extension HTTP {
       self.environment = environment
     }
 
-    public nonisolated func send(_ request: some HTTP.CodableURLRequest)
-      async throws -> JSON.AnyDictionary
-    {
+    /// Sends an HTTP request and parses the response as a JSON dictionary.
+    ///
+    /// ```swift
+    /// let body = try await client.send(request)
+    /// ```
+    ///
+    /// - Parameter request: The request to send.
+    /// - Returns: The parsed JSON body.
+    /// - Throws: ``HTTP/ClientError`` if the request or parsing fails.
+    public nonisolated func send(
+      _ request: some HTTP.CodableURLRequest
+    ) async throws -> JSON.AnyDictionary {
+      try await sendResponse(request).value
+    }
+
+    /// Sends an HTTP request and returns both the parsed JSON body and response headers.
+    ///
+    /// ```swift
+    /// let response = try await client.sendResponse(request)
+    /// let expiry = response.headers["X-Ratelimit-Expiry"]
+    /// ```
+    ///
+    /// - Parameter request: The request to send.
+    /// - Returns: A ``HTTP/Response`` containing the JSON body and headers.
+    /// - Throws: ``HTTP/ClientError`` if the request or parsing fails.
+    public nonisolated func sendResponse(
+      _ request: some HTTP.CodableURLRequest
+    ) async throws -> HTTP.Response<JSON.AnyDictionary> {
       let urlRequest: URLRequest = try await buildURLRequest(
         for: request,
         in: environment,
@@ -67,7 +92,8 @@ extension HTTP {
         throw HTTP.ClientError.networkError("Status Error: \(jsonDictionary)")
       }
 
-      return try await data.serializeAsJSON(in: environment)
+      let jsonDictionary = try await data.serializeAsJSON(in: environment)
+      return .init(value: jsonDictionary, headers: httpResponse.headers)
     }
   }
 }

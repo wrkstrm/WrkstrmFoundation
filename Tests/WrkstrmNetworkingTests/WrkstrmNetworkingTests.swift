@@ -68,7 +68,7 @@ struct WrkstrmNetworkingTests {
     }
 
     do {
-      _ = try await client.send(SampleRequest())
+      _ = try await client.sendResponse(SampleRequest())
       #expect(Bool(false), "Request should throw")
     } catch {
       switch error {
@@ -78,5 +78,20 @@ struct WrkstrmNetworkingTests {
         #expect(Bool(false), "Unexpected error: \(error)")
       }
     }
+  }
+
+  @Test
+  func responseHeaders() throws {
+    let headerKey = "X-Test-Header"
+    let headerValue = "42"
+    let url = URL(string: "https://example.com")!
+    let response = HTTPURLResponse(
+      url: url,
+      statusCode: 200,
+      httpVersion: nil,
+      headerFields: [headerKey: headerValue]
+    )!
+
+    #expect(response.headers[headerKey] == headerValue)
   }
 }

@@ -38,9 +38,34 @@ extension HTTP {
       self.environment = environment
     }
 
-    public nonisolated func send<T: HTTP.CodableURLRequest>(_ request: T)
-      async throws -> T.ResponseType
-    {
+    /// Sends an HTTP request and decodes the response body into ``T.ResponseType``.
+    ///
+    /// ```swift
+    /// let value: MyModel = try await client.send(request)
+    /// ```
+    ///
+    /// - Parameter request: The request to send.
+    /// - Returns: The decoded response body.
+    /// - Throws: ``HTTP/ClientError`` if the request or decoding fails.
+    public nonisolated func send<T: HTTP.CodableURLRequest>(
+      _ request: T
+    ) async throws -> T.ResponseType {
+      try await sendResponse(request).value
+    }
+
+    /// Sends an HTTP request and returns both the decoded body and response headers.
+    ///
+    /// ```swift
+    /// let response: HTTP.Response<MyModel> = try await client.sendResponse(request)
+    /// let used = response.headers["X-Ratelimit-Used"]
+    /// ```
+    ///
+    /// - Parameter request: The request to send.
+    /// - Returns: A ``HTTP/Response`` containing the decoded body and headers.
+    /// - Throws: ``HTTP/ClientError`` if the request or decoding fails.
+    public nonisolated func sendResponse<T: HTTP.CodableURLRequest>(
+      _ request: T
+    ) async throws -> HTTP.Response<T.ResponseType> {
       let urlRequest: URLRequest = try await buildURLRequest(
         for: request,
         in: environment,
@@ -66,12 +91,13 @@ extension HTTP {
         let jsonDictionary = try await data.serializeAsJSON(in: environment)
         throw HTTP.ClientError.networkError("Status Error: \(jsonDictionary)")
       }
-      return try await parseResponse(
+      let decoded = try await parseResponse(
         T.ResponseType.self,
         from: data,
         in: environment,
         decoder: json.responseDecoder
       )
+      return .init(value: decoded, headers: httpResponse.headers)
     }
 
     private nonisolated func parseResponse<T: Decodable>(
@@ -81,8 +107,12 @@ extension HTTP {
       decoder: JSONDecoder,
     ) async throws -> T {
       #if DEBUG
-        try Log.networking.shouldLog(logLevel: .trace) { _ in
+        do {
           _ = try data.serializeAsJSON(in: environment)
+        } catch {
+          Log.networking.error(
+            "🚨 HTTP Debug: Failed to serialize response JSON for debugging: \(error)"
+          )
         }
       #endif  // DEBUG
       do {
