@@ -78,7 +78,7 @@ extension NotificationCenter {
     }
     return Notification.Token(token: token, center: self)
   }
-  
+
   public func addObserver<A>(
     for transformer: Notification.Transformer<A>,
     queue: OperationQueue?,

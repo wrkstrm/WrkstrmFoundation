@@ -7,4 +7,3 @@ extension HTTP {
   /// ```
   public typealias Headers = [String: String]
 }
-
