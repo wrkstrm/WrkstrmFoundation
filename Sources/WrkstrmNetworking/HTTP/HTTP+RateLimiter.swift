@@ -44,7 +44,8 @@ extension HTTP {
       if let available: Int = headers.value("X-Ratelimit-Available") {
         remaining = available
       } else if let used: Int = headers.value("X-Ratelimit-Used"),
-                let limit {
+        let limit
+      {
         remaining = max(limit - used, 0)
       }
 
