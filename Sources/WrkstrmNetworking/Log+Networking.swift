@@ -12,9 +12,11 @@ extension Log {
   /// ensuring that all logs pertaining to HTTP and networking operations are grouped
   /// and easily identifiable. Use this logger to record events, errors, and debugging
   /// information related to network communication throughout the application.
-  public static let networking: Log = {
-    .init(system: "wrkstrm-foundation", category: "networking", maxExposureLevel: .trace)
-  }()
+  public static let networking = Log(
+    system: "wrkstrm-foundation",
+    category: "networking",
+    exposure: .trace
+  )
 
   /// A static instance of `Log` configured for printing JSON-related networking messages.
   ///
@@ -32,6 +34,6 @@ extension Log {
     system: "wrkstrm-networking",
     category: "json",
     style: .print,
-    maxExposureLevel: .trace
+    exposure: .trace
   )
 }
