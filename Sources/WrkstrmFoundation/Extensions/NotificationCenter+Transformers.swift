@@ -70,7 +70,7 @@ extension NotificationCenter {
   @MainActor
   public func addObserver<A>(
     for transformer: Notification.Transformer<A>,
-    using block: @escaping ((A) -> Void),
+    using block: @escaping (@Sendable (A) -> Void),
   ) -> Notification.Token {
     let token = addObserver(forName: transformer.name, object: nil, queue: .main) { note in
       let value = transformer.transform(note)
