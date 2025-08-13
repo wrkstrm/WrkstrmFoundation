@@ -1,154 +1,105 @@
 import Foundation
 import WrkstrmLog
 
-/// An extension to `JSONDecoder` to provide a customized decoder for handling specific date
-/// formats.
+// MARK: - JSONDecoder presets
+
 extension JSONDecoder {
-  /// A static instance of `JSONDecoder` with a custom date decoding strategy.
-  ///
-  /// This decoder uses a custom strategy for decoding dates from JSON. The strategy
-  /// understands multiple date formats, including ISO 8601 with and without milliseconds,
-  /// and a simple date-only format.
-  ///
-  /// Example:
-  /// ```
-  /// let jsonData = "{\"date\":\"2023-01-01T00:00:00Z\"}".data(using: .utf8)!
-  /// let decodedObject = try JSONDecoder.default.decode(MyDecodableType.self, from: jsonData)
-  /// ```
-  public static let `default` = { () -> JSONDecoder in
-    let decoder: JSONDecoder = .init()
+  /// CamelCase keys, robust date parsing (epoch ms/s, ISO8601 with/without millis, common fallbacks).
+  public static let `default`: JSONDecoder = {
+    let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .custom(Decoding.customDateDecoder)
     return decoder
   }()
 
+  /// snake_case keys, same robust date parsing.
   public static let snakecase: JSONDecoder = {
-    let decoder: JSONDecoder = .init()
-    decoder.dateDecodingStrategy = .custom { decoder in
-      let container = try decoder.singleValueContainer()
-      let dateString = try container.decode(String.self)
-
-      // Try multiple date formats commonly used
-      let formatters: [DateFormatter] = [
-        .iso8601Full,
-        .iso8601Simple,
-        .iso8601WithoutMilliseconds,
-      ]
-
-      for formatter in formatters {
-        if let date = formatter.date(from: dateString) {
-          return date
-        }
-      }
-
-      throw DecodingError.dataCorruptedError(
-        in: container,
-        debugDescription: "Cannot decode date string: \(dateString)",
-      )
-    }
+    let decoder = JSONDecoder()
     decoder.keyDecodingStrategy = .convertFromSnakeCase
+    decoder.dateDecodingStrategy = .custom(Decoding.customDateDecoder)
     return decoder
   }()
 }
 
-/// An extension to `JSONEncoder` to provide a customized encoder for handling specific date
-/// formats.
+// MARK: - JSONEncoder presets
+
 extension JSONEncoder {
-  /// A static instance of `JSONEncoder` with a custom date encoding strategy.
-  ///
-  /// This encoder uses a custom strategy for encoding dates to JSON. The strategy
-  /// converts dates to an ISO 8601 string format.
-  ///
-  /// Example:
-  /// ```
-  /// let myObject = MyEncodableType(date: Date())
-  /// let jsonData = try JSONEncoder.default.encode(myObject)
-  /// ```
+  /// CamelCase keys, ISO8601 (+fractional seconds) date strings.
   public static let `default`: JSONEncoder = {
-    let encoder: JSONEncoder = .init()
+    let encoder = JSONEncoder()
     encoder.dateEncodingStrategy = .custom(Encoding.customDateEncoder)
     return encoder
   }()
 
-  /// A static instance of `JSONDecoder`/`JSONEncoder` configured for snake_case conversion and custom date handling.
-  ///
-  /// For `JSONEncoder.snakecase`:
-  /// - Uses a custom date encoding strategy that formats dates using the full ISO 8601 date format.
-  /// - Applies `.convertToSnakeCase` to encode Swift property names in camelCase to snake_case keys in JSON.
-  ///
-  /// Use these static properties when working with APIs or data formats that require snake_case key
-  /// conversion and robust date handling.
-  ///
-  /// ### Example (Decoding)
-  /// ```swift
-  /// let decoder = JSONDecoder.snakecase
-  /// let model = try decoder.decode(MyType.self, from: jsonData)
-  /// ```
-  ///
-  /// ### Example (Encoding)
-  /// ```swift
-  /// let encoder = JSONEncoder.snakecase
-  /// let jsonData = try encoder.encode(myModel)
-  /// ```
+  /// snake_case keys, ISO8601 (+fractional seconds) date strings.
   public static let snakecase: JSONEncoder = {
-    let encoder: JSONEncoder = .init()
-    encoder.dateEncodingStrategy = .formatted(.iso8601Full)
+    let encoder = JSONEncoder()
     encoder.keyEncodingStrategy = .convertToSnakeCase
+    encoder.dateEncodingStrategy = .custom(Encoding.customDateEncoder)
     return encoder
   }()
 }
 
-// MARK: - Private Helper Enums
+// MARK: - Private Helpers
 
-/// A private enum containing a custom date encoding method.
 private enum Encoding {
-  /// Encodes a `Date` object to a string using a specified date format.
-  ///
-  /// - Parameters:
-  ///   - date: The `Date` object to encode.
-  ///   - encoder: The `Encoder` to use for encoding the date.
-  /// - Throws: An encoding error if the date cannot be encoded.
+  /// Encodes `Date` as ISO8601 with fractional seconds (e.g., 2025-07-22T13:28:00.000Z).
   static func customDateEncoder(date: Date, encoder: Encoder) throws {
-    let stringDate = DateFormatter.iso8601.string(from: date)
+    // Use ISO8601DateFormatter for speed/correctness.
+    let stringDate = DateFormatter.iso8601WithMillis.string(from: date)
     var container = encoder.singleValueContainer()
     try container.encode(stringDate)
   }
 }
 
-/// A private enum containing a custom date decoding method.
 private enum Decoding {
-  /// Decodes a date string to a `Date` object using various date formats.
-  ///
-  /// - Parameter decoder: The `Decoder` to use for decoding the date string.
-  /// - Returns: The decoded `Date` object.
-  /// - Throws: A decoding error if the date string cannot be decoded to a `Date`.
+  /// Decodes `Date` from:
+  /// - numeric epoch (seconds or milliseconds),
+  /// - ISO8601 with/without fractional seconds,
+  /// - common formatter fallbacks (yyyy-MM-dd'T'HH:mm:ss(.SSS)ZZZZZ),
+  /// - date-only "yyyyMMdd",
+  /// - compact "yyyyMMdd'T'HHmmssZ" (legacy).
   static func customDateDecoder(_ decoder: Decoder) throws -> Date {
-    let dateString: String = try decoder.singleValueContainer().decode(
-      String.self
-    )
+    let container = try decoder.singleValueContainer()
+
+    // 1) Numeric epoch (auto-detect ms vs s)
+    if let number = try? container.decode(Double.self) {
+      // If it's > 9_999_999_999 assume milliseconds; else seconds.
+      let seconds = number > 9_999_999_999 ? number / 1000.0 : number
+      #if DEBUG
+      Log.foundation.verbose("🕒 Parsed epoch: \(number) -> \(seconds)s")
+      #endif
+      return Date(timeIntervalSince1970: seconds)
+    }
+
+    // 2) String formats
+    let raw = try container.decode(String.self)
     #if DEBUG
-      Log.foundation.verbose("🕒 Attempting to parse date: \(dateString)")
+    Log.foundation.verbose("🕒 Attempting to parse date: \(raw)")
     #endif
 
-    // Attempt to decode the date using various formats.
-    if let date = DateFormatter.iso8601.date(from: dateString) {
-      return date
-    }
-    if dateString.last == Character("Z"),
-      let date = DateFormatter.iso8601Z.date(from: dateString)
-    {
-      return date
-    }
-    if dateString.count == 8,
-      let date = DateFormatter.dateOnlyEncoder.date(from: dateString)
-    {
-      return date
-    }
-    // Throw an error if none of the formats match.
-    let error =
-      DecodingError.Context(
-        codingPath: decoder.codingPath,
-        debugDescription: "Error Decoding Date \(dateString)",
-      )
-    throw DecodingError.valueNotFound(Date.self, error)
+    // Fast path: ISO8601 with/without millis
+    if let d = DateFormatter.iso8601WithMillis.date(from: raw) { return d }
+    if let d = DateFormatter.iso8601NoMillis.date(from: raw) { return d }
+
+    // Common fallbacks (thread-safe if not mutated after init in DateFormatter+Extensions.swift)
+    if let d = DateFormatter.iso8601Full.date(from: raw) { return d }                  // yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ
+    if let d = DateFormatter.iso8601WithoutMilliseconds.date(from: raw) { return d }   // yyyy-MM-dd'T'HH:mm:ssZZZZZ
+    if let d = DateFormatter.iso8601Simple.date(from: raw) { return d }                // yyyy-MM-dd'T'HH:mm:ss'Z'
+
+    // Date-only
+    if raw.count == 8, let d = DateFormatter.dateOnlyEncoder.date(from: raw) { return d }
+
+    // Legacy compact (Tradier-style)
+    if let d = DateFormatter.iso8601Compact.date(from: raw) { return d }               // yyyyMMdd'T'HHmmssZ
+
+    // Fail
+    #if DEBUG
+    Log.foundation.verbose("🕒 ❌ Failed to parse date: \(raw)")
+    #endif
+    let ctx = DecodingError.Context(
+      codingPath: decoder.codingPath,
+      debugDescription: "Error Decoding Date \(raw)"
+    )
+    throw DecodingError.valueNotFound(Date.self, ctx)
   }
 }
