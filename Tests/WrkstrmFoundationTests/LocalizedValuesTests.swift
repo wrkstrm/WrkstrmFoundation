@@ -26,6 +26,14 @@ struct LocalizedValuesTests {
     let previous = NumberFormatter.dollar.locale
     NumberFormatter.dollar.locale = Locale(identifier: "en_US_POSIX")
     defer { NumberFormatter.dollar.locale = previous }
-    #expect(1234.5.dollarString() == "$1,234.50")
+    #expect(1234.5.dollarString() == "$\u{00a0}1,234.50")
+  }
+
+  @Test
+  func dollarStringLocalizesByLocale() {
+    let previous = NumberFormatter.dollar.locale
+    NumberFormatter.dollar.locale = Locale(identifier: "en_GB")
+    defer { NumberFormatter.dollar.locale = previous }
+    #expect(1234.5.dollarString() == "£1,234.50")
   }
 }

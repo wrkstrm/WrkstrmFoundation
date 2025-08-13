@@ -46,7 +46,7 @@ extension NumberFormatter {
     return formatter
   }()
 
-  /// A static `NumberFormatter` for formatting currency values, particularly dollars.
+  /// A static `NumberFormatter` for formatting currency values.
   ///
   /// This formatter uses the currency style with a maximum of four and a minimum of two fraction
   /// digits.
@@ -55,16 +55,14 @@ extension NumberFormatter {
   /// ```
   /// let number = 123.4567
   /// print(NumberFormatter.dollar.string(for: number)!)
-  /// // Prints "$123.4567"
+  /// // Prints "$123.4567" when locale uses USD
   /// ```
+  // TODO: Rename to `currency` for clarity and proper localization.
   public static let dollar: NumberFormatter = {
     let formatter: NumberFormatter = .init()
     formatter.numberStyle = .currency
     formatter.maximumFractionDigits = 4
     formatter.minimumFractionDigits = 2
-    formatter.currencySymbol = "$"
-    formatter.positivePrefix = "$"
-    formatter.negativePrefix = "-$"
     return formatter
   }()
 }
@@ -96,6 +94,7 @@ extension LocalizedValues {
   ///
   /// It uses `NumberFormatter.dollar` to format the numeric value in a currency style.
   /// Returns `nil` if the value cannot be converted.
+  // TODO: Rename to `currencyString` alongside `NumberFormatter.currency`.
   public func dollarString() -> String? {
     NumberFormatter.dollar.string(for: self)
   }
