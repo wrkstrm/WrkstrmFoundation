@@ -14,7 +14,7 @@ import WrkstrmLog
 struct WrkstrmNetworkingTests {
 
   init() {
-    Log.limitExposure(to: .trace)
+    Log.globalExposureLevel = .trace
   }
 
   @Test
