@@ -41,6 +41,8 @@ extension NumberFormatter {
     let formatter: NumberFormatter = .init()
     formatter.numberStyle = .decimal
     formatter.minimumFractionDigits = 2
+    formatter.maximumFractionDigits = 2
+    formatter.roundingIncrement = 0.01
     return formatter
   }()
 
@@ -60,6 +62,9 @@ extension NumberFormatter {
     formatter.numberStyle = .currency
     formatter.maximumFractionDigits = 4
     formatter.minimumFractionDigits = 2
+    formatter.currencySymbol = "$"
+    formatter.positivePrefix = "$"
+    formatter.negativePrefix = "-$"
     return formatter
   }()
 }
