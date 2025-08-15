@@ -1,8 +1,8 @@
 #if os(Linux)
-  // Required for Linux compatibility due to differences in DispatchQueue implementation.
-  @preconcurrency import Foundation
+// Required for Linux compatibility due to differences in DispatchQueue implementation.
+@preconcurrency import Foundation
 #else
-  import Foundation
+import Foundation
 #endif
 
 extension Date {

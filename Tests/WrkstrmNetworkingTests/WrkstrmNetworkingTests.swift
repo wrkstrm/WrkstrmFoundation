@@ -7,7 +7,7 @@ import WrkstrmLog
 @testable import WrkstrmNetworking
 
 #if canImport(FoundationNetworking)
-  import FoundationNetworking
+import FoundationNetworking
 #endif
 
 @Suite("WrkstrmNetworking")

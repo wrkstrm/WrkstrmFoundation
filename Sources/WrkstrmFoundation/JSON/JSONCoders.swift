@@ -66,7 +66,7 @@ private enum Decoding {
       // If it's > 9_999_999_999 assume milliseconds; else seconds.
       let seconds = number > 9_999_999_999 ? number / 1000.0 : number
       #if DEBUG
-        Log.foundation.verbose("🕒 Parsed epoch: \(number) -> \(seconds)s")
+      Log.foundation.verbose("🕒 Parsed epoch: \(number) -> \(seconds)s")
       #endif
       return Date(timeIntervalSince1970: seconds)
     }
@@ -74,7 +74,7 @@ private enum Decoding {
     // 2) String formats
     let raw = try container.decode(String.self)
     #if DEBUG
-      Log.foundation.verbose("🕒 Attempting to parse date: \(raw)")
+    Log.foundation.verbose("🕒 Attempting to parse date: \(raw)")
     #endif
 
     // Fast path: ISO8601 with/without millis
@@ -94,7 +94,7 @@ private enum Decoding {
 
     // Fail
     #if DEBUG
-      Log.foundation.verbose("🕒 ❌ Failed to parse date: \(raw)")
+    Log.foundation.verbose("🕒 ❌ Failed to parse date: \(raw)")
     #endif
     let ctx = DecodingError.Context(
       codingPath: decoder.codingPath,

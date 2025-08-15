@@ -3,7 +3,7 @@ import Foundation
 @testable import WrkstrmNetworking
 
 #if canImport(FoundationNetworking)
-  import FoundationNetworking
+import FoundationNetworking
 #endif
 
 struct SampleRequest: HTTP.CodableURLRequest {

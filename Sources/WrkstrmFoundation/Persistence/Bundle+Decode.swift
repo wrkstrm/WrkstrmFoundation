@@ -1,10 +1,10 @@
 import WrkstrmLog
 
 #if os(Linux)
-  // Needed because DispatchQueue isn't Sendable on Linux
-  @preconcurrency import Foundation
+// Needed because DispatchQueue isn't Sendable on Linux
+@preconcurrency import Foundation
 #else
-  import Foundation
+import Foundation
 #endif
 
 extension Bundle {

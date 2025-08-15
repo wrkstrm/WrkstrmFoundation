@@ -1,8 +1,8 @@
 #if os(Linux)
-  // Required due to DispatchQueue's lack of Sendable conformance on Linux.
-  @preconcurrency import Foundation
+// Required due to DispatchQueue's lack of Sendable conformance on Linux.
+@preconcurrency import Foundation
 #else
-  import Foundation
+import Foundation
 #endif
 
 extension Notification {

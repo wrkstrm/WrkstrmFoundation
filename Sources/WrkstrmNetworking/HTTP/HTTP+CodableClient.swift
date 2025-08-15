@@ -4,7 +4,7 @@ import WrkstrmLog
 import WrkstrmMain
 
 #if canImport(FoundationNetworking)
-  import FoundationNetworking
+import FoundationNetworking
 #endif
 
 extension HTTP {
@@ -93,9 +93,9 @@ extension HTTP {
         let errorMessage =
           String(data: data, encoding: .utf8) ?? "Unknown error"
         #if DEBUG
-          Log.networking.error(
-            "🚨 HTTP Error [\(await environment.baseURLString)]: \(httpResponse.statusCode): \(errorMessage)"
-          )
+        Log.networking.error(
+          "🚨 HTTP Error [\(await environment.baseURLString)]: \(httpResponse.statusCode): \(errorMessage)"
+        )
         #endif  // DEBUG
         let jsonDictionary = try await data.serializeAsJSON(in: environment)
         throw HTTP.ClientError.networkError("Status Error: \(jsonDictionary)")
@@ -116,13 +116,13 @@ extension HTTP {
       decoder: JSONDecoder,
     ) async throws -> T {
       #if DEBUG
-        do {
-          _ = try data.serializeAsJSON(in: environment)
-        } catch {
-          Log.networking.error(
-            "🚨 HTTP Debug: Failed to serialize response JSON for debugging: \(error)"
-          )
-        }
+      do {
+        _ = try data.serializeAsJSON(in: environment)
+      } catch {
+        Log.networking.error(
+          "🚨 HTTP Debug: Failed to serialize response JSON for debugging: \(error)"
+        )
+      }
       #endif  // DEBUG
       do {
         return try decoder.decode(type, from: data)

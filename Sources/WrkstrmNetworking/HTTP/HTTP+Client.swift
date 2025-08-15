@@ -4,7 +4,7 @@ import WrkstrmLog
 import WrkstrmMain
 
 #if canImport(FoundationNetworking)
-  import FoundationNetworking
+import FoundationNetworking
 #endif
 
 extension HTTP {

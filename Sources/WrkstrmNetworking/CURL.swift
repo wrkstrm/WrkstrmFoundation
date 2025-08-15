@@ -2,7 +2,7 @@ import Foundation
 import WrkstrmLog
 
 #if canImport(FoundationNetworking)
-  import FoundationNetworking
+import FoundationNetworking
 #endif
 
 public enum CURL {
@@ -33,24 +33,24 @@ public enum CURL {
     in environment: HTTP.Environment
   ) {
     #if DEBUG
-      var command = CURL.command(from: request, in: environment)
+    var command = CURL.command(from: request, in: environment)
 
-      if let authorization = environment.headers.first(where: { key, _ in
-        key.caseInsensitiveCompare("Authorization") == .orderedSame
-      })?.value {
-        let authHeader = "-H 'Authorization: \(authorization)' "
-        let maskedHeader = "-H 'Authorization: [REDACTED]' "
-        command = command.replacingOccurrences(of: authHeader, with: maskedHeader)
-      }
+    if let authorization = environment.headers.first(where: { key, _ in
+      key.caseInsensitiveCompare("Authorization") == .orderedSame
+    })?.value {
+      let authHeader = "-H 'Authorization: \(authorization)' "
+      let maskedHeader = "-H 'Authorization: [REDACTED]' "
+      command = command.replacingOccurrences(of: authHeader, with: maskedHeader)
+    }
 
-      Log.networking.info(
-        """
-        Creating request with the equivalent cURL command:
-        ➖➖➖➖🌀 cURL command 🌀➖➖➖➖
-        \(command)
-        🌀➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖🌀
-        """
-      )
+    Log.networking.info(
+      """
+      Creating request with the equivalent cURL command:
+      ➖➖➖➖🌀 cURL command 🌀➖➖➖➖
+      \(command)
+      🌀➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖🌀
+      """
+    )
     #endif  // DEBUG
   }
 }

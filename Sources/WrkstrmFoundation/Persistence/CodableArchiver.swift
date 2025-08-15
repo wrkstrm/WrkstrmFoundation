@@ -1,8 +1,8 @@
 #if os(Linux)
-  // Necessary import for Linux due to DispatchQueue not being Sendable.
-  @preconcurrency import Foundation
+// Necessary import for Linux due to DispatchQueue not being Sendable.
+@preconcurrency import Foundation
 #else
-  import Foundation
+import Foundation
 #endif
 
 /// A struct for archiving (`Codable`) objects using JSON encoding and decoding.

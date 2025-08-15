@@ -3,7 +3,7 @@ import WrkstrmFoundation
 import WrkstrmLog
 
 #if canImport(FoundationNetworking)
-  import FoundationNetworking
+import FoundationNetworking
 #endif
 
 /// A protocol that defines the conversion of an HTTP.Request into a URLRequest,
