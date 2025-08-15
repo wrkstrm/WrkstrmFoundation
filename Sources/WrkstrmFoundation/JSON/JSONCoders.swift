@@ -66,7 +66,7 @@ private enum Decoding {
       // If it's > 9_999_999_999 assume milliseconds; else seconds.
       let seconds = number > 9_999_999_999 ? number / 1000.0 : number
       #if DEBUG
-      Log.foundation.verbose("🕒 Parsed epoch: \(number) -> \(seconds)s")
+        Log.foundation.verbose("🕒 Parsed epoch: \(number) -> \(seconds)s")
       #endif
       return Date(timeIntervalSince1970: seconds)
     }
@@ -74,7 +74,7 @@ private enum Decoding {
     // 2) String formats
     let raw = try container.decode(String.self)
     #if DEBUG
-    Log.foundation.verbose("🕒 Attempting to parse date: \(raw)")
+      Log.foundation.verbose("🕒 Attempting to parse date: \(raw)")
     #endif
 
     // Fast path: ISO8601 with/without millis
@@ -82,19 +82,19 @@ private enum Decoding {
     if let d = DateFormatter.iso8601NoMillis.date(from: raw) { return d }
 
     // Common fallbacks (thread-safe if not mutated after init in DateFormatter+Extensions.swift)
-    if let d = DateFormatter.iso8601Full.date(from: raw) { return d }                  // yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ
-    if let d = DateFormatter.iso8601WithoutMilliseconds.date(from: raw) { return d }   // yyyy-MM-dd'T'HH:mm:ssZZZZZ
-    if let d = DateFormatter.iso8601Simple.date(from: raw) { return d }                // yyyy-MM-dd'T'HH:mm:ss'Z'
+    if let d = DateFormatter.iso8601Full.date(from: raw) { return d }  // yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ
+    if let d = DateFormatter.iso8601WithoutMilliseconds.date(from: raw) { return d }  // yyyy-MM-dd'T'HH:mm:ssZZZZZ
+    if let d = DateFormatter.iso8601Simple.date(from: raw) { return d }  // yyyy-MM-dd'T'HH:mm:ss'Z'
 
     // Date-only
     if raw.count == 8, let d = DateFormatter.dateOnlyEncoder.date(from: raw) { return d }
 
     // Legacy compact (Tradier-style)
-    if let d = DateFormatter.iso8601Compact.date(from: raw) { return d }               // yyyyMMdd'T'HHmmssZ
+    if let d = DateFormatter.iso8601Compact.date(from: raw) { return d }  // yyyyMMdd'T'HHmmssZ
 
     // Fail
     #if DEBUG
-    Log.foundation.verbose("🕒 ❌ Failed to parse date: \(raw)")
+      Log.foundation.verbose("🕒 ❌ Failed to parse date: \(raw)")
     #endif
     let ctx = DecodingError.Context(
       codingPath: decoder.codingPath,

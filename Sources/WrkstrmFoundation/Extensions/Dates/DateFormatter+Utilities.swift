@@ -1,8 +1,4 @@
-#if os(Linux)
-@preconcurrency import Foundation // Needed because DispatchQueue isn't Sendable on Linux
-#else
 import Foundation
-#endif
 
 // MARK: - DateFormatter Extensions
 
