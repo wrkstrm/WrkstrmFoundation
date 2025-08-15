@@ -72,7 +72,7 @@ extension Package {
 
     public static let shared: Inject = ProcessInfo.useLocalDeps ? .local : .remote
 
-    static var local: Inject = .init(swiftSettings: [.localSwiftSettings])
+    static var local: Inject = .init(swiftSettings: [.local])
     static var remote: Inject = .init()
   }
 }
@@ -80,7 +80,7 @@ extension Package {
 // MARK: - PackageDescription extensions
 
 extension SwiftSetting {
-  public static let localSwiftSettings: SwiftSetting = .unsafeFlags([
+  public static let local: SwiftSetting = .unsafeFlags([
     "-Xfrontend",
     "-warn-long-expression-type-checking=10",
   ])
