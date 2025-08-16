@@ -17,6 +17,13 @@ struct URLQueryItemTests {
   }
 
   @Test
+  func emptyQueryItemsDoesNotAppendQuestionMark() {
+    let base = URL(string: "https://example.com")!
+    let result = base.withQueryItems([])
+    #expect(result?.absoluteString == "https://example.com")
+  }
+
+  @Test
   func buildURLWithDictionary() {
     let base = URL(string: "https://example.com")!
     let result = base.withQueryItems(["foo": "bar", "baz": "qux"])

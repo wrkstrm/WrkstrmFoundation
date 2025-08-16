@@ -55,7 +55,7 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
       .replacingOccurrences(of: "//", with: "/")  // Clean up accidental double slashes
     var urlComponents = URLComponents(string: pathComponents)
     // Handle query items from URL.
-    urlComponents?.queryItems = options.queryItems
+    urlComponents?.queryItems = options.queryItems.isEmpty ? nil : options.queryItems
     var urlRequest = URLRequest(url: urlComponents?.url ?? URL(string: "")!)
     // Apply the requests HTTP method
     urlRequest.httpMethod = method.rawValue

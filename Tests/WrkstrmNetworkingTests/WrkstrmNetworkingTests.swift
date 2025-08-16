@@ -10,18 +10,18 @@ import WrkstrmLog
 import FoundationNetworking
 #endif
 
-@Suite("WrkstrmNetworking")
-struct WrkstrmNetworkingTests {
+  @Suite("WrkstrmNetworking")
+  struct WrkstrmNetworkingTests {
 
   init() {
     Log.globalExposureLevel = .trace
   }
 
-  @Test
-  func urlRequestEncoding() throws {
-    let env = MockEnvironment()
-    let request = SampleRequest()
-    let urlRequest = try request.asURLRequest(with: env, encoder: .snakecase)
+    @Test
+    func urlRequestEncoding() throws {
+      let env = MockEnvironment()
+      let request = SampleRequest()
+      let urlRequest = try request.asURLRequest(with: env, encoder: .snakecase)
 
     #expect(urlRequest.httpMethod == "POST")
     #expect(
@@ -35,6 +35,16 @@ struct WrkstrmNetworkingTests {
     )
     #expect(urlRequest.httpBody == expectedBody)
   }
+
+    @Test
+    func urlRequestWithoutQueryItems() throws {
+      let env = MockEnvironment()
+      var request = SampleRequest()
+      request.options = .init(timeout: 10, headers: ["X-Test": "1"])
+      let urlRequest = try request.asURLRequest(with: env, encoder: .snakecase)
+
+      #expect(urlRequest.url?.absoluteString == "https://example.com/v1/users")
+    }
 
   // MARK: - Error Handling
 
