@@ -25,7 +25,7 @@ extension URL {
   /// - Returns: A new `URL` with the query items added, or `nil` if the URL could not be constructed.
   public func withQueryItems(_ items: [URLQueryItem]) -> URL? {
     var components: URLComponents? = .init(url: self, resolvingAgainstBaseURL: false)
-    components?.queryItems = items
+    components?.queryItems = items.isEmpty ? nil : items
     return components?.url
   }
 
