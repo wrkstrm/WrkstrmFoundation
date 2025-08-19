@@ -34,7 +34,6 @@ extension HTTP {
     ) {
       self.json = json
       configuration.httpAdditionalHeaders = environment.headers
-      self.configuration = configuration
       let configCopy = (configuration.copy() as! URLSessionConfiguration)
       configCopy.httpAdditionalHeaders = environment.headers
       self.configuration = configCopy
