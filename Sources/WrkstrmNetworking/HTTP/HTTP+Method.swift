@@ -7,6 +7,8 @@ extension HTTP {
     case get = "GET"
     /// The POST method submits data to be processed to the identified resource.
     case post = "POST"
+    /// The PUT method replaces all current representations of the target resource.
+    case put = "PUT"
     /// The PATCH method applies partial modifications to a resource.
     case patch = "PATCH"
     /// The DELETE method deletes the specified resource.
