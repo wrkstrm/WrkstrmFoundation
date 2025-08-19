@@ -161,7 +161,8 @@ struct WrkstrmNetworkingTests {
     // When a header contains a non-numeric value, parsing should fail gracefully
     // and return nil to prevent misleading rate-limit information.
     let headers: HTTP.Headers = ["X-Ratelimit-Allowed": "not-a-number"]
-    #expect((headers.value("X-Ratelimit-Allowed") as Int?) == nil)
+    let allowed: Int? = headers.value("X-Ratelimit-Allowed")
+    #expect(allowed == nil)
   }
 
   @Test  
