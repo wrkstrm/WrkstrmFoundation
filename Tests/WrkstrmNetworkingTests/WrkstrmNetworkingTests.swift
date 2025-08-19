@@ -126,8 +126,18 @@ struct WrkstrmNetworkingTests {
 
   @Test
   func headerValueDecoding() {
+    // Valid header values should parse into their expected numeric types so
+    // downstream rate-limiting logic can rely on typed values.
     let headers: HTTP.Headers = ["X-Ratelimit-Allowed": "120"]
     let allowed: Int? = headers.value("X-Ratelimit-Allowed")
     #expect(allowed == 120)
+  }
+
+  @Test
+  func headerValueDecodingInvalid() {
+    // When a header contains a non-numeric value, parsing should fail gracefully
+    // and return nil to prevent misleading rate-limit information.
+    let headers: HTTP.Headers = ["X-Ratelimit-Allowed": "not-a-number"]
+    #expect((headers.value("X-Ratelimit-Allowed") as Int?) == nil)
   }
 }
