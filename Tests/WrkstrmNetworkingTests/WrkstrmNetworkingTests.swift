@@ -65,6 +65,29 @@ struct WrkstrmNetworkingTests {
     #expect(urlRequest.url?.absoluteString == "https://example.com/v1/users")
   }
 
+  // Ensures that combining a base URL ending with a slash and a request
+  // path starting with a slash doesn't produce a double slash. A "//"
+  // segment after the scheme can lead servers to treat the URL differently
+  // (e.g., as having an empty path component) and is easy to reintroduce
+  // when refactoring URL construction.
+  @Test
+  func baseURLTrailingSlashAndLeadingPathSlash() throws {
+    var env = MockEnvironment()
+    env.baseURLString += "/"
+
+    struct LeadingSlashRequest: HTTP.CodableURLRequest {
+      typealias ResponseType = [String: String]
+      var method: HTTP.Method { .get }
+      var path: String { "/users" }
+      var options: HTTP.Request.Options = .init()
+    }
+
+    let urlRequest = try LeadingSlashRequest().asURLRequest(with: env, encoder: .snakecase)
+    let urlString = urlRequest.url?.absoluteString ?? ""
+    #expect(urlString == "https://example.com/v1/users")
+    #expect(!urlString.contains("example.com//"))
+  }
+
   // MARK: - Error Handling
 
   @Test
@@ -139,5 +162,41 @@ struct WrkstrmNetworkingTests {
     // and return nil to prevent misleading rate-limit information.
     let headers: HTTP.Headers = ["X-Ratelimit-Allowed": "not-a-number"]
     #expect((headers.value("X-Ratelimit-Allowed") as Int?) == nil)
+  }
+
+  @Test  
+  func rateLimiterWaitsUntilExpiryAndResumes() async {
+    let rateLimiter = HTTP.RateLimiter()
+
+    let wait: TimeInterval = 0.2
+    let expiry = Date().addingTimeInterval(wait)
+    let expiryMs = Int(expiry.timeIntervalSince1970 * 1000)
+
+    await rateLimiter.update(from: [
+      "X-Ratelimit-Allowed": "1",
+      "X-Ratelimit-Available": "0",
+      "X-Ratelimit-Expiry": "\(expiryMs)",
+    ])
+
+    let start = Date()
+    await rateLimiter.waitIfNeeded()
+    let duration = Date().timeIntervalSince(start)
+
+    #expect(duration >= wait * 0.8)
+    #expect(duration < wait * 1.5)
+
+    let newExpiry = Date().addingTimeInterval(10)
+    let newExpiryMs = Int(newExpiry.timeIntervalSince1970 * 1000)
+    await rateLimiter.update(from: [
+      "X-Ratelimit-Allowed": "10",
+      "X-Ratelimit-Available": "5",
+      "X-Ratelimit-Expiry": "\(newExpiryMs)",
+    ])
+
+    let secondStart = Date()
+    await rateLimiter.waitIfNeeded()
+    let secondDuration = Date().timeIntervalSince(secondStart)
+
+    #expect(secondDuration < 0.1)
   }
 }
