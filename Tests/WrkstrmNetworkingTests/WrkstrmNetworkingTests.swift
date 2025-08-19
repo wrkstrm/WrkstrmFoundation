@@ -189,7 +189,7 @@ struct WrkstrmNetworkingTests {
     #expect(allowed == nil)
   }
 
-  @Test  
+  @Test
   func rateLimiterWaitsUntilExpiryAndResumes() async {
     let rateLimiter = HTTP.RateLimiter()
 
