@@ -1,0 +1,36 @@
+name: "\U0001F9F9 Swift Format| WrkstrmFoundation"
+on:
+  pull_request:
+    branches:
+    - main
+  push:
+    branches:
+    - main
+    paths:
+    - '**'
+jobs:
+  swift-build:
+    strategy:
+      matrix:
+        os:
+        - ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    - name: Setup Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      if: matrix.os == 'macos-latest' || matrix.os == 'macos-15' || matrix.os == 'self-hosted'
+      with:
+        xcode-version: '16.4'
+    - name: Set CI Style
+      run: echo "SPM_CI_USE_LOCAL_DEPS=false" >> $GITHUB_ENV
+    - name: Check CI Style
+      run: '[ -z "${SPM_CI_USE_LOCAL_DEPS}" ] && echo "SPM_CI_LOCAL_DEPS is not set" || echo "SPM_CI_USE_LOCAL_DEPS is set to ${SPM_CI_USE_LOCAL_DEPS}"'
+      env:
+        SPM_CI_USE_LOCAL_DEPS: ${{ env.SPM_CI_USE_LOCAL_DEPS }}
+    - name: Download Swift Format Configuration
+      run: curl -O https://raw.githubusercontent.com/wrkstrm/configs/main/linting/.swift-format
+    - name: Swift Format
+      run: swift format lint --configuration .swift-format --strict --recursive .
