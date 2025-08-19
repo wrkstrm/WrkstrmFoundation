@@ -24,17 +24,21 @@ extension HTTP {
     /// Initializes a new JSONClient.
     /// - Parameters:
     ///   - environment: The environment configuration to use.
-    ///   - headers: Default HTTP headers for requests.
-    ///   - decoder: The JSON decoder (default is .snakecase).
+    ///   - json: The JSON encoder and decoder pair.
+    ///   - configuration: Optional session configuration allowing callers to
+    ///     inject custom `URLProtocol` implementations for testing.
     public init(
       environment: any HTTP.Environment,
-      json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder)
+      json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder),
+      configuration: URLSessionConfiguration = .default
     ) {
       self.json = json
-      let configuration: URLSessionConfiguration = .default
       configuration.httpAdditionalHeaders = environment.headers
       self.configuration = configuration
-      session = .init(configuration: configuration)
+      let configCopy = (configuration.copy() as! URLSessionConfiguration)
+      configCopy.httpAdditionalHeaders = environment.headers
+      self.configuration = configCopy
+      session = .init(configuration: configCopy)
       self.environment = environment
     }
 

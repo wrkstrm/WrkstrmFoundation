@@ -92,13 +92,14 @@ struct WrkstrmNetworkingTests {
 
   @Test
   func errorResponseHandling() async {
-    _ = URLProtocol.registerClass(MockURLProtocol.self)
-    defer { URLProtocol.unregisterClass(MockURLProtocol.self) }
+    let configuration = URLSessionConfiguration.ephemeral
+    configuration.protocolClasses = [MockURLProtocol.self]
 
     let env = MockEnvironment()
     let client = HTTP.JSONClient(
       environment: env,
-      json: (.snakecase, .snakecase)
+      json: (.snakecase, .snakecase),
+      configuration: configuration
     )
 
     MockURLProtocol.handler = { request in
