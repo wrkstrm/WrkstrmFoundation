@@ -130,4 +130,40 @@ struct WrkstrmNetworkingTests {
     let allowed: Int? = headers.value("X-Ratelimit-Allowed")
     #expect(allowed == 120)
   }
+
+  @Test
+  func rateLimiterWaitsUntilExpiryAndResumes() async {
+    let rateLimiter = HTTP.RateLimiter()
+
+    let wait: TimeInterval = 0.2
+    let expiry = Date().addingTimeInterval(wait)
+    let expiryMs = Int(expiry.timeIntervalSince1970 * 1000)
+
+    await rateLimiter.update(from: [
+      "X-Ratelimit-Allowed": "1",
+      "X-Ratelimit-Available": "0",
+      "X-Ratelimit-Expiry": "\(expiryMs)",
+    ])
+
+    let start = Date()
+    await rateLimiter.waitIfNeeded()
+    let duration = Date().timeIntervalSince(start)
+
+    #expect(duration >= wait * 0.8)
+    #expect(duration < wait * 1.5)
+
+    let newExpiry = Date().addingTimeInterval(10)
+    let newExpiryMs = Int(newExpiry.timeIntervalSince1970 * 1000)
+    await rateLimiter.update(from: [
+      "X-Ratelimit-Allowed": "10",
+      "X-Ratelimit-Available": "5",
+      "X-Ratelimit-Expiry": "\(newExpiryMs)",
+    ])
+
+    let secondStart = Date()
+    await rateLimiter.waitIfNeeded()
+    let secondDuration = Date().timeIntervalSince(secondStart)
+
+    #expect(secondDuration < 0.1)
+  }
 }
