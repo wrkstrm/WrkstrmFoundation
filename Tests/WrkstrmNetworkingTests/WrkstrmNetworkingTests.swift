@@ -109,6 +109,29 @@ struct WrkstrmNetworkingTests {
     }
   }
 
+  // This regression test verifies that invalid, non-JSON data results in a
+  // predictable error instead of a crash. Covering edge cases like this with
+  // tests helps ensure the networking layer remains reliable over time.
+  @Test
+  func jsonSerializationErrorIsNetworkError() throws {
+    let data = "invalid".data(using: .utf8)!
+    let env = MockEnvironment()
+
+    do {
+      _ = try data.serializeAsJSON(in: env)
+      #expect(Bool(false), "Expected serializeAsJSON to throw")
+    } catch let error as HTTP.ClientError {
+      switch error {
+      case .networkError:
+        #expect(Bool(true))
+      default:
+        #expect(Bool(false), "Unexpected ClientError: \(error)")
+      }
+    } catch {
+      #expect(Bool(false), "Unexpected error: \(error)")
+    }
+  }
+
   @Test
   func responseHeaders() throws {
     let headerKey = "X-Test-Header"
