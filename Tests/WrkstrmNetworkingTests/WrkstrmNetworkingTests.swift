@@ -37,6 +37,25 @@ struct WrkstrmNetworkingTests {
   }
 
   @Test
+  func urlRequestEncodingPut() throws {
+    let env = MockEnvironment()
+    let request = SamplePutRequest()
+    let urlRequest = try request.asURLRequest(with: env, encoder: .snakecase)
+
+    #expect(urlRequest.httpMethod == "PUT")
+    #expect(
+      urlRequest.url?.absoluteString
+        == "https://example.com/v1/users?debug=true"
+    )
+    #expect(urlRequest.value(forHTTPHeaderField: "X-Test") == "1")
+
+    let expectedBody = try JSONEncoder.snakecase.encode(
+      SamplePutRequest.Body(name: "Bob")
+    )
+    #expect(urlRequest.httpBody == expectedBody)
+  }
+
+  @Test
   func urlRequestWithoutQueryItems() throws {
     let env = MockEnvironment()
     var request = SampleRequest()
