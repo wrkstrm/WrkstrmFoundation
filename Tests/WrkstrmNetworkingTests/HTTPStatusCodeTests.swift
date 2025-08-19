@@ -1,4 +1,5 @@
 import Testing
+
 @testable import WrkstrmNetworking
 
 @Suite("HTTP Status Code")
@@ -14,4 +15,3 @@ struct HTTPStatusCodeTests {
     #expect(!300.isHTTPOKStatusRange)
   }
 }
-
