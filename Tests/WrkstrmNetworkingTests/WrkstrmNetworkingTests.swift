@@ -85,7 +85,7 @@ struct WrkstrmNetworkingTests {
     let urlRequest = try LeadingSlashRequest().asURLRequest(with: env, encoder: .snakecase)
     let urlString = urlRequest.url?.absoluteString ?? ""
     #expect(urlString == "https://example.com/v1/users")
-    #expect(!urlString.replacingOccurrences(of: "://", with: "").contains("//"))
+    #expect(!urlString.contains("example.com//"))
   }
 
   // MARK: - Error Handling
