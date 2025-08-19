@@ -65,6 +65,29 @@ struct WrkstrmNetworkingTests {
     #expect(urlRequest.url?.absoluteString == "https://example.com/v1/users")
   }
 
+  // Ensures that combining a base URL ending with a slash and a request
+  // path starting with a slash doesn't produce a double slash. A "//"
+  // segment after the scheme can lead servers to treat the URL differently
+  // (e.g., as having an empty path component) and is easy to reintroduce
+  // when refactoring URL construction.
+  @Test
+  func baseURLTrailingSlashAndLeadingPathSlash() throws {
+    var env = MockEnvironment()
+    env.baseURLString += "/"
+
+    struct LeadingSlashRequest: HTTP.CodableURLRequest {
+      typealias ResponseType = [String: String]
+      var method: HTTP.Method { .get }
+      var path: String { "/users" }
+      var options: HTTP.Request.Options = .init()
+    }
+
+    let urlRequest = try LeadingSlashRequest().asURLRequest(with: env, encoder: .snakecase)
+    let urlString = urlRequest.url?.absoluteString ?? ""
+    #expect(urlString == "https://example.com/v1/users")
+    #expect(!urlString.replacingOccurrences(of: "://", with: "").contains("//"))
+  }
+
   // MARK: - Error Handling
 
   @Test
