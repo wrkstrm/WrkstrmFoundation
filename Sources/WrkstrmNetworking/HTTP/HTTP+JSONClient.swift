@@ -92,7 +92,9 @@ extension HTTP {
         )
         #endif  // DEBUG
         let jsonDictionary = try await data.serializeAsJSON(in: environment)
-        throw HTTP.ClientError.networkError("Status Error: \(jsonDictionary)")
+        throw HTTP.ClientError.networkError(
+          StringError("Status Error: \(jsonDictionary)")
+        )
       }
 
       let jsonDictionary = try await data.serializeAsJSON(in: environment)
