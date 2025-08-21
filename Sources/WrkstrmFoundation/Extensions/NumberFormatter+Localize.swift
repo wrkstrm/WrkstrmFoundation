@@ -23,6 +23,7 @@ extension NumberFormatter {
     formatter.numberStyle = .decimal
     formatter.maximumFractionDigits = 0
     formatter.minimumIntegerDigits = 0
+    formatter.usesGroupingSeparator = false
     return formatter
   }()
 
@@ -43,6 +44,7 @@ extension NumberFormatter {
     formatter.minimumFractionDigits = 2
     formatter.maximumFractionDigits = 2
     formatter.roundingIncrement = 0.01
+    formatter.usesGroupingSeparator = false
     return formatter
   }()
 
