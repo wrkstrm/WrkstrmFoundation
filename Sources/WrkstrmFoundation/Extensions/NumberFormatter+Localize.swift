@@ -60,14 +60,14 @@ extension NumberFormatter {
   /// // Prints "$123.4567" when locale uses USD
   /// ```
   // TODO: Rename to `currency` for clarity and proper localization.
-    public static let dollar: NumberFormatter = {
-      let formatter: NumberFormatter = .init()
-      formatter.numberStyle = .currency
-      formatter.maximumFractionDigits = 4
-      formatter.minimumFractionDigits = 2
-      formatter.usesGroupingSeparator = true
-      return formatter
-    }()
+  public static let dollar: NumberFormatter = {
+    let formatter: NumberFormatter = .init()
+    formatter.numberStyle = .currency
+    formatter.maximumFractionDigits = 4
+    formatter.minimumFractionDigits = 2
+    formatter.usesGroupingSeparator = true
+    return formatter
+  }()
 }
 
 /// A protocol to provide localized string representations of numeric values.
