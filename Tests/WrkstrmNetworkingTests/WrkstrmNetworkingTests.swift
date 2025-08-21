@@ -65,6 +65,16 @@ struct WrkstrmNetworkingTests {
     #expect(urlRequest.url?.absoluteString == "https://example.com/v1/users")
   }
 
+  @Test
+  func queryItemsAreSortedByKey() throws {
+    let env = MockEnvironment()
+    let urlRequest = try UnsortedQueryRequest().asURLRequest(with: env, encoder: .snakecase)
+    #expect(
+      urlRequest.url?.absoluteString
+        == "https://example.com/v1/users?a=2&b=1&c=3"
+    )
+  }
+
   // Ensures that combining a base URL ending with a slash and a request
   // path starting with a slash doesn't produce a double slash. A "//"
   // segment after the scheme can lead servers to treat the URL differently

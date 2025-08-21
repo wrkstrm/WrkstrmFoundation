@@ -54,8 +54,10 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
       .joined(separator: "/")
       .replacingOccurrences(of: "//", with: "/")  // Clean up accidental double slashes
     var urlComponents = URLComponents(string: pathComponents)
-    // Handle query items from URL.
-    urlComponents?.queryItems = options.queryItems.isEmpty ? nil : options.queryItems
+    // Handle query items from URL. Query items are sorted by key to ensure
+    // a canonical URL which improves request caching behavior.
+    let sortedQueryItems = options.queryItems.sorted { $0.name < $1.name }
+    urlComponents?.queryItems = sortedQueryItems.isEmpty ? nil : sortedQueryItems
     var urlRequest = URLRequest(url: urlComponents?.url ?? URL(string: "")!)
     // Apply the requests HTTP method
     urlRequest.httpMethod = method.rawValue
