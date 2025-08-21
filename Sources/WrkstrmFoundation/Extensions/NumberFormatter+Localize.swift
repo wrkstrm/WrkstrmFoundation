@@ -63,6 +63,7 @@ extension NumberFormatter {
     formatter.numberStyle = .currency
     formatter.maximumFractionDigits = 4
     formatter.minimumFractionDigits = 2
+    formatter.usesGroupingSeparator = true
     return formatter
   }()
 }

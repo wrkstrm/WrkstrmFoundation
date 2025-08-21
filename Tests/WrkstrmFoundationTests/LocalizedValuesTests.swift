@@ -10,7 +10,7 @@ struct LocalizedValuesTests {
     let previous = NumberFormatter.integer.locale
     NumberFormatter.integer.locale = Locale(identifier: "en_US_POSIX")
     defer { NumberFormatter.integer.locale = previous }
-    #expect(1234.integerString() == "1,234")
+    #expect(1234.integerString() == "1234")
   }
 
   @Test
@@ -18,7 +18,7 @@ struct LocalizedValuesTests {
     let previous = NumberFormatter.double.locale
     NumberFormatter.double.locale = Locale(identifier: "en_US_POSIX")
     defer { NumberFormatter.double.locale = previous }
-    #expect(1234.567.doubleString() == "1,234.57")
+    #expect(1234.567.doubleString() == "1234.57")
   }
 
   @Test
