@@ -16,7 +16,7 @@ extension HTTP {
 
     var scheme: Scheme { get }
     /// The base URL for HTTP requests in this environment.
-    var baseURLString: String { get }
+    var host: String { get }
 
     /// The API version to be used in the requests.
     var apiVersion: String? { get }

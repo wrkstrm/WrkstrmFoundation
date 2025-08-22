@@ -94,7 +94,7 @@ extension HTTP {
           String(data: data, encoding: .utf8) ?? "Unknown error"
         #if DEBUG
         Log.networking.error(
-          "🚨 HTTP Error [\(await environment.baseURLString)]: \(httpResponse.statusCode): \(errorMessage)"
+          "🚨 HTTP Error [\(await environment.host)]: \(httpResponse.statusCode): \(errorMessage)"
         )
         #endif  // DEBUG
         let jsonDictionary = try await data.serializeAsJSON(in: environment)
@@ -130,7 +130,7 @@ extension HTTP {
         return try decoder.decode(type, from: data)
       } catch {
         Log.networking.error(
-          "🚨 HTTP Error [\(environment.baseURLString)]: Error decoding server JSON: \(error)"
+          "🚨 HTTP Error [\(environment.host)]: Error decoding server JSON: \(error)"
         )
         throw error
       }

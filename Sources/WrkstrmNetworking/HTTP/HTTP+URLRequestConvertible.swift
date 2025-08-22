@@ -49,7 +49,7 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
     let pathComponents =
       environment.scheme.rawValue
       // Ensure that apiVersion and path are added to path
-      + [environment.baseURLString, environment.apiVersion, path]
+      + [environment.host, environment.apiVersion, path]
       .compactMap(\.self)
       .joined(separator: "/")
       .replacingOccurrences(of: "//", with: "/")  // Clean up accidental double slashes

@@ -6,7 +6,7 @@ struct MockEnvironment: HTTP.Environment {
   var apiKey: String? = "key"
   var headers: HTTP.Client.Headers = ["Env": "Header"]
   var scheme: HTTP.Scheme = .https
-  var baseURLString: String = "example.com"
+  var host: String = "example.com"
   var apiVersion: String? = "v1"
   var clientVersion: String? = "1"
 }

@@ -88,7 +88,7 @@ extension HTTP {
           String(data: data, encoding: .utf8) ?? "Unknown error"
         #if DEBUG
         Log.networking.error(
-          "🚨 HTTP Error [\(await environment.baseURLString)]: \(httpResponse.statusCode): \(errorMessage)"
+          "🚨 HTTP Error [\(await environment.host)]: \(httpResponse.statusCode): \(errorMessage)"
         )
         #endif  // DEBUG
         let jsonDictionary = try await data.serializeAsJSON(in: environment)

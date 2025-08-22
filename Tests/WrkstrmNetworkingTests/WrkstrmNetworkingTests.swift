@@ -83,7 +83,7 @@ struct WrkstrmNetworkingTests {
   @Test
   func baseURLTrailingSlashAndLeadingPathSlash() throws {
     var env = MockEnvironment()
-    env.baseURLString += "/"
+    env.host += "/"
 
     struct LeadingSlashRequest: HTTP.CodableURLRequest {
       typealias ResponseType = [String: String]
