@@ -45,15 +45,15 @@ extension Bundle {
 
     do {
       return try decoder.decode(T.self, from: data)
-    } catch let DecodingError.keyNotFound(key, context) {
+    } catch DecodingError.keyNotFound(let key, let context) {
       Log.foundation.guard(
         "Failed to decode \(file) from bundle due to missing key "
           + "\(key.stringValue)" + "not found – \(context.debugDescription)")
-    } catch let DecodingError.typeMismatch(_, context) {
+    } catch DecodingError.typeMismatch(_, let context) {
       Log.foundation.guard(
         "Failed to decode \(file) from bundle due to type mismatch – "
           + "\(context.debugDescription)")
-    } catch let DecodingError.valueNotFound(type, context) {
+    } catch DecodingError.valueNotFound(let type, let context) {
       Log.foundation.guard(
         "Failed to decode \(file) from bundle due to missing \(type) value – "
           + "\(context.debugDescription)")

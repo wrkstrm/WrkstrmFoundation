@@ -82,15 +82,19 @@ private enum Decoding {
     if let d = DateFormatter.iso8601NoMillis.date(from: raw) { return d }
 
     // Common fallbacks (thread-safe if not mutated after init in DateFormatter+Extensions.swift)
-    if let d = DateFormatter.iso8601Full.date(from: raw) { return d }  // yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ
-    if let d = DateFormatter.iso8601WithoutMilliseconds.date(from: raw) { return d }  // yyyy-MM-dd'T'HH:mm:ssZZZZZ
-    if let d = DateFormatter.iso8601Simple.date(from: raw) { return d }  // yyyy-MM-dd'T'HH:mm:ss'Z'
+    // yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ
+    if let d = DateFormatter.iso8601Full.date(from: raw) { return d }
+    // yyyy-MM-dd'T'HH:mm:ssZZZZZ
+    if let d = DateFormatter.iso8601WithoutMilliseconds.date(from: raw) { return d }
+    // yyyy-MM-dd'T'HH:mm:ss'Z'
+    if let d = DateFormatter.iso8601Simple.date(from: raw) { return d }
 
     // Date-only
     if raw.count == 8, let d = DateFormatter.dateOnlyEncoder.date(from: raw) { return d }
 
     // Legacy compact (Tradier-style)
-    if let d = DateFormatter.iso8601Compact.date(from: raw) { return d }  // yyyyMMdd'T'HHmmssZ
+    // yyyyMMdd'T'HHmmssZ
+    if let d = DateFormatter.iso8601Compact.date(from: raw) { return d }
 
     // Fail
     #if DEBUG

@@ -3,6 +3,7 @@
 extension HTTP {
   /// Errors that can be thrown by an HTTP client during request execution, encoding, decoding, or network failure.
   public enum ClientError: Error {
+    case invalidURL
     case invalidResponse
     case api(APIError)
     case decodingError(Error)
