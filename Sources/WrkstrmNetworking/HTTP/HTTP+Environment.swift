@@ -15,7 +15,7 @@ extension HTTP {
     var headers: HTTP.Client.Headers { get }
 
     var scheme: Scheme { get }
-    /// The base URL for HTTP requests in this environment.
+    /// The host URL for HTTP requests in this environment.
     var host: String { get }
 
     /// The API version to be used in the requests.
