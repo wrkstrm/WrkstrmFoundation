@@ -18,15 +18,15 @@ extension FileManager {
   ///
   /// - Parameter directories: An array of directory paths to search within.
   /// - Returns: An array of strings representing the paths of all source files found.
-  public func allSourceFiles(in directories: [String]) -> [String] {
-    var files: [String] = []
-    for directory in directories {
-      if let sourceFiles = try? subpathsOfDirectory(atPath: directory).sourceFiles {
-        files += sourceFiles.map { "\(directory)/\($0)" }
+    public func allSourceFiles(in directories: [String]) -> [String] {
+      var files: [String] = []
+      for directory in directories {
+        if let sourceFiles = try? subpathsOfDirectory(atPath: directory).sourceFiles {
+          files += sourceFiles.map { "\(directory)/\($0)" }
+        }
       }
+      return files
     }
-    return files
-  }
 
   /// Retrieves all NIB files from the specified directories.
   ///
@@ -43,7 +43,7 @@ extension FileManager {
         files += nibFiles.map { "\(directory)/\($0)" }
       }
     }
-    return files
+    return files.isEmpty ? nil : files
   }
 
   /// Retrieves the modification date of a file at a specified path.
