@@ -137,7 +137,7 @@ public struct CodableArchiver<T: Codable> {
   ///
   /// - Parameters:
   ///   - value: The array of objects to archive.
-  ///   - key: The key to associate with the objects. Default s to the archiver's key.
+  ///   - key: The key to associate with the objects. Defaults to the archiver's key.
   /// - Returns: A `Bool` indicating success or failure.
   @discardableResult
   public func set(_ value: [T], forKey key: AnyHashable? = nil) -> Bool {

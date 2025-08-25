@@ -43,7 +43,7 @@ extension FileManager {
         files += nibFiles.map { "\(directory)/\($0)" }
       }
     }
-    return files
+    return files.isEmpty ? nil : files
   }
 
   /// Retrieves the modification date of a file at a specified path.
