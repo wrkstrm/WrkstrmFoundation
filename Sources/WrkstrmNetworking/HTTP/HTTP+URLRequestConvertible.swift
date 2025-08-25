@@ -59,7 +59,7 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
     let sortedQueryItems = options.queryItems.sorted { $0.name < $1.name }
     urlComponents?.queryItems = sortedQueryItems.isEmpty ? nil : sortedQueryItems
     guard let url = urlComponents?.url else {
-      throw HTTP.ClientError.invalidResponse
+      throw HTTP.ClientError.invalidURL
     }
     var urlRequest = URLRequest(url: url)
     // Apply the requests HTTP method
