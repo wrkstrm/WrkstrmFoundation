@@ -25,19 +25,8 @@ extension Notification {
 
     public init(
       name: Notification.Name,
-      transform: @escaping (@Sendable (Notification) -> A) = { note in
-        if A.self == Void.self {
-          guard let value = (() as Any) as? A else {
-            fatalError("Unable to cast Void to expected type \(A.self)")
-          }
-          return value
-        }
-        guard let value = note.object as? A else {
-          fatalError(
-            "Expected object of type \(A.self) but received \(String(describing: note.object))"
-          )
-        }
-        return value
+      transform: @escaping (@Sendable (Notification) -> A) = {
+        (A.self == Void.self ? () : $0.object) as! A  // swiftlint:disable:this force_cast
       },
     ) {
       self.name = name
