@@ -58,7 +58,10 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
     // a canonical URL which improves request caching behavior.
     let sortedQueryItems = options.queryItems.sorted { $0.name < $1.name }
     urlComponents?.queryItems = sortedQueryItems.isEmpty ? nil : sortedQueryItems
-    var urlRequest = URLRequest(url: urlComponents?.url ?? URL(string: "")!)
+    guard let url = urlComponents?.url else {
+      throw HTTP.ClientError.invalidResponse
+    }
+    var urlRequest = URLRequest(url: url)
     // Apply the requests HTTP method
     urlRequest.httpMethod = method.rawValue
     // Apply the request options

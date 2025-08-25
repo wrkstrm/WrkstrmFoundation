@@ -8,13 +8,19 @@ extension Data {
     -> JSON.AnyDictionary
   {
     do {
-      let jsonDictionary =
+      let jsonObject =
         try JSONSerialization.jsonObject(
           with: self,
           options: [.mutableContainers, .allowFragments]
         )
-        // swiftlint:disable:next force_cast
-        as! JSON.AnyDictionary
+      guard let jsonDictionary = jsonObject as? JSON.AnyDictionary else {
+        let context = DecodingError.Context(
+          codingPath: [],
+          debugDescription: "Top-level JSON was not a dictionary",
+          underlyingError: nil
+        )
+        throw HTTP.ClientError.decodingError(DecodingError.dataCorrupted(context))
+      }
       #if DEBUG
       try Log.jsonPrint.ifEnabled(for: .trace) { logger in
         let formatted = try JSONSerialization.data(

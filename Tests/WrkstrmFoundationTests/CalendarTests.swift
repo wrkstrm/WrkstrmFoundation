@@ -1,3 +1,4 @@
+import Foundation
 import Testing
 import WrkstrmLog
 import WrkstrmMain
@@ -16,29 +17,53 @@ struct CalendarTests {
 
   @Test
   func basicEvents() {
-    let event1 = WrkstrmFoundation.Calendar.Event(start: 1, end: 2)
-    let event2 = WrkstrmFoundation.Calendar.Event(start: 3, end: 4)
+    let event1 = WrkstrmFoundation.Calendar.Event(
+      start: Date(timeIntervalSince1970: 1),
+      end: Date(timeIntervalSince1970: 2)
+    )
+    let event2 = WrkstrmFoundation.Calendar.Event(
+      start: Date(timeIntervalSince1970: 3),
+      end: Date(timeIntervalSince1970: 4)
+    )
     #expect(!event1.overlaps(event2))
   }
 
   @Test
   func basicEventOverlapping() {
-    let event1 = WrkstrmFoundation.Calendar.Event(start: 1, end: 2)
-    let event2 = WrkstrmFoundation.Calendar.Event(start: 2, end: 4)
+    let event1 = WrkstrmFoundation.Calendar.Event(
+      start: Date(timeIntervalSince1970: 1),
+      end: Date(timeIntervalSince1970: 2)
+    )
+    let event2 = WrkstrmFoundation.Calendar.Event(
+      start: Date(timeIntervalSince1970: 2),
+      end: Date(timeIntervalSince1970: 4)
+    )
     #expect(event1.overlaps(event2))
   }
 
   @Test
   func basicEventWithNoGapTolerance() {
-    let event1 = WrkstrmFoundation.Calendar.Event(start: 1, end: 2)
-    let event2 = WrkstrmFoundation.Calendar.Event(start: 3, end: 4)
+    let event1 = WrkstrmFoundation.Calendar.Event(
+      start: Date(timeIntervalSince1970: 1),
+      end: Date(timeIntervalSince1970: 2)
+    )
+    let event2 = WrkstrmFoundation.Calendar.Event(
+      start: Date(timeIntervalSince1970: 3),
+      end: Date(timeIntervalSince1970: 4)
+    )
     #expect(!event1.overlaps(event2))
   }
 
   @Test
   func basicEventGapByOne() {
-    let event1 = WrkstrmFoundation.Calendar.Event(start: 1, end: 2)
-    let event2 = WrkstrmFoundation.Calendar.Event(start: 3, end: 4)
+    let event1 = WrkstrmFoundation.Calendar.Event(
+      start: Date(timeIntervalSince1970: 1),
+      end: Date(timeIntervalSince1970: 2)
+    )
+    let event2 = WrkstrmFoundation.Calendar.Event(
+      start: Date(timeIntervalSince1970: 3),
+      end: Date(timeIntervalSince1970: 4)
+    )
     #expect(event1.overlaps(event2, gap: 1))
   }
 

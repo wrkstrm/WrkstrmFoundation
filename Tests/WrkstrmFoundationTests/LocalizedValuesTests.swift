@@ -23,17 +23,33 @@ struct LocalizedValuesTests {
 
   @Test
   func dollarStringFormatting() {
-    let previous = NumberFormatter.dollar.locale
+    let previousLocale = NumberFormatter.dollar.locale
+    let previousCode = NumberFormatter.dollar.currencyCode
+    let previousSymbol = NumberFormatter.dollar.currencySymbol
     NumberFormatter.dollar.locale = Locale(identifier: "en_US_POSIX")
-    defer { NumberFormatter.dollar.locale = previous }
+    NumberFormatter.dollar.currencyCode = "USD"
+    NumberFormatter.dollar.currencySymbol = "$"
+    defer {
+      NumberFormatter.dollar.locale = previousLocale
+      NumberFormatter.dollar.currencyCode = previousCode
+      NumberFormatter.dollar.currencySymbol = previousSymbol
+    }
     #expect(1234.5.dollarString() == "$\u{00a0}1,234.50")
   }
 
   @Test
   func dollarStringLocalizesByLocale() {
-    let previous = NumberFormatter.dollar.locale
+    let previousLocale = NumberFormatter.dollar.locale
+    let previousCode = NumberFormatter.dollar.currencyCode
+    let previousSymbol = NumberFormatter.dollar.currencySymbol
     NumberFormatter.dollar.locale = Locale(identifier: "en_GB")
-    defer { NumberFormatter.dollar.locale = previous }
+    NumberFormatter.dollar.currencyCode = "GBP"
+    NumberFormatter.dollar.currencySymbol = "£"
+    defer {
+      NumberFormatter.dollar.locale = previousLocale
+      NumberFormatter.dollar.currencyCode = previousCode
+      NumberFormatter.dollar.currencySymbol = previousSymbol
+    }
     #expect(1234.5.dollarString() == "£1,234.50")
   }
 }
