@@ -74,6 +74,10 @@ let url = makeURL(
 ## Step 2: Encode a `application/x-www-form-urlencoded` body
 
 Many APIs expect form bodies for POST/PUT. You can reuse `URLComponents` to generate the exact same `key=value&key2=value2` wire format.
+WrkstrmNetworking's ``HTTP.Request.Encodable`` helpers handle this automatically.
+When you call ``URLRequestConvertible/asURLRequest(with:encoder:)`` with a
+`[String: String]` body and set ``HTTP.Request.Options/headers`` to include
+`Content-Type: application/x-www-form-urlencoded`, the body is percent-encoded for you.
 
 ### Code
 
@@ -218,33 +222,14 @@ Being able to reproduce a request as a cURL command is the best debugging tool y
 ### Code
 
 ```swift
-/// Produces a shell-safe cURL command from a URLRequest.
-func curlCommand(from request: URLRequest) -> String {
-  func shQuote(_ s: String) -> String { "'" + s.replacingOccurrences(of: "'", with: "'\\''") + "'" }
-
-  var parts = ["curl"]
-  let method = request.httpMethod ?? "GET"
-  parts += ["-X", shQuote(method)]
-
-  (request.allHTTPHeaderFields ?? [:])
-    .sorted { $0.key.lowercased() < $1.key.lowercased() }
-    .forEach { name, value in parts += ["-H", shQuote("\(name): \(value)")] }
-
-  if let url = request.url { parts.append(shQuote(url.absoluteString)) }
-
-  if let body = request.httpBody, !body.isEmpty {
-    if let s = String(data: body, encoding: .utf8) {
-      parts += ["-d", shQuote(s)]
-    } else {
-      parts += ["--data-binary", shQuote("<\(body.count) bytes binary body>")]
-    }
-  }
-
-  return parts.joined(separator: " ")
-}
+// WrkstrmNetworking includes ``CURL`` for rendering requests.
+let command = CURL.command(from: request, in: environment)
+print(command)
 ```
 
-Paste the output into a terminal to confirm exactly what the server receives.
+The ``CURL`` utility mirrors HTTP method, headers, URL, and body,
+so you can paste the output into a terminal to confirm exactly what
+the server receives.
 
 ---
 
