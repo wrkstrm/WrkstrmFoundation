@@ -73,11 +73,10 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
     // Apply the request options
     urlRequest.timeoutInterval = options.timeout
     // After creating var urlRequest = URLRequest(url: url)
-    var headers = environment.headers
-    for (key, value) in options.headers {
-      headers[key] = value
+    for (key, value) in environment.headers {
+      urlRequest.setValue(value, forHTTPHeaderField: key)
     }
-    for (key, value) in headers {
+    for (key, value) in options.headers {
       urlRequest.setValue(value, forHTTPHeaderField: key)
     }
 
