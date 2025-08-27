@@ -69,9 +69,50 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
     for (key, value) in options.headers {
       urlRequest.setValue(value, forHTTPHeaderField: key)
     }
+
+    let contentType = urlRequest.allHTTPHeaderFields?["Content-Type"]?.lowercased()
+    // Encode body once, based on Content-Type
     if let body {
-      urlRequest.httpBody = try JSONEncoder.snakecase.encode(body)
+      switch contentType {
+      case "application/x-www-form-urlencoded":
+        if let s = body as? String {
+          urlRequest.httpBody = s.data(using: .utf8)
+        } else if let dict = body as? [String: String] {
+          var c = URLComponents()
+          c.queryItems = dict.map { .init(name: $0.key, value: $0.value) }
+          urlRequest.httpBody = c.percentEncodedQuery?.data(using: .utf8)
+        } else if let items = body as? [URLQueryItem] {
+          var c = URLComponents()
+          c.queryItems = items
+          urlRequest.httpBody = c.percentEncodedQuery?.data(using: .utf8)
+        } else if let data = body as? Data {
+          urlRequest.httpBody = data
+        } else {
+          Log.warning("Body type incompatible with form encoding; omitting body.")
+        }
+
+      case "application/json", .none:
+        do {
+          urlRequest.httpBody = try encoder.encode(body)
+          if contentType == nil {
+            urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+          }
+        } catch {
+          Log.error("JSON encode failed: \(error)")
+          throw error
+        }
+
+      default:
+        if let data = body as? Data {
+          urlRequest.httpBody = data
+        } else if let s = body as? String {
+          urlRequest.httpBody = s.data(using: .utf8)
+        } else {
+          Log.warning("Unsupported Content-Type \(contentType ?? "nil"); omitting body.")
+        }
+      }
     }
+
     CURL.printCURLCommand(from: urlRequest, in: environment)
     return urlRequest
   }

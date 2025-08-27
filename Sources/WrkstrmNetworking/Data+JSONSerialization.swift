@@ -29,7 +29,7 @@ extension Data {
         )
         let prettyPrinted = String(data: formatted, encoding: .utf8)
         logger.info(
-          "🚨 HTTP [\(environment.host)]: Raw JSON: \(prettyPrinted ?? "Invalid JSON")"
+          "HOST [\(environment.host)]: Raw JSON: \(prettyPrinted ?? "Invalid JSON")"
         )
       }
       #endif  // DEBUG
@@ -37,7 +37,7 @@ extension Data {
     } catch let decodingError {
       Log.jsonPrint.error(
         """
-          🚨 HTTP [\(environment.host)]: JSON Decoding error
+          🚨 HOST [\(environment.host)]: JSON Decoding error
           String: \(String(data: self, encoding: .utf8) ?? "?")
           Decoding Error: \(decodingError)
         """

@@ -1,4 +1,5 @@
 import Foundation
+import WrkstrmLog
 
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -21,6 +22,26 @@ extension HTTP {
       self.value = value
       self.headers = headers
     }
+  }
+
+  static func logResponse(_ response: HTTPURLResponse, data: Data) {
+    let status = response.statusCode
+    let headers = response.allHeaderFields
+      .map { "\($0.key): \($0.value)" }
+      .sorted()
+      .joined(separator: "\n")
+
+    Log.networking.trace(
+      """
+      ➖➖➖➖🌀 HTTP response 🌀➖➖➖➖
+      Status: \(status)
+      Headers:
+      \(headers)
+      Body:
+      \(data)
+      ➖➖➖➖➖🌀➖➖➖➖➖🌀➖➖➖➖➖
+      """
+    )
   }
 }
 
