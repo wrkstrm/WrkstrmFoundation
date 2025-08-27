@@ -125,8 +125,7 @@ public enum CURL {
     var parts: [String] = ["curl"]
 
     // Method
-    let method =
-      (request.httpMethod?.isEmpty == false) ? request.httpMethod! : "GET"
+    let method = request.httpMethod ?? "GET"
     parts += ["-X", shQuote(method)]
 
     // Headers (from the actual URLRequest)
