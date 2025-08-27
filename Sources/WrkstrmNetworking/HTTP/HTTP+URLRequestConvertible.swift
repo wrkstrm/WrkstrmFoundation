@@ -94,8 +94,7 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
         } else if let data = body as? Data {
           urlRequest.httpBody = data
         } else {
-          Log.warning(
-            "Body type incompatible with form encoding; omitting body."
+            "Body type \(type(of: body)) incompatible with form encoding; omitting body."
           )
         }
         // Accept "application/json" and "application/json; charset=utf-8", etc.
