@@ -103,7 +103,9 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
   ///   - encoder: The JSONEncoder to use for JSON encoding.
   /// - Returns: The encoded Data for the HTTP body, or nil.
   /// - Throws: An error if encoding fails.
-  private static func encodeBody(for body: Any, with contentType: String?, encoder: JSONEncoder) throws -> Data? {
+  private static func encodeBody(
+    for body: RequestBody, with contentType: String?, encoder: JSONEncoder
+  ) throws -> Data? {
     if contentType?.hasPrefix("application/x-www-form-urlencoded") == true {
       if let stringBody = body as? String {
         return stringBody.data(using: .utf8)
