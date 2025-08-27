@@ -81,16 +81,16 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
     // Encode body once, based on Content-Type
     if let body {
       if contentType?.hasPrefix("application/x-www-form-urlencoded") == true {
-        if let s = body as? String {
-          urlRequest.httpBody = s.data(using: .utf8)
+        if let stringBody = body as? String {
+          urlRequest.httpBody = stringBody.data(using: .utf8)
         } else if let dict = body as? [String: String] {
-          var c = URLComponents()
-          c.queryItems = dict.map { .init(name: $0.key, value: $0.value) }
-          urlRequest.httpBody = c.percentEncodedQuery?.data(using: .utf8)
+          var urlComponents = URLComponents()
+          urlComponents.queryItems = dict.map { .init(name: $0.key, value: $0.value) }
+          urlRequest.httpBody = urlComponents.percentEncodedQuery?.data(using: .utf8)
         } else if let items = body as? [URLQueryItem] {
-          var c = URLComponents()
-          c.queryItems = items
-          urlRequest.httpBody = c.percentEncodedQuery?.data(using: .utf8)
+          var urlComponents = URLComponents()
+          urlComponents.queryItems = items
+          urlRequest.httpBody = urlComponents.percentEncodedQuery?.data(using: .utf8)
         } else if let data = body as? Data {
           urlRequest.httpBody = data
         } else {
@@ -102,12 +102,6 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
       } else if contentType?.hasPrefix("application/json") == true {
         do {
           urlRequest.httpBody = try encoder.encode(body)
-          if contentType == nil {
-            urlRequest.setValue(
-              "application/json",
-              forHTTPHeaderField: "Content-Type"
-            )
-          }
         } catch {
           Log.error("JSON encode failed: \(error)")
           throw error
@@ -115,8 +109,8 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
       } else {
         if let data = body as? Data {
           urlRequest.httpBody = data
-        } else if let s = body as? String {
-          urlRequest.httpBody = s.data(using: .utf8)
+        } else if let stringBody = body as? String {
+          urlRequest.httpBody = stringBody.data(using: .utf8)
         } else {
           Log.warning(
             "Unsupported Content-Type \(contentType ?? "nil"); omitting body."
