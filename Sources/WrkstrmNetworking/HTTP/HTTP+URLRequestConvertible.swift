@@ -85,15 +85,22 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
           urlRequest.httpBody = stringBody.data(using: .utf8)
         } else if let dict = body as? [String: String] {
           var urlComponents = URLComponents()
-          urlComponents.queryItems = dict.map { .init(name: $0.key, value: $0.value) }
-          urlRequest.httpBody = urlComponents.percentEncodedQuery?.data(using: .utf8)
+          urlComponents.queryItems = dict.map {
+            .init(name: $0.key, value: $0.value)
+          }
+          urlRequest.httpBody = urlComponents.percentEncodedQuery?.data(
+            using: .utf8
+          )
         } else if let items = body as? [URLQueryItem] {
           var urlComponents = URLComponents()
           urlComponents.queryItems = items
-          urlRequest.httpBody = urlComponents.percentEncodedQuery?.data(using: .utf8)
+          urlRequest.httpBody = urlComponents.percentEncodedQuery?.data(
+            using: .utf8
+          )
         } else if let data = body as? Data {
           urlRequest.httpBody = data
         } else {
+          Log.error(
             "Body type \(type(of: body)) incompatible with form encoding; omitting body."
           )
         }
@@ -111,6 +118,7 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
         } else if let stringBody = body as? String {
           urlRequest.httpBody = stringBody.data(using: .utf8)
         } else {
+          Log.error(
             "Unsupported Content-Type \(contentType ?? "nil") for body type \(type(of: body)); omitting body."
           )
         }
