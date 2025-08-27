@@ -72,8 +72,13 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
     urlRequest.httpMethod = method.rawValue
     // Apply the request options
     urlRequest.timeoutInterval = options.timeout
+    // After creating var urlRequest = URLRequest(url: url)
+    var headers = environment.headers
     for (key, value) in options.headers {
-      urlRequest.setValue(value, forHTTPHeaderField: key)
+      headers[key] = value
+    }
+    for (k, v) in headers {
+      urlRequest.setValue(v, forHTTPHeaderField: k)
     }
 
     let contentType = urlRequest.allHTTPHeaderFields?["Content-Type"]?
