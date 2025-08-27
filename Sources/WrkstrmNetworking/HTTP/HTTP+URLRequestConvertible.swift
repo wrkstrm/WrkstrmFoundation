@@ -91,7 +91,25 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
           Log.warning("Body type incompatible with form encoding; omitting body.")
         }
 
-      case "application/json", .none:
+      case let type? where type.hasPrefix("application/json"):
+        // Accept "application/json" and "application/json; charset=utf-8", etc.
+        let suffix = type.dropFirst("application/json".count)
+        if suffix.isEmpty || suffix.trimmingCharacters(in: .whitespaces).first == ";" {
+          do {
+            urlRequest.httpBody = try encoder.encode(body)
+            if contentType == nil {
+              urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            }
+          } catch {
+            Log.error("JSON encode failed: \(error)")
+            throw error
+          }
+        } else {
+          // Not a recognized JSON content type, fall through to default
+          fallthrough
+        }
+
+      case .none:
         do {
           urlRequest.httpBody = try encoder.encode(body)
           if contentType == nil {
