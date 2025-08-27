@@ -111,8 +111,7 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
         } else if let stringBody = body as? String {
           urlRequest.httpBody = stringBody.data(using: .utf8)
         } else {
-          Log.warning(
-            "Unsupported Content-Type \(contentType ?? "nil"); omitting body."
+            "Unsupported Content-Type \(contentType ?? "nil") for body type \(type(of: body)); omitting body."
           )
         }
       }
