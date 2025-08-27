@@ -77,8 +77,8 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
     for (key, value) in options.headers {
       headers[key] = value
     }
-    for (k, v) in headers {
-      urlRequest.setValue(v, forHTTPHeaderField: k)
+    for (key, value) in headers {
+      urlRequest.setValue(value, forHTTPHeaderField: key)
     }
 
     let contentType = urlRequest.allHTTPHeaderFields?["Content-Type"]?
