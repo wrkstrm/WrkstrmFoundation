@@ -2,7 +2,7 @@ import Foundation
 import WrkstrmLog
 
 #if canImport(FoundationNetworking)
-  import FoundationNetworking
+import FoundationNetworking
 #endif
 
 /// A utility for rendering `URLRequest` instances as copy-pasteable cURL commands.
@@ -146,9 +146,8 @@ public enum CURL {
           "--data-binary", shQuote("<\(body.count) bytes binary body>"),
         ]
       }
-    } else if let stream = request.httpBodyStream {
+    } else if request.httpBodyStream != nil {
       // Streaming body; cannot read safely here
-      _ = stream  // silence linter
       parts += ["--data-binary", shQuote("<streamed body>")]
     }
 
@@ -171,24 +170,24 @@ public enum CURL {
     in environment: HTTP.Environment
   ) {
     #if DEBUG
-      var command = command(from: request, in: environment)
+    var command = command(from: request, in: environment)
 
-      // Also mask any Authorization that slipped through older callers that only set env headers
-      for (name, value) in environment.headers
-      where name.caseInsensitiveCompare("Authorization") == .orderedSame {
-        let raw = "-H 'Authorization: \(value)'"
-        let red = "-H 'Authorization: [REDACTED]'"
-        command = command.replacingOccurrences(of: raw, with: red)
-      }
+    // Also mask any Authorization that slipped through older callers that only set env headers
+    for (name, value) in environment.headers
+    where name.caseInsensitiveCompare("Authorization") == .orderedSame {
+      let raw = "-H 'Authorization: \(value)'"
+      let red = "-H 'Authorization: [REDACTED]'"
+      command = command.replacingOccurrences(of: raw, with: red)
+    }
 
-      Log.networking.info(
-        """
-        Creating request with the equivalent cURL command:
-        ➖➖➖➖🌀 cURL command 🌀➖➖➖➖
-        \(command)
-        🌀➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖🌀
-        """
-      )
+    Log.networking.info(
+      """
+      Creating request with the equivalent cURL command:
+      ➖➖➖➖🌀 cURL command 🌀➖➖➖➖
+      \(command)
+      🌀➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖🌀
+      """
+    )
     #endif  // DEBUG
   }
 }
