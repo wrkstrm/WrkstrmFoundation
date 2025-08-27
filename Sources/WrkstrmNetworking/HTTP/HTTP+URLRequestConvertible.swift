@@ -3,7 +3,7 @@ import WrkstrmFoundation
 import WrkstrmLog
 
 #if canImport(FoundationNetworking)
-  import FoundationNetworking
+import FoundationNetworking
 #endif
 
 /// A protocol that defines the conversion of an HTTP.Request into a URLRequest,
@@ -128,12 +128,7 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
         return nil
       }
     } else if contentType?.hasPrefix("application/json") == true {
-      do {
-        return try encoder.encode(body)
-      } catch {
-        Log.error("JSON encode failed: \(error)")
-        throw error
-      }
+      return try encoder.encode(body)
     } else {
       if let data = body as? Data {
         return data
