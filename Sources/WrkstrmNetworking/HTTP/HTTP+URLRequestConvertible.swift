@@ -84,52 +84,65 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
       .lowercased()
     // Encode body once, based on Content-Type
     if let body {
-      if contentType?.hasPrefix("application/x-www-form-urlencoded") == true {
-        if let stringBody = body as? String {
-          urlRequest.httpBody = stringBody.data(using: .utf8)
-        } else if let dict = body as? [String: String] {
-          var urlComponents = URLComponents()
-          urlComponents.queryItems = dict.map {
-            .init(name: $0.key, value: $0.value)
-          }
-          urlRequest.httpBody = urlComponents.percentEncodedQuery?.data(
-            using: .utf8
-          )
-        } else if let items = body as? [URLQueryItem] {
-          var urlComponents = URLComponents()
-          urlComponents.queryItems = items
-          urlRequest.httpBody = urlComponents.percentEncodedQuery?.data(
-            using: .utf8
-          )
-        } else if let data = body as? Data {
-          urlRequest.httpBody = data
-        } else {
-          Log.error(
-            "Body type \(type(of: body)) incompatible with form encoding; omitting body."
-          )
-        }
-        // Accept "application/json" and "application/json; charset=utf-8", etc.
-      } else if contentType?.hasPrefix("application/json") == true {
-        do {
-          urlRequest.httpBody = try encoder.encode(body)
-        } catch {
-          Log.error("JSON encode failed: \(error)")
-          throw error
-        }
-      } else {
-        if let data = body as? Data {
-          urlRequest.httpBody = data
-        } else if let stringBody = body as? String {
-          urlRequest.httpBody = stringBody.data(using: .utf8)
-        } else {
-          Log.error(
-            "Unsupported Content-Type \(contentType ?? "nil") for body type \(type(of: body)); omitting body."
-          )
-        }
+      do {
+        urlRequest.httpBody = try Self.encodeBody(for: body, with: contentType, encoder: encoder)
+      } catch {
+        Log.error("Body encoding failed: \(error)")
+        throw error
       }
     }
 
     CURL.printCURLCommand(from: urlRequest, in: environment)
     return urlRequest
+  }
+
+  /// Encodes the HTTP body based on the content type and body type.
+  /// - Parameters:
+  ///   - body: The body to encode.
+  ///   - contentType: The content type string (lowercased).
+  ///   - encoder: The JSONEncoder to use for JSON encoding.
+  /// - Returns: The encoded Data for the HTTP body, or nil.
+  /// - Throws: An error if encoding fails.
+  private static func encodeBody(for body: Any, with contentType: String?, encoder: JSONEncoder) throws -> Data? {
+    if contentType?.hasPrefix("application/x-www-form-urlencoded") == true {
+      if let stringBody = body as? String {
+        return stringBody.data(using: .utf8)
+      } else if let dict = body as? [String: String] {
+        var urlComponents = URLComponents()
+        urlComponents.queryItems = dict.map {
+          .init(name: $0.key, value: $0.value)
+        }
+        return urlComponents.percentEncodedQuery?.data(using: .utf8)
+      } else if let items = body as? [URLQueryItem] {
+        var urlComponents = URLComponents()
+        urlComponents.queryItems = items
+        return urlComponents.percentEncodedQuery?.data(using: .utf8)
+      } else if let data = body as? Data {
+        return data
+      } else {
+        Log.error(
+          "Body type \(type(of: body)) incompatible with form encoding; omitting body."
+        )
+        return nil
+      }
+    } else if contentType?.hasPrefix("application/json") == true {
+      do {
+        return try encoder.encode(body)
+      } catch {
+        Log.error("JSON encode failed: \(error)")
+        throw error
+      }
+    } else {
+      if let data = body as? Data {
+        return data
+      } else if let stringBody = body as? String {
+        return stringBody.data(using: .utf8)
+      } else {
+        Log.error(
+          "Unsupported Content-Type \(contentType ?? "nil") for body type \(type(of: body)); omitting body."
+        )
+        return nil
+      }
+    }
   }
 }
