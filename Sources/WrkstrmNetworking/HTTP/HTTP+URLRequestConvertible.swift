@@ -73,8 +73,8 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
     let contentType = urlRequest.allHTTPHeaderFields?["Content-Type"]?.lowercased()
     // Encode body once, based on Content-Type
     if let body {
-      switch contentType {
-      case "application/x-www-form-urlencoded":
+      switch true {
+      case contentType?.hasPrefix("application/x-www-form-urlencoded") == true:
         if let s = body as? String {
           urlRequest.httpBody = s.data(using: .utf8)
         } else if let dict = body as? [String: String] {
