@@ -84,6 +84,9 @@ extension HTTP {
         throw HTTP.ClientError.invalidResponse
       }
 
+      #if DEBUG
+      HTTP.logResponse(httpResponse, data: data)
+      #endif  // DEBUG
       // Store the current response headers for the next request's rate limiting
       //      await MainActor.run {
       //        self.lastResponseHeaders = httpResponse.headers

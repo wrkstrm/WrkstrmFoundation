@@ -82,7 +82,9 @@ extension HTTP {
       guard let httpResponse = response as? HTTPURLResponse else {
         throw HTTP.ClientError.invalidResponse
       }
-
+      #if DEBUG
+      HTTP.logResponse(httpResponse, data: data)
+      #endif  // DEBUG
       guard httpResponse.statusCode.isHTTPOKStatusRange else {
         let errorMessage =
           String(data: data, encoding: .utf8) ?? "Unknown error"
