@@ -1,6 +1,3 @@
-Here you go — a complete Swift-DocC tutorial you can drop into a `.docc` catalog. Save it as `FormURLEncoding.tutorial.md` (or whatever name you like) and let DocC do the rest.
-
-````markdown
 # Form URL Encoding in Swift
 
 Learn how to build query strings and `application/x-www-form-urlencoded` request bodies in Swift without hand-rolling percent-encoding.
