@@ -3,7 +3,7 @@ import WrkstrmFoundation
 import WrkstrmLog
 
 #if canImport(FoundationNetworking)
-import FoundationNetworking
+  import FoundationNetworking
 #endif
 
 /// A protocol that defines the conversion of an HTTP.Request into a URLRequest,
@@ -84,14 +84,12 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
       .lowercased()
     // Encode body once, based on Content-Type
     if let body {
-      do {
-        urlRequest.httpBody = try Self.encodeBody(for: body, with: contentType, encoder: encoder)
-      } catch {
-        Log.error("Body encoding failed: \(error)")
-        throw error
-      }
+      urlRequest.httpBody = try Self.encodeBody(
+        for: body,
+        with: contentType,
+        encoder: encoder
+      )
     }
-
     CURL.printCURLCommand(from: urlRequest, in: environment)
     return urlRequest
   }
@@ -104,7 +102,9 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
   /// - Returns: The encoded Data for the HTTP body, or nil.
   /// - Throws: An error if encoding fails.
   private static func encodeBody(
-    for body: RequestBody, with contentType: String?, encoder: JSONEncoder
+    for body: RequestBody,
+    with contentType: String?,
+    encoder: JSONEncoder
   ) throws -> Data? {
     if contentType?.hasPrefix("application/x-www-form-urlencoded") == true {
       if let stringBody = body as? String {
