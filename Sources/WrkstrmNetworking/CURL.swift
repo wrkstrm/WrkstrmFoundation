@@ -2,7 +2,7 @@ import Foundation
 import WrkstrmLog
 
 #if canImport(FoundationNetworking)
-import FoundationNetworking
+  import FoundationNetworking
 #endif
 
 /// A utility for rendering `URLRequest` instances as copy-pasteable cURL commands.
@@ -86,11 +86,7 @@ public enum CURL {
       return url.absoluteString
     }
     comps.queryItems = items.map { item in
-      if item.name.addingPercentEncoding(
-        withAllowedCharacters: .urlQueryAllowed
-      ) != nil,
-        Self.sensitiveQueryKeys.contains(item.name.lowercased())
-      {
+      if Self.sensitiveQueryKeys.contains(item.name.lowercased()) {
         return URLQueryItem(name: item.name, value: "[REDACTED]")
       }
       return item
@@ -175,24 +171,24 @@ public enum CURL {
     in environment: HTTP.Environment
   ) {
     #if DEBUG
-    var command = command(from: request, in: environment)
+      var command = command(from: request, in: environment)
 
-    // Also mask any Authorization that slipped through older callers that only set env headers
-    for (name, value) in environment.headers
-    where name.caseInsensitiveCompare("Authorization") == .orderedSame {
-      let raw = "-H 'Authorization: \(value)'"
-      let red = "-H 'Authorization: [REDACTED]'"
-      command = command.replacingOccurrences(of: raw, with: red)
-    }
+      // Also mask any Authorization that slipped through older callers that only set env headers
+      for (name, value) in environment.headers
+      where name.caseInsensitiveCompare("Authorization") == .orderedSame {
+        let raw = "-H 'Authorization: \(value)'"
+        let red = "-H 'Authorization: [REDACTED]'"
+        command = command.replacingOccurrences(of: raw, with: red)
+      }
 
-    Log.networking.info(
-      """
-      Creating request with the equivalent cURL command:
-      ➖➖➖➖🌀 cURL command 🌀➖➖➖➖
-      \(command)
-      🌀➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖🌀
-      """
-    )
+      Log.networking.info(
+        """
+        Creating request with the equivalent cURL command:
+        ➖➖➖➖🌀 cURL command 🌀➖➖➖➖
+        \(command)
+        🌀➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖🌀
+        """
+      )
     #endif  // DEBUG
   }
 }
