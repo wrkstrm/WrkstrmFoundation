@@ -1,29 +1,26 @@
 # Form URL Encoding in Swift
 
-Learn how to build query strings and `application/x-www-form-urlencoded` request bodies in Swift without hand-rolling percent-encoding.
+Learn how to build query strings and `application/x-www-form-urlencoded` request bodies in Swift
+without hand-rolling percent-encoding.
 
-@Metadata {
-  @DisplayName("Form URL Encoding in Swift")
-  @TechnologyRoot
-  @PageKind(tutorial)
-}
+@Metadata { @DisplayName("Form URL Encoding in Swift") @TechnologyRoot @PageKind(tutorial) }
 
-@Introduction {
-  Avoid stringly-typed disasters. This tutorial shows how to use `URLComponents`, `URLQueryItem`, and small helpers to construct query parameters and form-encoded bodies safely, predictably, and testably — no manual `%` escapes required.
-}
+@Introduction { Avoid stringly-typed disasters. This tutorial shows how to use `URLComponents`,
+`URLQueryItem`, and small helpers to construct query parameters and form-encoded bodies safely,
+predictably, and testably — no manual `%` escapes required. }
 
 @LearningPath {
-  - Understand when to use query parameters vs form bodies
-  - Build URLs with `URLComponents` and `URLQueryItem`
-  - Create form-encoded bodies using the same machinery
-  - Handle arrays, optionals, and special characters
-  - Verify requests with a copy-pasteable cURL command
-}
+
+- Understand when to use query parameters vs form bodies
+- Build URLs with `URLComponents` and `URLQueryItem`
+- Create form-encoded bodies using the same machinery
+- Handle arrays, optionals, and special characters
+- Verify requests with a copy-pasteable cURL command }
 
 @Prerequisites {
-  - Basic Swift and `URLRequest`
-  - Familiarity with HTTP methods and headers
-}
+
+- Basic Swift and `URLRequest`
+- Familiarity with HTTP methods and headers }
 
 ---
 
@@ -61,22 +58,24 @@ let url = makeURL(
   ]
 )
 // => https://api.example.com/v1/search?lang=en-US&limit=25&q=spicy%20tacos%20%26%20salsa
-````
+```
 
 ### Why this works
 
-`URLQueryItem` handles percent-encoding for you. You don’t escape ampersands, spaces, or unicode; you just pass strings and let Foundation serialize correctly.
+`URLQueryItem` handles percent-encoding for you. You don’t escape ampersands, spaces, or unicode;
+you just pass strings and let Foundation serialize correctly.
 
-> Tip: Sorting query items produces a canonical URL that plays nicer with caches and observability tooling.
+> Tip: Sorting query items produces a canonical URL that plays nicer with caches and observability
+> tooling.
 
 ---
 
 ## Step 2: Encode a `application/x-www-form-urlencoded` body
 
-Many APIs expect form bodies for POST/PUT. You can reuse `URLComponents` to generate the exact same `key=value&key2=value2` wire format.
-WrkstrmNetworking's ``HTTP.Request.Encodable`` helpers handle this automatically.
-When you call ``URLRequestConvertible/asURLRequest(with:encoder:)`` with a
-`[String: String]` body and set ``HTTP.Request.Options/headers`` to include
+Many APIs expect form bodies for POST/PUT. You can reuse `URLComponents` to generate the exact same
+`key=value&key2=value2` wire format. WrkstrmNetworking's `HTTP.Request.Encodable` helpers handle
+this automatically. When you call `URLRequestConvertible/asURLRequest(with:encoder:)` with a
+`[String: String]` body and set `HTTP.Request.Options/headers` to include
 `Content-Type: application/x-www-form-urlencoded`, the body is percent-encoded for you.
 
 ### Code
@@ -106,13 +105,15 @@ let req = makeFormRequest(url: postURL, params: ["symbols": "AAPL,IBM,NFLX"])
 
 ### Why reuse `URLComponents`?
 
-It guarantees identical percent-encoding rules for both query strings and form bodies, preventing subtle mismatches like double-encoding `%25` or leaving a `+` unescaped.
+It guarantees identical percent-encoding rules for both query strings and form bodies, preventing
+subtle mismatches like double-encoding `%25` or leaving a `+` unescaped.
 
 ---
 
 ## Step 3: Support arrays and optionals cleanly
 
-APIs commonly accept comma-delimited arrays or repeated keys. Handle both patterns without manual escaping.
+APIs commonly accept comma-delimited arrays or repeated keys. Handle both patterns without manual
+escaping.
 
 ### Code
 
@@ -211,13 +212,15 @@ struct AnyEncodable: Encodable {
 }
 ```
 
-> Note: Don’t peek into the request and re-encode after you’ve already set the body. Double-writes are a common cause of “why is the server ignoring me?”
+> Note: Don’t peek into the request and re-encode after you’ve already set the body. Double-writes
+> are a common cause of “why is the server ignoring me?”
 
 ---
 
 ## Step 5: Verify with a cURL mirror
 
-Being able to reproduce a request as a cURL command is the best debugging tool you aren’t using enough.
+Being able to reproduce a request as a cURL command is the best debugging tool you aren’t using
+enough.
 
 ### Code
 
@@ -227,19 +230,22 @@ let command = CURL.command(from: request, in: environment)
 print(command)
 ```
 
-The ``CURL`` utility mirrors HTTP method, headers, URL, and body,
-so you can paste the output into a terminal to confirm exactly what
-the server receives.
+The `CURL` utility mirrors HTTP method, headers, URL, and body, so you can paste the output into a
+terminal to confirm exactly what the server receives.
 
 ---
 
 ## Common pitfalls and how to avoid them
 
-* **Manual percent-encoding:** Don’t. Let `URLQueryItem` do its job.
-* **Double-encoding:** If you see `%2520` in logs, you encoded twice. Encode once at the very end.
-* **Spaces vs plus:** `URLComponents` will percent-encode spaces as `%20`. Most servers accept both `%20` and `+` for `x-www-form-urlencoded`. Do not manually replace spaces with `+` unless your server explicitly requires it.
-* **Empty values:** Omit keys with `nil` values unless the API requires `key=` to mean “clear this.” Be intentional.
-* **Arrays:** Check your API contract. Use comma-delimited (`tags=a,b,c`) or repeated keys (`tag=a&tag=b&tag=c`) as required. Support both on your side with helpers.
+- **Manual percent-encoding:** Don’t. Let `URLQueryItem` do its job.
+- **Double-encoding:** If you see `%2520` in logs, you encoded twice. Encode once at the very end.
+- **Spaces vs plus:** `URLComponents` will percent-encode spaces as `%20`. Most servers accept both
+  `%20` and `+` for `x-www-form-urlencoded`. Do not manually replace spaces with `+` unless your
+  server explicitly requires it.
+- **Empty values:** Omit keys with `nil` values unless the API requires `key=` to mean “clear this.”
+  Be intentional.
+- **Arrays:** Check your API contract. Use comma-delimited (`tags=a,b,c`) or repeated keys
+  (`tag=a&tag=b&tag=c`) as required. Support both on your side with helpers.
 
 ---
 
@@ -284,23 +290,24 @@ curl -X 'POST' \
 
 ## Reference
 
-* `URLComponents` — parses and serializes URLs and queries
-* `URLQueryItem` — type-safe query elements with automatic encoding
-* `URLRequest` — HTTP method, headers, and body
-* MIME type `application/x-www-form-urlencoded` — HTML forms and many REST endpoints
+- `URLComponents` — parses and serializes URLs and queries
+- `URLQueryItem` — type-safe query elements with automatic encoding
+- `URLRequest` — HTTP method, headers, and body
+- MIME type `application/x-www-form-urlencoded` — HTML forms and many REST endpoints
 
 @Links {
 
-* [https://developer.apple.com/documentation/foundation/urlcomponents](https://developer.apple.com/documentation/foundation/urlcomponents)
-* [https://developer.apple.com/documentation/foundation/urlqueryitem](https://developer.apple.com/documentation/foundation/urlqueryitem)
-* [https://developer.apple.com/documentation/foundation/urlrequest](https://developer.apple.com/documentation/foundation/urlrequest)
+- [https://developer.apple.com/documentation/foundation/urlcomponents](https://developer.apple.com/documentation/foundation/urlcomponents)
+- [https://developer.apple.com/documentation/foundation/urlqueryitem](https://developer.apple.com/documentation/foundation/urlqueryitem)
+- [https://developer.apple.com/documentation/foundation/urlrequest](https://developer.apple.com/documentation/foundation/urlrequest)
   }
 
 @NextSteps {
 
-* Add unit tests that snapshot the resulting URLs and bodies
-* Extend helpers to support nested parameters if your backend expects them
-* Integrate a cURL logger in DEBUG to reproduce requests during incidents
-  }
+- Add unit tests that snapshot the resulting URLs and bodies
+- Extend helpers to support nested parameters if your backend expects them
+- Integrate a cURL logger in DEBUG to reproduce requests during incidents }
+
+```
 
 ```
