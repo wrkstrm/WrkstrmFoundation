@@ -15,11 +15,11 @@ extension HTTP {
     /// The environment configuration for requests.
     public var environment: any HTTP.Environment
 
-    /// The session configuration used for the underlying URLSession.
-    private let configuration: URLSessionConfiguration
+    /// The underlying request executor.
+    private let executor: HTTP.RequestExecutor
 
-    /// The URLSession used to perform network requests.
-    private let session: URLSession
+    /// Backward-compat: expose the underlying URLSession when available.
+    public let session: URLSession
 
     /// Initializes a new JSONClient.
     /// - Parameters:
@@ -33,12 +33,30 @@ extension HTTP {
       configuration: URLSessionConfiguration = .default
     ) {
       self.json = json
-      configuration.httpAdditionalHeaders = environment.headers
-      let configCopy = (configuration.copy() as? URLSessionConfiguration) ?? configuration
-      configCopy.httpAdditionalHeaders = environment.headers
-      self.configuration = configCopy
-      session = .init(configuration: configCopy)
       self.environment = environment
+      let urlTransport = HTTP.URLSessionTransport(configuration: configuration)
+      self.executor = HTTP.RequestExecutor(
+        environment: environment,
+        transport: urlTransport
+      )
+      // Ensure the exposed session matches the transport's session
+      self.session = urlTransport.session
+    }
+
+    /// Convenience initializer allowing a custom transport implementation.
+    public init(
+      environment: any HTTP.Environment,
+      json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder),
+      transport: any HTTP.Transport
+    ) {
+      self.json = json
+      self.environment = environment
+      self.executor = HTTP.RequestExecutor(environment: environment, transport: transport)
+      if let urlTransport = transport as? HTTP.URLSessionTransport {
+        self.session = urlTransport.session
+      } else {
+        self.session = URLSession(configuration: .default)
+      }
     }
 
     /// Sends an HTTP request and parses the response as a JSON dictionary.
@@ -75,32 +93,9 @@ extension HTTP {
         with: json.requestEncoder
       )
 
-      let (data, response): (Data, URLResponse) = try await session.data(
-        for: urlRequest
-      )
-
-      guard let httpResponse = response as? HTTPURLResponse else {
-        throw HTTP.ClientError.invalidResponse
-      }
-      #if DEBUG
-      HTTP.logResponse(httpResponse, data: data)
-      #endif  // DEBUG
-      guard httpResponse.statusCode.isHTTPOKStatusRange else {
-        let errorMessage =
-          String(data: data, encoding: .utf8) ?? "Unknown error"
-        #if DEBUG
-        Log.networking.error(
-          "🚨 HTTP Error [\(await environment.host)]: \(httpResponse.statusCode): \(errorMessage)"
-        )
-        #endif  // DEBUG
-        let jsonDictionary = try await data.serializeAsJSON(in: environment)
-        throw HTTP.ClientError.networkError(
-          StringError("Status Error: \(jsonDictionary)")
-        )
-      }
-
-      let jsonDictionary = try await data.serializeAsJSON(in: environment)
-      return .init(value: jsonDictionary, headers: httpResponse.headers)
+      let raw: HTTP.Response<Data> = try await executor.send(urlRequest)
+      let jsonDictionary = try await raw.value.serializeAsJSON(in: environment)
+      return .init(value: jsonDictionary, headers: raw.headers)
     }
   }
 }

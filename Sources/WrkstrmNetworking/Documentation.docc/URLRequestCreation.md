@@ -238,6 +238,12 @@ terminal to confirm exactly what the server receives.
 ## Common pitfalls and how to avoid them
 
 - **Manual percent-encoding:** Don’t. Let `URLQueryItem` do its job.
+
+---
+
+## See also
+
+- Custom backends and URLSession defaults: [Custom Transports](CustomTransport.md)
 - **Double-encoding:** If you see `%2520` in logs, you encoded twice. Encode once at the very end.
 - **Spaces vs plus:** `URLComponents` will percent-encode spaces as `%20`. Most servers accept both
   `%20` and `+` for `x-www-form-urlencoded`. Do not manually replace spaces with `+` unless your

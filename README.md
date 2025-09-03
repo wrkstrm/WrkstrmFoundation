@@ -33,6 +33,50 @@ Lightweight networking utilities built on `URLSession` with cURL logging. The mo
 request and response types, a JSON client for automatic encoding/decoding, and a configurable rate
 limiter for outbound requests.
 
+#### Transports
+
+- Default backend: `URLSession` via `HTTP.URLSessionTransport`.
+- Swap in custom backends by implementing `HTTP.Transport` and injecting it into
+  `HTTP.JSONClient` or `HTTP.CodableClient`.
+- Both clients expose a read-only `URLSession` when using the default transport.
+
+See: Sources/WrkstrmNetworking/Documentation.docc/CustomTransport.md
+
+Example: Inject a custom transport
+
+```swift
+import Foundation
+import WrkstrmNetworking
+
+// 1) Define a custom transport
+struct RecordingTransport: HTTP.Transport {
+  func execute(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
+    // Delegate to URLSession (or your own backend), add side-effects as needed
+    let (data, response) = try await URLSession.shared.data(for: request)
+    guard let http = response as? HTTPURLResponse else {
+      throw HTTP.ClientError.invalidResponse
+    }
+    // persist(request, http, data)
+    return (data, http)
+  }
+}
+
+// 2) Inject into clients
+let transport = RecordingTransport()
+
+let jsonClient = HTTP.JSONClient(
+  environment: env,
+  json: (.snakecase, .snakecase),
+  transport: transport
+)
+
+let codableClient = HTTP.CodableClient(
+  environment: env,
+  json: (.snakecase, .snakecase),
+  transport: transport
+)
+```
+
 This repository is ideal for Apple platform and Linux developers seeking to enrich their Swift
 applications with efficient, reliable, and reusable components. Each utility is documented for ease
 of use, adhering to best coding practices and ensuring seamless integration into various Swift

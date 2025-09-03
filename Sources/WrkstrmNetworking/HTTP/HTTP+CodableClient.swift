@@ -15,10 +15,10 @@ extension HTTP {
     /// The environment configuration for requests.
     public var environment: any HTTP.Environment
 
-    /// The session configuration used for the underlying URLSession.
-    private let configuration: URLSessionConfiguration
+    /// The underlying request executor.
+    private let executor: HTTP.RequestExecutor
 
-    /// The URLSession used to perform network requests.
+    /// Backward-compat: expose the underlying URLSession when available.
     public let session: URLSession
 
     /// Manages rate limiting based on server-provided headers.
@@ -31,14 +31,34 @@ extension HTTP {
     ///   - decoder: The JSON decoder (default is .snakecase).
     public init(
       environment: any HTTP.Environment,
-      json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder)
+      json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder),
+      configuration: URLSessionConfiguration = .default
     ) {
       self.json = json
-      let configuration: URLSessionConfiguration = .default
-      configuration.httpAdditionalHeaders = environment.headers
-      self.configuration = configuration
-      session = .init(configuration: configuration)
       self.environment = environment
+      let urlTransport = HTTP.URLSessionTransport(configuration: configuration)
+      self.executor = HTTP.RequestExecutor(
+        environment: environment,
+        transport: urlTransport
+      )
+      // Ensure the exposed session matches the transport's session
+      self.session = urlTransport.session
+    }
+
+    /// Convenience initializer allowing a custom transport implementation.
+    public init(
+      environment: any HTTP.Environment,
+      json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder),
+      transport: any HTTP.Transport
+    ) {
+      self.json = json
+      self.environment = environment
+      self.executor = HTTP.RequestExecutor(environment: environment, transport: transport)
+      if let urlTransport = transport as? HTTP.URLSessionTransport {
+        self.session = urlTransport.session
+      } else {
+        self.session = URLSession(configuration: .default)
+      }
     }
 
     /// Sends an HTTP request and decodes the response body into ``T.ResponseType``.
@@ -76,42 +96,16 @@ extension HTTP {
         with: json.requestEncoder
       )
 
-      let (data, response): (Data, URLResponse) = try await session.data(
-        for: urlRequest
-      )
-
-      guard let httpResponse = response as? HTTPURLResponse else {
-        throw HTTP.ClientError.invalidResponse
-      }
-
-      #if DEBUG
-      HTTP.logResponse(httpResponse, data: data)
-      #endif  // DEBUG
-      // Store the current response headers for the next request's rate limiting
-      //      await MainActor.run {
-      //        self.lastResponseHeaders = httpResponse.headers
-      //      }
-
-      guard httpResponse.statusCode.isHTTPOKStatusRange else {
-        let errorMessage =
-          String(data: data, encoding: .utf8) ?? "Unknown error"
-        #if DEBUG
-        Log.networking.error(
-          "🚨 HTTP Error [\(await environment.host)]: \(httpResponse.statusCode): \(errorMessage)"
-        )
-        #endif  // DEBUG
-        let jsonDictionary = try await data.serializeAsJSON(in: environment)
-        throw HTTP.ClientError.networkError(
-          StringError("Status Error: \(jsonDictionary)")
-        )
-      }
+      let raw: HTTP.Response<Data> = try await executor.send(urlRequest)
+      // Optionally update rate limiter with server-provided headers
+      await rateLimiter.update(from: raw.headers)
       let decoded = try await parseResponse(
         T.ResponseType.self,
-        from: data,
+        from: raw.value,
         in: environment,
         decoder: json.responseDecoder
       )
-      return .init(value: decoded, headers: httpResponse.headers)
+      return .init(value: decoded, headers: raw.headers)
     }
 
     private nonisolated func parseResponse<T: Decodable>(

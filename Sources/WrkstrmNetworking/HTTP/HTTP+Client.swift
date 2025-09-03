@@ -36,15 +36,6 @@ extension HTTP.Client {
     in environment: HTTP.Environment,
     with jsonEncoder: JSONEncoder,
   ) throws -> URLRequest {
-    var urlRequest: URLRequest =
-      try request.asURLRequest(with: environment, encoder: jsonEncoder)
-    if let body = request.body {
-      do {
-        urlRequest.httpBody = try jsonEncoder.encode(body)
-      } catch {
-        throw HTTP.ClientError.encodingError(error)
-      }
-    }
-    return urlRequest
+    try request.asURLRequest(with: environment, encoder: jsonEncoder)
   }
 }
