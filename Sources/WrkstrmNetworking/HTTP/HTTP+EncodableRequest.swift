@@ -7,10 +7,19 @@ import FoundationNetworking
 extension HTTP {
   /// A namespace for HTTP request types, including protocols and configuration options for typed, codable requests.
   public enum Request {
+    /// Common routing properties shared by HTTP and WebSocket style requests.
+    /// Provides the endpoint path and request options (timeout, headers, query).
+    public protocol Routable: Sendable {
+      /// Endpoint path (appended after host and optional apiVersion).
+      var path: String { get }
+      /// Request options (timeout, headers, sorted query items).
+      var options: HTTP.Request.Options { get }
+    }
+
     /// Defines requirements for an HTTP request that can be encoded/decoded.
     /// Used to build typed HTTP requests by specifying method, path, query parameters, and body content.
     /// Associates a codable response type.
-    public protocol Encodable: Sendable {
+    public protocol Encodable: Routable, Sendable {
       /// The expected response type.
       associatedtype ResponseType: Swift.Decodable
       /// The type of the request body. Defaults to `Never` if there is no body.
@@ -18,12 +27,8 @@ extension HTTP {
 
       /// HTTP method of the request.
       var method: HTTP.Method { get }
-      /// Endpoint path.
-      var path: String { get }
       /// Request body, if any.
       var body: RequestBody? { get }
-
-      var options: HTTP.Request.Options { get }
     }
   }
 }

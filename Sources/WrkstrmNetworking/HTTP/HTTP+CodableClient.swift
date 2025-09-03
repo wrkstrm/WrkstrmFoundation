@@ -19,7 +19,7 @@ extension HTTP {
     private let executor: HTTP.RequestExecutor
 
     /// Backward-compat: expose the underlying URLSession when available.
-    public let session: URLSession
+    public nonisolated let session: URLSession
 
     /// Manages rate limiting based on server-provided headers.
     private let rateLimiter = HTTP.RateLimiter()

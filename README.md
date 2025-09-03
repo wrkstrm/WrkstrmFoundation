@@ -39,8 +39,11 @@ limiter for outbound requests.
 - Swap in custom backends by implementing `HTTP.Transport` and injecting it into
   `HTTP.JSONClient` or `HTTP.CodableClient`.
 - Both clients expose a read-only `URLSession` when using the default transport.
+- Realtime: WebSockets via `HTTP.URLSessionWebSocketClient` with a simple `HTTP.WebSocket` API.
 
 See: Sources/WrkstrmNetworking/Documentation.docc/CustomTransport.md
+See: Sources/WrkstrmNetworking/Documentation.docc/WebSockets.md
+See: Sources/WrkstrmNetworking/MIGRATION.md
 
 Example: Inject a custom transport
 
