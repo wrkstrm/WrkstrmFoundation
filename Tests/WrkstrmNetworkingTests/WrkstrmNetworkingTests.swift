@@ -30,7 +30,7 @@ struct WrkstrmNetworkingTests {
     )
     #expect(urlRequest.value(forHTTPHeaderField: "X-Test") == "1")
 
-    let expectedBody = try JSONEncoder.snakecase.encode(
+    let expectedBody = try JSONEncoder.commonDateFormatting.encode(
       SampleRequest.Body(name: "Bob")
     )
     #expect(urlRequest.httpBody == expectedBody)
@@ -49,7 +49,7 @@ struct WrkstrmNetworkingTests {
     )
     #expect(urlRequest.value(forHTTPHeaderField: "X-Test") == "1")
 
-    let expectedBody = try JSONEncoder.snakecase.encode(
+    let expectedBody = try JSONEncoder.commonDateFormatting.encode(
       SamplePutRequest.Body(name: "Bob")
     )
     #expect(urlRequest.httpBody == expectedBody)

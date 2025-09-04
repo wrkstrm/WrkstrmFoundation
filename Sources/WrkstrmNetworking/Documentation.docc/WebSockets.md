@@ -15,7 +15,7 @@ per API endpoint.
 
 ## Usage
 
-```
+```swift
 import WrkstrmNetworking
 
 let url = URL(string: "wss://example.com/socket")!

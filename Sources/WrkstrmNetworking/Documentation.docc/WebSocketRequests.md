@@ -7,11 +7,11 @@ Build strongly typed WebSocket routes that mirror HTTP requests.
 WrkstrmNetworking defines a shared routing surface for both HTTP and WebSocket
 requests via `HTTP.Request.Routable` (path + options). Use
 `HTTP.Request.WebSocket` to declare typed WebSocket routes and
-`HTTP.StreamExecutor` to connect and consume JSON frames.
+`HTTP.WebSocketExecutor` to connect and consume JSON frames.
 
 ## Define a Route
 
-```
+```swift
 import WrkstrmNetworking
 
 struct TickerStream: HTTP.Request.WebSocket {
@@ -41,14 +41,15 @@ struct TickerStream: HTTP.Request.WebSocket {
 
 ## Connect and Consume
 
-```
+```swift
 let env: any HTTP.Environment = …
 let session = URLSession(configuration: .default)
-let executor = HTTP.StreamExecutor(environment: env, session: session)
-
 let route = TickerStream(symbols: ["AAPL","MSFT"]) // path + options
-let (socket, stream) = try executor.connectJSONWebSocket(
+let wsExec = HTTP.WebSocketExecutor()
+let (socket, stream) = try wsExec.connectJSONWebSocket(
   route: route,
+  environment: env,
+  session: session,
   decoder: .snakecase,
   encoder: .snakecase // used for initialOutgoing if provided
 )
@@ -74,7 +75,7 @@ if let s = String(data: data, encoding: .utf8) {
 
 // Close when finished
 await socket.close(code: .normalClosure, reason: nil)
-```
+```swift
 
 ## URL Building (ws/wss)
 
@@ -104,7 +105,7 @@ receive the `(socket, stream)` tuple:
 
 ```
 struct Hello: Encodable, Sendable { let hello: String }
-let payload = try JSONEncoder.snakecase.encode(Hello(hello: "world"))
+let payload = try JSONEncoder.commonDateFormatting.encode(Hello(hello: "world"))
 if let s = String(data: payload, encoding: .utf8) {
   try await socket.send(.text(s))
 } else {

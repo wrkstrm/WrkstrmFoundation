@@ -5,13 +5,22 @@ import WrkstrmLog
 
 extension JSONDecoder {
   /// CamelCase keys, robust date parsing (epoch ms/s, ISO8601 with/without millis, common fallbacks).
-  public static let `default`: JSONDecoder = {
+  public static let commonDateParsing: JSONDecoder = {
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .custom(Decoding.customDateDecoder)
     return decoder
   }()
 
+  /// Deprecated: use `commonDateParsing` instead.
+  @available(*, deprecated, message: "Use JSONDecoder.commonDateParsing for shared date parsing")
+  public static let `default`: JSONDecoder = commonDateParsing
+
   /// snake_case keys, same robust date parsing.
+  @available(
+    *, deprecated,
+    message:
+      "Prefer explicit CodingKeys with JSONDecoder.commonDateParsing; avoid automatic key conversion."
+  )
   public static let snakecase: JSONDecoder = {
     let decoder = JSONDecoder()
     decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -24,13 +33,24 @@ extension JSONDecoder {
 
 extension JSONEncoder {
   /// CamelCase keys, ISO8601 (+fractional seconds) date strings.
-  public static let `default`: JSONEncoder = {
+  public static let commonDateFormatting: JSONEncoder = {
     let encoder = JSONEncoder()
     encoder.dateEncodingStrategy = .custom(Encoding.customDateEncoder)
     return encoder
   }()
 
+  /// Deprecated: use `commonDateFormatting` instead.
+  @available(
+    *, deprecated, message: "Use JSONEncoder.commonDateFormatting for shared date encoding"
+  )
+  public static let `default`: JSONEncoder = commonDateFormatting
+
   /// snake_case keys, ISO8601 (+fractional seconds) date strings.
+  @available(
+    *, deprecated,
+    message:
+      "Prefer explicit CodingKeys with JSONEncoder.commonDateFormatting; avoid automatic key conversion."
+  )
   public static let snakecase: JSONEncoder = {
     let encoder = JSONEncoder()
     encoder.keyEncodingStrategy = .convertToSnakeCase

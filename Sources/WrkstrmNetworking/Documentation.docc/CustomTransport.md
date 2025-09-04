@@ -89,4 +89,3 @@ let codableClient = HTTP.CodableClient(
 - Surfaces structured JSON error payloads when available
 
 This ensures consistent semantics regardless of backend.
-
