@@ -27,6 +27,7 @@ struct GenerateContentRequestBody: Encodable {
 ```
 
 Benefits:
+
 - Self-documenting wire shape; the type is decoder-agnostic.
 - Works with default `JSONDecoder`/`JSONEncoder` in any context.
 - Precise control for odd keys and acronyms.

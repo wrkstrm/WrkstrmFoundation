@@ -82,8 +82,10 @@ await socket.close(code: .normalClosure, reason: nil)
 If you need a URL directly:
 
 ```
+
 let url1 = try HTTP.WSURLBuilder.url(in: env, path: "ws/tickers")
 let url2 = try HTTP.WSURLBuilder.url(in: env, route: route)
+
 ```
 
 The builder maps `http → ws` and `https → wss`, appends `apiVersion` if present,
@@ -104,6 +106,7 @@ initial payload. If you need to send something at connect time, send it explicit
 receive the `(socket, stream)` tuple:
 
 ```
+
 struct Hello: Encodable, Sendable { let hello: String }
 let payload = try JSONEncoder.commonDateFormatting.encode(Hello(hello: "world"))
 if let s = String(data: payload, encoding: .utf8) {
