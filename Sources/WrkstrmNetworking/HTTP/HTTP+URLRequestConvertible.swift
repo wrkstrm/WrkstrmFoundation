@@ -1,6 +1,7 @@
 import Foundation
 import WrkstrmFoundation
 import WrkstrmLog
+import WrkstrmMain
 
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -94,6 +95,39 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
     return urlRequest
   }
 
+  /// Overload supporting pluggable JSON encoders.
+  public func asURLRequest(
+    with environment: HTTP.Environment,
+    encoder: any JSONDataEncoding
+  ) throws -> URLRequest {
+    let pathComponents =
+      environment.scheme.rawValue
+      + [environment.host, environment.apiVersion, path]
+      .compactMap(\.self)
+      .joined(separator: "/")
+      .replacingOccurrences(of: "//", with: "/")
+    var urlComponents = URLComponents(string: pathComponents)
+    let sortedQueryItems = options.queryItems.sorted { $0.name < $1.name }
+    urlComponents?.queryItems = sortedQueryItems.isEmpty ? nil : sortedQueryItems
+    guard let url = urlComponents?.url else { throw HTTP.ClientError.invalidURL }
+    var urlRequest = URLRequest(url: url)
+    urlRequest.httpMethod = method.rawValue
+    urlRequest.timeoutInterval = options.timeout
+    for (key, value) in environment.headers { urlRequest.setValue(value, forHTTPHeaderField: key) }
+    for (key, value) in options.headers { urlRequest.setValue(value, forHTTPHeaderField: key) }
+
+    let contentType = urlRequest.allHTTPHeaderFields?["Content-Type"]?.lowercased()
+    if let body {
+      urlRequest.httpBody = try Self.encodeBody(
+        for: body,
+        with: contentType,
+        encoder: encoder
+      )
+    }
+    CURL.printCURLCommand(from: urlRequest, in: environment)
+    return urlRequest
+  }
+
   /// Encodes the HTTP body based on the content type and body type.
   /// - Parameters:
   ///   - body: The body to encode.
@@ -140,6 +174,41 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
         )
         return nil
       }
+    }
+  }
+
+  /// Overload of body encoding supporting pluggable JSON encoders.
+  private static func encodeBody(
+    for body: RequestBody,
+    with contentType: String?,
+    encoder: any JSONDataEncoding
+  ) throws -> Data? {
+    if contentType?.hasPrefix("application/x-www-form-urlencoded") == true {
+      if let stringBody = body as? String {
+        return stringBody.data(using: .utf8)
+      } else if let dict = body as? [String: String] {
+        var urlComponents = URLComponents()
+        urlComponents.queryItems = dict.map { .init(name: $0.key, value: $0.value) }
+        return urlComponents.percentEncodedQuery?.data(using: .utf8)
+      } else if let items = body as? [URLQueryItem] {
+        var urlComponents = URLComponents()
+        urlComponents.queryItems = items
+        return urlComponents.percentEncodedQuery?.data(using: .utf8)
+      } else if let data = body as? Data {
+        return data
+      } else {
+        Log.error("Body type \(type(of: body)) incompatible with form encoding; omitting body.")
+        return nil
+      }
+    } else if contentType?.hasPrefix("application/json") == true {
+      return try encoder.encode(body)
+    } else {
+      if let data = body as? Data { return data }
+      if let stringBody = body as? String { return stringBody.data(using: .utf8) }
+      Log.error(
+        "Unsupported Content-Type \(contentType ?? "nil") for body type \(type(of: body)); omitting body."
+      )
+      return nil
     }
   }
 }

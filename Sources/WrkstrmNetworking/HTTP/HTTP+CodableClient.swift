@@ -10,7 +10,32 @@ import FoundationNetworking
 extension HTTP {
   /// An HTTP client actor for JSON APIs.
   public actor CodableClient: @preconcurrency Client {
+    // Local boxes to bridge Foundation JSONEncoder/Decoder to protocol existentials
+    struct _EncoderBox: JSONDataEncoding {
+      let base: JSONEncoder
+      func encode<T: Encodable>(_ value: T) throws -> Data { try base.encode(value) }
+    }
+    struct _DecoderBox: JSONDataDecoding {
+      let base: JSONDecoder
+      func decode<T: Decodable>(_ type: T.Type, from data: Data) throws -> T {
+        try base.decode(T.self, from: data)
+      }
+    }
+    /// Legacy Foundation JSON coders (kept for backward compatibility).
+    /// Deprecated: prefer `jsonCoding` with protocol-based encoders/decoders.
+    @available(
+      *, deprecated,
+      message:
+        "Use `jsonCoding` with protocol-based encoders/decoders instead of Foundation tuples."
+    )
     public var json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder)
+
+    /// Pluggable JSON coding tuple allowing non‑Foundation encoders/decoders.
+    public var jsonCoding:
+      (
+        requestEncoder: any JSONDataEncoding,
+        responseDecoder: any JSONDataDecoding
+      )
 
     /// The environment configuration for requests.
     public var environment: any HTTP.Environment
@@ -35,6 +60,9 @@ extension HTTP {
       configuration: URLSessionConfiguration = .default
     ) {
       self.json = json
+      let reqEnc: any JSONDataEncoding = _EncoderBox(base: json.requestEncoder)
+      let respDec: any JSONDataDecoding = _DecoderBox(base: json.responseDecoder)
+      self.jsonCoding = (requestEncoder: reqEnc, responseDecoder: respDec)
       self.environment = environment
       let urlTransport = HTTP.URLSessionTransport(configuration: configuration)
       self.executor = HTTP.RequestExecutor(
@@ -52,6 +80,81 @@ extension HTTP {
       transport: any HTTP.Transport
     ) {
       self.json = json
+      let reqEnc: any JSONDataEncoding = _EncoderBox(base: json.requestEncoder)
+      let respDec: any JSONDataDecoding = _DecoderBox(base: json.responseDecoder)
+      self.jsonCoding = (requestEncoder: reqEnc, responseDecoder: respDec)
+      self.environment = environment
+      self.executor = HTTP.RequestExecutor(environment: environment, transport: transport)
+      if let urlTransport = transport as? HTTP.URLSessionTransport {
+        self.session = urlTransport.session
+      } else {
+        self.session = URLSession(configuration: .default)
+      }
+    }
+
+    /// Initializer using pluggable JSON coding protocols.
+    public init(
+      environment: any HTTP.Environment,
+      jsonCoding: (
+        requestEncoder: any JSONDataEncoding,
+        responseDecoder: any JSONDataDecoding
+      ),
+      configuration: URLSessionConfiguration = .default
+    ) {
+      // Bridge to legacy property with default JSONEncoder/Decoder for compatibility.
+      self.json = (JSONEncoder(), JSONDecoder())
+      self.jsonCoding = jsonCoding
+      self.environment = environment
+      let urlTransport = HTTP.URLSessionTransport(configuration: configuration)
+      self.executor = HTTP.RequestExecutor(
+        environment: environment,
+        transport: urlTransport
+      )
+      self.session = urlTransport.session
+    }
+
+    /// Convenience initializer with custom transport using pluggable JSON coding protocols.
+    public init(
+      environment: any HTTP.Environment,
+      jsonCoding: (
+        requestEncoder: any JSONDataEncoding,
+        responseDecoder: any JSONDataDecoding
+      ),
+      transport: any HTTP.Transport
+    ) {
+      self.json = (JSONEncoder(), JSONDecoder())
+      self.jsonCoding = jsonCoding
+      self.environment = environment
+      self.executor = HTTP.RequestExecutor(environment: environment, transport: transport)
+      if let urlTransport = transport as? HTTP.URLSessionTransport {
+        self.session = urlTransport.session
+      } else {
+        self.session = URLSession(configuration: .default)
+      }
+    }
+
+    /// Convenience initializer bridging a JSON.Parser (keeps parser network-agnostic).
+    public init(
+      environment: any HTTP.Environment,
+      parser: JSON.Parser,
+      configuration: URLSessionConfiguration = .default
+    ) {
+      self.json = (JSONEncoder(), JSONDecoder())
+      self.jsonCoding = (requestEncoder: parser.encoder, responseDecoder: parser.decoder)
+      self.environment = environment
+      let urlTransport = HTTP.URLSessionTransport(configuration: configuration)
+      self.executor = HTTP.RequestExecutor(environment: environment, transport: urlTransport)
+      self.session = urlTransport.session
+    }
+
+    /// Convenience initializer bridging a JSON.Parser with a custom transport.
+    public init(
+      environment: any HTTP.Environment,
+      parser: JSON.Parser,
+      transport: any HTTP.Transport
+    ) {
+      self.json = (JSONEncoder(), JSONDecoder())
+      self.jsonCoding = (requestEncoder: parser.encoder, responseDecoder: parser.decoder)
       self.environment = environment
       self.executor = HTTP.RequestExecutor(environment: environment, transport: transport)
       if let urlTransport = transport as? HTTP.URLSessionTransport {
@@ -93,7 +196,7 @@ extension HTTP {
       let urlRequest: URLRequest = try await buildURLRequest(
         for: request,
         in: environment,
-        with: json.requestEncoder
+        with: jsonCoding.requestEncoder
       )
 
       let raw: HTTP.Response<Data> = try await executor.send(urlRequest)
@@ -103,7 +206,7 @@ extension HTTP {
         T.ResponseType.self,
         from: raw.value,
         in: environment,
-        decoder: json.responseDecoder
+        decoder: jsonCoding.responseDecoder
       )
       return .init(value: decoded, headers: raw.headers)
     }
@@ -112,7 +215,7 @@ extension HTTP {
       _ type: T.Type,
       from data: Data,
       in environment: HTTP.Environment,
-      decoder: JSONDecoder,
+      decoder: any JSONDataDecoding,
     ) async throws -> T {
       #if DEBUG
       do {
