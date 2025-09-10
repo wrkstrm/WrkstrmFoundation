@@ -56,12 +56,14 @@ public enum CLIAppVersionReader {
 private func _readPlist(at url: URL) throws -> [String: Any] {
   let data = try Data(contentsOf: url)
   var format = PropertyListSerialization.PropertyListFormat.xml
-  return try PropertyListSerialization.propertyList(from: data, options: [], format: &format) as? [String: Any] ?? [:]
+  return try PropertyListSerialization.propertyList(from: data, options: [], format: &format)
+    as? [String: Any] ?? [:]
 }
 
 private func _resourcesInfoPlistURL() -> URL? {
   guard let execURL = _executableURL() else { return nil }
-  let resources = execURL.deletingLastPathComponent().appendingPathComponent(execURL.lastPathComponent + ".resources", isDirectory: true)
+  let resources = execURL.deletingLastPathComponent().appendingPathComponent(
+    execURL.lastPathComponent + ".resources", isDirectory: true)
   let plist = resources.appendingPathComponent("Info.plist")
   return FileManager.default.fileExists(atPath: plist.path) ? plist : nil
 }
@@ -82,7 +84,10 @@ private func _executableURL() -> URL? {
   let fm = FileManager.default
   let arg0 = CommandLine.arguments.first ?? ""
   let u: URL
-  if arg0.hasPrefix("/") { u = URL(fileURLWithPath: arg0) }
-  else { u = URL(fileURLWithPath: fm.currentDirectoryPath).appendingPathComponent(arg0) }
+  if arg0.hasPrefix("/") {
+    u = URL(fileURLWithPath: arg0)
+  } else {
+    u = URL(fileURLWithPath: fm.currentDirectoryPath).appendingPathComponent(arg0)
+  }
   return u.resolvingSymlinksInPath()
 }
