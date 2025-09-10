@@ -85,6 +85,13 @@ applications with efficient, reliable, and reusable components. Each utility is 
 of use, adhering to best coding practices and ensuring seamless integration into various Swift
 projects.
 
+## 🏁 Flagship + Docs
+
+WrkstrmFoundation is one of our flagship libraries (alongside WrkstrmMain and WrkstrmLog). We
+exercise best practices in API design, documentation, and observability here. Explore the
+Documentation.docc catalog under `Sources/WrkstrmNetworking/Documentation.docc/` and
+`Sources/WrkstrmFoundation/Documentation.docc/` for guides and symbol topics.
+
 <!-- START_SECTION:status -->
 
 | Library                            | Build Status                                                                                                                                                                                                                  |

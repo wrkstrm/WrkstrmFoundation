@@ -22,6 +22,7 @@ extension HTTP {
     }
 
     public func send(_ request: URLRequest) async throws -> HTTP.Response<Data> {
+      let start = DispatchTime.now().uptimeNanoseconds
       let (data, response) = try await transport.execute(request)
 
       #if DEBUG
@@ -44,7 +45,23 @@ extension HTTP {
         )
       }
 
-      return .init(value: data, headers: response.headers)
+      let result: HTTP.Response<Data> = .init(value: data, headers: response.headers)
+
+      if let store = HTTP.NetworkEvents.store {
+        let ns = Int64(DispatchTime.now().uptimeNanoseconds &- start)
+        let evt = HTTP.NetworkEvent(
+          method: request.httpMethod ?? "GET",
+          url: request.url?.absoluteString ?? "",
+          host: request.url?.host,
+          statusCode: response.statusCode,
+          durationNs: ns,
+          requestBytes: request.httpBody?.count,
+          responseBytes: data.count
+        )
+        Task { await store.append(evt) }
+      }
+
+      return result
     }
   }
 }
