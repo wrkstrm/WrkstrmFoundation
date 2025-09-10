@@ -1,6 +1,6 @@
 @Metadata {
-  @Title("JSON Defaults Overview")
-  @PageKind(article)
+@Title("JSON Defaults Overview")
+@PageKind(article)
 }
 
 WrkstrmFoundation supplies Foundation‑backed JSON defaults that complement the portable contracts in WrkstrmMain.
@@ -28,4 +28,3 @@ import WrkstrmFoundation
 
 let parser = JSON.Parser.foundationDefault
 ```
-

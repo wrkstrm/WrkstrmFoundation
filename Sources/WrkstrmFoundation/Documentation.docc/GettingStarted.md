@@ -1,6 +1,6 @@
 @Metadata {
-  @Title("Getting Started with WrkstrmFoundation")
-  @PageKind(article)
+@Title("Getting Started with WrkstrmFoundation")
+@PageKind(article)
 }
 
 WrkstrmFoundation provides Foundation‑coupled defaults that complement WrkstrmMain’s portable contracts.
@@ -40,4 +40,3 @@ import WrkstrmFoundation
 let parser = JSON.Parser.foundationDefault
 let client = HTTP.CodableClient(environment: .init(host: "api.example.com"), parser: parser)
 ```
-

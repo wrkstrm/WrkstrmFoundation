@@ -1,6 +1,6 @@
 @Metadata {
-  @Title("WrkstrmNetworking Overview")
-  @PageKind(article)
+@Title("WrkstrmNetworking Overview")
+@PageKind(article)
 }
 
 WrkstrmNetworking provides lightweight HTTP and WebSocket utilities built on URLSession.
@@ -8,7 +8,7 @@ It emphasizes pluggable transports, clear request building, and pragmatic JSON c
 
 ## Features
 
-- HTTP/WS transports via a simple ``HTTP/Transport`` protocol
+- HTTP/WS transports via a simple `HTTP/Transport` protocol
 - Request builders and environment helpers
 - JSON clients with pluggable encoders/decoders (see WrkstrmMain contracts)
 - WebSockets with a typed JSON adapter
@@ -131,8 +131,8 @@ Task {
 
 ## Header Merging Tips
 
-- Set default headers on your ``HTTP/Environment`` (e.g., auth, content types).
-- Override or add per‑request headers via ``HTTP/Request/Options``; per‑request values win.
+- Set default headers on your `HTTP/Environment` (e.g., auth, content types).
+- Override or add per‑request headers via `HTTP/Request/Options`; per‑request values win.
 
 ```swift
 struct Env: HTTP.Environment {
@@ -157,7 +157,7 @@ struct CSVExport: HTTP.Request.Routable {
 
 ## Error Handling Patterns
 
-Most APIs throw ``HTTP/ClientError`` variants. Pattern‑match to present helpful messages and take corrective action.
+Most APIs throw `HTTP/ClientError` variants. Pattern‑match to present helpful messages and take corrective action.
 
 ```swift
 do {

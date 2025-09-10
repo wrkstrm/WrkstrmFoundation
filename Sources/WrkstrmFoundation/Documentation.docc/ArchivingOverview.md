@@ -1,6 +1,6 @@
 @Metadata {
-  @Title("Archiving Overview")
-  @PageKind(article)
+@Title("Archiving Overview")
+@PageKind(article)
 }
 
 Persist Codable models using `CodableArchiver`.
@@ -20,4 +20,3 @@ let loaded: Preferences? = archive.get("prefs")
 ```
 
 `CodableArchiver` chooses a file path by key and handles Data round‑trips for you.
-

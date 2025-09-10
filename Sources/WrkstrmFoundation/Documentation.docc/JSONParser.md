@@ -88,4 +88,3 @@ let svc2 = Tradier.CodableService(client: client) // in tests/debug
 ## Can More Types Move Into WrkstrmMain?
 
 Currently, the protocol types already live in WrkstrmMain. The `JSON.Parser` implementation depends on Foundation types (`Data`) and default encoder/decoder presets supplied by WrkstrmFoundation, so it remains in WrkstrmFoundation. If we split out only the bare struct (without presets) and accept that WrkstrmMain depends on Foundation, the core could be moved later — but the present layout keeps concerns tidy: defaults and Foundation helpers together in WrkstrmFoundation.
-

@@ -1,6 +1,6 @@
 @Metadata {
-  @Title("WrkstrmNetworking")
-  @PageKind(article)
+@Title("WrkstrmNetworking")
+@PageKind(article)
 }
 
 WrkstrmNetworking offers lightweight HTTP and WebSocket utilities built atop URLSession, with pluggable transports and JSON coding options.
@@ -8,6 +8,7 @@ WrkstrmNetworking offers lightweight HTTP and WebSocket utilities built atop URL
 ## Topics
 
 ### Guides
+
 - <doc:NetworkingOverview>
 - <doc:CustomTransport>
 - <doc:PluggableJSONCoding>

@@ -41,7 +41,7 @@ struct TickerStream: HTTP.Request.WebSocket {
 
 ## Connect and Consume
 
-```swift
+````swift
 let env: any HTTP.Environment = …
 let session = URLSession(configuration: .default)
 let route = TickerStream(symbols: ["AAPL","MSFT"]) // path + options
@@ -81,7 +81,7 @@ await socket.close(code: .normalClosure, reason: nil)
 
 If you need a URL directly:
 
-```
+````
 
 let url1 = try HTTP.WSURLBuilder.url(in: env, path: "ws/tickers")
 let url2 = try HTTP.WSURLBuilder.url(in: env, route: route)
@@ -110,8 +110,11 @@ receive the `(socket, stream)` tuple:
 struct Hello: Encodable, Sendable { let hello: String }
 let payload = try JSONEncoder.commonDateFormatting.encode(Hello(hello: "world"))
 if let s = String(data: payload, encoding: .utf8) {
-  try await socket.send(.text(s))
+try await socket.send(.text(s))
 } else {
-  try await socket.send(.binary(payload))
+try await socket.send(.binary(payload))
 }
+
+```
+
 ```

@@ -63,4 +63,3 @@ let urlRequest = try MyRequest().asURLRequest(
 
 - For `Content-Type: application/json`, body encoding uses the provided `JSONDataEncoding` implementation; other content types (form-encoded, raw `Data`, `String`) are unchanged.
 - Response decoding uses the provided `JSONDataDecoding` for typed `Decodable` bodies.
-
