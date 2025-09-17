@@ -28,7 +28,10 @@ Provide raw response `Data` and an `HTTPURLResponse`. The executor manages succe
 let env: any HTTP.Environment = ...
 let client = HTTP.CodableClient(
   environment: env,
-  json: (.snakecase, .snakecase) // (encoder, decoder)
+  json: (
+    JSONEncoder.commonDateFormatting,
+    JSONDecoder.commonDateParsing
+  ) // (encoder, decoder)
 )
 ```
 
@@ -43,7 +46,10 @@ config.protocolClasses = [MockURLProtocol.self]
 
 let client = HTTP.JSONClient(
   environment: env,
-  json: (.snakecase, .snakecase),
+  json: (
+    JSONEncoder.commonDateFormatting,
+    JSONDecoder.commonDateParsing
+  ),
   configuration: config
 )
 ```
@@ -69,13 +75,19 @@ struct RecordingTransport: HTTP.Transport {
 let transport = RecordingTransport()
 let jsonClient = HTTP.JSONClient(
   environment: env,
-  json: (.snakecase, .snakecase),
+  json: (
+    JSONEncoder.commonDateFormatting,
+    JSONDecoder.commonDateParsing
+  ),
   transport: transport
 )
 
 let codableClient = HTTP.CodableClient(
   environment: env,
-  json: (.snakecase, .snakecase),
+  json: (
+    JSONEncoder.commonDateFormatting,
+    JSONDecoder.commonDateParsing
+  ),
   transport: transport
 )
 ```

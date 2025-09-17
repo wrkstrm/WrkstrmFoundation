@@ -28,8 +28,10 @@ public struct CodableArchiver<T: Codable> {
   /// - Parameters:
   ///   - key: A unique key to identify the archive.
   ///   - directory: The directory where the archive will be stored.
-  ///   - encoder: A custom `JSONEncoder` for encoding objects. Defaults to `.default`.
-  ///   - decoder: A custom `JSONDecoder` for decoding objects. Defaults to `.default`.
+  ///   - encoder: A custom `JSONEncoder` for encoding objects. Defaults to
+  ///     ``JSONEncoder/commonDateFormatting``.
+  ///   - decoder: A custom `JSONDecoder` for decoding objects. Defaults to
+  ///     ``JSONDecoder/commonDateParsing``.
   ///   - searchPathDomainMask: The domain mask to use when searching for the directory.
   /// - Throws: `ArchiverError.directoryNotFound` if the directory cannot be located.
   public enum ArchiverError: Error {
@@ -39,8 +41,8 @@ public struct CodableArchiver<T: Codable> {
   public init(
     key: AnyHashable,
     directory: FileManager.SearchPathDirectory,
-    encoder: JSONEncoder = .default,
-    decoder: JSONDecoder = .default,
+    encoder: JSONEncoder = .commonDateFormatting,
+    decoder: JSONDecoder = .commonDateParsing,
     searchPathDomainMask: FileManager.SearchPathDomainMask = [.allDomainsMask],
   ) throws {
     self.encoder = encoder
@@ -58,12 +60,14 @@ public struct CodableArchiver<T: Codable> {
   ///
   /// - Parameters:
   ///   - directory: The URL of the directory where the archive will be stored.
-  ///   - encoder: A custom `JSONEncoder` for encoding objects. Defaults to `.default`.
-  ///   - decoder: A custom `JSONDecoder` for decoding objects. Defaults to `.default`.
+  ///   - encoder: A custom `JSONEncoder` for encoding objects. Defaults to
+  ///     ``JSONEncoder/commonDateFormatting``.
+  ///   - decoder: A custom `JSONDecoder` for decoding objects. Defaults to
+  ///     ``JSONDecoder/commonDateParsing``.
   public init(
     directory: URL,
-    encoder: JSONEncoder = .default,
-    decoder: JSONDecoder = .default,
+    encoder: JSONEncoder = .commonDateFormatting,
+    decoder: JSONDecoder = .commonDateParsing,
   ) {
     self.encoder = encoder
     self.decoder = decoder

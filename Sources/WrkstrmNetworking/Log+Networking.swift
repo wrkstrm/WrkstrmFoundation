@@ -20,9 +20,9 @@ extension Log {
   ///
   /// - NOTE: This logger will not truncate JSON payloads printed to the command line.
   ///
-  /// This logger uses the "wrkstrm-networking" system, targeting the "json" category,
-  /// and applies the `.print` style for straightforward output—useful for debugging
-  /// or inspecting JSON payloads in network operations.
+  /// This logger uses the "wrkstrm-networking" system, targets the "json" category,
+  /// and pins the `PrintLogBackend` so JSON payloads stream directly to stdout—useful for
+  /// debugging or inspecting network traffic in development environments.
   ///
   /// Usage:
   /// ```swift
@@ -31,7 +31,7 @@ extension Log {
   public static let jsonPrint = Log(
     system: "wrkstrm-networking",
     category: "json",
-    style: .print,
-    maxExposureLevel: .trace
+    maxExposureLevel: .trace,
+    backend: PrintLogBackend()
   )
 }

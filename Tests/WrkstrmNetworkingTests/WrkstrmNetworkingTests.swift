@@ -21,7 +21,7 @@ struct WrkstrmNetworkingTests {
   func urlRequestEncoding() throws {
     let env = MockEnvironment()
     let request = SampleRequest()
-    let urlRequest = try request.asURLRequest(with: env, encoder: .snakecase)
+    let urlRequest = try request.asURLRequest(with: env, encoder: .commonDateFormatting)
 
     #expect(urlRequest.httpMethod == "POST")
     #expect(
@@ -40,7 +40,7 @@ struct WrkstrmNetworkingTests {
   func urlRequestEncodingPut() throws {
     let env = MockEnvironment()
     let request = SamplePutRequest()
-    let urlRequest = try request.asURLRequest(with: env, encoder: .snakecase)
+    let urlRequest = try request.asURLRequest(with: env, encoder: .commonDateFormatting)
 
     #expect(urlRequest.httpMethod == "PUT")
     #expect(
@@ -60,7 +60,7 @@ struct WrkstrmNetworkingTests {
     let env = MockEnvironment()
     var request = SampleRequest()
     request.options = .init(timeout: 10, headers: ["X-Test": "1"])
-    let urlRequest = try request.asURLRequest(with: env, encoder: .snakecase)
+    let urlRequest = try request.asURLRequest(with: env, encoder: .commonDateFormatting)
 
     #expect(urlRequest.url?.absoluteString == "https://example.com/v1/users")
   }
@@ -68,7 +68,7 @@ struct WrkstrmNetworkingTests {
   @Test
   func queryItemsAreSortedByKey() throws {
     let env = MockEnvironment()
-    let urlRequest = try UnsortedQueryRequest().asURLRequest(with: env, encoder: .snakecase)
+    let urlRequest = try UnsortedQueryRequest().asURLRequest(with: env, encoder: .commonDateFormatting)
     #expect(
       urlRequest.url?.absoluteString
         == "https://example.com/v1/users?a=2&b=1&c=3"
@@ -92,7 +92,7 @@ struct WrkstrmNetworkingTests {
       var options: HTTP.Request.Options = .init()
     }
 
-    let urlRequest = try LeadingSlashRequest().asURLRequest(with: env, encoder: .snakecase)
+    let urlRequest = try LeadingSlashRequest().asURLRequest(with: env, encoder: .commonDateFormatting)
     let urlString = urlRequest.url?.absoluteString ?? ""
     #expect(urlString == "https://example.com/v1/users")
     #expect(!urlString.contains("example.com//"))
@@ -108,7 +108,10 @@ struct WrkstrmNetworkingTests {
     let env = MockEnvironment()
     let client = HTTP.JSONClient(
       environment: env,
-      json: (.snakecase, .snakecase),
+      json: (
+        requestEncoder: .commonDateFormatting,
+        responseDecoder: .commonDateParsing
+      ),
       configuration: configuration
     )
 

@@ -17,7 +17,8 @@ Policy (effective immediately)
 
 Migration notes
 
-- Replace `JSONDecoder.snakecase` / `JSONEncoder.snakecase` with `commonDateParsing` / `commonDateFormatting`.
+- The former `JSONDecoder.snakecase` / `JSONEncoder.snakecase` helpers have been removed; prefer
+  `commonDateParsing` / `commonDateFormatting` alongside explicit `CodingKeys`.
 - Add `enum CodingKeys: String, CodingKey` where wire keys are snake_case.
 - Add round‑trip tests for representative requests/responses to lock the keying contract.
 

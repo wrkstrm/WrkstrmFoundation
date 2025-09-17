@@ -170,9 +170,10 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
         return stringBody.data(using: .utf8)
       } else {
         Log.error(
-          "Unsupported Content-Type \(contentType ?? "nil") for body type \(type(of: body)); omitting body."
-        )
-        return nil
+                  "Unsupported Content-Type \(contentType ?? "nil") for body type \(type(of: body)); defaulting to json body."
+                )
+        // When no explicit Content-Type is provided, default to JSON encoding.
+        return try encoder.encode(body)
       }
     }
   }
@@ -206,9 +207,9 @@ extension URLRequestConvertible where Self: HTTP.Request.Encodable {
       if let data = body as? Data { return data }
       if let stringBody = body as? String { return stringBody.data(using: .utf8) }
       Log.error(
-        "Unsupported Content-Type \(contentType ?? "nil") for body type \(type(of: body)); omitting body."
-      )
-      return nil
+                "Unsupported Content-Type \(contentType ?? "nil") for body type \(type(of: body)); defaulting to json body."
+              )
+      return try encoder.encode(body)
     }
   }
 }

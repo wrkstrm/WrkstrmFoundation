@@ -15,18 +15,6 @@ extension JSONDecoder {
   @available(*, deprecated, message: "Use JSONDecoder.commonDateParsing for shared date parsing")
   public static let `default`: JSONDecoder = commonDateParsing
 
-  /// snake_case keys, same robust date parsing.
-  @available(
-    *, deprecated,
-    message:
-      "Prefer explicit CodingKeys with JSONDecoder.commonDateParsing; avoid automatic key conversion."
-  )
-  public static let snakecase: JSONDecoder = {
-    let decoder = JSONDecoder()
-    decoder.keyDecodingStrategy = .convertFromSnakeCase
-    decoder.dateDecodingStrategy = .custom(Decoding.customDateDecoder)
-    return decoder
-  }()
 }
 
 // MARK: - JSONEncoder presets
@@ -45,18 +33,6 @@ extension JSONEncoder {
   )
   public static let `default`: JSONEncoder = commonDateFormatting
 
-  /// snake_case keys, ISO8601 (+fractional seconds) date strings.
-  @available(
-    *, deprecated,
-    message:
-      "Prefer explicit CodingKeys with JSONEncoder.commonDateFormatting; avoid automatic key conversion."
-  )
-  public static let snakecase: JSONEncoder = {
-    let encoder = JSONEncoder()
-    encoder.keyEncodingStrategy = .convertToSnakeCase
-    encoder.dateEncodingStrategy = .custom(Encoding.customDateEncoder)
-    return encoder
-  }()
 }
 
 // MARK: - Private Helpers

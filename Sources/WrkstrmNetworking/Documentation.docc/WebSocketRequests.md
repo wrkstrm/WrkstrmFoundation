@@ -50,8 +50,8 @@ let (socket, stream) = try wsExec.connectJSONWebSocket(
   route: route,
   environment: env,
   session: session,
-  decoder: .snakecase,
-  encoder: .snakecase // used for initialOutgoing if provided
+  decoder: JSONDecoder.commonDateParsing,
+  encoder: JSONEncoder.commonDateFormatting // used for initialOutgoing if provided
 )
 
 // Receive JSON frames as strongly typed values
@@ -66,7 +66,7 @@ Task {
 // Optional: send messages later
 struct Ping: Encodable, Sendable { let ping: String }
 let ping = Ping(ping: "keepalive")
-let data = try JSONEncoder.snakecase.encode(ping)
+let data = try JSONEncoder.commonDateFormatting.encode(ping)
 if let s = String(data: data, encoding: .utf8) {
   try await socket.send(.text(s))
 } else {

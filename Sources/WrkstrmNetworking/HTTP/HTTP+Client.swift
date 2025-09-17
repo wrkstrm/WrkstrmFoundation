@@ -16,13 +16,6 @@ extension HTTP {
     /// The environment to use for requests.
     var environment: HTTP.Environment { get }
 
-    /// Legacy Foundation JSON coders used for request/response coding.
-    /// Deprecated: prefer using protocol-based `jsonCoding` on concrete clients.
-    @available(
-      *, deprecated,
-      message: "Use protocol-based encoders/decoders via concrete client's `jsonCoding`."
-    )
-    var json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder) { get }
   }
 }
 
@@ -31,7 +24,7 @@ extension HTTP.Client {
   /// - Parameters:
   ///   - request: The codable HTTP request object.
   ///   - environment: The environment to use.
-  ///   - encoder: The body encoder. Defaults to .snakecase.
+  ///   - encoder: The body encoder. Defaults to `JSONEncoder/commonDateFormatting`.
   /// - Throws: Throws an encoding error if the body cannot be encoded.
   /// - Returns: A fully constructed URLRequest.
   public func buildURLRequest(

@@ -21,15 +21,6 @@ extension HTTP {
         try base.decode(T.self, from: data)
       }
     }
-    /// Legacy Foundation JSON coders (kept for backward compatibility).
-    /// Deprecated: prefer `jsonCoding` with protocol-based encoders/decoders.
-    @available(
-      *, deprecated,
-      message:
-        "Use `jsonCoding` with protocol-based encoders/decoders instead of Foundation tuples."
-    )
-    public var json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder)
-
     /// Pluggable JSON coding tuple allowing non‑Foundation encoders/decoders.
     public var jsonCoding:
       (
@@ -53,13 +44,12 @@ extension HTTP {
     /// - Parameters:
     ///   - environment: The environment configuration to use.
     ///   - headers: Default HTTP headers for requests.
-    ///   - decoder: The JSON decoder (default is .snakecase).
+    ///   - decoder: The JSON decoder (default is `JSONDecoder/commonDateParsing`).
     public init(
       environment: any HTTP.Environment,
       json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder),
       configuration: URLSessionConfiguration = .default
     ) {
-      self.json = json
       let reqEnc: any JSONDataEncoding = _EncoderBox(base: json.requestEncoder)
       let respDec: any JSONDataDecoding = _DecoderBox(base: json.responseDecoder)
       self.jsonCoding = (requestEncoder: reqEnc, responseDecoder: respDec)
@@ -79,7 +69,6 @@ extension HTTP {
       json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder),
       transport: any HTTP.Transport
     ) {
-      self.json = json
       let reqEnc: any JSONDataEncoding = _EncoderBox(base: json.requestEncoder)
       let respDec: any JSONDataDecoding = _DecoderBox(base: json.responseDecoder)
       self.jsonCoding = (requestEncoder: reqEnc, responseDecoder: respDec)
@@ -101,8 +90,6 @@ extension HTTP {
       ),
       configuration: URLSessionConfiguration = .default
     ) {
-      // Bridge to legacy property with default JSONEncoder/Decoder for compatibility.
-      self.json = (JSONEncoder(), JSONDecoder())
       self.jsonCoding = jsonCoding
       self.environment = environment
       let urlTransport = HTTP.URLSessionTransport(configuration: configuration)
@@ -122,7 +109,6 @@ extension HTTP {
       ),
       transport: any HTTP.Transport
     ) {
-      self.json = (JSONEncoder(), JSONDecoder())
       self.jsonCoding = jsonCoding
       self.environment = environment
       self.executor = HTTP.RequestExecutor(environment: environment, transport: transport)
@@ -139,7 +125,6 @@ extension HTTP {
       parser: JSON.Parser,
       configuration: URLSessionConfiguration = .default
     ) {
-      self.json = (JSONEncoder(), JSONDecoder())
       self.jsonCoding = (requestEncoder: parser.encoder, responseDecoder: parser.decoder)
       self.environment = environment
       let urlTransport = HTTP.URLSessionTransport(configuration: configuration)
@@ -153,7 +138,6 @@ extension HTTP {
       parser: JSON.Parser,
       transport: any HTTP.Transport
     ) {
-      self.json = (JSONEncoder(), JSONDecoder())
       self.jsonCoding = (requestEncoder: parser.encoder, responseDecoder: parser.decoder)
       self.environment = environment
       self.executor = HTTP.RequestExecutor(environment: environment, transport: transport)

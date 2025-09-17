@@ -69,13 +69,13 @@ let transport = RecordingTransport()
 
 let jsonClient = HTTP.JSONClient(
   environment: env,
-  json: (.snakecase, .snakecase),
+  json: (JSONEncoder.commonDateFormatting, JSONDecoder.commonDateParsing),
   transport: transport
 )
 
 let codableClient = HTTP.CodableClient(
   environment: env,
-  json: (.snakecase, .snakecase),
+  json: (JSONEncoder.commonDateFormatting, JSONDecoder.commonDateParsing),
   transport: transport
 )
 ```

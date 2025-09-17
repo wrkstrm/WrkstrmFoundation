@@ -8,13 +8,13 @@ WrkstrmNetworking now supports protocol-based JSON coding so you can inject non-
   - `HTTP.JSONDataEncoding` with `encode<T: Encodable>(_:) -> Data`
   - `HTTP.JSONDataDecoding` with `decode<T: Decodable>(_:from:) -> T`
   - Typealias `HTTP.JSONDataCoding = JSONDataEncoding & JSONDataDecoding`
-- `HTTP.CodableClient` gains `jsonCoding` init and property; the legacy `json` tuple is deprecated.
+- `HTTP.CodableClient` exposes `jsonCoding` init/property; tuple-based initializers remain for compatibility but no longer surface a `json` property.
 - `URLRequestConvertible.asURLRequest` and `HTTP.Client.buildURLRequest` have overloads that accept `any HTTP.JSONDataEncoding` for body encoding.
 
 ## Why
 
 - Swap in alternative JSON engines, record/replay test coders, or wrap Foundation coders with logging — without forking the client.
-- Keep existing code working: the legacy `(JSONEncoder, JSONDecoder)` path remains, just marked deprecated for migration.
+- Keep existing code working: tuple-based initializers still exist and bridge into the new protocol storage automatically.
 
 ## Minimal Example
 
@@ -56,7 +56,7 @@ let urlRequest = try MyRequest().asURLRequest(
 ## Migration Notes
 
 - Prefer `jsonCoding` on `HTTP.CodableClient` for new services.
-- The `json` Foundation tuple remains available for compatibility, but is marked `@available(*, deprecated, …)`.
+- The former `json` Foundation tuple property has been removed; instead, tuple-based initializers transparently bridge into `jsonCoding`.
 - No behavior changes unless you opt into protocol-based coders.
 
 ## Behavior and Content-Type
