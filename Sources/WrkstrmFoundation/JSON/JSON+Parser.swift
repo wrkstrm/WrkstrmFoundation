@@ -1,5 +1,6 @@
 import Foundation
 import WrkstrmMain
+
 /// Parser type for the `JSON` namespace.
 ///
 /// This small wrapper holds protocol-based encoder/decoder instances and

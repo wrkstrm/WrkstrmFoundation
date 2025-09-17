@@ -29,7 +29,6 @@ let package = Package(
   products: [
     .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"]),
     .library(name: "WrkstrmNetworking", targets: ["WrkstrmNetworking"]),
-    .library(name: "WrkstrmEnvironment", targets: ["WrkstrmEnvironment"]),
   ],
   dependencies: Package.Inject.shared.dependencies,
   targets: [
@@ -39,18 +38,13 @@ let package = Package(
       swiftSettings: Package.Inject.shared.swiftSettings,
     ),
     .target(
-      name: "WrkstrmEnvironment",
-      dependencies: ["WrkstrmFoundation", "WrkstrmLog", "WrkstrmMain"],
-      swiftSettings: Package.Inject.shared.swiftSettings
-    ),
-    .target(
       name: "WrkstrmNetworking",
       dependencies: ["WrkstrmFoundation", "WrkstrmLog", "WrkstrmMain"],
       swiftSettings: Package.Inject.shared.swiftSettings,
     ),
     .testTarget(
       name: "WrkstrmFoundationTests",
-      dependencies: ["WrkstrmFoundation", "WrkstrmEnvironment"],
+      dependencies: ["WrkstrmFoundation"],
       swiftSettings: Package.Inject.shared.swiftSettings,
     ),
     .testTarget(
