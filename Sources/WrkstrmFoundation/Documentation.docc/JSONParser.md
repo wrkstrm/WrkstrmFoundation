@@ -11,7 +11,6 @@
 - Ships a convenience preset: `JSON.Parser.foundationDefault`.
 - Stays network-agnostic. Bridging into `HTTP.CodableClient` is provided on the HTTP side.
 
-
 ## JSONDataEncoding / JSONDataDecoding
 
 Protocols for pluggable JSON encoding/decoding. Higher layers (e.g., WrkstrmFoundation) can supply
