@@ -40,6 +40,16 @@ extension HTTP {
     /// Manages rate limiting based on server-provided headers.
     private let rateLimiter = HTTP.RateLimiter()
 
+    public static func jsonDefaultCoding() -> (
+      requestEncoder: JSONEncoder, responseDecoder: JSONDecoder
+    ) {
+      var encoder = JSONEncoder.commonDateFormatting
+      encoder.keyEncodingStrategy = .convertToSnakeCase
+      var decoder = JSONDecoder.commonDateParsing
+      decoder.keyDecodingStrategy = .convertFromSnakeCase
+      return (encoder, decoder)
+    }
+
     /// Initializes a new JSONClient.
     /// - Parameters:
     ///   - environment: The environment configuration to use.
@@ -47,7 +57,8 @@ extension HTTP {
     ///   - decoder: The JSON decoder (default is `JSONDecoder/commonDateParsing`).
     public init(
       environment: any HTTP.Environment,
-      json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder),
+      json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder) = HTTP.CodableClient
+        .jsonDefaultCoding(),
       configuration: URLSessionConfiguration = .default
     ) {
       let reqEnc: any JSONDataEncoding = _EncoderBox(base: json.requestEncoder)
@@ -66,7 +77,8 @@ extension HTTP {
     /// Convenience initializer allowing a custom transport implementation.
     public init(
       environment: any HTTP.Environment,
-      json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder),
+      json: (requestEncoder: JSONEncoder, responseDecoder: JSONDecoder) = HTTP.CodableClient
+        .jsonDefaultCoding(),
       transport: any HTTP.Transport
     ) {
       let reqEnc: any JSONDataEncoding = _EncoderBox(base: json.requestEncoder)

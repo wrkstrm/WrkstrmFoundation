@@ -68,7 +68,8 @@ struct WrkstrmNetworkingTests {
   @Test
   func queryItemsAreSortedByKey() throws {
     let env = MockEnvironment()
-    let urlRequest = try UnsortedQueryRequest().asURLRequest(with: env, encoder: .commonDateFormatting)
+    let urlRequest = try UnsortedQueryRequest().asURLRequest(
+      with: env, encoder: .commonDateFormatting)
     #expect(
       urlRequest.url?.absoluteString
         == "https://example.com/v1/users?a=2&b=1&c=3"
@@ -92,7 +93,8 @@ struct WrkstrmNetworkingTests {
       var options: HTTP.Request.Options = .init()
     }
 
-    let urlRequest = try LeadingSlashRequest().asURLRequest(with: env, encoder: .commonDateFormatting)
+    let urlRequest = try LeadingSlashRequest().asURLRequest(
+      with: env, encoder: .commonDateFormatting)
     let urlString = urlRequest.url?.absoluteString ?? ""
     #expect(urlString == "https://example.com/v1/users")
     #expect(!urlString.contains("example.com//"))
