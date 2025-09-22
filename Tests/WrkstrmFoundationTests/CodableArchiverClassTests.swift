@@ -32,7 +32,8 @@ struct CodableArchiverClassTests {
     let path = archiver.filePathForKey(archiver.key)
     let archivedData = try Data(contentsOf: URL(fileURLWithPath: path))
     guard
-      let archived = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: archivedData)
+      let archived = try? NSKeyedUnarchiver.unarchivedObject(
+        ofClass: NSArray.self, from: archivedData)
         as? [NSData]
     else {
       #expect(Bool(false))
@@ -73,14 +74,16 @@ struct CodableArchiverClassTests {
     let path = archiver.filePathForKey(archiver.key)
     let archivedData = try Data(contentsOf: URL(fileURLWithPath: path))
     guard
-      let archived = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: archivedData)
+      let archived = try? NSKeyedUnarchiver.unarchivedObject(
+        ofClass: NSArray.self, from: archivedData)
         as? [NSData]
     else {
       #expect(Bool(false))
       return
     }
     let decoded = archived.compactMap { data in
-      try? archiver.decoder.decode(TestCodableClass<TestCodableStruct<String>>.self, from: data as Data)
+      try? archiver.decoder.decode(
+        TestCodableClass<TestCodableStruct<String>>.self, from: data as Data)
     }
     #expect(decoded == values)
     try? archiver.clear()

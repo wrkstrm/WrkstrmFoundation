@@ -97,7 +97,9 @@ public struct CodableArchiver<T: Codable> {
       return nil
     }
 
-    guard let payload = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSData.self, from: archived) else {
+    guard
+      let payload = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSData.self, from: archived)
+    else {
       return nil
     }
 
@@ -126,10 +128,12 @@ public struct CodableArchiver<T: Codable> {
       attributes: nil,
     )
 
-    guard let archived = try? NSKeyedArchiver.archivedData(
-      withRootObject: data as NSData,
-      requiringSecureCoding: true
-    ) else {
+    guard
+      let archived = try? NSKeyedArchiver.archivedData(
+        withRootObject: data as NSData,
+        requiringSecureCoding: true
+      )
+    else {
       return false
     }
 

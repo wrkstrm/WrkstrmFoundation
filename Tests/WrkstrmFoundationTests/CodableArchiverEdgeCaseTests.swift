@@ -29,7 +29,8 @@ struct CodableArchiverEdgeCaseTests {
     let path = archiver.filePathForKey(archiver.key)
     let archivedData = try Data(contentsOf: URL(fileURLWithPath: path))
     guard
-      let archived = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: archivedData)
+      let archived = try? NSKeyedUnarchiver.unarchivedObject(
+        ofClass: NSArray.self, from: archivedData)
         as? [NSData]
     else {
       #expect(Bool(false))
