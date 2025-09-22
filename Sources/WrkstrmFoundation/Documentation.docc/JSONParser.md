@@ -6,8 +6,8 @@
 
 - Lives under the `JSON` namespace (WrkstrmMain) and is implemented in WrkstrmFoundation.
 - Holds protocol-based coder values:
-  - `encoder: any JSONDataEncoding`
-  - `decoder: any JSONDataDecoding`
+  - `JSONDataEncoding` encoder
+  - `JSONDataDecoding` decoder
 - Ships a convenience preset: `JSON.Parser.foundationDefault`.
 - Stays network-agnostic. Bridging into `HTTP.CodableClient` is provided on the HTTP side.
 
@@ -38,15 +38,14 @@ let parser = JSON.Parser(encoder: EncoderBox(base: .init()), decoder: DecoderBox
 
 ## Protocols
 
-- `JSONDataEncoding` and `JSONDataDecoding`
-  - `encode<T: Encodable>(_:) -> Data`
-  - `decode<T: Decodable>(_:from:) -> T`
+- `JSONDataEncoding`
+- `JSONDataDecoding`
 - Purpose: allow non‑Foundation JSON coders or wrappers (e.g., logging, metrics, recording) to plug in.
 
 ## Foundation Defaults (WrkstrmFoundation)
 
-- `JSONEncoder: JSONDataEncoding`
-- `JSONDecoder: JSONDataDecoding`
+- `JSONEncoder` (WrkstrmFoundation default implementation of `JSONDataEncoding`)
+- `JSONDecoder` (WrkstrmFoundation default implementation of `JSONDataDecoding`)
 - Presets: `JSONEncoder.commonDateFormatting`, `JSONDecoder.commonDateParsing`
 
 ## Create a Parser
@@ -78,15 +77,7 @@ let custom = JSON.Parser(encoder: LoggingEncoder(), decoder: LoggingDecoder())
 
 ## Bridge to HTTP
 
-`JSON.Parser` is network-agnostic. When you need an HTTP client that uses your parser:
-
-```swift
-import WrkstrmNetworking
-
-let client = HTTP.CodableClient(environment: MyEnvironment(), parser: parser)
-```
-
-This keeps parsing concerns on your domain/service, and the HTTP layer handles transport.
+`JSON.Parser` is network-agnostic. WrkstrmNetworking exposes bridging initializers (for example, `HTTP.CodableClient(environment:parser:)`) that accept a parser while leaving transport concerns to the HTTP layer.
 
 ## Use in Services
 
@@ -108,7 +99,7 @@ let svc2 = Tradier.CodableService(client: client) // in tests/debug
 - WrkstrmFoundation
   - Default Foundation conformances + `JSON.Parser` and presets
 - WrkstrmNetworking
-  - `HTTP.CodableClient` bridging initializers (`parser:`), request/response pipeline
+  - HTTP bridging helpers (see `HTTP.CodableClient(environment:parser:)`)
 
 ## Can More Types Move Into WrkstrmMain?
 

@@ -1,7 +1,4 @@
-@Metadata {
-@Title("WrkstrmNetworking Overview")
-@PageKind(article)
-}
+# WrkstrmNetworking Overview
 
 WrkstrmNetworking provides lightweight HTTP and WebSocket utilities built on URLSession.
 It emphasizes pluggable transports, clear request building, and pragmatic JSON coding options.
@@ -217,13 +214,13 @@ await limiter.update(from: raw.headers)
 
 WrkstrmNetworking's rate limiter looks for the following response headers:
 
-- `X-Ratelimit-Allowed` — Int
+- ``X-Ratelimit-Allowed`` — Int
   - The maximum number of requests allowed in the current window.
-- `X-Ratelimit-Available` — Int (preferred)
+- ``X-Ratelimit-Available`` — Int (preferred)
   - The remaining number of requests for the current window.
-- `X-Ratelimit-Used` — Int (fallback)
+- ``X-Ratelimit-Used`` — Int (fallback)
   - If `X-Ratelimit-Available` is missing, remaining is computed as `Allowed - Used`.
-- `X-Ratelimit-Expiry` — Int (milliseconds since epoch)
+- ``X-Ratelimit-Expiry`` — Int (milliseconds since epoch)
   - Timestamp when the rate limit window resets. The limiter waits until this time when remaining is 0.
 
 If a provider uses different header names, adapt by mapping them into these keys before calling

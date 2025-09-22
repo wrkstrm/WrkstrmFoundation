@@ -1,7 +1,4 @@
-@Metadata {
-@Title("JSON Defaults Overview")
-@PageKind(article)
-}
+# JSON Defaults Overview
 
 WrkstrmFoundation supplies Foundation‑backed JSON defaults that complement the portable contracts in WrkstrmMain.
 

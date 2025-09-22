@@ -5,11 +5,11 @@ WrkstrmNetworking now supports protocol-based JSON coding so you can inject non-
 ## TL;DR
 
 - New protocols:
-  - `HTTP.JSONDataEncoding` with `encode<T: Encodable>(_:) -> Data`
-  - `HTTP.JSONDataDecoding` with `decode<T: Decodable>(_:from:) -> T`
+  - ``HTTP.JSONDataEncoding`` with `encode<T: Encodable>(_:) -> Data`
+  - ``HTTP.JSONDataDecoding`` with `decode<T: Decodable>(_:from:) -> T`
   - Typealias `HTTP.JSONDataCoding = JSONDataEncoding & JSONDataDecoding`
-- `HTTP.CodableClient` exposes `jsonCoding` init/property; tuple-based initializers remain for compatibility but no longer surface a `json` property.
-- `URLRequestConvertible.asURLRequest` and `HTTP.Client.buildURLRequest` have overloads that accept `any HTTP.JSONDataEncoding` for body encoding.
+- ``HTTP.CodableClient`` exposes `jsonCoding` init/property; tuple-based initializers remain for compatibility but no longer surface a `json` property.
+- ``URLRequestConvertible.asURLRequest`` and `HTTP.Client.buildURLRequest` have overloads that accept `any HTTP.JSONDataEncoding` for body encoding.
 
 ## Why
 

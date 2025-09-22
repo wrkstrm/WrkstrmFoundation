@@ -1,7 +1,4 @@
-@Metadata {
-@Title("WrkstrmFoundation")
-@PageKind(article)
-}
+# WrkstrmFoundation
 
 WrkstrmFoundation provides Foundation‑coupled utilities and defaults (JSON encoder/decoder presets, archiving helpers), complementing the portable contracts in WrkstrmMain. It is a flagship library used to validate best practices.
 
@@ -20,8 +17,4 @@ WrkstrmFoundation provides Foundation‑coupled utilities and defaults (JSON enc
 
 ### Networking (see WrkstrmNetworking)
 
-- <doc:CustomTransport>
-- <doc:PluggableJSONCoding>
-- <doc:URLRequestCreation>
-- <doc:WebSockets>
-- <doc:WebSocketRequests>
+WrkstrmNetworkings documentation covers transport customization, JSON pipelines, and WebSocket helpers. Refer to `WrkstrmNetworking/Documentation.docc` for those guides.

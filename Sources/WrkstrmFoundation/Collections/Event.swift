@@ -57,7 +57,7 @@ extension Calendar {
 
     /// Alternative method to determine overlap using the interval computed property.
     /// - Parameters:
-    ///   - computed: The `Event` to compare with.
+    ///   - other: The `Event` to compare with.
     ///   - gap: An optional time gap to consider between events. Defaults to 0.
     /// - Returns: `true` if there is an overlap; otherwise, `false`.
     public func overlaps(computed other: Self, gap: Double = 0) -> Bool {
@@ -67,7 +67,7 @@ extension Calendar {
 
     /// Alternative method to determine overlap by manually checking start and end dates.
     /// - Parameters:
-    ///   - manually: The `Event` to compare with.
+    ///   - other: The `Event` to compare with.
     ///   - gap: An optional time gap to consider between events. Defaults to 0.
     /// - Returns: `true` if there is an overlap; otherwise, `false`.
     public func overlaps(manually other: Self, gap: Double = 0) -> Bool {

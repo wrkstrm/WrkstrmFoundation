@@ -29,9 +29,9 @@ public struct CodableArchiver<T: Codable> {
   ///   - key: A unique key to identify the archive.
   ///   - directory: The directory where the archive will be stored.
   ///   - encoder: A custom `JSONEncoder` for encoding objects. Defaults to
-  ///     ``JSONEncoder/commonDateFormatting``.
+  ///     `JSONEncoder.commonDateFormatting`.
   ///   - decoder: A custom `JSONDecoder` for decoding objects. Defaults to
-  ///     ``JSONDecoder/commonDateParsing``.
+  ///     `JSONDecoder.commonDateParsing`.
   ///   - searchPathDomainMask: The domain mask to use when searching for the directory.
   /// - Throws: `ArchiverError.directoryNotFound` if the directory cannot be located.
   public enum ArchiverError: Error {
@@ -61,9 +61,9 @@ public struct CodableArchiver<T: Codable> {
   /// - Parameters:
   ///   - directory: The URL of the directory where the archive will be stored.
   ///   - encoder: A custom `JSONEncoder` for encoding objects. Defaults to
-  ///     ``JSONEncoder/commonDateFormatting``.
+  ///     `JSONEncoder.commonDateFormatting`.
   ///   - decoder: A custom `JSONDecoder` for decoding objects. Defaults to
-  ///     ``JSONDecoder/commonDateParsing``.
+  ///     `JSONDecoder.commonDateParsing`.
   public init(
     directory: URL,
     encoder: JSONEncoder = .commonDateFormatting,
@@ -92,14 +92,16 @@ public struct CodableArchiver<T: Codable> {
   /// - Parameter key: The key for the object to retrieve. Defaults to the archiver's key.
   /// - Returns: An optional object of type `T`, if it exists and can be decoded.
   public func get(_ key: AnyHashable? = nil) -> T? {
-    guard
-      let data = NSKeyedUnarchiver.unarchiveObject(withFile: filePathForKey(key ?? self.key))
-        as? Data
-    else {
+    let path = filePathForKey(key ?? self.key)
+    guard let archived = fileManager.contents(atPath: path) else {
       return nil
     }
 
-    guard let decoded = try? decoder.decode(T.self, from: data) else {
+    guard let payload = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSData.self, from: archived) else {
+      return nil
+    }
+
+    guard let decoded = try? decoder.decode(T.self, from: payload as Data) else {
       return nil
     }
 
@@ -124,17 +126,20 @@ public struct CodableArchiver<T: Codable> {
       attributes: nil,
     )
 
-    guard
-      let archiveData = try? NSKeyedArchiver.archivedData(
-        withRootObject: data,
-        requiringSecureCoding: false
-      )
-    else {
+    guard let archived = try? NSKeyedArchiver.archivedData(
+      withRootObject: data as NSData,
+      requiringSecureCoding: true
+    ) else {
       return false
     }
 
     let path = filePathForKey(key ?? self.key)
-    return fileManager.createFile(atPath: path, contents: archiveData, attributes: nil)
+    do {
+      try archived.write(to: URL(fileURLWithPath: path), options: [.atomic])
+      return true
+    } catch {
+      return false
+    }
   }
 
   /// Encodes and archives an array of objects of type `T` associated with the given key.
@@ -145,7 +150,7 @@ public struct CodableArchiver<T: Codable> {
   /// - Returns: A `Bool` indicating success or failure.
   @discardableResult
   public func set(_ value: [T], forKey key: AnyHashable? = nil) -> Bool {
-    guard let encodedValues = try? value.map({ try encoder.encode($0) }) else {
+    guard let encodedValues = try? value.map({ try encoder.encode($0) as NSData }) else {
       return false
     }
 
@@ -157,15 +162,20 @@ public struct CodableArchiver<T: Codable> {
 
     guard
       let archiveData = try? NSKeyedArchiver.archivedData(
-        withRootObject: encodedValues,
-        requiringSecureCoding: false
+        withRootObject: encodedValues as NSArray,
+        requiringSecureCoding: true
       )
     else {
       return false
     }
 
     let path = filePathForKey(key ?? self.key)
-    return fileManager.createFile(atPath: path, contents: archiveData, attributes: nil)
+    do {
+      try archiveData.write(to: URL(fileURLWithPath: path), options: [.atomic])
+      return true
+    } catch {
+      return false
+    }
   }
 
   /// Clears the archive by removing all items in the directory.

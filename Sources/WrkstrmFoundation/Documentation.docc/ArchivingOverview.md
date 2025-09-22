@@ -1,7 +1,4 @@
-@Metadata {
-@Title("Archiving Overview")
-@PageKind(article)
-}
+# Archiving Overview
 
 Persist Codable models using `CodableArchiver`.
 

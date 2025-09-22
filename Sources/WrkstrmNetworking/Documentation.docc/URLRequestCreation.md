@@ -296,9 +296,9 @@ curl -X 'POST' \
 
 ## Reference
 
-- `URLComponents` — parses and serializes URLs and queries
-- `URLQueryItem` — type-safe query elements with automatic encoding
-- `URLRequest` — HTTP method, headers, and body
+- ``URLComponents`` — parses and serializes URLs and queries
+- ``URLQueryItem`` — type-safe query elements with automatic encoding
+- ``URLRequest`` — HTTP method, headers, and body
 - MIME type `application/x-www-form-urlencoded` — HTML forms and many REST endpoints
 
 @Links {

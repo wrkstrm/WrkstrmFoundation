@@ -27,12 +27,16 @@ struct CodableArchiverEdgeCaseTests {
     #expect(archiver.set(values))
 
     let path = archiver.filePathForKey(archiver.key)
-    guard let archived = NSKeyedUnarchiver.unarchiveObject(withFile: path) as? [Data] else {
+    let archivedData = try Data(contentsOf: URL(fileURLWithPath: path))
+    guard
+      let archived = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: archivedData)
+        as? [NSData]
+    else {
       #expect(Bool(false))
       return
     }
-    let decoded = archived.compactMap {
-      try? archiver.decoder.decode(TestCodableValue.self, from: $0)
+    let decoded = archived.compactMap { data in
+      try? archiver.decoder.decode(TestCodableValue.self, from: data as Data)
     }
     #expect(decoded.isEmpty)
     try? archiver.clear()

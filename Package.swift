@@ -30,7 +30,9 @@ let package = Package(
     .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"]),
     .library(name: "WrkstrmNetworking", targets: ["WrkstrmNetworking"]),
   ],
-  dependencies: Package.Inject.shared.dependencies,
+  dependencies: Package.Inject.shared.dependencies + [
+    .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.4.0")
+  ],
   targets: [
     .target(
       name: "WrkstrmFoundation",

@@ -1,7 +1,4 @@
-@Metadata {
-@Title("Getting Started with WrkstrmFoundation")
-@PageKind(article)
-}
+# Getting Started with WrkstrmFoundation
 
 WrkstrmFoundation provides Foundation‑coupled defaults that complement WrkstrmMain’s portable contracts.
 

@@ -64,8 +64,10 @@ extension NotificationCenter {
   ///
   /// - Parameters:
   ///   - transformer: A `Notification.Transformer` object defining the notification to observe.
-  ///   - queue: The operation queue where the block should be executed. Defaults to the main queue.
   ///   - block: The block to be executed when the notification is received.
+  ///
+  /// Observers registered with this overload execute on the main queue. Use the variant that
+  /// accepts an explicit `queue` when you need a custom delivery queue.
   /// - Returns: A `Notification.Token` which controls the lifecycle of the observer.
   @MainActor
   public func addObserver<A>(
@@ -79,6 +81,12 @@ extension NotificationCenter {
     return Notification.Token(token: token, center: self)
   }
 
+  /// Adds an observer for a transformer, delivering callbacks on the provided queue.
+  ///
+  /// - Parameters:
+  ///   - transformer: The notification specification to observe.
+  ///   - queue: The operation queue where the block executes. Pass `nil` to run on the posting queue.
+  ///   - block: The callback executed with the transformed payload.
   public func addObserver<A>(
     for transformer: Notification.Transformer<A>,
     queue: OperationQueue?,

@@ -50,13 +50,6 @@ extension DateFormatter {
     return f
   }()
 
-  public static let gitLog: DateFormatter = {
-    let f = DateFormatter()
-    f.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-    f.locale = Locale(identifier: "en_US_POSIX")
-    return f
-  }()
-
   public static let dateOnlyEncoder: DateFormatter = {
     let f = DateFormatter()
     f.dateFormat = "yyyyMMdd"
