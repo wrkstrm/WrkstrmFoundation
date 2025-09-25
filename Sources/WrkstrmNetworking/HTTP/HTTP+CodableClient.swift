@@ -43,10 +43,9 @@ extension HTTP {
     public static func jsonDefaultCoding() -> (
       requestEncoder: JSONEncoder, responseDecoder: JSONDecoder
     ) {
-      var encoder = JSONEncoder.commonDateFormatting
-      encoder.keyEncodingStrategy = .convertToSnakeCase
-      var decoder = JSONDecoder.commonDateParsing
-      decoder.keyDecodingStrategy = .convertFromSnakeCase
+      // Shared default: only date strategies; key mapping must be explicit via CodingKeys.
+      let encoder = JSONEncoder.commonDateFormatting
+      let decoder = JSONDecoder.commonDateParsing
       return (encoder, decoder)
     }
 

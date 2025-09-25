@@ -33,6 +33,21 @@ Lightweight networking utilities built on `URLSession` with cURL logging. The mo
 request and response types, a JSON client for automatic encoding/decoding, and a configurable rate
 limiter for outbound requests.
 
+#### Policy: no snake_case key strategies
+
+- Defaults do not use `.convertToSnakeCase` / `.convertFromSnakeCase`.
+- Map JSON keys explicitly with `CodingKeys` in your models.
+- Clients default to date-only strategies:
+  `JSONEncoder.commonDateFormatting` / `JSONDecoder.commonDateParsing`.
+  This makes wire contracts explicit and deterministic across platforms.
+
+#### Policy: typed query parameters
+
+- Do not hand-build raw `[URLQueryItem]` at call sites.
+- Use `HTTP.Request.Options.make { q in ... }` with `HTTP.QueryItems`.
+- Benefits: consistent Bool/number/enum formatting, correct nil handling, and stable URL canonicalization.
+- See: Sources/WrkstrmNetworking/Documentation.docc/QueryParameters.md
+
 #### Transports
 
 - Default backend: `URLSession` via `HTTP.URLSessionTransport`.
