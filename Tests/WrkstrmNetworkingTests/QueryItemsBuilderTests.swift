@@ -41,9 +41,8 @@ struct QueryItemsBuilderTests {
   func addJoinedSkipsEmptyArraysAndJoinsWithComma() {
     var q = HTTP.QueryItems()
     q.addJoined("symbols", values: [])
-    q.addJoined("ids", values: ["a", "b", "c"]) // default ","
+    q.addJoined("ids", values: ["a", "b", "c"])  // default ","
     #expect(!q.items.contains { $0.name == "symbols" })
     #expect(q.items.contains(URLQueryItem(name: "ids", value: "a,b,c")))
   }
 }
-

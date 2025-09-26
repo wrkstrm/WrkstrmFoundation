@@ -38,7 +38,8 @@ extension HTTP {
       items.append(.init(name: name, value: value ? "true" : "false"))
     }
 
-    public mutating func add<R: RawRepresentable>(_ name: String, value: R?) where R.RawValue == String {
+    public mutating func add<R: RawRepresentable>(_ name: String, value: R?)
+    where R.RawValue == String {
       guard let raw = value?.rawValue else { return }
       items.append(.init(name: name, value: raw))
     }
@@ -62,4 +63,3 @@ extension HTTP.Request.Options {
     return .init(timeout: timeout, queryItems: query.items, headers: headers)
   }
 }
-
