@@ -41,6 +41,14 @@ limiter for outbound requests.
   `JSONEncoder.commonDateFormatting` / `JSONDecoder.commonDateParsing`.
   This makes wire contracts explicit and deterministic across platforms.
 
+#### Policy: human-facing JSON on disk
+
+- Writers should prefer `prettyPrinted + sortedKeys + withoutEscapingSlashes` and atomic writes.
+- Use helpers from WrkstrmFoundation:
+  - `JSONFormatting.humanEncoder` for `Encodable` payloads.
+  - `JSONFormatting.humanOptions` for `JSONSerialization`.
+  - `JSONFileWriter.write(_:to:)` / `writeJSONObject(_:to:)` to persist.
+
 #### Policy: typed query parameters
 
 - Do not hand-build raw `[URLQueryItem]` at call sites.

@@ -1,0 +1,26 @@
+import Foundation
+import Testing
+@testable import WrkstrmFoundation
+
+@Suite struct JSONWriterTests {
+  struct Link: Codable, Equatable { var url: String }
+
+  @Test func humanEncoder_doesNotEscapeSlashes() throws {
+    let link = Link(url: "https://example.com/a/b")
+    let data = try JSONFormatting.humanEncoder.encode(link)
+    let s = String(decoding: data, as: UTF8.self)
+    #expect(s.contains("https://example.com/a/b"))
+    #expect(!s.contains("https:\\/\\/example.com"))
+  }
+
+  @Test func fileWriter_writesAtomicallyWithHumanOptions() throws {
+    let tmp = FileManager.default.temporaryDirectory.appendingPathComponent(
+      "json-writer-tests-\(UUID().uuidString)", isDirectory: true)
+    let url = tmp.appendingPathComponent("out.json")
+    try JSONFileWriter.writeJSONObject(["url": "https://example.com"], to: url)
+    let text = try String(contentsOf: url)
+    #expect(text.contains("https://example.com"))
+    #expect(!text.contains("https:\\/\\/example.com"))
+  }
+}
+
