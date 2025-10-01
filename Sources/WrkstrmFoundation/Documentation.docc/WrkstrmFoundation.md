@@ -8,6 +8,7 @@ WrkstrmFoundation provides Foundation‑coupled utilities and defaults (JSON enc
 
 - <doc:JSONParser>
 - <doc:AvoidSnakeCaseKeyStrategies>
+- <doc:NewlineDiscipline>
 
 ### Guides
 
