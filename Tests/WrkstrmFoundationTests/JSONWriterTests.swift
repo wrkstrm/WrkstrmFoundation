@@ -7,7 +7,7 @@ import WrkstrmMain
 @Suite struct JSONWriterTests {
   struct Link: Codable, Equatable { var url: String }
 
-  @Test func humanEncoder_doesNotEscapeSlashes() throws {
+  @Test func humanEncoderDoesNotEscapeSlashes() throws {
     let link = Link(url: "https://example.com/a/b")
     let data = try JSON.Formatting.humanEncoder.encode(link)
     let s = String(decoding: data, as: UTF8.self)
@@ -15,7 +15,7 @@ import WrkstrmMain
     #expect(!s.contains("https:\\/\\/example.com"))
   }
 
-  @Test func fileWriter_writesAtomicallyWithHumanOptions() throws {
+  @Test func fileWriterWritesAtomicallyWithHumanOptions() throws {
     let tmp = FileManager.default.temporaryDirectory.appendingPathComponent(
       "json-writer-tests-\(UUID().uuidString)",
       isDirectory: true
@@ -27,7 +27,7 @@ import WrkstrmMain
     #expect(!text.contains("https:\\/\\/example.com"))
   }
 
-  @Test func fileWriter_appendsSingleFinalNewline_JSONObject() throws {
+  @Test func fileWriterAppendsSingleFinalNewlineJSONObject() throws {
     let tmp = FileManager.default.temporaryDirectory.appendingPathComponent(
       "json-writer-tests-\(UUID().uuidString)",
       isDirectory: true
@@ -41,7 +41,7 @@ import WrkstrmMain
     if data.count >= 2 { #expect(data[data.count - 2] != UInt8(ascii: "\n")) }
   }
 
-  @Test func fileWriter_appendsSingleFinalNewline_Encodable() throws {
+  @Test func fileWriterAppendsSingleFinalNewlineEncodable() throws {
     let tmp = FileManager.default.temporaryDirectory.appendingPathComponent(
       "json-writer-tests-\(UUID().uuidString)",
       isDirectory: true

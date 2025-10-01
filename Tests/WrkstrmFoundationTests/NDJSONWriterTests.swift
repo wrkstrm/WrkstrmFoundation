@@ -10,7 +10,7 @@ import WrkstrmMain
     var when: Date
   }
 
-  @Test func encodeLine_isSingleLine_withTrailingNewline() throws {
+  @Test func encodeLineIsSingleLineWithTrailingNewline() throws {
     let e = Event(message: "hello", when: Date(timeIntervalSince1970: 1))
     let data = try JSON.NDJSON.encodeLine(e)
     #expect(!data.isEmpty)
@@ -21,7 +21,7 @@ import WrkstrmMain
     #expect(bytes.last == 0x0A)
   }
 
-  @Test func encodeLine_escapesEmbeddedNewlines() throws {
+  @Test func encodeLineEscapesEmbeddedNewlines() throws {
     let e = Event(message: "hello\nworld", when: Date(timeIntervalSince1970: 0))
     let data = try JSON.NDJSON.encodeLine(e)
     let s = String(decoding: data, as: UTF8.self)
@@ -32,7 +32,7 @@ import WrkstrmMain
     #expect(body.contains("\\n"))
   }
 
-  @Test func appendLine_appendsTwoRecords() throws {
+  @Test func appendLineAppendsTwoRecords() throws {
     let tmp = FileManager.default.temporaryDirectory.appendingPathComponent(
       "ndjson-writer-tests-\(UUID().uuidString)", isDirectory: true)
     let url = tmp.appendingPathComponent("out.ndjson")
@@ -50,14 +50,14 @@ import WrkstrmMain
     #expect(nonEmpty[1].contains("\"message\":\"b\""))
   }
 
-  @Test func encodeJSONObjectLine_slashesEscapedByDefault() throws {
+  @Test func encodeJSONObjectLineSlashesEscapedByDefault() throws {
     let obj: [String: Any] = ["url": "https://example.com/a/b"]
     let data = try JSON.NDJSON.encodeJSONObjectLine(obj)  // defaults: sortedKeys only
     let body = String(decoding: data.dropLast(), as: UTF8.self)
     #expect(body.contains("https:\\/\\/example.com\\/a\\/b"))
   }
 
-  @Test func encodeJSONObjectLine_withoutEscapingSlashes_option() throws {
+  @Test func encodeJSONObjectLineWithoutEscapingSlashesOption() throws {
     let obj: [String: Any] = ["url": "https://example.com/a/b"]
     let data = try JSON.NDJSON.encodeJSONObjectLine(
       obj,
@@ -68,7 +68,7 @@ import WrkstrmMain
     #expect(!body.contains("https:\\/\\/example.com"))
   }
 
-  @Test func encodeJSONObjectLine_sortedKeysDeterministic() throws {
+  @Test func encodeJSONObjectLineSortedKeysDeterministic() throws {
     let obj: [String: Any] = ["b": 2, "a": 1]
     let data = try JSON.NDJSON.encodeJSONObjectLine(obj, options: [.sortedKeys])
     let body = String(decoding: data.dropLast(), as: UTF8.self)
@@ -78,20 +78,20 @@ import WrkstrmMain
     #expect(ia != nil && ib != nil && ia! < ib!)
   }
 
-  @Test func encodeLine_dateFormatting_usesISO8601Millis() throws {
+  @Test func encodeLineDateFormattingUsesISO8601Millis() throws {
     let e = Event(message: "t", when: Date(timeIntervalSince1970: 0))
     let data = try JSON.NDJSON.encodeLine(e)
     let body = String(decoding: data.dropLast(), as: UTF8.self)
     #expect(body.contains("1970-01-01T00:00:00.000Z"))
   }
 
-  @Test func encodeLine_emptyObjectOutputsBracesPlusNewline() throws {
+  @Test func encodeLineEmptyObjectOutputsBracesPlusNewline() throws {
     struct E: Codable {}
     let data = try JSON.NDJSON.encodeLine(E())
     #expect(String(decoding: data, as: UTF8.self) == "{}\n")
   }
 
-  @Test func appendJSONObjectLine_createsFileAndEndsWithNewline() throws {
+  @Test func appendJSONObjectLineCreatesFileAndEndsWithNewline() throws {
     let tmp = FileManager.default.temporaryDirectory.appendingPathComponent(
       "ndjson-writer-tests-\(UUID().uuidString)", isDirectory: true)
     let url = tmp.appendingPathComponent("out2.ndjson")

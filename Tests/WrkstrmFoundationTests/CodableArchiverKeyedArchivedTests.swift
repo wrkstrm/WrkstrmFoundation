@@ -9,7 +9,7 @@ import Testing
     var b: String
   }
 
-  @Test func roundTrip_keyedarchived_suffix() throws {
+  @Test func roundTripKeyedarchivedSuffix() throws {
     let tmp = FileManager.default.temporaryDirectory.appendingPathComponent(
       "archiver-tests-\(UUID().uuidString)", isDirectory: true)
     try FileManager.default.createDirectory(at: tmp, withIntermediateDirectories: true)
