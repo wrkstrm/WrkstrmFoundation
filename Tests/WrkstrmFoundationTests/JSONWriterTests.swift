@@ -1,5 +1,6 @@
 import Foundation
 import Testing
+
 @testable import WrkstrmFoundation
 
 @Suite struct JSONWriterTests {
@@ -23,4 +24,3 @@ import Testing
     #expect(!text.contains("https:\\/\\/example.com"))
   }
 }
-

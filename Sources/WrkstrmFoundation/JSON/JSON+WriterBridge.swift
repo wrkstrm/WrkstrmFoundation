@@ -1,13 +1,13 @@
 import Foundation
 import WrkstrmMain
 
-public extension JSON { // WrkstrmMain.JSON namespace bridging
-  enum Formatting {
+extension JSON {  // WrkstrmMain.JSON namespace bridging
+  public enum Formatting {
     public static var humanEncoder: JSONEncoder { JSONFormatting.humanEncoder }
     public static var humanOptions: JSONSerialization.WritingOptions { JSONFormatting.humanOptions }
   }
 
-  enum FileWriter {
+  public enum FileWriter {
     public static func write<T: Encodable>(
       _ value: T,
       to url: URL,
@@ -27,4 +27,3 @@ public extension JSON { // WrkstrmMain.JSON namespace bridging
     }
   }
 }
-

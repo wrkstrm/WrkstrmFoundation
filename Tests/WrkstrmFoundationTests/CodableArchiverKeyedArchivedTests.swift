@@ -1,9 +1,13 @@
 import Foundation
 import Testing
+
 @testable import WrkstrmFoundation
 
 @Suite struct CodableArchiverKeyedArchivedTests {
-  struct Blob: Codable, Equatable { var a: Int; var b: String }
+  struct Blob: Codable, Equatable {
+    var a: Int
+    var b: String
+  }
 
   @Test func roundTrip_keyedarchived_suffix() throws {
     let tmp = FileManager.default.temporaryDirectory.appendingPathComponent(
@@ -19,4 +23,3 @@ import Testing
     #expect(loaded == original)
   }
 }
-
