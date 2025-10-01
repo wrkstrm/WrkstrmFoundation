@@ -12,4 +12,7 @@
   - `JSON.Formatting.humanEncoder` — `JSONEncoder` preset for human-readable output.
   - `JSON.Formatting.humanOptions` — `JSONSerialization.WritingOptions` preset.
   - `JSON.FileWriter.write(_:to:)` and `writeJSONObject(_:to:)` — atomic file helpers.
+  - NDJSON (one object per line): `JSON.NDJSON.encodeLine(_:)` for in-memory use and
+    `JSON.NDJSON.appendLine(_:,to:)` / `appendJSONObjectLine(_:,to:)` to append to files.
+    Lines end with exactly one trailing newline and string newlines are escaped (`\n`).
   - Writers must end files with exactly one trailing newline (no extra blank line).

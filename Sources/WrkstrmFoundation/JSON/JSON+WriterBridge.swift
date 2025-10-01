@@ -1,16 +1,6 @@
 import Foundation
 import WrkstrmMain
 
-// Local helper to ensure a single trailing newline at EOF for JSON artifacts.
-@inline(__always)
-private func ensureTrailingNewline(_ data: Data) -> Data {
-  guard !data.isEmpty else { return Data("\n".utf8) }
-  if data.last == UInt8(ascii: "\n") { return data }
-  var copy = data
-  copy.append(UInt8(ascii: "\n"))
-  return copy
-}
-
 extension JSON {  // WrkstrmMain.JSON namespace (preferred API)
   public enum Formatting {
     /// Canonical writing options for JSONSerialization-backed writers.
@@ -43,7 +33,7 @@ extension JSON {  // WrkstrmMain.JSON namespace (preferred API)
       try FileManager.default.createDirectory(
         at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
       var data = try encoder.encode(value)
-      if newlineAtEOF { data = ensureTrailingNewline(data) }
+      if newlineAtEOF { data = data.ensuringTrailingNewline() }
       if atomic { try data.write(to: url, options: .atomic) } else { try data.write(to: url) }
     }
 
@@ -58,7 +48,7 @@ extension JSON {  // WrkstrmMain.JSON namespace (preferred API)
       try FileManager.default.createDirectory(
         at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
       var data = try JSONSerialization.data(withJSONObject: object, options: options)
-      if newlineAtEOF { data = ensureTrailingNewline(data) }
+      if newlineAtEOF { data = data.ensuringTrailingNewline() }
       if atomic { try data.write(to: url, options: .atomic) } else { try data.write(to: url) }
     }
   }
