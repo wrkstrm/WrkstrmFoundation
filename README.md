@@ -45,9 +45,10 @@ limiter for outbound requests.
 
 - Writers should prefer `prettyPrinted + sortedKeys + withoutEscapingSlashes` and atomic writes.
 - Use helpers from WrkstrmFoundation:
-  - `JSONFormatting.humanEncoder` for `Encodable` payloads.
-  - `JSONFormatting.humanOptions` for `JSONSerialization`.
-  - `JSONFileWriter.write(_:to:)` / `writeJSONObject(_:to:)` to persist.
+  - `JSON.Formatting.humanEncoder` for `Encodable` payloads.
+  - `JSON.Formatting.humanOptions` for `JSONSerialization`.
+  - `JSON.FileWriter.write(_:to:)` / `writeJSONObject(_:to:)` to persist.
+ - End files with exactly one trailing newline (POSIX-style), no extra blank line.
 
 #### Policy: typed query parameters
 

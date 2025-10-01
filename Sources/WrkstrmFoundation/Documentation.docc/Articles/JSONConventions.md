@@ -9,6 +9,7 @@
 - Use prettyPrinted + sortedKeys + withoutEscapingSlashes for artifacts intended for humans
   (e.g., agency/agenda/agent triads, reports, indices). Prefer atomic writes.
 - Utilities:
-  - `JSONFormatting.humanEncoder` — `JSONEncoder` preset for human-readable output.
-  - `JSONFormatting.humanOptions` — `JSONSerialization.WritingOptions` preset.
-  - `JSONFileWriter.write(_:to:)` and `writeJSONObject(_:to:)` — atomic file helpers.
+  - `JSON.Formatting.humanEncoder` — `JSONEncoder` preset for human-readable output.
+  - `JSON.Formatting.humanOptions` — `JSONSerialization.WritingOptions` preset.
+  - `JSON.FileWriter.write(_:to:)` and `writeJSONObject(_:to:)` — atomic file helpers.
+  - Writers must end files with exactly one trailing newline (no extra blank line).
