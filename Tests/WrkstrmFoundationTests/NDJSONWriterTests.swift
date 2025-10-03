@@ -99,7 +99,8 @@ import WrkstrmMain
     try JSON.NDJSON.appendJSONObjectLine(["k": "w"], to: url)
     let data = try Data(contentsOf: url)
     #expect(data.last == 0x0A)
-    let lines = String(decoding: data, as: UTF8.self).split(separator: "\n", omittingEmptySubsequences: false)
+    let lines = String(decoding: data, as: UTF8.self).split(
+      separator: "\n", omittingEmptySubsequences: false)
     // two records + trailing split
     #expect(lines.filter { !$0.isEmpty }.count == 2)
   }
