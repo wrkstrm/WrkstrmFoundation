@@ -1,6 +1,5 @@
 import Foundation
 import Testing
-import WrkstrmNetworking
 
 @testable import WrkstrmFoundation
 
