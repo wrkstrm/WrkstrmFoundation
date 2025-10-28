@@ -73,7 +73,8 @@ extension HTTP {
             do {
               #if canImport(Darwin)
               guard let first = try await lines.next() else {
-                continuation.finish(); return
+                continuation.finish()
+                return
               }
               #else
               guard let first = allLines.next() else {
