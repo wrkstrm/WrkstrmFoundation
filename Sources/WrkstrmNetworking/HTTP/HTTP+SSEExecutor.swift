@@ -23,64 +23,62 @@ extension HTTP {
       request: URLRequest,
       decoder: JSONDecoder
     ) -> AsyncThrowingStream<T, Error> {
-      AsyncThrowingStream { continuation in
+      AsyncThrowingStream<T, Error> { continuation in
         Task {
-          let bytesAndResponse: (URLSession.AsyncBytes, URLResponse)
           do {
-            bytesAndResponse = try await session.bytes(for: request)
+            let (bytes, raw) = try await session.bytes(for: request)
+            guard let http = raw as? HTTPURLResponse else {
+              continuation.finish(throwing: StringError("Response was not an HTTP response."))
+              return
+            }
+            guard http.statusCode.isHTTPOKStatusRange else {
+              Log.networking.error("SSE non-OK status: \(http.statusCode)")
+              // Collect response body (if any) to surface structured errors upstream
+              var body = ""
+              var copy = bytes.lines.makeAsyncIterator()
+              do {
+                while let line = try await copy.next() { body += line + "\n" }
+              } catch {
+                // Ignore body read errors
+              }
+              let message = body.isEmpty ? "HTTP \(http.statusCode)" : body
+              continuation.finish(
+                throwing: HTTP.ClientError.networkError(StringError(message))
+              )
+              return
+            }
+
+            var lines = bytes.lines.makeAsyncIterator()
+            do {
+              guard let first = try await lines.next() else {
+                continuation.finish()
+                return
+              }
+              guard first.hasPrefix("data:") else {
+                // JSON array mode: accumulate and decode as [T]
+                var body = first + "\n"
+                while let line = try await lines.next() { body += line + "\n" }
+                let data = Data(body.utf8)
+                let items = try decoder.decode([T].self, from: data)
+                for item in items { _ = await MainActor.run { continuation.yield(item) } }
+                continuation.finish()
+                return
+              }
+              // SSE mode: decode each data: line
+              try await handleSSELine(first, decoder: decoder, continuation: continuation)
+              while let line = try await lines.next() {
+                if line.hasPrefix("data:") {
+                  try await handleSSELine(line, decoder: decoder, continuation: continuation)
+                }
+              }
+              continuation.finish()
+              return
+            } catch {
+              continuation.finish(throwing: error)
+              return
+            }
           } catch {
             Log.networking.error("SSE request failed: \(error.localizedDescription)")
-            continuation.finish(throwing: error)
-            return
-          }
-          let (bytes, raw) = bytesAndResponse
-          guard let http = raw as? HTTPURLResponse else {
-            continuation.finish(throwing: StringError("Response was not an HTTP response."))
-            return
-          }
-          guard http.statusCode.isHTTPOKStatusRange else {
-            Log.networking.error("SSE non-OK status: \(http.statusCode)")
-            // Collect response body (if any) to surface structured errors upstream
-            var body = ""
-            var copy = bytes.lines.makeAsyncIterator()
-            do {
-              while let line = try await copy.next() { body += line + "\n" }
-            } catch {
-              // Ignore body read errors
-            }
-            let message = body.isEmpty ? "HTTP \(http.statusCode)" : body
-            continuation.finish(
-              throwing: HTTP.ClientError.networkError(StringError(message))
-            )
-            return
-          }
-
-          var lines = bytes.lines.makeAsyncIterator()
-          do {
-            guard let first = try await lines.next() else {
-              continuation.finish()
-              return
-            }
-            guard first.hasPrefix("data:") else {
-              // JSON array mode: accumulate and decode as [T]
-              var body = first + "\n"
-              while let line = try await lines.next() { body += line + "\n" }
-              let data = Data(body.utf8)
-              let items = try decoder.decode([T].self, from: data)
-              for item in items { _ = await MainActor.run { continuation.yield(item) } }
-              continuation.finish()
-              return
-            }
-            // SSE mode: decode each data: line
-            try await handleSSELine(first, decoder: decoder, continuation: continuation)
-            while let line = try await lines.next() {
-              if line.hasPrefix("data:") {
-                try await handleSSELine(line, decoder: decoder, continuation: continuation)
-              }
-            }
-            continuation.finish()
-            return
-          } catch {
             continuation.finish(throwing: error)
             return
           }
