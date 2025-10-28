@@ -26,6 +26,8 @@ extension HTTP {
       AsyncThrowingStream<T, Error> { continuation in
         Task {
           do {
+            // Darwin has URLSession.bytes(for:); Linux FoundationNetworking does not yet.
+            #if canImport(Darwin)
             let (bytes, raw) = try await session.bytes(for: request)
             guard let http = raw as? HTTPURLResponse else {
               continuation.finish(throwing: StringError("Response was not an HTTP response."))
@@ -42,45 +44,76 @@ extension HTTP {
                 // Ignore body read errors
               }
               let message = body.isEmpty ? "HTTP \(http.statusCode)" : body
-              continuation.finish(
-                throwing: HTTP.ClientError.networkError(StringError(message))
-              )
+              continuation.finish(throwing: HTTP.ClientError.networkError(StringError(message)))
               return
             }
 
+            // Stream lines from bytes (SSE or JSON array per first line)
             var lines = bytes.lines.makeAsyncIterator()
+            #else
+            // Linux fallback: read whole response then iterate lines synchronously
+            let (data, raw) = try await session.data(for: request)
+            guard let http = raw as? HTTPURLResponse else {
+              continuation.finish(throwing: StringError("Response was not an HTTP response."))
+              return
+            }
+            guard http.statusCode.isHTTPOKStatusRange else {
+              Log.networking.error("SSE non-OK status: \(http.statusCode)")
+              let body = String(decoding: data, as: UTF8.self)
+              let message = body.isEmpty ? "HTTP \(http.statusCode)" : body
+              continuation.finish(throwing: HTTP.ClientError.networkError(StringError(message)))
+              return
+            }
+            var allLines = String(decoding: data, as: UTF8.self)
+              .split(separator: "\n", omittingEmptySubsequences: false)
+              .map(String.init)
+              .makeIterator()
+            #endif
+
             do {
+              #if canImport(Darwin)
               guard let first = try await lines.next() else {
-                continuation.finish()
-                return
+                continuation.finish(); return
               }
+              #else
+              guard let first = allLines.next() else { continuation.finish(); return }
+              #endif
               guard first.hasPrefix("data:") else {
                 // JSON array mode: accumulate and decode as [T]
                 var body = first + "\n"
+                #if canImport(Darwin)
                 while let line = try await lines.next() { body += line + "\n" }
+                #else
+                while let line = allLines.next() { body += line + "\n" }
+                #endif
                 let data = Data(body.utf8)
                 let items = try decoder.decode([T].self, from: data)
                 for item in items { _ = await MainActor.run { continuation.yield(item) } }
-                continuation.finish()
-                return
+                continuation.finish(); return
               }
+
               // SSE mode: decode each data: line
               try await handleSSELine(first, decoder: decoder, continuation: continuation)
+              #if canImport(Darwin)
               while let line = try await lines.next() {
                 if line.hasPrefix("data:") {
                   try await handleSSELine(line, decoder: decoder, continuation: continuation)
                 }
               }
-              continuation.finish()
-              return
+              #else
+              while let line = allLines.next() {
+                if line.hasPrefix("data:") {
+                  try await handleSSELine(line, decoder: decoder, continuation: continuation)
+                }
+              }
+              #endif
+              continuation.finish(); return
             } catch {
-              continuation.finish(throwing: error)
-              return
+              continuation.finish(throwing: error); return
             }
           } catch {
             Log.networking.error("SSE request failed: \(error.localizedDescription)")
-            continuation.finish(throwing: error)
-            return
+            continuation.finish(throwing: error); return
           }
         }
       }
