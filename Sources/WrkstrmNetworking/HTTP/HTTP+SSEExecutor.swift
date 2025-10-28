@@ -76,7 +76,10 @@ extension HTTP {
                 continuation.finish(); return
               }
               #else
-              guard let first = allLines.next() else { continuation.finish(); return }
+              guard let first = allLines.next() else {
+                continuation.finish()
+                return
+              }
               #endif
               guard first.hasPrefix("data:") else {
                 // JSON array mode: accumulate and decode as [T]
@@ -89,7 +92,8 @@ extension HTTP {
                 let data = Data(body.utf8)
                 let items = try decoder.decode([T].self, from: data)
                 for item in items { _ = await MainActor.run { continuation.yield(item) } }
-                continuation.finish(); return
+                continuation.finish()
+                return
               }
 
               // SSE mode: decode each data: line
@@ -107,13 +111,16 @@ extension HTTP {
                 }
               }
               #endif
-              continuation.finish(); return
+              continuation.finish()
+              return
             } catch {
-              continuation.finish(throwing: error); return
+              continuation.finish(throwing: error)
+              return
             }
           } catch {
             Log.networking.error("SSE request failed: \(error.localizedDescription)")
-            continuation.finish(throwing: error); return
+            continuation.finish(throwing: error)
+            return
           }
         }
       }

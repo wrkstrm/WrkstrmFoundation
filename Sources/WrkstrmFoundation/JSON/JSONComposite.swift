@@ -92,7 +92,7 @@ extension JSON {
 @usableFromInline
 final class _AsyncBridge<T>: @unchecked Sendable {
   private let sem = DispatchSemaphore(value: 0)
-  private var value: T!
+  private var value: T?
   @usableFromInline init() {}
   @usableFromInline func finish(_ v: T) {
     value = v
@@ -100,7 +100,10 @@ final class _AsyncBridge<T>: @unchecked Sendable {
   }
   @usableFromInline func wait() -> T {
     sem.wait()
-    return value
+    guard let v = value else {
+      preconditionFailure("_AsyncBridge finished without a value")
+    }
+    return v
   }
 }
 

@@ -23,14 +23,19 @@ extension Notification {
     public let name: Notification.Name
     public let transform: @Sendable (Notification) -> A
 
+    // Primary initializer requiring an explicit transform closure for non-Void payloads.
     public init(
       name: Notification.Name,
-      transform: @escaping (@Sendable (Notification) -> A) = {
-        (A.self == Void.self ? () : $0.object) as! A  // swiftlint:disable:this force_cast
-      },
+      transform: @escaping (@Sendable (Notification) -> A)
     ) {
       self.name = name
       self.transform = transform
+    }
+
+    // Convenience initializer for Void payloads (no object expected).
+    public init(name: Notification.Name) where A == Void {
+      self.name = name
+      self.transform = { _ in () }
     }
   }
 

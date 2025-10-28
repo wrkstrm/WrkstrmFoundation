@@ -19,14 +19,19 @@ extension HTTP {
     ) {
       self.session = session
       var request = URLRequest(url: url)
-      headers.forEach { request.setValue($0.value, forHTTPHeaderField: $0.key) }
+      for (key, value) in headers {
+        request.setValue(value, forHTTPHeaderField: key)
+      }
       self.task = session.webSocketTask(with: request)
 
-      var ctn: AsyncThrowingStream<HTTP.WebSocketMessage, Error>.Continuation!
+      var captured: AsyncThrowingStream<HTTP.WebSocketMessage, Error>.Continuation?
       self.stream = AsyncThrowingStream { continuation in
-        ctn = continuation
+        captured = continuation
       }
-      self.continuation = ctn
+      guard let c = captured else {
+        preconditionFailure("Failed to capture AsyncThrowingStream continuation")
+      }
+      self.continuation = c
 
       task.resume()
       receiveLoop()
