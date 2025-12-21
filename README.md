@@ -49,7 +49,33 @@ Client code ─▶ WrkstrmFoundation (JSON, archiving)
 - **Transport injection**: implement `HTTP.Transport` (see example below) to record traffic, run through proxies, or integrate platform-specific stacks.
 - **Streaming adapters**: `HTTP.StreamExecutor` and `HTTP.WebSocket` mirror the CommandInvocation-first pattern from CommonProcess—callers select codecs, deadlines, and instrumentation explicitly.
 
-### Example: inject a custom transport
+- Writers should prefer `prettyPrinted + sortedKeys + withoutEscapingSlashes` and atomic writes.
+- Use helpers from WrkstrmFoundation:
+  - `JSON.Formatting.humanEncoder` for `Encodable` payloads.
+  - `JSON.Formatting.humanOptions` for `JSONSerialization`.
+  - `JSON.FileWriter.write(_:to:)` / `writeJSONObject(_:to:)` to persist.
+- End files with exactly one trailing newline (POSIX-style), no extra blank line.
+
+#### Policy: typed query parameters
+
+- Do not hand-build raw `[URLQueryItem]` at call sites.
+- Use `HTTP.Request.Options.make { q in ... }` with `HTTP.QueryItems`.
+- Benefits: consistent Bool/number/enum formatting, correct nil handling, and stable URL canonicalization.
+- See: Sources/WrkstrmNetworking/Documentation.docc/QueryParameters.md
+
+#### Transports
+
+- Default backend: `URLSession` via `HTTP.URLSessionTransport`.
+- Swap in custom backends by implementing `HTTP.Transport` and injecting it into
+  `HTTP.JSONClient` or `HTTP.CodableClient`.
+- Both clients expose a read-only `URLSession` when using the default transport.
+- Realtime: WebSockets via `HTTP.URLSessionWebSocketClient` with a simple `HTTP.WebSocket` API.
+
+See: Sources/WrkstrmNetworking/Documentation.docc/CustomTransport.md
+See: Sources/WrkstrmNetworking/Documentation.docc/WebSockets.md
+See: Sources/WrkstrmNetworking/MIGRATION.md
+
+Example: Inject a custom transport
 
 ```swift
 import Foundation
