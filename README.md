@@ -123,18 +123,23 @@ See the DocC bundles (QueryParameters, CustomTransport, WebSockets) and `Sources
 ## Usage quick start
 
 1. **Format JSON deterministically**
+
    ```swift
    let encoder = JSON.Formatting.humanEncoder
    let data = try encoder.encode(payload)
    try JSON.FileWriter.write(data, to: url)
    ```
+
 2. **Archive Codable types**
+
    ```swift
    var archiver = CodableArchiver<Item>(directory: cacheDir, fileManager: .default)
    try archiver.save(item, as: "latest")
    let cached = try archiver.load("latest")
    ```
+
 3. **Issue typed requests**
+
    ```swift
    let client = HTTP.JSONClient(environment: env)
    let result: Response = try await client.send(.init(route: .users, body: requestBody))
