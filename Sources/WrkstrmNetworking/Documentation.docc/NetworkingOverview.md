@@ -14,8 +14,8 @@ It emphasizes pluggable transports, clear request building, and pragmatic JSON c
 
 ```swift
 import Foundation
-import WrkstrmMain
 import WrkstrmFoundation  // Foundation-backed JSON defaults
+import WrkstrmMain
 
 // 1) Define your environment (host, scheme, API version)
 let env = HTTP.Environment(
@@ -38,7 +38,10 @@ let parser = JSON.Parser.foundationDefault
 let client = HTTP.CodableClient(environment: env, parser: parser)
 
 // 5) Model your response
-struct User: Codable { let id: String; let name: String }
+struct User: Codable {
+  let id: String
+  let name: String
+}
 
 // 6) Execute the request
 Task {
@@ -55,15 +58,18 @@ Task {
 
 ```swift
 import Foundation
-import WrkstrmMain
 import WrkstrmFoundation
+import WrkstrmMain
 
 // 1) Environment (same as HTTP)
 let env = HTTP.Environment(scheme: .wss, host: "ws.example.com", apiVersion: "v1")
 
 // 2) Define a typed WebSocket route
 struct TickerRoute: HTTP.Request.WebSocket {
-  struct Incoming: Decodable, Sendable { let symbol: String; let price: Double }
+  struct Incoming: Decodable, Sendable {
+    let symbol: String
+    let price: Double
+  }
   typealias Outgoing = Never
 
   var path: String { "ticks" }
@@ -81,7 +87,7 @@ let (socket, stream) = try HTTP.WebSocketExecutor()
 Task {
   do {
     var count = 0
-    for try await msg in stream { // Incoming(symbol:price)
+    for try await msg in stream {  // Incoming(symbol:price)
       print("\(msg.symbol): \(msg.price)")
       count += 1
       if count > 10 { break }
@@ -109,11 +115,15 @@ request.setValue("text/event-stream", forHTTPHeaderField: "Accept")
 
 // 3) Create an SSE executor and a Decodable type
 let exec = HTTP.SSEExecutor(environment: env)
-struct Event: Decodable, Sendable { let id: String; let message: String }
+struct Event: Decodable, Sendable {
+  let id: String
+  let message: String
+}
 
 // 4) Consume the stream
 let decoder = JSONDecoder.commonDateParsing
-let stream: AsyncThrowingStream<Event, Error> = exec.sseJSONStream(request: request, decoder: decoder)
+let stream: AsyncThrowingStream<Event, Error> = exec.sseJSONStream(
+  request: request, decoder: decoder)
 
 Task {
   do {
@@ -138,10 +148,12 @@ struct Env: HTTP.Environment {
   var scheme: HTTP.Scheme { .https }
   var host: String { "api.example.com" }
   var apiVersion: String? { "v1" }
-  var headers: HTTP.Headers { [
-    "Authorization": "Bearer TOKEN",
-    "Accept": "application/json"
-  ]}
+  var headers: HTTP.Headers {
+    [
+      "Authorization": "Bearer TOKEN",
+      "Accept": "application/json",
+    ]
+  }
 }
 
 struct CSVExport: HTTP.Request.Routable {
@@ -235,7 +247,7 @@ Example provider → expected keys mapping:
 // Limiter expects: X-Ratelimit-Allowed, X-Ratelimit-Available, X-Ratelimit-Expiry (ms)
 
 func adaptProviderHeaders(_ headers: HTTP.Headers) -> HTTP.Headers {
-  var adapted: HTTP.Headers = headers // start with originals, then add canonical keys
+  var adapted: HTTP.Headers = headers  // start with originals, then add canonical keys
 
   if let limit: Int = headers.value("X-RateLimit-Limit") {
     adapted["X-Ratelimit-Allowed"] = String(limit)

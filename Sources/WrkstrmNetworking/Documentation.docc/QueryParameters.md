@@ -24,12 +24,12 @@ these choices so requests remain deterministic and audit‑friendly.
 ```swift
 // Inside a request initializer
 options = .make(headers: ["Content-Type": "application/x-www-form-urlencoded"]) { q in
-  q.add("symbol", value: symbol)                  // String
-  q.add("quantity", value: quantity)              // Int
-  q.add("price", value: price)                    // Double
-  q.add("greeks", value: includeGreeks)           // Bool -> "true"/"false"
-  q.add("side", value: side)                      // enum RawRepresentable<String>
-  q.addJoined("symbols", values: symbols)         // [String] -> "AAPL,TSLA,MSFT"
+  q.add("symbol", value: symbol)  // String
+  q.add("quantity", value: quantity)  // Int
+  q.add("price", value: price)  // Double
+  q.add("greeks", value: includeGreeks)  // Bool -> "true"/"false"
+  q.add("side", value: side)  // enum RawRepresentable<String>
+  q.addJoined("symbols", values: symbols)  // [String] -> "AAPL,TSLA,MSFT"
 }
 ```
 

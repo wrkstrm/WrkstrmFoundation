@@ -26,7 +26,9 @@ struct EncoderBox: JSONDataEncoding {
 
 struct DecoderBox: JSONDataDecoding {
   let base: JSONDecoder
-  func decode<T: Decodable>(_ type: T.Type, from data: Data) throws -> T { try base.decode(T.self, from: data) }
+  func decode<T: Decodable>(_ type: T.Type, from data: Data) throws -> T {
+    try base.decode(T.self, from: data)
+  }
 }
 ```
 
@@ -51,7 +53,7 @@ let parser = JSON.Parser(encoder: EncoderBox(base: .init()), decoder: DecoderBox
 ## Create a Parser
 
 ```swift
-import WrkstrmFoundation // brings JSON.Parser + default conformances
+import WrkstrmFoundation  // brings JSON.Parser + default conformances
 
 // Foundation defaults
 let parser = JSON.Parser.foundationDefault
@@ -89,7 +91,7 @@ import TradierLib
 
 let svc = Tradier.CodableService(environment: Tradier.HTTPSSandboxEnvironment(), json: parser)
 // or
-let svc2 = Tradier.CodableService(client: client) // in tests/debug
+let svc2 = Tradier.CodableService(client: client)  // in tests/debug
 ```
 
 ## What Lives Where

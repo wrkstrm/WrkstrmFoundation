@@ -37,8 +37,8 @@ Benefits:
 Use the shared presets for consistent date handling; they do not alter key mapping:
 
 ```swift
-let decoder = JSONDecoder.commonDateParsing   // custom date decoder (epoch + ISO8601)
-let encoder = JSONEncoder.commonDateFormatting   // custom date encoder (ISO8601 + millis)
+let decoder = JSONDecoder.commonDateParsing  // custom date decoder (epoch + ISO8601)
+let encoder = JSONEncoder.commonDateFormatting  // custom date encoder (ISO8601 + millis)
 ```
 
 ## Before vs After

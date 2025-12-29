@@ -11,11 +11,11 @@ WrkstrmFoundation provides a tiny extension on `Data` to enforce newline discipl
 ```swift
 import WrkstrmFoundation
 
-let original = Data([0x41]) // "A"
+let original = Data([0x41])  // "A"
 let normalized = original.ensuringTrailingNewline()  // "A\n"
 
 var mutable = Data()
-mutable.ensureTrailingNewlineInPlace()               // now "\n"
+mutable.ensureTrailingNewlineInPlace()  // now "\n"
 ```
 
 - `ensuringTrailingNewline()` returns a copy that ends with exactly one newline. Empty input becomes

@@ -38,12 +38,13 @@ Use `URLComponents` and `URLQueryItem` to attach query parameters. Do **not** co
 /// - Returns: A fully-formed URL with percent-encoded query.
 func makeURL(base: String, query: [String: String?]) -> URL? {
   guard var comps = URLComponents(string: base) else { return nil }
-  let items = query
+  let items =
+    query
     .compactMap { key, value -> URLQueryItem? in
-      guard let value else { return nil } // omit nils
+      guard let value else { return nil }  // omit nils
       return URLQueryItem(name: key, value: value)
     }
-    .sorted { $0.name < $1.name } // canonical ordering aids caching
+    .sorted { $0.name < $1.name }  // canonical ordering aids caching
   comps.queryItems = items.isEmpty ? nil : items
   return comps.url
 }
@@ -54,7 +55,7 @@ let url = makeURL(
   query: [
     "q": "spicy tacos & salsa",
     "limit": "25",
-    "lang": "en-US"
+    "lang": "en-US",
   ]
 )
 // => https://api.example.com/v1/search?lang=en-US&limit=25&q=spicy%20tacos%20%26%20salsa
@@ -121,15 +122,15 @@ escaping.
 /// Joins an array with a delimiter after trimming empties; returns nil if final is empty.
 func joinedOrNil(_ values: [String], separator: String = ",") -> String? {
   let trimmed = values.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-                      .filter { !$0.isEmpty }
+    .filter { !$0.isEmpty }
   return trimmed.isEmpty ? nil : trimmed.joined(separator: separator)
 }
 
 /// Builds query items from heterogeneous inputs.
 func queryItems(
   scalars: [String: String?] = [:],
-  arrays: [String: [String]] = [:],             // comma-delimited
-  repeated: [String: [String]] = [:]            // repeated keys: ?tag=a&tag=b
+  arrays: [String: [String]] = [:],  // comma-delimited
+  repeated: [String: [String]] = [:]  // repeated keys: ?tag=a&tag=b
 ) -> [URLQueryItem] {
   var items: [URLQueryItem] = []
 
@@ -171,11 +172,12 @@ func applyBody(_ body: Any, to request: inout URLRequest) throws {
       c.queryItems = items
       request.httpBody = c.percentEncodedQuery.flatMap { Data($0.utf8) }
     } else if let s = body as? String {
-      request.httpBody = Data(s.utf8) // pre-encoded string
+      request.httpBody = Data(s.utf8)  // pre-encoded string
     } else if let data = body as? Data {
       request.httpBody = data
     } else {
-      throw EncodingError.invalidValue(body, .init(codingPath: [], debugDescription: "Unsupported form body type"))
+      throw EncodingError.invalidValue(
+        body, .init(codingPath: [], debugDescription: "Unsupported form body type"))
     }
 
   case "application/json", .none:
@@ -191,7 +193,9 @@ func applyBody(_ body: Any, to request: inout URLRequest) throws {
     } else if let s = body as? String {
       request.httpBody = Data(s.utf8)
     } else {
-      throw EncodingError.invalidValue(body, .init(codingPath: [], debugDescription: "Unsupported body for \(contentType ?? "unknown")"))
+      throw EncodingError.invalidValue(
+        body,
+        .init(codingPath: [], debugDescription: "Unsupported body for \(contentType ?? "unknown")"))
     }
   }
 }
@@ -204,7 +208,8 @@ struct AnyEncodable: Encodable {
       self.encodeFunc = e.encode
     } else {
       self.encodeFunc = { _ in
-        throw EncodingError.invalidValue(wrapped, .init(codingPath: [], debugDescription: "Not Encodable"))
+        throw EncodingError.invalidValue(
+          wrapped, .init(codingPath: [], debugDescription: "Not Encodable"))
       }
     }
   }
