@@ -25,7 +25,7 @@ jobs:
       with:
         path: apple/WrkstrmFoundation/.build
         restore-keys: ${{ runner.os }}-spm-WrkstrmFoundation-
-        key: ${{ runner.os }}-spm-WrkstrmFoundation-${{ hashFiles('**/Package.resolved')
+        key: ${{ runner.os }}-spm-WrkstrmFoundation-${{ hashFiles('**/Package.resolved', '**/Package.swift')
           }}
     - name: Check Cache
       run: 'echo ''Cache hit: ${{ steps.cache-spm.outputs.cache-hit }}'''

@@ -24,7 +24,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: apple/WrkstrmFoundation/.build
-        key: ${{ runner.os }}-spm-WrkstrmFoundation-${{ hashFiles('**/Package.resolved')
+        key: ${{ runner.os }}-spm-WrkstrmFoundation-${{ hashFiles('**/Package.resolved', '**/Package.swift')
           }}
         restore-keys: ${{ runner.os }}-spm-WrkstrmFoundation-
     - name: Check Cache
