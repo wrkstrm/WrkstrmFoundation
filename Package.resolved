@@ -24,26 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-log.git",
       "state" : {
-        "revision" : "ce592ae52f982c847a4efc0dd881cc9eb32d29f2",
-        "version" : "1.6.4"
-      }
-    },
-    {
-      "identity" : "wrkstrmlog",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/wrkstrm/WrkstrmLog.git",
-      "state" : {
-        "revision" : "f03a3f99c477e3c5c62d96f2833c2ac171390c59",
-        "version" : "2.2.4"
-      }
-    },
-    {
-      "identity" : "wrkstrmmain",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/wrkstrm/WrkstrmMain.git",
-      "state" : {
-        "revision" : "c2e57bd3f0f5e4ce720d5a92a0126e9b1d6750e1",
-        "version" : "2.5.0"
+        "revision" : "bc386b95f2a16ccd0150a8235e7c69eab2b866ca",
+        "version" : "1.8.0"
       }
     }
   ],
