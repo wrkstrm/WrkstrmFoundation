@@ -27,7 +27,7 @@ extension String {
   ///   ```
   public static func countLinesOfFile(atPath path: String) -> (Int, Int)? {
     // Attempt to read the content of the file at the specified path.
-    guard let content: String = try? .init(contentsOfFile: path, encoding: .utf8) else {
+    guard let content: String = try? .init(contentsOf: URL(fileURLWithPath: path), encoding: .utf8) else {
       return nil
     }
 
