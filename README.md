@@ -10,15 +10,13 @@
 
 > “Programs must be written for people to read, and only incidentally for machines to execute.” —Harold Abelson
 
-Swift essentials for JSON, data archiving, and networking. This package is compatible with Linux and ships the shared primitives that higher-level Wrkstrm libraries rely on.
+Swift essentials for JSON, data archiving, and file-system helpers. This package is compatible with Linux and ships the shared primitives that higher-level Wrkstrm libraries rely on.
 
 ## Key features
 
-- 🧱 **Modular core** – `WrkstrmFoundation` (JSON, archiving, data utilities) and `WrkstrmNetworking` (typed clients, transports, rate limiting).
-- 🧭 **Typed networking** – `HTTP.Request` builders, codable clients, WebSocket/SSE executors, cURL logging, and policy-backed query helpers.
 - 🗂️ **Deterministic JSON** – Human-friendly writers, explicit key mapping, date-only strategies, and atomic file IO helpers.
 - 🛡️ **Reliability guardrails** – Runtime configuration hooks, policy sections, and coverage guidance modeled after CommonProcess.
-- 📚 **DocC-first** – Full catalogs under `Sources/WrkstrmFoundation/Documentation.docc/` and `Sources/WrkstrmNetworking/Documentation.docc/`.
+- 📚 **DocC-first** – Catalog under `Sources/WrkstrmFoundation/Documentation.docc/`.
 
 ## Modules
 
@@ -32,17 +30,7 @@ A collection of Swift extensions and utilities tailored for efficient JSON handl
 - Logging + error handling: integrations with WrkstrmLog for deterministic diagnostics.
 - Standard-library lifts: `String`, `Bundle`, and collection extensions for file discovery and JSON decoding.
 
-### WrkstrmNetworking
-
-Lightweight networking utilities built on `URLSession` with cURL logging. Includes request/response models, JSON + Codable clients, a configurable rate limiter, streaming helpers, and WebSocket support via `HTTP.URLSessionWebSocketClient`.
-
-## Architecture & runtime configuration
-
-```
-Client code ─▶ WrkstrmFoundation (JSON, archiving)
-            └▶ WrkstrmNetworking (Request builders, transports, rate limiting)
-                         └▶ HTTP.Transport (URLSession or custom)
-```
+For typed networking primitives, see `code/mono/apple/spm/universal/domain/system/wrkstrm-networking`.
 
 - **Environment-driven clients**: inject `HTTP.Environment` values to control base URLs, headers, and schemes (including WebSocket variants).
 - **JSON pipeline**: pair `JSONEncoder.commonDateFormatting` / `JSONDecoder.commonDateParsing` with `JSON.Formatting.humanEncoder` when persisting to disk.
@@ -56,69 +44,12 @@ Client code ─▶ WrkstrmFoundation (JSON, archiving)
   - `JSON.FileWriter.write(_:to:)` / `writeJSONObject(_:to:)` to persist.
 - End files with exactly one trailing newline (POSIX-style), no extra blank line.
 
-#### Policy: typed query parameters
-
-- Do not hand-build raw `[URLQueryItem]` at call sites.
-- Use `HTTP.Request.Options.make { q in ... }` with `HTTP.QueryItems`.
-- Benefits: consistent Bool/number/enum formatting, correct nil handling, and stable URL canonicalization.
-- See: Sources/WrkstrmNetworking/Documentation.docc/QueryParameters.md
-
-#### Transports
-
-- Default backend: `URLSession` via `HTTP.URLSessionTransport`.
-- Swap in custom backends by implementing `HTTP.Transport` and injecting it into
-  `HTTP.JSONClient` or `HTTP.CodableClient`.
-- Both clients expose a read-only `URLSession` when using the default transport.
-- Realtime: WebSockets via `HTTP.URLSessionWebSocketClient` with a simple `HTTP.WebSocket` API.
-
-See: Sources/WrkstrmNetworking/Documentation.docc/CustomTransport.md
-See: Sources/WrkstrmNetworking/Documentation.docc/WebSockets.md
-See: Sources/WrkstrmNetworking/MIGRATION.md
-
-Example: Inject a custom transport
-
-```swift
-import Foundation
-import WrkstrmNetworking
-
-// 1) Define a custom transport
-struct RecordingTransport: HTTP.Transport {
-  func execute(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-    // Delegate to URLSession (or your own backend), add side-effects as needed
-    let (data, response) = try await URLSession.shared.data(for: request)
-    guard let http = response as? HTTPURLResponse else {
-      throw HTTP.ClientError.invalidResponse
-    }
-    // persist(request, http, data)
-    return (data, http)
-  }
-}
-
-// 2) Inject into clients
-let transport = RecordingTransport()
-
-let jsonClient = HTTP.JSONClient(
-  environment: env,
-  json: (JSONEncoder.commonDateFormatting, JSONDecoder.commonDateParsing),
-  transport: transport
-)
-
-let codableClient = HTTP.CodableClient(
-  environment: env,
-  json: (JSONEncoder.commonDateFormatting, JSONDecoder.commonDateParsing),
-  transport: transport
-)
-```
-
 ## Policies & conventions
 
 - **No implicit snake_case** – never use `.convertToSnakeCase` / `.convertFromSnakeCase`; prefer explicit `CodingKeys`.
 - **Human-facing JSON** – writers should combine `prettyPrinted`, `sortedKeys`, and `withoutEscapingSlashes`, then end files with a single trailing newline.
-- **Typed query parameters** – use `HTTP.Request.Options.make { q in ... }` with `HTTP.QueryItems`; do not hand-build `[URLQueryItem]`.
 - **Import policy** – Foundation is allowed; guard platform-specific features with `#if canImport(FoundationNetworking)` when needed.
 - **Realtime policy** – WebSocket + streaming APIs stay minimal; compose JSON or domain codecs in adapters (mirrors CommonProcess’ host/runner split).
-
-See the DocC bundles (QueryParameters, CustomTransport, WebSockets) and `Sources/WrkstrmNetworking/MIGRATION.md` for deeper guidance.
 
 ## Usage quick start
 
@@ -138,16 +69,9 @@ See the DocC bundles (QueryParameters, CustomTransport, WebSockets) and `Sources
    let cached = try archiver.load("latest")
    ```
 
-3. **Issue typed requests**
-
-   ```swift
-   let client = HTTP.JSONClient(environment: env)
-   let result: Response = try await client.send(.init(route: .users, body: requestBody))
-   ```
-
 ## Testing & coverage
 
-- Aim for ≥80 % line coverage across both modules.
+- Aim for ≥80 % line coverage across the module.
 - Keep tests deterministic (macOS + Linux) and prefer Swift Testing (`import Testing`).
 - Local coverage workflow:
 
@@ -166,7 +90,7 @@ xcrun llvm-cov show "$TEST_BIN" -instr-profile "$PROF" \
 
 ## 🏁 Flagship + docs
 
-WrkstrmFoundation is one of our flagship libraries (alongside WrkstrmMain and WrkstrmLog). Explore the DocC catalogs under `Sources/WrkstrmNetworking/Documentation.docc/` and `Sources/WrkstrmFoundation/Documentation.docc/` for guides, indices, and migration notes.
+WrkstrmFoundation is one of our flagship libraries (alongside WrkstrmMain and WrkstrmLog). Explore the DocC catalog under `Sources/WrkstrmFoundation/Documentation.docc/` for guides and indices.
 
 ## Release checklist (living)
 

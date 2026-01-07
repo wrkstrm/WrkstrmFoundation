@@ -28,7 +28,6 @@ let package = Package(
   ],
   products: [
     .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"]),
-    .library(name: "WrkstrmNetworking", targets: ["WrkstrmNetworking"]),
   ],
   dependencies: Package.Inject.shared.dependencies + [
     .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.4.0")
@@ -39,19 +38,9 @@ let package = Package(
       dependencies: ["WrkstrmLog", "WrkstrmMain"],
       swiftSettings: Package.Inject.shared.swiftSettings,
     ),
-    .target(
-      name: "WrkstrmNetworking",
-      dependencies: ["WrkstrmFoundation", "WrkstrmLog", "WrkstrmMain"],
-      swiftSettings: Package.Inject.shared.swiftSettings,
-    ),
     .testTarget(
       name: "WrkstrmFoundationTests",
       dependencies: ["WrkstrmFoundation"],
-      swiftSettings: Package.Inject.shared.swiftSettings,
-    ),
-    .testTarget(
-      name: "WrkstrmNetworkingTests",
-      dependencies: ["WrkstrmNetworking"],
       swiftSettings: Package.Inject.shared.swiftSettings,
     ),
   ],
