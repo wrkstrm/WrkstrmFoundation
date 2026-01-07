@@ -27,7 +27,7 @@ let package = Package(
     .watchOS(.v9),
   ],
   products: [
-    .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"]),
+    .library(name: "WrkstrmFoundation", targets: ["WrkstrmFoundation"])
   ],
   dependencies: Package.Inject.shared.dependencies + [
     .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.4.0")
