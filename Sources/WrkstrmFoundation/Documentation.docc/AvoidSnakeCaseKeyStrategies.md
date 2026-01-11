@@ -32,7 +32,7 @@ Benefits:
 - Works with default `JSONDecoder`/`JSONEncoder` in any context.
 - Precise control for odd keys and acronyms.
 
-## Keep Dates Centralized (But Explicit)
+## Keep Dates Centralized (but Explicit)
 
 Use the shared presets for consistent date handling; they do not alter key mapping:
 

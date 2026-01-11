@@ -12,7 +12,7 @@
 
 Swift essentials for JSON, data archiving, and file-system helpers. This package is compatible with Linux and ships the shared primitives that higher-level Wrkstrm libraries rely on.
 
-## Key features
+## Key Features
 
 - 🗂️ **Deterministic JSON** – Human-friendly writers, explicit key mapping, date-only strategies, and atomic file IO helpers.
 - 🛡️ **Reliability guardrails** – Runtime configuration hooks, policy sections, and coverage guidance modeled after CommonProcess.
@@ -44,14 +44,14 @@ For typed networking primitives, see `code/mono/apple/spm/universal/domain/syste
   - `JSON.FileWriter.write(_:to:)` / `writeJSONObject(_:to:)` to persist.
 - End files with exactly one trailing newline (POSIX-style), no extra blank line.
 
-## Policies & conventions
+## Policies & Conventions
 
 - **No implicit snake_case** – never use `.convertToSnakeCase` / `.convertFromSnakeCase`; prefer explicit `CodingKeys`.
 - **Human-facing JSON** – writers should combine `prettyPrinted`, `sortedKeys`, and `withoutEscapingSlashes`, then end files with a single trailing newline.
 - **Import policy** – Foundation is allowed; guard platform-specific features with `#if canImport(FoundationNetworking)` when needed.
 - **Realtime policy** – WebSocket + streaming APIs stay minimal; compose JSON or domain codecs in adapters (mirrors CommonProcess’ host/runner split).
 
-## Usage quick start
+## Usage Quick Start
 
 1. **Format JSON deterministically**
 
@@ -69,7 +69,7 @@ For typed networking primitives, see `code/mono/apple/spm/universal/domain/syste
    let cached = try archiver.load("latest")
    ```
 
-## Testing & coverage
+## Testing & Coverage
 
 - Aim for ≥80 % line coverage across the module.
 - Keep tests deterministic (macOS + Linux) and prefer Swift Testing (`import Testing`).
@@ -88,11 +88,11 @@ xcrun llvm-cov show "$TEST_BIN" -instr-profile "$PROF" \
   -format=html -output-dir "$OUT" -show-instantiations -Xdemangler swift-demangle
 ```
 
-## 🏁 Flagship + docs
+## 🏁 Flagship + Docs
 
 WrkstrmFoundation is one of our flagship libraries (alongside WrkstrmMain and WrkstrmLog). Explore the DocC catalog under `Sources/WrkstrmFoundation/Documentation.docc/` for guides and indices.
 
-## Release checklist (living)
+## Release Checklist (Living)
 
 - [ ] SPI + badge links render and pass validation.
 - [ ] DocC catalogs build locally (`swift package generate-documentation`).
