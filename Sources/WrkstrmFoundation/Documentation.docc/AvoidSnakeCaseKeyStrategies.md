@@ -41,7 +41,7 @@ let decoder = JSONDecoder.commonDateParsing  // custom date decoder (epoch + ISO
 let encoder = JSONEncoder.commonDateFormatting  // custom date encoder (ISO8601 + millis)
 ```
 
-## Before Vs After
+## Before vs After
 
 ```swift
 // Before (implicit, fragile)
