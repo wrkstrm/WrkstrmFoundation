@@ -2,7 +2,7 @@
 
 Persist Codable models using `CodableArchiver`.
 
-## Save And Load
+## Save and Load
 
 ```swift
 import Foundation

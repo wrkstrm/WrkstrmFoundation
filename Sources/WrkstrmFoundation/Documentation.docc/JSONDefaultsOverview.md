@@ -2,7 +2,7 @@
 
 WrkstrmFoundation supplies Foundation‑backed JSON defaults that complement the portable contracts in WrkstrmMain.
 
-## Encoders And Decoders
+## Encoders and Decoders
 
 Use the common presets to standardize date handling across your app:
 

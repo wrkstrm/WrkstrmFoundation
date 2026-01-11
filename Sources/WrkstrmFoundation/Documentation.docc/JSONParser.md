@@ -78,10 +78,11 @@ let custom = JSON.Parser(encoder: LoggingEncoder(), decoder: LoggingDecoder())
 ```
 
 ## Bridge To HTTP
+## Bridge to HTTP
 
 `JSON.Parser` is network-agnostic. WrkstrmNetworking exposes bridging initializers (for example, `HTTP.CodableClient(environment:parser:)`) that accept a parser while leaving transport concerns to the HTTP layer.
 
-## Use In Services
+## Use in Services
 
 Services can accept a `JSON.Parser` or a preconfigured `HTTP.CodableClient`:
 
