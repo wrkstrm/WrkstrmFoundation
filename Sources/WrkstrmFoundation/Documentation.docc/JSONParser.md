@@ -50,7 +50,7 @@ let parser = JSON.Parser(encoder: EncoderBox(base: .init()), decoder: DecoderBox
 - `JSONDecoder` (WrkstrmFoundation default implementation of `JSONDataDecoding`)
 - Presets: `JSONEncoder.commonDateFormatting`, `JSONDecoder.commonDateParsing`
 
-## Create a Parser
+## Create A Parser
 
 ```swift
 import WrkstrmFoundation  // brings JSON.Parser + default conformances
@@ -77,11 +77,11 @@ struct LoggingDecoder: JSONDataDecoding {
 let custom = JSON.Parser(encoder: LoggingEncoder(), decoder: LoggingDecoder())
 ```
 
-## Bridge to HTTP
+## Bridge To HTTP
 
 `JSON.Parser` is network-agnostic. WrkstrmNetworking exposes bridging initializers (for example, `HTTP.CodableClient(environment:parser:)`) that accept a parser while leaving transport concerns to the HTTP layer.
 
-## Use in Services
+## Use In Services
 
 Services can accept a `JSON.Parser` or a preconfigured `HTTP.CodableClient`:
 

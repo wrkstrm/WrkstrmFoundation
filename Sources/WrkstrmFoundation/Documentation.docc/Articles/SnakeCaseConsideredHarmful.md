@@ -1,4 +1,4 @@
-# SnakeCase considered harmful
+# SnakeCase Considered Harmful
 
 This repository historically used automatic key-conversion strategies (e.g., `JSONDecoder.keyDecodingStrategy = .convertFromSnakeCase` and matching encoders) to translate between wire JSON (snake_case) and Swift properties (camelCase).
 

@@ -4,7 +4,7 @@
 - Keep date handling centralized via `JSONDecoder.commonDateParsing` / `JSONEncoder.commonDateFormatting` (WrkstrmFoundation custom strategies).
 - Rationale and migration notes: see “SnakeCase considered harmful”.
 
-## On-disk formatting (human-facing JSON)
+## On-disk Formatting (Human-facing JSON)
 
 - Use prettyPrinted + sortedKeys + withoutEscapingSlashes for artifacts intended for humans
   (e.g., agency/agenda/agent triads, reports, indices). Prefer atomic writes.

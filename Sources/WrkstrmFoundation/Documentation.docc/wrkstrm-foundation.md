@@ -16,6 +16,6 @@ WrkstrmFoundation provides Foundation‑coupled utilities and defaults (JSON enc
 - <doc:JSONDefaultsOverview>
 - <doc:ArchivingOverview>
 
-### Networking (see WrkstrmNetworking)
+### Networking (See WrkstrmNetworking)
 
 WrkstrmNetworkings documentation covers transport customization, JSON pipelines, and WebSocket helpers. Refer to `WrkstrmNetworking/Documentation.docc` for those guides.

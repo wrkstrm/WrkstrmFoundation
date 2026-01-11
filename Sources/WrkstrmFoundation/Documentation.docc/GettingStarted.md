@@ -1,4 +1,4 @@
-# Getting Started with WrkstrmFoundation
+# Getting Started With WrkstrmFoundation
 
 WrkstrmFoundation provides Foundation‑coupled defaults that complement WrkstrmMain’s portable contracts.
 

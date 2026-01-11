@@ -1,10 +1,10 @@
-# Newline discipline (on‑disk JSON and NDJSON)
+# Newline Discipline (On‑disk JSON And NDJSON)
 
 Human‑facing JSON and NDJSON artifacts should end with exactly one trailing newline ("\n"). This
 keeps diffs stable, aligns with POSIX tooling expectations, and makes line‑oriented processing
 reliable.
 
-## Data helpers
+## Data Helpers
 
 WrkstrmFoundation provides a tiny extension on `Data` to enforce newline discipline:
 
@@ -22,7 +22,7 @@ mutable.ensureTrailingNewlineInPlace()  // now "\n"
   a single newline. If the data already ends with "\n", it is returned unchanged.
 - `ensureTrailingNewlineInPlace()` is the mutating variant.
 
-## JSON writers and NDJSON
+## JSON Writers And NDJSON
 
 These helpers are used by WrkstrmFoundation’s JSON writers:
 
@@ -43,7 +43,7 @@ try JSON.FileWriter.write(aStruct, to: url, encoder: JSON.Formatting.humanEncode
 try JSON.NDJSON.appendLine(event, to: logURL)
 ```
 
-## When to use
+## When To Use
 
 - Use `JSON.FileWriter` for human‑readable JSON files (indices, manifests, reports).
 - Use `JSON.NDJSON` for log/event streams and CLIs that need to process one record per line.

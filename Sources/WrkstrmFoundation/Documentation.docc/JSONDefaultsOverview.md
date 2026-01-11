@@ -2,7 +2,7 @@
 
 WrkstrmFoundation supplies Foundation‑backed JSON defaults that complement the portable contracts in WrkstrmMain.
 
-## Encoders and Decoders
+## Encoders And Decoders
 
 Use the common presets to standardize date handling across your app:
 
@@ -16,7 +16,7 @@ let decoder = JSONDecoder.commonDateParsing
 
 These presets support ISO‑8601 (with/without fractional seconds) and numeric epochs (seconds or ms), and are designed to survive typical API quirks.
 
-## Composing a Parser
+## Composing A Parser
 
 Bridge to WrkstrmMain’s portable `JSON.Parser` using these defaults:
 
