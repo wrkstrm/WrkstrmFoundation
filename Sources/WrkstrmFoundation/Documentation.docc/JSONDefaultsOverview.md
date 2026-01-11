@@ -16,7 +16,7 @@ let decoder = JSONDecoder.commonDateParsing
 
 These presets support ISO‑8601 (with/without fractional seconds) and numeric epochs (seconds or ms), and are designed to survive typical API quirks.
 
-## Composing A Parser
+## Composing a Parser
 
 Bridge to WrkstrmMain’s portable `JSON.Parser` using these defaults:
 

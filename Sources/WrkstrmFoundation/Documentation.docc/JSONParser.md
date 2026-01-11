@@ -50,7 +50,7 @@ let parser = JSON.Parser(encoder: EncoderBox(base: .init()), decoder: DecoderBox
 - `JSONDecoder` (WrkstrmFoundation default implementation of `JSONDataDecoding`)
 - Presets: `JSONEncoder.commonDateFormatting`, `JSONDecoder.commonDateParsing`
 
-## Create A Parser
+## Create a Parser
 
 ```swift
 import WrkstrmFoundation  // brings JSON.Parser + default conformances
