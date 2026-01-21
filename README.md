@@ -27,7 +27,7 @@ A collection of Swift extensions and utilities tailored for efficient JSON handl
 - JSON processing: customizable `JSONDecoder` / `JSONEncoder` extensions with consistent date strategies.
 - CodableArchiver: type-safe archiving + retrieval with file-system helpers.
 - Platform compatibility: Linux-aware DispatchQueue and Bundle helpers.
-- Logging + error handling: integrations with WrkstrmLog for deterministic diagnostics.
+- Logging + error handling: integrations with CommonLog for deterministic diagnostics.
 - Standard-library lifts: `String`, `Bundle`, and collection extensions for file discovery and JSON decoding.
 
 For typed networking primitives, see `code/mono/apple/spm/universal/domain/system/wrkstrm-networking`.
@@ -90,7 +90,7 @@ xcrun llvm-cov show "$TEST_BIN" -instr-profile "$PROF" \
 
 ## 🏁 Flagship + Docs
 
-WrkstrmFoundation is one of our flagship libraries (alongside WrkstrmMain and WrkstrmLog). Explore the DocC catalog under `Sources/WrkstrmFoundation/Documentation.docc/` for guides and indices.
+WrkstrmFoundation is one of our flagship libraries (alongside WrkstrmMain and CommonLog). Explore the DocC catalog under `Sources/WrkstrmFoundation/Documentation.docc/` for guides and indices.
 
 ## Release Checklist (Living)
 

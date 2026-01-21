@@ -1,5 +1,5 @@
 import Testing
-import WrkstrmLog
+import CommonLog
 import WrkstrmMain
 
 @testable import WrkstrmFoundation

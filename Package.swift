@@ -5,12 +5,12 @@ import PackageDescription
 // MARK: - Configuration Service
 
 Package.Inject.local.dependencies = [
-  .package(name: "WrkstrmLog", path: "../WrkstrmLog"),
+  .package(name: "common-log", path: "../common/domain/system/common-log"),
   .package(name: "WrkstrmMain", path: "../WrkstrmMain"),
 ]
 
 Package.Inject.remote.dependencies = [
-  .package(url: "https://github.com/wrkstrm/WrkstrmLog.git", from: "2.0.0"),
+  .package(url: "https://github.com/wrkstrm/common-log.git", from: "2.0.0"),
   .package(url: "https://github.com/wrkstrm/WrkstrmMain.git", from: "2.4.0"),
 ]
 
@@ -35,7 +35,7 @@ let package = Package(
   targets: [
     .target(
       name: "WrkstrmFoundation",
-      dependencies: ["WrkstrmLog", "WrkstrmMain"],
+      dependencies: ["CommonLog", "WrkstrmMain"],
       swiftSettings: Package.Inject.shared.swiftSettings,
     ),
     .testTarget(

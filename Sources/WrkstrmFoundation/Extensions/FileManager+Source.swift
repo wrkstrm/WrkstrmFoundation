@@ -1,4 +1,4 @@
-import WrkstrmLog
+import CommonLog
 import WrkstrmMain
 
 #if os(Linux)

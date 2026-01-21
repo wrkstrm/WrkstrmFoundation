@@ -1,4 +1,4 @@
-@preconcurrency import WrkstrmLog
+@preconcurrency import CommonLog
 
 extension Log {
   /// A static instance of `Log` specifically configured for foundation-related messages.

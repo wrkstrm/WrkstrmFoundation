@@ -1,5 +1,5 @@
 import Foundation
-import WrkstrmLog
+import CommonLog
 
 // MARK: - JSONDecoder presets
 

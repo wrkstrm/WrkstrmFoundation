@@ -1,4 +1,4 @@
-import WrkstrmLog
+import CommonLog
 
 #if os(Linux)
 // Needed because DispatchQueue isn't Sendable on Linux
@@ -15,7 +15,7 @@ extension Bundle {
   /// `JSONDecoder`, but allows for a custom decoder to be provided.
   ///
   /// If the method encounters any errors during this process, such as the file not being found,
-  /// data corruption, or decoding failures, it logs the error using `WrkstrmLog`.
+  /// data corruption, or decoding failures, it logs the error using `CommonLog`.
   ///
   /// Example:
   /// ```
